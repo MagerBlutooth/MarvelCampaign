@@ -1,0 +1,26 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import view.node.WatcherLocationMapNode?>
+<?import view.node.DroppableLocationDisplayNode?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<fx:root type="WatcherLocationMapNode"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" id="selectBox"
+         stylesheets="@../css/editorStyle.css" fx:controller="controller.grid.WatcherLocationMapNodeController">
+    <VBox>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER">
+            <Label text="Map"/>
+            <VBox fx:id="contentBox" spacing="20.0" alignment="CENTER">
+                <DroppableLocationDisplayNode fx:id="locationGrid"/>
+            </VBox>
+        </ScrollPane>
+        <HBox alignment="CENTER">
+            <Label text="Agents Stationed: "/>
+            <Label fx:id="agentCounter" text="0"/>
+        </HBox>
+
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+</fx:root>

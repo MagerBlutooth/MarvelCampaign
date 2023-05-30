@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<fx:root xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           stylesheets="@../css/splashStyle.css"
+           prefHeight="600.0" prefWidth="600.0"  type="StackPane">
+        <Label fx:id="loadLabel" text="LOADING"/>
+</fx:root>

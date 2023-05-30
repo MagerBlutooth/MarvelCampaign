@@ -1,0 +1,33 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import view.node.PlanningDisplayNode?>
+<?import view.node.GridDisplayNode?>
+<?import view.node.PlanningSheet?>
+<fx:root type="PlanningDisplayNode"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/editorStyle.css" fx:controller="controller.node.PlanningDisplayNodeController" alignment="TOP_CENTER">
+    <VBox alignment="TOP_CENTER" spacing="10.0">
+        <VBox>
+            <HBox alignment="CENTER" spacing="20.0">
+                <Label text="Enter Password:"/>
+                <TextArea fx:id="passwordArea" maxWidth="200.0" maxHeight="100.0"/>
+                <Button text="Accept" onAction="#initializeAgentDisplay"/>
+            </HBox>
+
+            <HBox>
+                <VBox>
+                    <Label text="Active Agents" minWidth="100"/>
+                    <GridDisplayNode id="managerPane" fx:id="agentDisplay" minWidth="800"/>
+                </VBox>
+                <PlanningSheet fx:id="planningSheet"/>
+            </HBox>
+        </VBox>
+
+    </VBox>
+
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+
+</fx:root>

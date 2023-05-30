@@ -1,0 +1,260 @@
+.root {
+    -fx-font-family:"Avengeance Heroic Avenger";
+    -fx-font-size: 32px;
+    -fx-selection-bar-text: white;
+    -fx-background-color:black;
+    -fx-faction-color:dodgerblue
+}
+
+.label {
+    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 32px;
+}
+
+.separator .line{
+    -fx-border-color: lightslategray;
+}
+
+#title
+{
+    -fx-font-family: "Komika Slick";
+    -fx-font-size: 48px;
+    -fx-text-fill: white;
+}
+
+#smallButton
+{
+    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 24px;
+}
+
+/* Set scroll object to default colors*/
+#scroll {
+-fx-background-color:black;
+-fx-background:black;
+}
+
+/* Add default borders to selector grids*/
+#selectorGrid {
+-fx-border-color:white;
+-fx-border-width:5;
+}
+
+.button {
+-fx-border-color:white;
+-fx-border-width: 3 3 3 3 ;
+-fx-background-color:black;
+-fx-alignment: center;
+}
+
+.text {
+}
+
+.button .text {
+-fx-fill:white;
+ }
+
+.text-area {
+    -fx-text-fill: white;
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 24px;
+    -fx-border-color:white;
+    -fx-border-width: 3 3 3 3;
+}
+
+.text-area .content{
+-fx-background-color:black;
+}
+
+#title-text{
+    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 48px;
+    -fx-fill: white
+}
+
+.list-cell{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.list-cell:even {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.text-field {
+ -fx-font-family: "Avengeance Heroic Avenger";
+ -fx-font-size: 32px;
+ -fx-text-fill: white;
+ -fx-border-color:white;
+ -fx-border-width: 3 3 3 3 ;
+ -fx-background-color:black;
+ -fx-alignment: center;
+  }
+
+.button:hover {
+-fx-background-color: -fx-faction-color;
+ }
+
+.button:hover .text{
+ -fx-fill:black;
+ }
+ .choice-box {
+ -fx-border-color:white;
+ -fx-border-width: 3 3 3 3 ;
+ -fx-background-color:black;
+ -fx-mark-color: midnightblue;
+ -fx-alignment: center;
+ }
+ .choice-box .context-menu
+ {
+  -fx-background-color: black;
+  -fx-border-color:lightslategray;
+  -fx-border-width: 3 3 3 3 ;
+ }
+
+.choice-box .label
+  {
+   -fx-background-color: black;
+   -fx-text-fill: white;
+   -fx-font-size: 18px;
+  }
+
+.choice-box .label:hover
+{
+   -fx-background-color: -fx-faction-color;
+   -fx-text-fill: black;
+}
+
+#choice-box-menu-item
+{
+    -fx-background-color: black;
+    -fx-font-size: 16px;
+}
+
+.menu-item:focused > .label {
+    -fx-text-fill: -fx-faction-color;
+}
+
+.radio-menu-item:focused:checked > .left-container > .radio {
+    -fx-background-color: -fx-faction-color;
+}
+
+.scroll-bar > corner {
+    -fx-background-color:black;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb{
+    -fx-background-color: black;
+    -fx-border-color: white;;
+    -fx-border-radius: 2 2 2 2
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track{
+    -fx-background-color:black;
+    -fx-border-color:white;
+    -fx-border-width: 3 3 3 3
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color:black;
+}
+
+.scroll-bar:vertical .increment-button > .increment-arrow,
+.scroll-bar:vertical .decrement-button > decrement.arrow,
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow
+{
+    -fx-background-color:white;
+}
+
+.dialog-pane > .content.label {
+    -fx-text-fill: white;
+}
+
+.context-menu {
+    -fx-background-color: black;
+}
+
+.scroll-pane {
+    -fx-background: black;
+    -fx-background-color: black;
+}
+
+.menu-button
+{
+   -fx-background-color: black;
+   -fx-border-color: white;
+}
+
+.menu-button .label
+{
+   -fx-text-fill: white;
+   -fx-font-size: 20px;
+}
+
+.menu-button:hover
+{
+   -fx-background-color: -fx-faction-color;
+}
+
+.menu-item
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.menu-item .label
+{
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+
+.check-menu-item .label {
+{
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 12px;
+}
+
+.check-menu-item:focused
+{
+    -fx-focused-mark-color: white;
+}
+
+.menu-item {
+    -fx-background-color: black;
+}
+
+.menu-item:focused {
+    -fx-background-color: -fx-faction-color;
+}
+
+.menu-item:focused .label {
+  -fx-text-fill: white;
+}
+
+.tab-pane
+{
+    -fx-background: black;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: black;
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: -fx-faction-color;
+}
+
+.tab-label {
+    -fx-text-fill: white ;
+}
+
