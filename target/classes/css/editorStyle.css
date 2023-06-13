@@ -3,6 +3,7 @@
     -fx-font-size: 32px;
     -fx-selection-bar-text: white;
     -fx-background-color:black;
+    -fx-faction-color:dodgerblue
 }
 
 .label {
@@ -46,7 +47,7 @@
 }
 
 .button:hover {
--fx-background-color: dodgerblue;
+-fx-background-color: -fx-faction-color;
  }
 
 .button:hover .text{
@@ -98,7 +99,7 @@
   }
 
 .choice-box .label:hover{
-   -fx-background-color: dodgerblue;
+   -fx-background-color: fx-faction-color;
    -fx-text-fill: black;
    }
 
@@ -180,7 +181,7 @@
 
 .menu-button:hover
 {
-   -fx-background-color: dodgerblue;
+   -fx-background-color: -fx-faction-color;
 }
 
 .check-menu-item .label {
@@ -195,7 +196,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: dodgerblue;
+    -fx-background-color: -fx-faction-color;
 }
 
 .menu-item:focused .label {
@@ -209,5 +210,5 @@
 
 .tab-pane .tab:selected
 {
-    -fx-background-color: dodgerblue;
+    -fx-background-color: -fx-faction-color;
 }

@@ -258,3 +258,7 @@
     -fx-text-fill: white ;
 }
 
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+

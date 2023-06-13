@@ -4,6 +4,7 @@
     -fx-text-fill: white;
     -fx-selection-bar-text: white;
     -fx-background-color:black;
+    -fx-faction-color:dodgerblue
 }
 
 .label {

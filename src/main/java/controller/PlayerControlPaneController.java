@@ -58,7 +58,7 @@ public class PlayerControlPaneController extends CampaignBasePaneController {
         enemyIntel.initialize(cd, enemy, true);
         unknownIntel.initialize(cd, unknown, true);
         FactionPainter painter = new FactionPainter();
-
+        playerControlPane.setStyle("-fx-faction-color: "+painter.getFactionColorString(f));
 
         //Initialize Sort Button
         for(String s: ThingType.CARD.getSortOptions())

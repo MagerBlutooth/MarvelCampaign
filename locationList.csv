@@ -107,3 +107,5 @@
 "105","The Sandbar","Agents with abilities cannot be stationed here.","false","false"
 "107","Milano","Agents may only be stationed here after Upset. ","false","false"
 "108","Deep Space","Agents stationed here may not be added to your Squad this month. If you fully occupy this Location, gain a random Merc.","true","false"
+"109","Aunt May's","Upset: You may send one Agent stationed here away until next month to gain 3 IP.","false","false"
+"110","Great Web","When one of your Agents would move to another Location, it moves to this Location instead, exceeding space limits.","false","false"
