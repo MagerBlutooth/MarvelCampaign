@@ -99,7 +99,7 @@
   }
 
 .choice-box .label:hover{
-   -fx-background-color: fx-faction-color;
+   -fx-background-color: -fx-faction-color;
    -fx-text-fill: black;
    }
 
