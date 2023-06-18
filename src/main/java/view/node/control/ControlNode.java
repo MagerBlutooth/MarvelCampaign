@@ -52,12 +52,12 @@ public class ControlNode<T extends Thing> extends StackPane {
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());
         setEnabled(t.isEnabled());
-        if(!blind)
-            createCaptainView(v);
 
         if(t instanceof Card)
         {
             Card c = (Card)t;
+            if(!blind && c.isCaptain())
+                createCaptainView(v);
             setDamage(c.isWounded());
             setCaptain(c.isCaptain());
         }

@@ -52,7 +52,7 @@ public class DraggableThingDisplayNode<T extends Thing> extends GridDisplayNode<
         return controller;
     }
 
-    public void refresh(ThingList<T> things) {
+    public void refreshToMatch(ThingList<T> things) {
         controller.refresh(things);
     }
 

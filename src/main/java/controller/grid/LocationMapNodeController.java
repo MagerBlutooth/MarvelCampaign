@@ -2,11 +2,8 @@ package controller.grid;
 
 import controller.ControllerDatabase;
 import controller.ScrollSetup;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
-import javafx.util.converter.NumberStringConverter;
 import model.thing.*;
 import view.IconImage;
 import view.ViewSize;
@@ -79,7 +76,7 @@ public class LocationMapNodeController implements GridActionController<Location>
 
     public void refresh()
     {
-        locationGrid.refresh(faction.getOwnedLocationsAndMedbay());
+        locationGrid.refreshToMatch(faction.getOwnedLocationsAndMedbay());
     }
 
     public void reset() {

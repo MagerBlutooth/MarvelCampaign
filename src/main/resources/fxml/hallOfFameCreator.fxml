@@ -1,0 +1,40 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import view.manager.CardManager?>
+<?import view.node.GridDisplayNode?>
+<?import view.thing.CardView?>
+<?import view.pane.HallOfFameCreatorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<fx:root type="HallOfFameCreatorPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/mainStyle.css" fx:controller="controller.grid.HallOfFameEntryCreatorPaneController"
+         prefWidth="1600" prefHeight="900">
+    <VBox alignment="CENTER">
+        <HBox spacing="30.0" alignment="CENTER">
+            <VBox alignment="CENTER">
+                <HBox alignment="CENTER">
+                    <VBox alignment="CENTER" spacing="10.0">
+                        <CardView fx:id="captainDisplay"/>
+                        <Label text="Captain"/>
+                    </VBox>
+                    <GridDisplayNode fx:id="deckDisplay"/>
+                    <VBox>
+                        <Label text="Title"/>
+                        <TextField fx:id="nameBar"/>
+                    </VBox>
+                </HBox>
+                <CardManager fx:id="cardManager"/>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Button text="Back" onAction="#goBack"/>
+                    <Button fx:id="saveButton" text="Save" onAction="#saveEntry"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

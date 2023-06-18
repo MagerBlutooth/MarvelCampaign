@@ -16,8 +16,6 @@ import view.ViewSize;
 import view.node.DraggableThingDisplayNode;
 import view.node.FactionSelectNode;
 
-import java.util.Optional;
-
 public class FactionSelectNodeController {
 
     @FXML
@@ -88,9 +86,9 @@ public class FactionSelectNodeController {
 
     public void refresh()
     {
-        agentDisplay.refresh(faction.getOwnedAgents());
-        locationDisplay.refresh(faction.getOwnedLocations());
-        graveDisplay.refresh(faction.getGrave());
+        agentDisplay.refreshToMatch(faction.getOwnedAgents());
+        locationDisplay.refreshToMatch(faction.getOwnedLocations());
+        graveDisplay.refreshToMatch(faction.getGrave());
     }
 
     public void eliminateAgent(Card agent) {

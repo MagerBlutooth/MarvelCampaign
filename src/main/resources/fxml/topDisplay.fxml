@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<fx:root type="StackPane" id="managerPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/displayPane.css" fx:controller="controller.grid.TopDisplayNodeController">
+    <StackPane>
+        <VBox alignment="CENTER">
+            <Label text="Top 10 Cards"/>
+            <TilePane fx:id="topList" prefColumns="2" alignment="CENTER"/>
+        </VBox>
+        <padding>
+            <Insets left="50.0" right="50.0"/>
+        </padding>
+    </StackPane>
+</fx:root>

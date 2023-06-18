@@ -67,9 +67,9 @@ public class FactionDisplayNodeController {
 
     public void refresh()
     {
-        agentDisplay.refresh(faction.getOwnedAgents());
-        locationDisplay.refresh(faction.getOwnedLocations());
-        graveDisplay.refresh(faction.getGrave());
+        agentDisplay.refreshToMatch(faction.getOwnedAgents());
+        locationDisplay.refreshToMatch(faction.getOwnedLocations());
+        graveDisplay.refreshToMatch(faction.getGrave());
     }
 
     public void eliminateAgent(Card agent) {

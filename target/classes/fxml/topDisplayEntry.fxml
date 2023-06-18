@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import view.thing.CardView?>
+<?import javafx.scene.control.Label?>
+<fx:root type="StackPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/displayPane.css">
+    <StackPane>
+        <HBox spacing="10.0">
+            <Label fx:id="rank"/>
+            <CardView fx:id="image"/>
+        </HBox>
+    </StackPane>
+</fx:root>

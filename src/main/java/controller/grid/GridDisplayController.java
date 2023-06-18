@@ -1,36 +1,19 @@
 package controller.grid;
 
 import controller.ControllerDatabase;
-import controller.grid.GridActionController;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import model.factory.ThingFactory;
 import model.thing.*;
 import view.IconImage;
 import view.ViewSize;
 import view.node.control.ControlNode;
-import view.node.control.EmptyControlNode;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.function.BiFunction;
 
 public class GridDisplayController<T extends Thing>  {
+
 
     @FXML
     TilePane groupList;
@@ -105,6 +88,14 @@ public class GridDisplayController<T extends Thing>  {
                         throw new RuntimeException(e);
                     }
                     break;
+                case HALL_OF_FAME:
+                    HallOfFameEntry e = new HallOfFameEntry(controllerDatabase.lookupDatabase(ThingType.CARD));
+                    try {
+                        blankObject = (T) e.getClass().getDeclaredConstructor().newInstance();
+                    }
+                    catch(Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
 
             }
             addNewNode(blankObject, listOfObjects);
@@ -177,5 +168,9 @@ public class GridDisplayController<T extends Thing>  {
     public void refresh(ThingList<T> things) {
         thingList = things;
         populateDisplay();
+    }
+
+    public void setPrefColumns(int c) {
+        groupList.setPrefColumns(c);
     }
 }

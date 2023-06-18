@@ -1,6 +1,5 @@
 package view.pane;
 
-import controller.MainMenuController;
 import controller.PlayerMainMenuController;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
@@ -9,9 +8,7 @@ import view.GameStage;
 import view.SplashScreen;
 import view.fxml.FXMLGrabber;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import static view.GameApplication.isSplashLoaded;
+import static view.main.GameApplication.isSplashLoaded;
 
 public class PlayerMainScreen extends GameStage {
 

@@ -44,9 +44,9 @@ public class FreeAgentSelectNodeController extends FactionSelectNodeController{
     @Override
     public void refresh()
     {
-        freeAgentDisplay.refresh(faction.getOwnedAgents());
-        freeLocationDisplay.refresh(faction.getOwnedLocations());
-        freeGraveDisplay.refresh(faction.getGrave());
+        freeAgentDisplay.refreshToMatch(faction.getOwnedAgents());
+        freeLocationDisplay.refreshToMatch(faction.getOwnedLocations());
+        freeGraveDisplay.refreshToMatch(faction.getGrave());
     }
 
     @Override

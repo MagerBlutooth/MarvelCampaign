@@ -1,7 +1,7 @@
 package model.thing;
 
-import model.constants.CampaignConstants;
 import model.sortFilter.CardSortMode;
+import model.sortFilter.HallOfFameSortMode;
 import model.sortFilter.LocationSortMode;
 import model.sortFilter.TokenSortMode;
 
@@ -55,6 +55,19 @@ public enum ThingType {
         public Token getThing()
         {
             return new Token();
+        }
+
+        @Override
+        public List<String> getFilterOptions() {
+            return new ArrayList<>();
+        }
+    }, HALL_OF_FAME {
+        @Override
+        public List<String> getSortOptions() {
+            List<String> options = new ArrayList<>();
+            for (HallOfFameSortMode mode : HallOfFameSortMode.values())
+                options.add(mode.toString());
+            return options;
         }
 
         @Override

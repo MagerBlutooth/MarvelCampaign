@@ -74,4 +74,9 @@ public abstract class ThingList<T extends Thing> implements Iterable<T> {
     public void replace(T thing) {
         things.set(things.indexOf(thing), thing);
     }
+
+    public int indexOf(T t)
+    {
+        return things.indexOf(t);
+    }
 }

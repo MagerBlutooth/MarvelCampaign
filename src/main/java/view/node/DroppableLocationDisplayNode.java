@@ -47,7 +47,7 @@ public class DroppableLocationDisplayNode extends GridDisplayNode<Location> {
     }
 
     @Override
-    public void refresh(ThingList<Location> refreshList)
+    public void refreshToMatch(ThingList<Location> refreshList)
     {
         controller.refresh(refreshList);
     }

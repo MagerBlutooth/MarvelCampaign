@@ -1,9 +1,6 @@
 package model.factory;
 
-import model.database.CardLoader;
-import model.database.ThingDatabase;
-import model.database.LocationLoader;
-import model.database.TokenLoader;
+import model.database.*;
 import model.thing.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -52,5 +49,20 @@ public class ThingFactory {
             tokens.add(t);
         }
         return tokens;
+    }
+
+    public ThingDatabase<HallOfFameEntry> loadHallOfFame(ThingDatabase<Card> allCards)
+    {
+        HallOfFameLoader hLoader = new HallOfFameLoader();
+        List<String[]> csvContents = hLoader.readCSV();
+        ThingDatabase<HallOfFameEntry> entries = new ThingDatabase<>();
+        for(int i = 0; i < csvContents.size(); i++)
+        {
+            String[] vInfo = csvContents.get(i);
+            HallOfFameEntry e = new HallOfFameEntry(allCards);
+            e.fromSaveStringArray(vInfo);
+            entries.add(e);
+        }
+        return entries;
     }
 }

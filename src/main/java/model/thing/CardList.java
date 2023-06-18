@@ -39,6 +39,28 @@ public class CardList extends ThingList<Card> {
         return getThings();
     }
 
+    public String toCSVSaveString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Card c: getCards())
+        {
+            stringBuilder.append(c.getID());
+            stringBuilder.append(STRING_SEPARATOR);
+        }
+        stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
+    }
+
+    public void fromCSVSaveString(String cardString, ThingDatabase<Card> database)
+    {
+        String[] cardsList = cardString.split(STRING_SEPARATOR);
+
+        for(String c: cardsList)
+        {
+            this.add(database.lookup(Integer.parseInt(c)));
+        }
+    }
+
     public String toSaveString()
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -52,7 +74,7 @@ public class CardList extends ThingList<Card> {
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
-    public void fromString(String cardString, ThingDatabase<Card> database)
+    public void fromSaveString(String cardString, ThingDatabase<Card> database)
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
@@ -90,5 +112,9 @@ public class CardList extends ThingList<Card> {
             cards.add(database.lookup(c));
         }
         return cards;
+    }
+
+    public int getCardIndex(Card captain) {
+        return this.indexOf(captain);
     }
 }

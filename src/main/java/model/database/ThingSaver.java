@@ -1,9 +1,6 @@
 package model.database;
 
-import model.thing.Card;
-import model.thing.Location;
-import model.thing.ThingType;
-import model.thing.Token;
+import model.thing.*;
 
 public class ThingSaver {
 
@@ -21,6 +18,12 @@ public class ThingSaver {
 
     public void saveTokens(ThingDatabase<Token> tokens) {
         TokenSaver vSaver = new TokenSaver(tokens);
+        vSaver.writeCSV();
+    }
+
+    public void saveHallOfFame(ThingDatabase<HallOfFameEntry> entries)
+    {
+        HallOfFameSaver vSaver = new HallOfFameSaver(entries);
         vSaver.writeCSV();
     }
 

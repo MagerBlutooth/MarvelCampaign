@@ -20,16 +20,17 @@ public class CardViewController extends CampaignViewController<Card> {
     @FXML
     ImageView mainImage;
 
+    ThingImageGrabber imageGrabber = new ThingImageGrabber(ThingType.CARD);
     Card card;
+    ViewSize viewSize;
 
     @Override
     public void initialize(Card c, ViewSize v) {
-        ThingImageGrabber imageGrabber = new ThingImageGrabber(ThingType.CARD);
-        card = c;
+        viewSize = v;
+        setCard(c);
         cardView.setViewSize(v);
         setTooltip();
-        setMainImage(imageGrabber.grabImage(card.getID()), v);
-}
+    }
 
     private void setTooltip() {
         Tooltip cardToolTip = new Tooltip(card.getName() + "\n" + card.getEffect());
@@ -51,5 +52,15 @@ public class CardViewController extends CampaignViewController<Card> {
 
     public Card getCard() {
         return card;
+    }
+
+    public void setCard(Card c) {
+
+        card = c;
+        setMainImage(imageGrabber.grabImage(card.getID()), viewSize);
+    }
+
+    public void disableTooltip() {
+        cardView.setOnMouseEntered(null);
     }
 }

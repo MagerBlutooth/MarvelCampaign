@@ -31,7 +31,13 @@ public class CardManagerPaneController extends ManagerPaneController<Card> {
     public void initialize(ControllerDatabase m) {
         super.initialize(m);
         CardList cards = new CardList(m.getCards());
-        cardManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, true);
+        /*When creating the card manager, automatically set all cards to not be captains to avoid the issue
+        //of cards getting set as such from the most recent campaign*/
+        for(Card c: cards)
+        {
+            c.setCaptain(false);
+        }
+        cardManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, false);
         sortButton.initialize(cardManager.getListNodeController());
         filterButton.initialize(cardManager.getListNodeController());
     }

@@ -18,8 +18,7 @@ public class Token extends Thing {
     }
     @Override
     public String[] toSaveStringArray() {
-        String[] stringArray = { getID()+"", getName(), getCost()+"", getPower()+"", String.valueOf(isEnabled())};
-        return stringArray;
+        return new String[]{String.valueOf(getID()), getName(), String.valueOf(getCost()), String.valueOf(getPower()), String.valueOf(isEnabled())};
     }
 
     @Override

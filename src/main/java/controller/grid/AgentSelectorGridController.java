@@ -128,6 +128,6 @@ public class AgentSelectorGridController extends ThingActionController<Card> {
     }
 
     public void reset() {
-        agentDisplay.refresh(faction.getOwnedAgents());
+        agentDisplay.refreshToMatch(faction.getOwnedAgents());
     }
 }

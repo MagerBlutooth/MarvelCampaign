@@ -47,4 +47,8 @@ module MarvelCampaign {
     opens controller.context;
     opens view.dialog;
     exports view.dialog;
+    exports view.main;
+    opens view.main;
+    exports view.fxml;
+    opens view.fxml;
 }

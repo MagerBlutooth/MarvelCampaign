@@ -47,8 +47,6 @@ public abstract class Thing {
         name = n;
     }
 
-    public abstract boolean hasAttribute(String att);
-
     @Override
     public boolean equals(Object o)
     {
@@ -56,5 +54,7 @@ public abstract class Thing {
             return false;
         return id == ((Thing)o).getID();
     }
+
+    public abstract boolean hasAttribute(String att);
 
 }

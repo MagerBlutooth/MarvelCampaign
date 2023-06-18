@@ -8,11 +8,4 @@ import java.util.List;
 
 public abstract class Manager<T extends Thing> extends CampaignListNode<T> {
 
-    List<T> things;
-
-    public List<T> getThings()
-    {
-        return things;
-    }
-
 }

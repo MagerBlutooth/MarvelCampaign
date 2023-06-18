@@ -85,7 +85,7 @@ public class WatcherControlPaneController extends CampaignBasePaneController {
         String agentString = splitDeploy[1];
         String stationedAgents = splitDeploy[2];
         CardList agents = new CardList(new ArrayList<>());
-        agents.fromString(agentString, masterThingDatabase.getCards());
+        agents.fromSaveString(agentString, masterThingDatabase.getCards());
         LocationList locationSetup = new LocationList(new ArrayList<>());
         locationSetup.fromString(stationedAgents, masterThingDatabase);
         Faction f = new Faction(name, agents, locationSetup, campaignDatabase);
@@ -103,7 +103,7 @@ public class WatcherControlPaneController extends CampaignBasePaneController {
         String agentString = splitDeploy[1];
         String stationedAgents = splitDeploy[2];
         CardList agents = new CardList(new ArrayList<>());
-        agents.fromString(agentString, masterThingDatabase.getCards());
+        agents.fromSaveString(agentString, masterThingDatabase.getCards());
         LocationList locationSetup = new LocationList(new ArrayList<>());
         locationSetup.fromString(stationedAgents, masterThingDatabase);
         Faction f = new Faction(name, agents, locationSetup, campaignDatabase);

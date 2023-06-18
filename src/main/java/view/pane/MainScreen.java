@@ -2,16 +2,13 @@ package view.pane;
 
 import controller.MainMenuController;
 import javafx.animation.FadeTransition;
-import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import model.database.MasterThingDatabase;
 import view.GameStage;
 import view.SplashScreen;
 import view.fxml.FXMLGrabber;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import static view.GameApplication.isSplashLoaded;
+import static view.main.GameApplication.isSplashLoaded;
 
 public class MainScreen extends GameStage {
 

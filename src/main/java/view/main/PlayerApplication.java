@@ -1,16 +1,14 @@
-package view;
+package view.main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.logger.MHandler;
 import model.logger.MLogger;
-import view.pane.MainScreen;
 import view.pane.PlayerMainScreen;
 
 public class PlayerApplication extends Application {
 
     private final static MLogger logger = new MLogger(PlayerApplication.class);
-    public static boolean isSplashLoaded = false;
 
     @Override
     public void start(Stage stage) {
