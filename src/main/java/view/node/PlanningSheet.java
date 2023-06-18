@@ -35,7 +35,7 @@ public class PlanningSheet extends ScrollPane {
             else if(p == PlanningPurchase.HIRE && f == FactionLabel.HYDRA)
                 cost++;
             else if(p == PlanningPurchase.BRAINWASH && f == FactionLabel.SHIELD)
-                cost ++;
+                cost +=2;
             addOption(title, cost, description);
         }
     }
