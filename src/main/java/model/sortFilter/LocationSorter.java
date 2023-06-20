@@ -13,7 +13,7 @@ public class LocationSorter {
 
     public LocationSorter()
     {
-        locationSortMode = LocationSortMode.MAP_POSITION;
+        locationSortMode = LocationSortMode.NAME;
     }
 
     public List<Location> sort(List<Location> location)
@@ -21,6 +21,7 @@ public class LocationSorter {
         List<Location> sortedLocs = new ArrayList<>(location);
         switch(locationSortMode)
         {
+            //TODO: Add custom value to save a Map Position so Locations can have proximity to one another
             case MAP_POSITION:
                 break;
             case NAME:

@@ -89,7 +89,7 @@ public class DraggableThingDisplayController<T extends Thing> extends GridDispla
             Dragboard dragboard = n.startDragAndDrop(TransferMode.MOVE);
             dragboard.setDragView(n.snapshot(null, null));
             ClipboardContent clipboardContent = new ClipboardContent();
-            clipboardContent.putString(n.getSubject().getID() + "");
+            clipboardContent.putString(String.valueOf(n.getSubject().getID()));
             dragboard.setContent(clipboardContent);
             logger.debug("Dragging Content: " + dragboard.getString());
             event.consume();

@@ -8,14 +8,19 @@ import model.thing.Card;
 import model.thing.Location;
 import view.IconImage;
 import view.ViewSize;
+import view.dialog.CardSelectDialog;
+import view.dialog.LocationSelectDialog;
+import view.node.GridDisplayNode;
 import view.node.control.ControlNode;
 
-public class FreeLocationGridActionController extends ThingActionController<Location> {
+import java.util.Optional;
 
+public class FreeLocationGridActionController extends ThingActionController<Location> {
     ControllerDatabase controllerDatabase;
     FreeAgentSelectNodeController freeAgentController;
     String shieldName;
     String hydraName;
+    GridDisplayNode<Location> locationGridDisplayNode;
 
     @Override
     public ControlNode<Location> createControlNode(Location l, IconImage i, ViewSize v, boolean blind) {
@@ -27,12 +32,15 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
         return node;
     }
 
-    public void initialize(ControllerDatabase database, FreeAgentSelectNodeController controller, String s, String h)
+    public void initialize(ControllerDatabase database, FreeAgentSelectNodeController controller, String s, String h,
+                           GridDisplayNode<Location> locDisplay)
     {
         controllerDatabase = database;
         freeAgentController = controller;
         shieldName = s;
         hydraName = h;
+        locationGridDisplayNode = locDisplay;
+
     }
 
     @Override
@@ -43,9 +51,9 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
     @Override
     public void createContextMenu(ControlNode<Location> n) {
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem shieldItem = new MenuItem("To"+shieldName);
+        MenuItem shieldItem = new MenuItem("To "+shieldName);
         shieldItem.setOnAction(e -> freeAgentController.toShield(n.getSubject()));
-        MenuItem hydraItem = new MenuItem("To"+hydraName);
+        MenuItem hydraItem = new MenuItem("To "+hydraName);
         hydraItem.setOnAction(e -> freeAgentController.toHydra(n.getSubject()));
         MenuItem ruinItem = new MenuItem();
         if (n.getSubject().isRuined())
@@ -53,9 +61,20 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
         else
             ruinItem.setText("Ruin");
         ruinItem.setOnAction(e -> freeAgentController.toggleRuinLocation(n.getSubject()));
+        MenuItem addLocItem = new MenuItem("Add Location");
+        addLocItem.setOnAction(e -> {
+            LocationSelectDialog dialog = new LocationSelectDialog();
+            dialog.initialize(controllerDatabase);
+            Optional<Location> newLoc = dialog.showAndWait();
+            newLoc.ifPresent(location -> locationGridDisplayNode.addThing(location));
+        });
+        MenuItem delLocItem = new MenuItem("Delete");
+        delLocItem.setOnAction(e -> locationGridDisplayNode.removeThing(n.getSubject()));
         contextMenu.getItems().add(shieldItem);
         contextMenu.getItems().add(hydraItem);
         contextMenu.getItems().add(ruinItem);
+        contextMenu.getItems().add(addLocItem);
+        contextMenu.getItems().add(delLocItem);
         n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
 

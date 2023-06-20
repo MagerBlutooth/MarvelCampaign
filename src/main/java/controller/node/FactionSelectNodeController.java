@@ -142,5 +142,11 @@ public class FactionSelectNodeController {
 
     public void addAgent(Card newCard) {
         faction.addThing(newCard);
+        refresh();
+    }
+
+    public void removeAgent(Card removedCard) {
+        faction.removeThing(removedCard);
+        refresh();
     }
 }

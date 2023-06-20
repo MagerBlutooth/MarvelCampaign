@@ -9,7 +9,7 @@
          stylesheets="@../css/mainStyle.css" fx:controller="controller.MainMenuController" prefHeight="600">
     <StackPane>
         <VBox alignment="CENTER" spacing="20.0">
-            <Label id="title" text="Marvel Campaign Mode"/>
+            <Label id="title" text="Snap Campaign Mode"/>
             <Button fx:id="startButton" text="New Campaign" onAction="#startCampaign"/>
             <padding>
                 <Insets left="5.0" right="5.0"/>

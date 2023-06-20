@@ -173,4 +173,15 @@ public class GridDisplayController<T extends Thing>  {
     public void setPrefColumns(int c) {
         groupList.setPrefColumns(c);
     }
+
+    public void addThing(T t) {
+        thingList.add(t);
+        populateDisplay();
+    }
+
+    public void removeThing(T t)
+    {
+        thingList.remove(t);
+        populateDisplay();
+    }
 }

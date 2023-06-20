@@ -5,40 +5,35 @@ import controller.grid.DialogGridActionController;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Modality;
-import javafx.util.Pair;
 import model.thing.*;
 import view.ViewSize;
-import view.fxml.FXMLGrabber;
 import view.node.control.ControlNode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
-public class CardSelectDialog extends SelectDialog<Card> {
+public class LocationSelectDialog extends SelectDialog<Location> {
 
     @Override
     public void initialize(ControllerDatabase cd)
     {
         super.initialize(cd);
-        List<Card> allCards = controllerDatabase.getCards();
+        List<Location> allLocations = controllerDatabase.getLocations();
 
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            CardList cards = new CardList(new ArrayList<>());
-            for(Card c: allCards)
+            LocationList locs = new LocationList(new ArrayList<>());
+            for(Location l: allLocations)
             {
-                String name = c.getName().toLowerCase();
+                String name = l.getName().toLowerCase();
                 String searchString = searchBar.textProperty().get().toLowerCase();
                 if(name.contains(searchString))
-                    cards.add(c);
+                    locs.add(l);
             }
-            DialogGridActionController<Card> gridController = new DialogGridActionController<>();
+            DialogGridActionController<Location> gridController = new DialogGridActionController<>();
             gridController.intialize(cd, this);
-            choices.initialize(cards, ThingType.CARD, gridController, ViewSize.MEDIUM, false);
+            choices.initialize(locs, ThingType.LOCATION, gridController, ViewSize.MEDIUM, false);
     });
-
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return selection;
@@ -48,14 +43,14 @@ public class CardSelectDialog extends SelectDialog<Card> {
     }
 
     @Override
-    public void setChoice(Card c) {
+    public void setChoice(Location l) {
         displayPane.getChildren().clear();
         ControlNode<EffectThing> viewNode = new ControlNode<>();
         viewNode.setMaxWidth(300.0);
-        viewNode.initialize(controllerDatabase, c,controllerDatabase.grabImage(c, c.getThingType()), ViewSize.LARGE, true);
+        viewNode.initialize(controllerDatabase, l,controllerDatabase.grabImage(l, l.getThingType()), ViewSize.LARGE, true);
         displayPane.getChildren().add(viewNode);
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());
-        selection = c;
+        selection = l;
     }
 }

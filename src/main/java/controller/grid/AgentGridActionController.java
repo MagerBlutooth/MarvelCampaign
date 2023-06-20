@@ -15,7 +15,8 @@ public class AgentGridActionController extends ThingActionController<Card> {
 
     FactionSelectNodeController factionController;
 
-    public void initialize(ControllerDatabase database, DraggableThingDisplayController<Card> agentDisplay, FactionSelectNodeController c) {
+    public void initialize(ControllerDatabase database, DraggableThingDisplayController<Card> agentDisplay,
+                           FactionSelectNodeController c) {
         super.initialize(database, agentDisplay);
         factionController = c;
     }
@@ -54,10 +55,16 @@ public class AgentGridActionController extends ThingActionController<Card> {
             CardSelectDialog dialog = new CardSelectDialog();
             dialog.initialize(controllerDatabase);
             Optional<Card> newCard = dialog.showAndWait();
-            factionController.addAgent(newCard.get());
-            factionController.refresh();
+            newCard.ifPresent(value -> factionController.addAgent(value));
+        });
+        MenuItem deleteCardItem = new MenuItem("Delete Card");
+        deleteCardItem.setOnAction(actionEvent -> {
+            if (node instanceof DraggableControlNode) {
+                factionController.removeAgent(card);
+            }
         });
         contextMenu.getItems().add(addCardItem);
+        contextMenu.getItems().add(deleteCardItem);
         node.setOnContextMenuRequested(e -> contextMenu.show(node, e.getScreenX(), e.getScreenY()));
     }
 

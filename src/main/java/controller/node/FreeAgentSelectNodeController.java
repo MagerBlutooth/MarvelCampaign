@@ -32,7 +32,7 @@ public class FreeAgentSelectNodeController extends FactionSelectNodeController{
         FreeAgentGridActionController agentController = new FreeAgentGridActionController();
         agentController.initialize(d, this, shieldName, hydraName);
         FreeLocationGridActionController locationController = new FreeLocationGridActionController();
-        locationController.initialize(d, this, shieldName, hydraName);
+        locationController.initialize(d, this, shieldName, hydraName, freeLocationDisplay);
         BaseGridActionController<Card> graveController = new BaseGridActionController<>();
         graveController.initialize(d);
 

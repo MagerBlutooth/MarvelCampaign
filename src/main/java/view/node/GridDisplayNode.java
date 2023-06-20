@@ -34,6 +34,16 @@ public class GridDisplayNode<T extends Thing> extends ScrollPane {
         return gridDisplayController;
     }
 
+    public void addThing(T t)
+    {
+        gridDisplayController.addThing(t);
+    }
+
+    public void removeThing(T t)
+    {
+        gridDisplayController.removeThing(t);
+    }
+
     public void refreshToMatch(ThingList<T> things) {
         gridDisplayController.refresh(things);
     }

@@ -54,7 +54,6 @@ public class LocationViewController extends CampaignViewController<Location> {
 
     public void setContextMenu(ThingDatabase<Location> w) {
         contextMenu = new ContextMenu();
-        MenuItem menuItem3 = new MenuItem("Ruin World");
         locationView.setOnContextMenuRequested(e -> contextMenu.show(locationView, e.getScreenX(), e.getScreenY()));
     }
 

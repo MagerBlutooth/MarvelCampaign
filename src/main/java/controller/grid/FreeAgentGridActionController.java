@@ -64,9 +64,16 @@ public class FreeAgentGridActionController extends ThingActionController<Card> {
         }
         else
             woundItem.setText("Wound");
+
+        MenuItem addItem = new MenuItem("Add Card");
+        addItem.setOnAction(e -> freeAgentController.addAgent(card));
+        MenuItem deleteItem = new MenuItem("Delete Card");
+        deleteItem.setOnAction(e -> freeAgentController.removeAgent(card));
         contextMenu.getItems().add(woundItem);
         contextMenu.getItems().add(shieldItem);
         contextMenu.getItems().add(hydraItem);
+        contextMenu.getItems().add(addItem);
+        contextMenu.getItems().add(deleteItem);
 
         n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
