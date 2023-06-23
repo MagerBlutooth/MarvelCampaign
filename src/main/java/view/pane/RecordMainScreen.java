@@ -1,7 +1,6 @@
 package view.pane;
 
 import controller.ControllerDatabase;
-import controller.grid.HallOfFameEntryCreatorPaneController;
 import controller.grid.HallOfFameManagerController;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;

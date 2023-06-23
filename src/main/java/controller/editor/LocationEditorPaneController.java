@@ -2,15 +2,12 @@ package controller.editor;
 
 import controller.ControllerDatabase;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import model.thing.Location;
 import model.thing.ThingType;
 import view.ViewSize;
 import view.grabber.ThingImageGrabber;
 import view.node.editor.LocationEditorNode;
-import view.pane.manager.CardManagerPane;
 import view.pane.manager.LocationManagerPane;
-import view.pane.manager.TokenManagerPane;
 import view.thing.LocationView;
 
 

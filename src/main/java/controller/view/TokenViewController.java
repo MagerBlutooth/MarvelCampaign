@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
-import model.thing.Card;
 import model.thing.ThingType;
 import model.thing.Token;
 import view.IconImage;

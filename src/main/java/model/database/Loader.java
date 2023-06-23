@@ -5,7 +5,6 @@ import com.opencsv.exceptions.CsvException;
 import model.thing.Thing;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;

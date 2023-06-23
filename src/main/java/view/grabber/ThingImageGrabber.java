@@ -1,6 +1,5 @@
 package view.grabber;
 
-import model.constants.CampaignConstants;
 import model.helper.FileHelper;
 import model.thing.ThingType;
 import view.IconImage;

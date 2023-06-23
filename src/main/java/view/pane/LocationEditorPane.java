@@ -4,7 +4,6 @@ import controller.ControllerDatabase;
 import controller.editor.LocationEditorPaneController;
 import model.thing.Location;
 import view.fxml.FXMLGrabber;
-import view.pane.editor.EditorPane;
 
 public class LocationEditorPane extends CampaignPane {
 

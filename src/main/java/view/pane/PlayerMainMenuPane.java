@@ -1,7 +1,6 @@
 package view.pane;
 
 import controller.ControllerDatabase;
-import controller.MainMenuController;
 import controller.PlayerMainMenuController;
 import view.fxml.FXMLGrabber;
 

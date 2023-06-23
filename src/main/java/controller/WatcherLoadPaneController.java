@@ -10,7 +10,9 @@ import model.database.CampaignDatabase;
 import model.database.CampaignLoader;
 import model.thing.Campaign;
 import model.thing.Faction;
-import view.pane.*;
+import view.pane.MainMenuPane;
+import view.pane.WatcherControlPane;
+import view.pane.WatcherLoadPane;
 
 import java.io.File;
 import java.util.List;

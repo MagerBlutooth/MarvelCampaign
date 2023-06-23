@@ -35,5 +35,9 @@ public class WatcherLocationMapNode extends StackPane {
     public void reset() {
         controller.reset();
     }
+
+    public int getInfluence() {
+        return controller.getInfluence();
+    }
 }
 

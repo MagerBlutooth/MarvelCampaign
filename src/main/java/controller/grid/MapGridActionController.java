@@ -3,9 +3,7 @@ package controller.grid;
 import controller.ControllerDatabase;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import model.thing.Card;
 import model.thing.Location;
-import view.dialog.CardSelectDialog;
 import view.dialog.LocationSelectDialog;
 import view.node.control.ControlNode;
 

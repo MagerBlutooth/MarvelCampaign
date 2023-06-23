@@ -1,7 +1,6 @@
 package controller.grid;
 
 import controller.ControllerDatabase;
-import controller.context.ContextControl;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;

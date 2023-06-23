@@ -1,8 +1,6 @@
 package model.sortFilter;
 
-import model.thing.Card;
 import model.thing.HallOfFameEntry;
-import model.thing.HallOfFameEntryList;
 
 import java.util.ArrayList;
 import java.util.Comparator;

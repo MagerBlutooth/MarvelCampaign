@@ -2,10 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import view.pane.LoadSelectPane;
 import view.pane.MainMenuPane;
 import view.pane.PlayerLoadPane;
 import view.pane.WatcherLoadPane;

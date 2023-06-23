@@ -1,9 +1,7 @@
 package view.pane.manager;
 
 import controller.ControllerDatabase;
-import controller.grid.CardManagerPaneController;
 import controller.grid.HallOfFameManagerController;
-import model.database.HallOfFameLoader;
 import view.fxml.FXMLGrabber;
 
 public class HallOfFameManagerPane extends ManagerPane{

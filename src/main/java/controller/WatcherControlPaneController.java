@@ -123,7 +123,9 @@ public class WatcherControlPaneController extends CampaignBasePaneController {
                     cards.add(c);
             }
         }
-        String saveString = cards.toSaveString();
+        int influence = shieldLocationMap.getInfluence();
+        PlanningInfo shieldInfo = new PlanningInfo(cards, influence);
+        String saveString = shieldInfo.toSaveString();
         ClipboardContent content = new ClipboardContent();
         content.putString(saveString);
         Clipboard.getSystemClipboard().setContent(content);
@@ -141,7 +143,9 @@ public class WatcherControlPaneController extends CampaignBasePaneController {
                     cards.add(c);
             }
         }
-        String saveString = cards.toSaveString();
+        int influence = hydraLocationMap.getInfluence();
+        PlanningInfo hydraInfo = new PlanningInfo(cards, influence);
+        String saveString = hydraInfo.toSaveString();
         ClipboardContent content = new ClipboardContent();
         content.putString(saveString);
         Clipboard.getSystemClipboard().setContent(content);

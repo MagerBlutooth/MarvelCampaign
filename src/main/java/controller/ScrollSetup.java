@@ -4,11 +4,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.TransferMode;
 import javafx.util.Duration;
 import model.logger.MLogger;
 

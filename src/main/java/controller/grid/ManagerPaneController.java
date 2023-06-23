@@ -10,7 +10,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-import model.thing.Location;
 import model.thing.Thing;
 import view.IconImage;
 import view.ViewSize;

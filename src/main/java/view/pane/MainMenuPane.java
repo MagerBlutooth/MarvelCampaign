@@ -2,7 +2,6 @@ package view.pane;
 
 import controller.ControllerDatabase;
 import controller.MainMenuController;
-import javafx.scene.layout.StackPane;
 import view.fxml.FXMLGrabber;
 
 public class MainMenuPane extends CampaignPane {

@@ -1,6 +1,7 @@
 package model.thing;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static model.constants.CampaignConstants.CATEGORY_SEPARATOR;
 import static model.constants.CampaignConstants.STRING_SEPARATOR;

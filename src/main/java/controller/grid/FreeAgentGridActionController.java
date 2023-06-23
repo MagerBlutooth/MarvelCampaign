@@ -3,15 +3,11 @@ package controller.grid;
 import controller.ControllerDatabase;
 import controller.node.FreeAgentSelectNodeController;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import model.thing.Card;
-import model.thing.Faction;
-import model.thing.Thing;
 import view.IconImage;
 import view.ViewSize;
 import view.node.control.ControlNode;
-import view.node.control.DraggableControlNode;
 
 public class FreeAgentGridActionController extends ThingActionController<Card> {
 

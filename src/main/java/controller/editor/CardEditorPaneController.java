@@ -2,7 +2,6 @@ package controller.editor;
 
 import controller.ControllerDatabase;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import model.thing.Card;
 import model.thing.ThingType;
 import view.ViewSize;

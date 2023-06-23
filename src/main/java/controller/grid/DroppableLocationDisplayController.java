@@ -6,10 +6,13 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import model.database.ThingDatabase;
 import model.logger.MLogger;
-import model.thing.*;
-import view.dragdrop.Draggable;
+import model.thing.Card;
+import model.thing.Faction;
+import model.thing.Location;
+import model.thing.ThingType;
 import view.IconImage;
 import view.ViewSize;
+import view.dragdrop.Draggable;
 import view.node.DroppableLocationDisplayNode;
 import view.node.control.ControlNode;
 

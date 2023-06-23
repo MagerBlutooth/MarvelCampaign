@@ -2,7 +2,6 @@ package view.pane;
 
 import controller.ControllerDatabase;
 import controller.LoadSelectPaneController;
-import javafx.scene.layout.StackPane;
 import view.fxml.FXMLGrabber;
 
 public class LoadSelectPane extends CampaignPane {

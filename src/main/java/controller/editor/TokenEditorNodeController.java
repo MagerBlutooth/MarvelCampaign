@@ -4,14 +4,9 @@ import controller.ControllerDatabase;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.constants.CampaignConstants;
-import model.database.MasterThingDatabase;
-import model.thing.Location;
-import model.thing.ThingType;
 import model.thing.Token;
-import view.grabber.ThingImageGrabber;
 
 import java.util.ArrayList;
 import java.util.List;

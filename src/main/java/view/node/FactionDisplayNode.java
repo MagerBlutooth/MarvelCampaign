@@ -2,7 +2,6 @@ package view.node;
 
 import controller.ControllerDatabase;
 import controller.node.FactionDisplayNodeController;
-import controller.node.FactionSelectNodeController;
 import javafx.scene.layout.StackPane;
 import model.thing.Faction;
 import view.fxml.FXMLGrabber;

@@ -1,9 +1,7 @@
 package view.node.editor;
 
 import controller.ControllerDatabase;
-import controller.editor.CardEditorNodeController;
 import controller.editor.TokenEditorNodeController;
-import controller.editor.TokenEditorPaneController;
 import model.thing.Card;
 import model.thing.Token;
 import view.node.CampaignNode;

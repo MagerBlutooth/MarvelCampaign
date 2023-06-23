@@ -1,8 +1,6 @@
 package controller;
 
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import view.pane.MainMenuPane;
 
 public class OptionsMenuPaneController extends CampaignBasePaneController {

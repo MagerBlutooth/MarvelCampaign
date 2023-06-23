@@ -1,7 +1,5 @@
 package model.thing;
 
-import model.constants.CampaignConstants;
-
 import java.util.function.Supplier;
 
 public class ThingContainer<T extends Thing> {

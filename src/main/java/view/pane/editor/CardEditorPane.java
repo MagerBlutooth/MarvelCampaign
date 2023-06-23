@@ -2,7 +2,6 @@ package view.pane.editor;
 
 import controller.ControllerDatabase;
 import controller.editor.CardEditorPaneController;
-import javafx.fxml.FXML;
 import model.thing.Card;
 import view.ViewSize;
 import view.fxml.FXMLGrabber;

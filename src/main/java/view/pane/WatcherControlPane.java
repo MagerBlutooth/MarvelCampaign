@@ -1,8 +1,7 @@
 package view.pane;
 
-import controller.WatcherControlPaneController;
 import controller.ControllerDatabase;
-import javafx.scene.layout.StackPane;
+import controller.WatcherControlPaneController;
 import model.thing.Campaign;
 import view.fxml.FXMLGrabber;
 

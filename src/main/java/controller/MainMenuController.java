@@ -4,10 +4,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import model.database.MasterThingDatabase;
-import view.pane.*;
+import view.pane.CampaignStartPane;
+import view.pane.EditorMenuPane;
+import view.pane.LoadSelectPane;
+import view.pane.OptionsMenuPane;
 
 public class MainMenuController extends CampaignPaneController {
 

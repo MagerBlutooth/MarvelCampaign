@@ -2,13 +2,11 @@ package model.thing;
 
 import model.database.MasterThingDatabase;
 import model.database.ThingDatabase;
-import model.sortFilter.CardSortMode;
 import model.sortFilter.LocationSortMode;
 import model.sortFilter.LocationSorter;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.List;
 
 import static model.constants.CampaignConstants.CATEGORY_SEPARATOR;

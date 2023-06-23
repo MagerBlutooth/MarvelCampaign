@@ -2,8 +2,6 @@ package view.pane;
 
 import controller.ControllerDatabase;
 import controller.EditMenuController;
-import controller.editor.EditorPaneController;
-import javafx.scene.layout.StackPane;
 import view.fxml.FXMLGrabber;
 
 public class EditorMenuPane extends CampaignPane {

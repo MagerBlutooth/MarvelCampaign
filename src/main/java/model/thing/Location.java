@@ -78,4 +78,8 @@ public class Location extends EffectThing {
     {
         return ruined;
     }
+
+    public void clearStationedAgents() {
+        stationedAgents.clear();
+    }
 }

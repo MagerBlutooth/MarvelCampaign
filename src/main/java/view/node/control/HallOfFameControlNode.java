@@ -1,17 +1,13 @@
 package view.node.control;
 
 import controller.ControllerDatabase;
-import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import model.database.ThingDatabase;
-import model.thing.*;
+import model.thing.HallOfFameEntry;
+import model.thing.ThingType;
 import view.IconImage;
 import view.ViewSize;
-import view.grabber.ImageGrabber;
 
 public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {
 

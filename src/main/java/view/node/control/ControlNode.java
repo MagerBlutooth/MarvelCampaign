@@ -1,12 +1,11 @@
 package view.node.control;
 
 import controller.ControllerDatabase;
-import javafx.beans.binding.When;
-import javafx.scene.Node;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import model.database.ThingDatabase;
 import model.thing.Card;

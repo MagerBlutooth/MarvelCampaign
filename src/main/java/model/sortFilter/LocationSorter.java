@@ -1,6 +1,5 @@
 package model.sortFilter;
 
-import model.thing.Card;
 import model.thing.Location;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class LocationSorter {
 
     public LocationSorter()
     {
-        locationSortMode = LocationSortMode.NAME;
+        locationSortMode = LocationSortMode.MAP_POSITION;
     }
 
     public List<Location> sort(List<Location> location)

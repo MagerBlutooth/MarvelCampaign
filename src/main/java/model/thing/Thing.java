@@ -1,7 +1,5 @@
 package model.thing;
 
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import model.constants.CampaignConstants;
 
 public abstract class Thing {

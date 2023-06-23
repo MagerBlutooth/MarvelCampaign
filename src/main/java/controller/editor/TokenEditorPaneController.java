@@ -7,7 +7,6 @@ import model.thing.Token;
 import view.ViewSize;
 import view.grabber.ThingImageGrabber;
 import view.node.editor.TokenEditorNode;
-import view.pane.manager.CardManagerPane;
 import view.pane.manager.TokenManagerPane;
 import view.thing.TokenView;
 

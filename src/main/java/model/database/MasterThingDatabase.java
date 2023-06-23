@@ -3,9 +3,6 @@ package model.database;
 import model.factory.ThingFactory;
 import model.thing.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static model.constants.CampaignConstants.MEDBAY_ID;
 
 public class MasterThingDatabase {

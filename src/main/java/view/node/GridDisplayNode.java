@@ -1,7 +1,7 @@
 package view.node;
 
-import controller.grid.GridDisplayController;
 import controller.grid.GridActionController;
+import controller.grid.GridDisplayController;
 import javafx.scene.control.ScrollPane;
 import model.logger.MLogger;
 import model.thing.Thing;

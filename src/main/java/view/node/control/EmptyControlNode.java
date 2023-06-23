@@ -1,11 +1,8 @@
 package view.node.control;
 
 import controller.ControllerDatabase;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import model.database.ThingDatabase;
 import model.thing.Thing;
 import model.thing.ThingType;
 import view.IconImage;

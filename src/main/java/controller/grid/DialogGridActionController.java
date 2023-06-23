@@ -2,12 +2,9 @@ package controller.grid;
 
 
 import controller.ControllerDatabase;
-import javafx.scene.control.Dialog;
-import javafx.scene.layout.StackPane;
 import model.thing.Thing;
 import view.IconImage;
 import view.ViewSize;
-import view.dialog.CardSelectDialog;
 import view.dialog.SelectDialog;
 import view.node.control.ControlNode;
 

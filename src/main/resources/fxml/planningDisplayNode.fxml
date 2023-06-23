@@ -16,9 +16,13 @@
             </HBox>
 
             <HBox>
-                <VBox>
+                <VBox alignment="CENTER">
                     <Label text="Active Agents" minWidth="100"/>
                     <GridDisplayNode id="managerPane" fx:id="agentDisplay" minWidth="800"/>
+                    <HBox>
+                        <Label text="Influence: "/>
+                        <Label fx:id="influenceAmount"/>
+                    </HBox>
                 </VBox>
                 <PlanningSheet fx:id="planningSheet"/>
             </HBox>

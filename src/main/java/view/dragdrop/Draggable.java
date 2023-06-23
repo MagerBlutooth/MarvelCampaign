@@ -1,6 +1,5 @@
 package view.dragdrop;
 
-import model.thing.Card;
 import model.thing.Thing;
 import model.thing.ThingType;
 

@@ -1,8 +1,7 @@
 package view.pane;
 
-import controller.PlayerLoadPaneController;
 import controller.ControllerDatabase;
-import javafx.scene.layout.StackPane;
+import controller.PlayerLoadPaneController;
 import view.fxml.FXMLGrabber;
 
 public class PlayerLoadPane extends CampaignPane {

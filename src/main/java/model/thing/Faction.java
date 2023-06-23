@@ -1,7 +1,5 @@
 package model.thing;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.paint.Paint;
 import model.database.CampaignDatabase;
 import model.database.FactionLabel;
 import model.database.ThingDatabase;
@@ -23,8 +21,8 @@ public class Faction {
     CardList enemyAgents;
     LocationList enemyLocations;
     CardList eliminatedAgents;
+    CardList capturedAgents;
     Location medbay;
-    public SimpleIntegerProperty stationedAgentCount;
 
     //Constructor used to construct Faction using individual components
     public Faction(FactionLabel f, CardList a, LocationList locs, CampaignDatabase database)
@@ -41,7 +39,6 @@ public class Faction {
         enemyLocations = new LocationList(new ArrayList<>());
         eliminatedAgents = new CardList(new ArrayList<>());
         setMedbay(database);
-        stationedAgentCount = new SimpleIntegerProperty(getStationedAgents().size());
     }
 
     //Constructor used to load in Faction using the database and a Base64 encoded string
@@ -60,7 +57,6 @@ public class Faction {
         enemyAgents = new CardList(new ArrayList<>());
         enemyLocations = new LocationList(new ArrayList<>());
         setMedbay(database);
-        stationedAgentCount = new SimpleIntegerProperty(getStationedAgents().size());
     }
 
     //The Medbay is added to owned locations when saving the Location List from the Player Side. This method
@@ -265,25 +261,20 @@ public class Faction {
 
     public void clearStationedAgents() {
         ownedLocations.clearStationedAgents();
-        setStationedAgentCount();
-    }
-
-    private void setStationedAgentCount() {
-        stationedAgentCount.set(ownedLocations.getStationedAgentCount());
-    }
-
-    public SimpleIntegerProperty getAgentStationedProperty() {
-        return stationedAgentCount;
+        medbay.clearStationedAgents();
     }
 
     public void stationAgent(Card c, Location l) {
-        ownedLocations.stationAgent(l, c);
-        setStationedAgentCount();
+        if(l.equals(medbay))
+            medbay.stationAgent(c);
+        else
+            ownedLocations.stationAgent(l, c);
+
     }
 
     public void removeStationedAgent(Card c) {
         ownedLocations.removeStationedAgent(c);
-        setStationedAgentCount();
+        medbay.removeStationedAgent(c);
     }
 
     public FactionLabel getFactionLabel()

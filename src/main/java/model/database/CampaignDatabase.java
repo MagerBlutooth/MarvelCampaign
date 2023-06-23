@@ -2,10 +2,7 @@ package model.database;
 
 import model.thing.Card;
 import model.thing.Location;
-import model.thing.Thing;
 import model.thing.Token;
-
-import java.util.List;
 
 public class CampaignDatabase {
 

@@ -3,8 +3,12 @@ package controller.grid;
 import controller.ControllerDatabase;
 import controller.ScrollSetup;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import model.thing.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import model.thing.Faction;
+import model.thing.Location;
+import model.thing.ThingType;
 import view.IconImage;
 import view.ViewSize;
 import view.node.DroppableLocationDisplayNode;
@@ -36,7 +40,6 @@ public class LocationMapNodeController implements GridActionController<Location>
         locationGrid.initialize(f, ThingType.LOCATION, this, ViewSize.MEDIUM, blind);
         ScrollSetup scrollSetup = new ScrollSetup();
         scrollSetup.setupScrolling(scrollPane);
-        agentCounter.textProperty().bind(faction.getAgentStationedProperty().asString());
     }
 
     @Override

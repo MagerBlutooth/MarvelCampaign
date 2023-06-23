@@ -6,7 +6,6 @@ import model.thing.Card;
 import model.thing.ThingType;
 import view.IconImage;
 import view.ViewSize;
-import view.grabber.ThingImageGrabber;
 
 public class CardView extends ThingView<Card> {
 

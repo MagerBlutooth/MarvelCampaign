@@ -1,8 +1,6 @@
 package view.thing;
 
-import controller.view.CardViewController;
 import controller.view.TokenViewController;
-import model.thing.Card;
 import model.thing.ThingType;
 import model.thing.Token;
 import view.IconImage;

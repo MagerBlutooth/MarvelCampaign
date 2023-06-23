@@ -1,7 +1,6 @@
 package model.database;
 
 import model.constants.CampaignConstants;
-import model.thing.Location;
 import model.thing.Token;
 
 public class TokenSaver extends Saver<Token>{

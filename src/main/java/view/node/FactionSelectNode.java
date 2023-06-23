@@ -1,13 +1,10 @@
 package view.node;
 
-import controller.node.FactionSelectNodeController;
 import controller.ControllerDatabase;
+import controller.node.FactionSelectNodeController;
 import javafx.scene.layout.StackPane;
-import model.thing.Card;
 import model.thing.Faction;
 import view.fxml.FXMLGrabber;
-
-import java.util.List;
 
 public class FactionSelectNode extends StackPane {
 

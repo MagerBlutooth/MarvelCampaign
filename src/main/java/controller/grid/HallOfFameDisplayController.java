@@ -1,18 +1,12 @@
 package controller.grid;
 
 import javafx.fxml.FXML;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
-import model.database.ThingDatabase;
 import model.logger.MLogger;
 import model.thing.HallOfFameEntry;
-import model.thing.Thing;
 import model.thing.ThingList;
 import model.thing.ThingType;
 import view.IconImage;
 import view.ViewSize;
-import view.dragdrop.Draggable;
 import view.node.HallOfFameDisplayNode;
 import view.node.control.ControlNode;
 import view.node.control.HallOfFameControlNode;

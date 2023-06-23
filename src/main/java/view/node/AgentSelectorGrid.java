@@ -1,8 +1,9 @@
 package view.node;
 
-import controller.grid.AgentSelectorGridController;
 import controller.ControllerDatabase;
-import model.thing.*;
+import controller.grid.AgentSelectorGridController;
+import model.thing.Card;
+import model.thing.Faction;
 import view.fxml.FXMLGrabber;
 import view.pane.CampaignPane;
 

@@ -1,11 +1,8 @@
 package controller.context;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import model.thing.Card;
 import model.thing.EffectThing;
-import model.thing.Thing;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,6 +9,7 @@ import java.util.Base64;
 import java.util.List;
 
 import static model.constants.CampaignConstants.STRING_SEPARATOR;
+import static model.constants.CampaignConstants.SUBCATEGORY_SEPARATOR;
 
 public class CardList extends ThingList<Card> {
 
@@ -69,7 +70,7 @@ public class CardList extends ThingList<Card> {
             stringBuilder.append(c.getID());
             stringBuilder.append(STRING_SEPARATOR);
         }
-        stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         String result = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }

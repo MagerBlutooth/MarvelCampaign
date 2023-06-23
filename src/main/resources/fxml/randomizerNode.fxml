@@ -26,10 +26,23 @@
                     <Button id="button" text="Random Free Location" onAction="#randomFreeLocation"/>
                     <Button id="button" text="Any Random Agent" onAction="#randomAnyAgent"/>
                     <Button id="button" text="Any Random Location" onAction="#randomAnyLocation"/>
+                    <Button id="button" text="Generate Mercs" onAction="#generateMercs"/>
+                </VBox>
+                <VBox spacing="20.0" alignment="CENTER">
+                    <Button id="button" text="Coin Flip" onAction="#flipCoin"/>
+                    <Button id="button" text="D6 Roll" onAction="#rollDice"/>
+                    <Text fx:id="randomText" id="textObject" textAlignment="CENTER"/>
                 </VBox>
             </HBox>
-        <StackPane fx:id="displayPane"/>
+
+        <HBox alignment="CENTER">
+            <StackPane fx:id="displayPaneLeft"/>
+            <VBox>
+            <StackPane fx:id="displayPaneMiddle"/>
             <Text fx:id="effectText" id="textObject" wrappingWidth="800.0" textAlignment="CENTER"/>
+            </VBox>
+            <StackPane fx:id="displayPaneRight"/>
+        </HBox>
         </VBox>
     <padding>
         <Insets top="20.0" bottom="20.0" left="20.0" right="10.0"/>

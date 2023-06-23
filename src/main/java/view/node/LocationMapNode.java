@@ -2,7 +2,6 @@ package view.node;
 
 import controller.ControllerDatabase;
 import controller.grid.LocationMapNodeController;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import model.thing.Faction;
 import model.thing.Location;

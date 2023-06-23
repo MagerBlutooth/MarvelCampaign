@@ -7,10 +7,9 @@ import javafx.scene.layout.VBox;
 import model.database.CampaignDatabase;
 import model.thing.Campaign;
 import model.thing.Faction;
-import view.FactionPainter;
 import view.node.FactionSelectNode;
-import view.pane.WatcherControlPane;
 import view.pane.MainMenuPane;
+import view.pane.WatcherControlPane;
 
 public class CampaignPrepPaneController extends CampaignBasePaneController {
 

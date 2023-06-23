@@ -1,9 +1,11 @@
 package model.factory;
 
 import model.database.*;
-import model.thing.*;
+import model.thing.Card;
+import model.thing.HallOfFameEntry;
+import model.thing.Location;
+import model.thing.Token;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class ThingFactory {

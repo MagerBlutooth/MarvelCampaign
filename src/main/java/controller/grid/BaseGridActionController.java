@@ -4,7 +4,6 @@ import controller.ControllerDatabase;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import model.thing.Card;
 import model.thing.Thing;
 import view.IconImage;
 import view.ViewSize;

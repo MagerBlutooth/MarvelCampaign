@@ -2,7 +2,6 @@ package view.pane.editor;
 
 import controller.ControllerDatabase;
 import controller.editor.TokenEditorPaneController;
-import javafx.fxml.FXML;
 import model.thing.Token;
 import view.ViewSize;
 import view.fxml.FXMLGrabber;

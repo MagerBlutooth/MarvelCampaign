@@ -1,7 +1,7 @@
 package view.node;
 
-import controller.grid.GridDisplayController;
 import controller.grid.GridActionController;
+import controller.grid.GridDisplayController;
 import controller.node.CampaignListNodeController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;

@@ -14,11 +14,6 @@
                 <DroppableLocationDisplayNode fx:id="locationGrid"/>
             </VBox>
         </ScrollPane>
-        <HBox alignment="CENTER">
-            <Label text="Agents Stationed: "/>
-            <Label fx:id="agentCounter" text="0"/>
-        </HBox>
-
     </VBox>
     <padding>
         <Insets top="20.0" bottom="20.0" left="20.0"/>

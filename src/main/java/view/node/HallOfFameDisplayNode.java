@@ -1,16 +1,11 @@
 package view.node;
 
-import controller.grid.DraggableThingDisplayController;
 import controller.grid.GridActionController;
 import controller.grid.HallOfFameDisplayController;
 import model.thing.HallOfFameEntry;
-import model.thing.Thing;
 import model.thing.ThingList;
 import model.thing.ThingType;
 import view.ViewSize;
-import view.dragdrop.Draggable;
-
-import java.util.List;
 
 public class HallOfFameDisplayNode extends GridDisplayNode<HallOfFameEntry> {
 

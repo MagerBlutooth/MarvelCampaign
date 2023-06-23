@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import model.database.MasterThingDatabase;
-import view.pane.*;
+import view.pane.PlayerLoadPane;
 
 public class PlayerMainMenuController extends CampaignPaneController {
 

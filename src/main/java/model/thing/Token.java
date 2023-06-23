@@ -1,11 +1,5 @@
 package model.thing;
 
-import java.util.Comparator;
-import java.util.Map;
-
-import static model.constants.CampaignConstants.CATEGORY_SEPARATOR;
-import static model.constants.CampaignConstants.STRING_SEPARATOR;
-
 public class Token extends Thing {
 
     int power;

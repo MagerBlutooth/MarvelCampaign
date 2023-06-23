@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import model.database.CampaignDatabase;
 import model.database.FactionLabel;
-import model.thing.*;
+import model.thing.Campaign;
+import model.thing.CardList;
+import model.thing.Faction;
+import model.thing.LocationList;
 import view.node.FactionDisplayNode;
-import view.node.FactionSelectNode;
 import view.pane.CampaignStartPane;
 import view.pane.MainMenuPane;
 

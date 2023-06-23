@@ -1,11 +1,12 @@
 package view.node;
 
-import controller.grid.GridActionController;
-import model.thing.*;
-import view.dragdrop.Draggable;
 import controller.grid.DraggableThingDisplayController;
-import controller.grid.ThingActionController;
+import controller.grid.GridActionController;
+import model.thing.Thing;
+import model.thing.ThingList;
+import model.thing.ThingType;
 import view.ViewSize;
+import view.dragdrop.Draggable;
 
 import java.util.List;
 

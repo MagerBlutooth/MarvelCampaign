@@ -3,12 +3,10 @@ package controller.node;
 import controller.ControllerDatabase;
 import controller.grid.BaseGridActionController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import model.database.MasterThingDatabase;
-import model.thing.Card;
-import model.thing.CardList;
-import model.thing.Faction;
-import model.thing.ThingType;
+import model.thing.*;
 import view.ViewSize;
 import view.node.GridDisplayNode;
 import view.node.PlanningSheet;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 
 public class PlanningDisplayNodeController {
 
+    public Label influenceAmount;
     ControllerDatabase controllerDatabase;
     MasterThingDatabase masterThingDatabase;
     @FXML
@@ -36,10 +35,11 @@ public class PlanningDisplayNodeController {
     public void initializeAgentDisplay()
     {
         String password = passwordArea.getText().trim();
-        CardList cardList = new CardList(new ArrayList<>());
-        cardList.fromSaveString(password, masterThingDatabase.getCards());
+        PlanningInfo planningInfo = new PlanningInfo();
+        planningInfo.fromSaveString(password, masterThingDatabase.getCards());
         BaseGridActionController<Card> baseGridActionController = new BaseGridActionController<>();
         baseGridActionController.initialize(controllerDatabase);
-        agentDisplay.initialize(cardList, ThingType.CARD, baseGridActionController, ViewSize.SMALL, false);
+        agentDisplay.initialize(planningInfo.getActiveAgents(), ThingType.CARD, baseGridActionController, ViewSize.SMALL, false);
+        influenceAmount.setText(String.valueOf(planningInfo.getInfluence()));
     }
 }

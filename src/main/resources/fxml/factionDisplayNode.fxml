@@ -28,6 +28,12 @@
                 <GridDisplayNode id="managerPane" fx:id="graveDisplay" minWidth="600" maxHeight="800"/>
             </HBox>
         </VBox>
+        <!--<VBox>
+            <Label text="Prison" minWidth="150"/>
+            <HBox>
+                <GridDisplayNode id="managerPane" fx:id="prisonDisplay" minWidth="600" maxHeight="800"/>
+            </HBox>
+        </VBox>-->
     </VBox>
 
     <padding>

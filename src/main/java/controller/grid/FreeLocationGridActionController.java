@@ -4,11 +4,9 @@ import controller.ControllerDatabase;
 import controller.node.FreeAgentSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import model.thing.Card;
 import model.thing.Location;
 import view.IconImage;
 import view.ViewSize;
-import view.dialog.CardSelectDialog;
 import view.dialog.LocationSelectDialog;
 import view.node.GridDisplayNode;
 import view.node.control.ControlNode;
@@ -40,7 +38,6 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
         shieldName = s;
         hydraName = h;
         locationGridDisplayNode = locDisplay;
-
     }
 
     @Override
@@ -67,9 +64,12 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
             dialog.initialize(controllerDatabase);
             Optional<Location> newLoc = dialog.showAndWait();
             newLoc.ifPresent(location -> locationGridDisplayNode.addThing(location));
+            locationGridDisplayNode.sortBy("Name");
         });
         MenuItem delLocItem = new MenuItem("Delete");
-        delLocItem.setOnAction(e -> locationGridDisplayNode.removeThing(n.getSubject()));
+        delLocItem.setOnAction(e -> {locationGridDisplayNode.removeThing(n.getSubject());
+            locationGridDisplayNode.sortBy("Name");
+        });
         contextMenu.getItems().add(shieldItem);
         contextMenu.getItems().add(hydraItem);
         contextMenu.getItems().add(ruinItem);

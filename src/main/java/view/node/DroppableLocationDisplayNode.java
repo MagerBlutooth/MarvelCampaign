@@ -2,7 +2,10 @@ package view.node;
 
 import controller.grid.DroppableLocationDisplayController;
 import controller.grid.GridActionController;
-import model.thing.*;
+import model.thing.Faction;
+import model.thing.Location;
+import model.thing.ThingList;
+import model.thing.ThingType;
 import view.ViewSize;
 
 import java.util.List;

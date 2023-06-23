@@ -4,14 +4,15 @@ import controller.ControllerDatabase;
 import controller.grid.DialogGridActionController;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import model.thing.*;
+import model.thing.EffectThing;
+import model.thing.Location;
+import model.thing.LocationList;
+import model.thing.ThingType;
 import view.ViewSize;
 import view.node.control.ControlNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class LocationSelectDialog extends SelectDialog<Location> {
 

@@ -8,7 +8,9 @@ import model.database.FactionLabel;
 import model.thing.CardList;
 import model.thing.Faction;
 import model.thing.LocationList;
-import view.pane.*;
+import view.pane.PlayerControlPane;
+import view.pane.PlayerLoadPane;
+import view.pane.PlayerMainMenuPane;
 
 import java.util.ArrayList;
 
@@ -39,7 +41,7 @@ public class PlayerLoadPaneController extends CampaignBasePaneController {
     @FXML
     public void loadFaction()
     {
-        String password = passwordArea.getText();
+        String password = passwordArea.getText().trim();
         CampaignDatabase campaignDatabase = new CampaignDatabase(controllerDatabase.getMasterThingDatabase());
         Faction faction = new Faction(password, campaignDatabase);
         PlayerControlPane playerControlPane = new PlayerControlPane();

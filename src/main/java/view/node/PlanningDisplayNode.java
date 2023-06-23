@@ -1,7 +1,6 @@
 package view.node;
 
 import controller.ControllerDatabase;
-import controller.node.FactionDisplayNodeController;
 import controller.node.PlanningDisplayNodeController;
 import javafx.scene.layout.StackPane;
 import model.thing.Faction;

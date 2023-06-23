@@ -3,7 +3,6 @@ package view.pane;
 import controller.CampaignPrepPaneController;
 import controller.ControllerDatabase;
 import javafx.scene.Node;
-import javafx.scene.layout.StackPane;
 import model.thing.Faction;
 import view.fxml.FXMLGrabber;
 

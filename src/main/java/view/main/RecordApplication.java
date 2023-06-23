@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.logger.MHandler;
 import model.logger.MLogger;
-import view.pane.MainScreen;
 import view.pane.RecordMainScreen;
 
 public class RecordApplication extends Application {

@@ -1,9 +1,6 @@
 package controller;
 
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonBar;
-import view.button.ButtonToolBar;
 import view.pane.CampaignPane;
 import view.pane.CampaignStage;
 

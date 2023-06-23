@@ -1,8 +1,10 @@
 package view;
 
 import model.database.MasterThingDatabase;
-import model.thing.*;
-import view.grabber.FileGrabber;
+import model.thing.Card;
+import model.thing.Location;
+import model.thing.ThingType;
+import model.thing.Token;
 import view.grabber.ThingImageGrabber;
 
 import java.util.LinkedHashMap;

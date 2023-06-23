@@ -4,18 +4,15 @@ import controller.ControllerDatabase;
 import controller.grid.DialogGridActionController;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Modality;
-import javafx.util.Pair;
-import model.thing.*;
+import model.thing.Card;
+import model.thing.CardList;
+import model.thing.EffectThing;
+import model.thing.ThingType;
 import view.ViewSize;
-import view.fxml.FXMLGrabber;
 import view.node.control.ControlNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 public class CardSelectDialog extends SelectDialog<Card> {
 

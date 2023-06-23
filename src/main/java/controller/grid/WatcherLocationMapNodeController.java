@@ -1,28 +1,38 @@
 package controller.grid;
 
 import controller.ControllerDatabase;
-import controller.ScrollSetup;
+import controller.WatcherControlPaneController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import model.thing.Card;
 import model.thing.Faction;
 import model.thing.Location;
-import model.thing.ThingType;
 import view.IconImage;
 import view.ViewSize;
 import view.dialog.CardSelectDialog;
-import view.node.DroppableLocationDisplayNode;
-import view.node.LocationMapNode;
 import view.node.control.ControlNode;
-import view.node.control.DraggableMapControlNode;
 
-import java.util.List;
 import java.util.Optional;
 
 public class WatcherLocationMapNodeController extends LocationMapNodeController {
+
+    @FXML
+    public TextField influenceVal;
+
+    @Override
+    public void initialize(ControllerDatabase d, Faction f, boolean blind)
+    {
+        super.initialize(d, f, blind);
+        influenceVal.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("\\d*")){
+                influenceVal.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
 
     @Override
     public void createContextMenu(ControlNode<Location> n) {
@@ -32,8 +42,9 @@ public class WatcherLocationMapNodeController extends LocationMapNodeController 
             CardSelectDialog dialog = new CardSelectDialog();
             dialog.initialize(controllerDatabase);
             Optional<Card> card = dialog.showAndWait();
-            if(card.isPresent() && !n.getSubject().isFull())
-                n.getSubject().stationAgent(card.get());
+            Location l = n.getSubject();
+            if(card.isPresent() && !l.isFull())
+                l.stationAgent(card.get());
             refresh();
         });
         rightClickMenu.getItems().add(addCardItem);
@@ -45,5 +56,9 @@ public class WatcherLocationMapNodeController extends LocationMapNodeController 
         ControlNode<Location> n = super.createControlNode(l, i, v, blind);
         createContextMenu(n);
         return n;
+    }
+
+    public int getInfluence() {
+        return Integer.parseInt(influenceVal.getText());
     }
 }

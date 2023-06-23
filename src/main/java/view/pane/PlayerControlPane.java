@@ -2,11 +2,7 @@ package view.pane;
 
 import controller.ControllerDatabase;
 import controller.PlayerControlPaneController;
-import controller.WatcherControlPaneController;
-import javafx.scene.layout.StackPane;
 import model.database.CampaignDatabase;
-import model.database.MasterThingDatabase;
-import model.thing.Campaign;
 import model.thing.Faction;
 import view.fxml.FXMLGrabber;
 

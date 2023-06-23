@@ -4,7 +4,6 @@ import javafx.scene.paint.Color;
 import model.constants.CampaignConstants;
 import model.database.CampaignDatabase;
 import model.database.FactionLabel;
-import model.database.MasterThingDatabase;
 import model.helper.Randomizer;
 
 import java.util.ArrayList;
@@ -133,5 +132,10 @@ public class Campaign {
         }
         else
             return CampaignConstants.FREE_COLOR;
+    }
+
+    public List<Card> randomMercs() {
+        int MERC_SELECT_POOL = 3;
+        return randomizer.getRandomElements(getFreeFaction().getAgentCards(), MERC_SELECT_POOL);
     }
 }
