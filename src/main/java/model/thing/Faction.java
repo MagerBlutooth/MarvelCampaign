@@ -1,5 +1,6 @@
 package model.thing;
 
+import model.constants.CampaignConstants;
 import model.database.CampaignDatabase;
 import model.database.FactionLabel;
 import model.database.ThingDatabase;
@@ -12,6 +13,8 @@ import static model.constants.CampaignConstants.*;
 
 public class Faction {
 
+
+    private int medbayId;
     String name;
     FactionLabel factionLabel;
     CardList ownedAgents;
@@ -29,6 +32,7 @@ public class Faction {
     {
         name = f.toString();
         factionLabel = f;
+        setMedBayID();
         ownedAgents = a;
         ownedLocations = locs;
         unownedAgents = new CardList(database.getCards());
@@ -39,6 +43,7 @@ public class Faction {
         enemyLocations = new LocationList(new ArrayList<>());
         eliminatedAgents = new CardList(new ArrayList<>());
         setMedbay(database);
+
     }
 
     //Constructor used to load in Faction using the database and a Base64 encoded string
@@ -57,18 +62,23 @@ public class Faction {
         enemyAgents = new CardList(new ArrayList<>());
         enemyLocations = new LocationList(new ArrayList<>());
         setMedbay(database);
+
     }
 
     //The Medbay is added to owned locations when saving the Location List from the Player Side. This method
     //instead sets it as the dedicated Medbay value and removes it from owned Locations
     // while preserving the stationed Agent(s) inside.
     private void setMedbay(CampaignDatabase database) {
-        int medbayIndex = ownedLocations.lookupId(MEDBAY_ID);
+        int medbayIndex = ownedLocations.lookupId(medbayId);
         if (medbayIndex >= 0) {
             medbay = ownedLocations.get(medbayIndex);
             ownedLocations.remove(ownedLocations.get(medbayIndex));
-        } else
-            medbay = database.getMedbay();
+        } else {
+           if(factionLabel == FactionLabel.SHIELD)
+                medbay = new Location(database.getShieldMedbay());
+           else
+               medbay = new Location(database.getHydraMedbay());
+        }
     }
 
     public CardList getUnownedAgents()
@@ -197,11 +207,12 @@ public class Faction {
         ThingDatabase<Location> lDatabase = database.getLocations();
         name = stringCats[0];
         factionLabel = FactionLabel.valueOf(name.toUpperCase());
+        setMedBayID();
         //Lookup Agents
         for (String a : stringCats[1].split(STRING_SEPARATOR))
         {
             String[] cardString = a.split(SUBCATEGORY_SEPARATOR);
-            Card c = cDatabase.lookup(Integer.parseInt(cardString[0]));
+            Card c = new Card(cDatabase.lookup(Integer.parseInt(cardString[0])));
             c.setWounded(Boolean.parseBoolean(cardString[1]));
             c.setCaptain(Boolean.parseBoolean(cardString[2]));
             ownedAgents.add(c);
@@ -210,19 +221,27 @@ public class Faction {
         for (String b : stringCats[2].split(STRING_SEPARATOR))
         {
             Location l;
-            if(Integer.parseInt(b) == MEDBAY_ID)
-                l = database.getMedbay();
+            if(Integer.parseInt(b) == medbayId)
+                l = new Location(database.getMedbay(factionLabel));
             else
-                l = lDatabase.lookup(Integer.parseInt(b));
+                l = new Location(lDatabase.lookup(Integer.parseInt(b)));
             ownedLocations.add(l);
         }
         if(stringCats.length == 4) {
             //Lookup Eliminated Agents
             for (String c : stringCats[3].split(STRING_SEPARATOR)) {
-                Card e = cDatabase.lookup(Integer.parseInt(c));
+                Card e = new Card(cDatabase.lookup(Integer.parseInt(c)));
                 eliminatedAgents.add(e);
             }
         }
+    }
+
+    private void setMedBayID() {
+        if(factionLabel == FactionLabel.SHIELD)
+            medbayId = SHIELD_MEDBAY_ID;
+        else
+            medbayId = HYDRA_MEDBAY_ID;
+
     }
 
     @Override

@@ -72,7 +72,7 @@ public class DroppableLocationDisplayController extends GridDisplayController<Lo
             Object source = event.getGestureSource();
             if (source instanceof Draggable && dragboard.hasString()) {
                 String dragID = dragboard.getString();
-                Card c = cards.lookup(Integer.parseInt(dragID));
+                Card c = new Card(cards.lookup(Integer.parseInt(dragID)));
                 if (c != null && !(n.getSubject().isFull())) {
                     Draggable dragSource = (Draggable)source;
                     dragSource.removeOnDrag(c);

@@ -65,11 +65,11 @@ public class LocationList extends ThingList<Location> {
         for(String c: locList)
         {
             String[] stationedAgents = c.split(STRING_SEPARATOR);
-            Location l = locDatabase.lookup(Integer.parseInt(stationedAgents[0]));
+            Location l = new Location(locDatabase.lookup(Integer.parseInt(stationedAgents[0])));
             l.removeStationedAgents();
             for(int i = 1; i < stationedAgents.length; i++)
             {
-                Card agent = cardDatabase.lookup(Integer.parseInt(stationedAgents[i]));
+                Card agent = new Card(cardDatabase.lookup(Integer.parseInt(stationedAgents[i])));
                 l.stationAgent(agent);
             }
             this.add(l);

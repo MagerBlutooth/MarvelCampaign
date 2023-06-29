@@ -24,7 +24,7 @@ public class LocationSorter {
             case MAP_POSITION:
                 break;
             case NAME:
-                sortedLocs.sort((o1, o2) -> Comparator.comparing(Location::getName).compare(o1, o2));
+                sortedLocs.sort((o1, o2) -> Comparator.comparing(Location::getSortableName).compare(o1, o2));
                 break;
         }
         return sortedLocs;

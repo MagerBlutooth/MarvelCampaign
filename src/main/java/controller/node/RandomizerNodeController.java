@@ -6,13 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import model.thing.Campaign;
-import model.thing.Card;
-import model.thing.EffectThing;
-import model.thing.Faction;
+import model.thing.*;
 import view.ViewSize;
 import view.node.control.ControlNode;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -81,6 +80,19 @@ public class RandomizerNodeController {
         setDisplay(campaign.randomFreeLocation());
     }
     @FXML
+    public void createCache()
+    {
+        List<Integer> cacheSize = new ArrayList<>();
+        for(CacheSize size: CacheSize.values())
+        {
+            for(int i = 0; i < size.getPrevalence(); i++)
+                cacheSize.add(size.getCubeCount());
+        }
+        Collections.shuffle(cacheSize);
+        int result = cacheSize.get(0);
+        randomText.setText(String.valueOf(result));
+    }
+    @FXML
     public void flipCoin()
     {
         Random random = new Random();
@@ -94,7 +106,7 @@ public class RandomizerNodeController {
     public void rollDice()
     {
         Random random = new Random();
-        int dice = random.nextInt(6);
+        int dice = random.nextInt(6)+1;
         randomText.setText(String.valueOf(dice));
     }
 

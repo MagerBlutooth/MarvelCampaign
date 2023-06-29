@@ -3,7 +3,8 @@ package model.database;
 import model.factory.ThingFactory;
 import model.thing.*;
 
-import static model.constants.CampaignConstants.MEDBAY_ID;
+import static model.constants.CampaignConstants.HYDRA_MEDBAY_ID;
+import static model.constants.CampaignConstants.SHIELD_MEDBAY_ID;
 
 public class MasterThingDatabase {
 
@@ -36,7 +37,8 @@ public class MasterThingDatabase {
     public ThingDatabase<Location> getLocations() {
         ThingDatabase<Location> locs = new ThingDatabase<>();
         locs.addAll(dBContext.lookup(ThingType.LOCATION));
-        locs.remove(getMedbay());
+        locs.remove(getMedbay(true));
+        locs.remove(getMedbay(false));
         return locs;
     }
 
@@ -70,9 +72,11 @@ public class MasterThingDatabase {
     public void saveDatabase(ThingType type) {
         vSaver.saveDatabase(type, this);
     }
-    public Location getMedbay() {
+    public Location getMedbay(boolean isShield) {
         ThingDatabase<Location> locs = dBContext.lookup(ThingType.LOCATION);
-        return locs.lookup(MEDBAY_ID);
+        if(isShield)
+            return locs.lookup(SHIELD_MEDBAY_ID);
+        return locs.lookup(HYDRA_MEDBAY_ID);
     }
 
     public ThingDatabase<Card> getEnabledCards()

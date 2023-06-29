@@ -31,6 +31,7 @@
                 <VBox spacing="20.0" alignment="CENTER">
                     <Button id="button" text="Coin Flip" onAction="#flipCoin"/>
                     <Button id="button" text="D6 Roll" onAction="#rollDice"/>
+                    <Button id="button" text="Create Cache" onAction="#createCache"/>
                     <Text fx:id="randomText" id="textObject" textAlignment="CENTER"/>
                 </VBox>
             </HBox>

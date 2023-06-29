@@ -1,5 +1,6 @@
 package model.thing;
 
+import model.database.HallOfFameSaver;
 import model.database.ThingDatabase;
 import model.helper.ListHelper;
 
@@ -19,6 +20,13 @@ public class HallOfFameEntry extends Thing {
         cards = new CardList(new ArrayList<>());
         cardDatabase = db;
         captain = new Card();
+    }
+    public HallOfFameEntry(HallOfFameEntry e)
+    {
+        super(e);
+        cards = e.getCards();
+        cardDatabase = e.cardDatabase;
+        captain = e.getCaptain();
     }
     public HallOfFameEntry(ArrayList<Card> c, Card cpt, ThingDatabase<Card> db) {
         cards = new CardList(c);
@@ -78,6 +86,11 @@ public class HallOfFameEntry extends Thing {
         return false;
     }
 
+    @Override
+    public HallOfFameEntry clone() {
+        return new HallOfFameEntry(this);
+    }
+
     public boolean addCard(Card c, List<HallOfFameEntry> otherEntries)
     {
         if(cards.size() < MAX_SIZE && deckValidWithNewCard(c, otherEntries)) {
@@ -120,7 +133,7 @@ public class HallOfFameEntry extends Thing {
         return cards.size();
     }
 
-    public ThingList<Card> getCards() {
+    public CardList getCards() {
         return cards;
     }
     public boolean contains(Card card) {

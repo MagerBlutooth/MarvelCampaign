@@ -79,7 +79,11 @@ public class HallOfFameGridController implements GridActionController<Card> {
         if(activeEntry.contains(card)) {
             success = activeEntry.removeCard(card);
             if(activeEntry.getCaptain().equals(card))
-                activeEntry.setCaptain(new Card());
+            {
+                Card newCard = new Card();
+                activeEntry.setCaptain(newCard);
+                captainDisplay.refresh(newCard);
+            }
         }
         else {
             success = activeEntry.addCard(card, otherEntries);

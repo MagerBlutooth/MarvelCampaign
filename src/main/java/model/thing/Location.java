@@ -15,9 +15,16 @@ public class Location extends EffectThing {
         stationedAgents = new CardList(new ArrayList<>());
     }
 
+    public Location(Location loc)
+    {
+        super(loc);
+        ruined = loc.isRuined();
+        stationedAgents = loc.getStationedAgents();
+    }
+
     @Override
     public String[] toSaveStringArray() {
-        return new String[]{ getID()+"", getName(), getEffect(), String.valueOf(isEnabled()), String.valueOf(isRuined())};
+        return new String[]{String.valueOf(getID()), getName(), getEffect(), String.valueOf(isEnabled()), String.valueOf(isRuined())};
     }
 
     @Override
@@ -81,5 +88,10 @@ public class Location extends EffectThing {
 
     public void clearStationedAgents() {
         stationedAgents.clear();
+    }
+
+    @Override
+    public Location clone() {
+        return new Location(this);
     }
 }

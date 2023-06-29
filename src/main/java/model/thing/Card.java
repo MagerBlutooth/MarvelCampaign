@@ -27,6 +27,21 @@ public class Card extends EffectThing {
         initializeCardAttributes();
     }
 
+    public Card(Card c)
+    {
+        super(c);
+        pool = c.getPool();
+        power = c.getPower();
+        cost = c.getCost();
+        captain = c.isCaptain();
+        wounded = c.isWounded();
+        cardAttributes = c.getCardAttributes();
+    }
+
+    private Map<CardAttribute, Boolean> getCardAttributes() {
+        return cardAttributes;
+    }
+
     private void initializeCardAttributes() {
         cardAttributes = new LinkedHashMap<>();
         for(CardAttribute cardAttribute: CardAttribute.values())
@@ -40,12 +55,11 @@ public class Card extends EffectThing {
         StringBuilder attributeStrings = new StringBuilder();
         for(Map.Entry<CardAttribute, Boolean>entrySet : cardAttributes.entrySet())
         {
-            attributeStrings.append(entrySet.getKey() + STRING_SEPARATOR + entrySet.getValue());
+            attributeStrings.append(entrySet.getKey()).append(STRING_SEPARATOR).append(entrySet.getValue());
             attributeStrings.append(CATEGORY_SEPARATOR);
         }
         attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
-        String[] stringArray = { getID()+"", getName(), getCost()+"", getPower()+"", getPool()+"", getEffect(), String.valueOf(isEnabled()), attributeStrings.toString(), String.valueOf(isWounded()), String.valueOf(isCaptain())};
-        return stringArray;
+        return new String[]{ getID()+"", getName(), getCost()+"", getPower()+"", getPool()+"", getEffect(), String.valueOf(isEnabled()), attributeStrings.toString(), String.valueOf(isWounded()), String.valueOf(isCaptain())};
     }
 
     @Override
@@ -127,6 +141,11 @@ public class Card extends EffectThing {
     public boolean hasAttribute(String s) {
         CardAttribute cA = CardAttribute.parseString(s);
         return cardAttributes.get(cA);
+    }
+
+    @Override
+    public Thing clone() {
+        return new Card(this);
     }
 
     public boolean isWounded() {

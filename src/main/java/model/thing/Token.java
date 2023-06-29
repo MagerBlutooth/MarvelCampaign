@@ -10,6 +10,11 @@ public class Token extends Thing {
         super();
         name = "New Token";
     }
+    public Token(Token t)
+    {
+        super(t);
+        name = t.getName();
+    }
     @Override
     public String[] toSaveStringArray() {
         return new String[]{String.valueOf(getID()), getName(), String.valueOf(getCost()), String.valueOf(getPower()), String.valueOf(isEnabled())};
@@ -32,6 +37,11 @@ public class Token extends Thing {
     @Override
     public boolean hasAttribute(String att) {
         return false;
+    }
+
+    @Override
+    public Token clone() {
+        return new Token(this);
     }
 
     public void setPower(int p)

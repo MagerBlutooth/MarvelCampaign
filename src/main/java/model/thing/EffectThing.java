@@ -9,6 +9,12 @@ public abstract class EffectThing extends Thing {
         effect = "";
     }
 
+    public EffectThing(EffectThing t)
+    {
+        super(t);
+        effect = t.getEffect();
+    }
+
     public String getEffect()
     {
         return effect;
@@ -17,5 +23,9 @@ public abstract class EffectThing extends Thing {
     public void setEffect(String e)
     {
         effect = e;
+    }
+
+    public String getSortableName() {
+        return getName().toLowerCase();
     }
 }

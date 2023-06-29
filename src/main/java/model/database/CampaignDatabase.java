@@ -9,13 +9,15 @@ public class CampaignDatabase {
     ThingDatabase<Card> cards;
     ThingDatabase<Location> locations;
     ThingDatabase<Token> tokens;
-    Location medBay;
+    Location shieldMedbay; //Medbays were divided into two separate objects since they were being treated as one.
+    Location hydraMedbay;
     public CampaignDatabase(MasterThingDatabase database)
     {
         cards = database.getEnabledCards();
         locations = database.getEnabledLocations();
         tokens = database.getEnabledTokens();
-        medBay = database.getMedbay();
+        shieldMedbay = database.getMedbay(true);
+        hydraMedbay = database.getMedbay(false);
     }
 
     public ThingDatabase<Card> getCards() {
@@ -26,7 +28,22 @@ public class CampaignDatabase {
         return locations;
     }
 
-    public Location getMedbay() {
-        return medBay;
+    public Location getShieldMedbay() {
+        return shieldMedbay;
+    }
+
+    public Location getHydraMedbay()
+    {
+        return hydraMedbay;
+    }
+
+    public Location getMedbay(FactionLabel f) {
+        switch(f)
+        {
+            case SHIELD:
+                return getShieldMedbay();
+            default:
+                return getHydraMedbay();
+        }
     }
 }

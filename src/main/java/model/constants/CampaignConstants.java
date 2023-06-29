@@ -31,5 +31,6 @@ public class CampaignConstants {
     public static final int MAX_STATIONED_AGENTS = 4;
     public static final Color WOUND_COLOR = Color.CRIMSON;
     public static final int NO_ICON_ID = 10000;
-    public static final int MEDBAY_ID = 100000;
+    public static final int SHIELD_MEDBAY_ID = 100000;
+    public static final int HYDRA_MEDBAY_ID = 100001;
 }

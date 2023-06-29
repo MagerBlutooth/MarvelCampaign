@@ -54,7 +54,7 @@ public class ControlNode<T extends Thing> extends StackPane {
 
         if(t instanceof Card)
         {
-            Card c = (Card)t;
+            Card c = (Card)subject;
             if(!blind && c.isCaptain())
                 createCaptainView(v);
             setDamage(c.isWounded());
@@ -62,7 +62,7 @@ public class ControlNode<T extends Thing> extends StackPane {
         }
         else if(t instanceof Location)
         {
-            Location l = (Location)t;
+            Location l = (Location)subject;
             setDamage(l.isRuined());
         }
     }

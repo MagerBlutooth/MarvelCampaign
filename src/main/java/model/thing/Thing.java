@@ -2,7 +2,7 @@ package model.thing;
 
 import model.constants.CampaignConstants;
 
-public abstract class Thing {
+public abstract class Thing implements Cloneable {
 
     String name;
     int id;
@@ -12,6 +12,13 @@ public abstract class Thing {
     {
         enabled = true;
         id = CampaignConstants.NO_ICON_ID;
+    }
+
+    public Thing(Thing t)
+    {
+        id = t.getID();
+        name = t.getName();
+        enabled = t.isEnabled();
     }
 
     public abstract String[] toSaveStringArray();
@@ -55,4 +62,6 @@ public abstract class Thing {
 
     public abstract boolean hasAttribute(String att);
 
+    @Override
+    public abstract Thing clone();
 }
