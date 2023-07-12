@@ -109,6 +109,13 @@ public class RandomizerNodeController {
         int dice = random.nextInt(6)+1;
         randomText.setText(String.valueOf(dice));
     }
+    @FXML
+    public void rollD100()
+    {
+        Random random = new Random();
+        int d100 = random.nextInt(100)+1;
+        randomText.setText(String.valueOf(d100));
+    }
 
     @FXML
     public void generateMercs()

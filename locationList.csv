@@ -113,3 +113,5 @@
 "111","Elysium","This Location stations three Agents.","true","false"
 "112","Eternity Range","To station two Agents here, the combined total power must be 7+.","true","false"
 "113","Fogwell's Gym","This Location has no effect.","false","false"
+"115","White Hot Room","Upset: If you fully occupy this Location, both Factions gain 3 additional influence this Month.","true","false"
+"116","Lake Hellas","This Location stations up to 4 Agents. Only 1-cost Agents may be stationed here.","false","false"
