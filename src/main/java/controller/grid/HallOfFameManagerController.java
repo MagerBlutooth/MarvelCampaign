@@ -60,7 +60,6 @@ public class HallOfFameManagerController extends CampaignPaneController implemen
         setMouseEvents(c);
         return c;
     }
-
     @Override
     public void saveGridNode(ControlNode<HallOfFameEntry> node) {
 

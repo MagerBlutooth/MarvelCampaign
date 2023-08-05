@@ -23,6 +23,7 @@ import view.pane.editor.CardEditorPane;
 import view.pane.manager.HallOfFameManagerPane;
 import view.thing.CardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,6 +36,8 @@ public class HallOfFameEntryCreatorPaneController extends CampaignPaneController
     @FXML
     GridDisplayNode<Card> deckDisplay;
     @FXML
+    TextField searchBar;
+    @FXML
     TextField nameBar;
     HallOfFameGridController deckController;
 
@@ -42,34 +45,38 @@ public class HallOfFameEntryCreatorPaneController extends CampaignPaneController
     Button saveButton;
     List<HallOfFameEntry> otherEntries;
     ThingSaver saver = new ThingSaver();
+    HallOfFameEntry hallOfFameEntry;
     @Override
     public Scene getCurrentScene() {
         return cardManager.getScene();
     }
 
-    public void initialize(ControllerDatabase d, HallOfFameEntry hallOfFameEntry, List<HallOfFameEntry> other) {
+    public void initialize(ControllerDatabase d, HallOfFameEntry entry, List<HallOfFameEntry> other) {
         super.initialize(d);
+        hallOfFameEntry = entry;
         otherEntries = other;
-        nameBar.setText(hallOfFameEntry.getName());
+        nameBar.setText(entry.getName());
         CardList cards = new CardList(d.getCards());
-        captainDisplay.initialize(controllerDatabase, hallOfFameEntry.getCaptain(), ViewSize.LARGE, false);
+        captainDisplay.initialize(controllerDatabase, entry.getCaptain(), ViewSize.LARGE, false);
         deckController = new HallOfFameGridController();
-        deckController.initialize(controllerDatabase, captainDisplay, deckDisplay, hallOfFameEntry, otherEntries);
-        deckDisplay.initialize(hallOfFameEntry.getCards(), ThingType.CARD, deckController, ViewSize.SMALL, true);
+        deckController.initialize(controllerDatabase, captainDisplay, deckDisplay, entry, otherEntries);
+        deckDisplay.initialize(entry.getCards(), ThingType.CARD, deckController, ViewSize.SMALL, true);
         cardManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, true);
-
+        initializeSearchBar(cards);
     }
 
-    public void editSubject(ControlNode<Card> node) {
-        CardEditorPane cardEditorPane = new CardEditorPane();
-        cardEditorPane.initialize(controllerDatabase, ViewSize.LARGE, (Card)node.getSubject());
-        changeScene(cardEditorPane);
-    }
-
-    @Override
-    public ControllerDatabase getDatabase()
-    {
-        return controllerDatabase;
+    private void initializeSearchBar(CardList allCards) {
+        searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
+            CardList cards = new CardList(new ArrayList<>());
+            for(Card c: allCards)
+            {
+                String name = c.getName().toLowerCase();
+                String searchString = searchBar.textProperty().get().toLowerCase();
+                if(name.contains(searchString))
+                    cards.add(c);
+            }
+            cardManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, true);
+        });
     }
 
     public void addNewEntry()
@@ -84,8 +91,19 @@ public class HallOfFameEntryCreatorPaneController extends CampaignPaneController
         ControlNode<Card> node = new ControlNode<>();
         node.initialize(controllerDatabase, card, i, v, blind);
         setMouseEvents(node);
+        node.setGolden(isGolden(card));
         return node;
     }
+
+    private boolean isGolden(Card c) {
+        for(HallOfFameEntry entry: otherEntries)
+        {
+            if(entry.contains(c))
+                return true;
+        }
+        return hallOfFameEntry.contains(c);
+    }
+
 
     @Override
     public void saveGridNode(ControlNode<Card> node) {

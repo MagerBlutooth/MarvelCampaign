@@ -137,6 +137,23 @@ public class ControlNode<T extends Thing> extends StackPane {
             imageView.setEffect(null);
 
     }
+
+    public void setGolden(boolean golden) {
+        Blend gold = new Blend();
+        if(golden) {
+            gold.setMode(BlendMode.MULTIPLY);
+            ColorAdjust goldPlate = new ColorAdjust();
+            goldPlate.setSaturation(-1.0);
+            Lighting lighting = new Lighting(new Light.Distant(0, 70, Color.GOLD));
+            gold.setTopInput(goldPlate);
+            gold.setBottomInput(lighting);
+            gold.setOpacity(0.1);
+            imageView.setEffect(gold);
+        }
+        else
+            imageView.setEffect(null);
+    }
+
     public void setCaptain(boolean yes) {
         if(yes)
         {

@@ -1,9 +1,11 @@
 package view.node.control;
 
 import controller.ControllerDatabase;
+import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import model.thing.HallOfFameEntry;
 import model.thing.ThingType;
 import view.IconImage;
@@ -56,5 +58,4 @@ public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {
     {
         return subject;
     }
-
 }
