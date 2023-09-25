@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import campaign.view.button.ButtonToolBar?>
+<fx:root fx:id="optionsMenu" type="StackPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/mainStyle.css" fx:controller="campaign.controller.OptionsMenuPaneController">
+        <ButtonToolBar fx:id="buttonToolBar"/>
+</fx:root>

@@ -1,0 +1,109 @@
+package records.controller;
+
+import campaign.controller.ControllerDatabase;
+import campaign.controller.grid.GridActionController;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import campaign.model.thing.Card;
+import campaign.view.IconImage;
+import campaign.view.ViewSize;
+import campaign.view.node.GridDisplayNode;
+import campaign.view.node.control.ControlNode;
+import campaign.view.thing.CardView;
+import records.model.HallOfFameEntry;
+
+import java.util.List;
+
+public class HallOfFameGridController implements GridActionController<Card> {
+
+    ControllerDatabase controllerDatabase;
+    List<HallOfFameEntry> otherEntries;
+    HallOfFameEntry activeEntry;
+    CardView captainDisplay;
+    GridDisplayNode<Card> deckDisplay;
+
+    public void initialize(ControllerDatabase db, CardView cDisplay, GridDisplayNode<Card> deck, HallOfFameEntry entry, List<HallOfFameEntry> other)
+    {
+        controllerDatabase = db;
+        activeEntry = entry;
+        deckDisplay = deck;
+        otherEntries = other;
+        captainDisplay = cDisplay;
+        captainDisplay.disableTooltip();
+        deckDisplay.setPrefColumns(6);
+        deckDisplay.setMaxHeight(250.0);
+        deckDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
+    @Override
+    public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
+        ControlNode<Card> controlNode = new ControlNode<>();
+        controlNode.initialize(controllerDatabase, card, i, v, blind);
+        setMouseEvents(controlNode);
+        return controlNode;
+    }
+
+    @Override
+    public ControllerDatabase getDatabase() {
+        return controllerDatabase;
+    }
+
+    @Override
+    public void saveGridNode(ControlNode<Card> node) {
+
+    }
+
+    @Override
+    public void createTooltip(ControlNode<Card> n) {
+
+    }
+
+    @Override
+    public void createContextMenu(ControlNode<Card> n) {
+
+    }
+
+    @Override
+    public void setMouseEvents(ControlNode<Card> controlNode) {
+        controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if (e.getButton() == MouseButton.PRIMARY && captainIsUnique(controlNode.getSubject())) {
+                activeEntry.setCaptain(controlNode.getSubject());
+                captainDisplay.refresh(activeEntry.getCaptain());
+            }
+            e.consume();
+        });
+    }
+
+    //Check to confirm captains are unique among Hall of Fame entries.
+    private boolean captainIsUnique(Card captain) {
+        for(HallOfFameEntry entry: otherEntries)
+        {
+            if(entry.getCaptain().equals(captain))
+                return false;
+        }
+        return true;
+    }
+
+    public void toggleEntry(Card card) {
+        boolean success;
+        if(activeEntry.contains(card)) {
+            success = activeEntry.removeCard(card);
+            if(activeEntry.getCaptain().equals(card))
+            {
+                Card newCard = new Card();
+                activeEntry.setCaptain(newCard);
+                captainDisplay.refresh(newCard);
+            }
+        }
+        else {
+            success = activeEntry.addCard(card, otherEntries);
+        }
+        if(success)
+            deckDisplay.refreshToMatch(activeEntry.getCards());
+    }
+
+    public HallOfFameEntry getActiveEntry() {
+        return activeEntry;
+    }
+}

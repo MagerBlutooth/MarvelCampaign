@@ -1,0 +1,40 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import campaign.view.node.FreeAgentSelectNode?>
+<?import campaign.view.node.GridDisplayNode?>
+<fx:root type="FreeAgentSelectNode"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/editorStyle.css" fx:controller="campaign.controller.node.FreeAgentSelectNodeController" alignment="TOP_CENTER">
+    <VBox alignment="TOP_CENTER" spacing="10.0">
+        <VBox>
+            <Label text="Agents" minWidth="100"/>
+            <StackPane fx:id="copyAcceptanceStringPane" id="info"/>
+            <HBox>
+                <Button text="Cards" onAction="#copyAgents"/>
+                <Button text="Locations" onAction="#copyLocations"/>
+                <Button text="Grave" onAction="#copyGrave"/>
+            </HBox>
+            <HBox>
+                <GridDisplayNode id="managerPane" fx:id="freeAgentDisplay" minWidth="600" vbarPolicy="NEVER"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Locations" minWidth="150"/>
+            <HBox>
+                <GridDisplayNode id="managerPane" fx:id="freeLocationDisplay" minWidth="600" vbarPolicy="NEVER"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Grave" minWidth="150"/>
+            <HBox>
+                <GridDisplayNode id="managerPane" fx:id="freeGraveDisplay" minWidth="600" maxHeight="800"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+
+</fx:root>

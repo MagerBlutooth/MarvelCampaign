@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<fx:root fx:id="mainPane" type="campaign.view.pane.MainMenuPane"
+         xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/mainStyle.css" fx:controller="campaign.controller.MainMenuController" prefHeight="600">
+    <StackPane>
+        <VBox alignment="CENTER" spacing="20.0">
+            <Label id="title" text="Snap Campaign Mode"/>
+            <Button fx:id="startButton" text="New Campaign" onAction="#startCampaign"/>
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>
+            <Button fx:id="loadButton" text="Load Campaign" onAction="#loadCampaign"/>
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>
+            <Button fx:id="campaignEditButton" text="Campaign Editor" onAction="#campaignEdit"/>
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>
+          <!--><Button fx:id="optionsButton" text="Options" onAction="#editOptions"/>
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>-->
+            <Button fx:id="exitButton" text="Exit" onAction="#exit"/>
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>
+        </VBox>
+    </StackPane>
+</fx:root>

@@ -1,0 +1,27 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import campaign.view.pane.CampaignPrepPane?>
+<?import campaign.view.node.FactionSelectNode?>
+<?import campaign.view.button.ButtonToolBar?>
+<fx:root type="CampaignPrepPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/mainStyle.css" fx:controller="campaign.controller.CampaignPrepPaneController" prefWidth="1800" prefHeight="900">
+    <VBox alignment="CENTER">
+        <ButtonToolBar fx:id="buttonToolBar"/>
+    <ScrollPane hbarPolicy="NEVER">
+            <VBox fx:id="mainBox">
+                <HBox spacing="20.0">
+                    <FactionSelectNode fx:id="shieldDisplay" alignment="CENTER_LEFT"/>
+                    <FactionSelectNode fx:id="hydraDisplay" alignment="CENTER_RIGHT"/>
+                </HBox>
+            </VBox>
+    </ScrollPane>
+            <Button text="Start" onAction="#startCampaign"/>
+    </VBox>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

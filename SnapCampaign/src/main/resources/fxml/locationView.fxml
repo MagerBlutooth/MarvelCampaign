@@ -1,0 +1,14 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import campaign.view.thing.LocationView?>
+<fx:root type="LocationView" fx:id="locationView"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="campaign.controller.view.LocationViewController">
+    <AnchorPane fx:id="imageBox">
+        <ImageView fx:id="mainImage" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
+    </AnchorPane>
+    <padding>
+        <Insets top="0" bottom="40.0" left="20.0" right="20.0"/>
+    </padding>
+</fx:root>

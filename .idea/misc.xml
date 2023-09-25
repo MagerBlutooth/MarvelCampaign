@@ -5,6 +5,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/SnapAdventure/pom.xml" />
+        <option value="$PROJECT_DIR$/SnapRecords/pom.xml" />
+        <option value="$PROJECT_DIR$/SnapCampaign/pom.xml" />
       </list>
     </option>
   </component>
