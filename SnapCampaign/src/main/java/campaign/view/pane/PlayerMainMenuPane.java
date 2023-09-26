@@ -4,7 +4,7 @@ import campaign.controller.ControllerDatabase;
 import campaign.controller.PlayerMainMenuController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class PlayerMainMenuPane extends CampaignPane {
+public class PlayerMainMenuPane extends BasicPane {
 
     PlayerMainMenuController controller;
     public PlayerMainMenuPane()

@@ -5,22 +5,23 @@ import campaign.model.database.MasterThingDatabase;
 import campaign.view.GameStage;
 import campaign.view.SplashScreen;
 import campaign.view.fxml.FXMLCampaignGrabber;
+import campaign.view.fxml.FXMLGrabber;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
-import adventure.controller.AdventureMainMenuController;
-import adventure.view.pane.AdventureMainMenuPane;
+import adventure.controller.AdvMainMenuController;
+import adventure.view.pane.AdvMainMenuPane;
 
 import static adventure.view.GameMain.isSplashLoaded;
 
 public class GameMainScreen extends GameStage {
-    AdventureMainMenuController controller;
+    AdvMainMenuController controller;
 
-    AdventureMainMenuPane mainPane;
+    AdvMainMenuPane mainPane;
 
     public GameMainScreen() {
-        mainPane = new AdventureMainMenuPane();
+        mainPane = new AdvMainMenuPane();
         FXMLAdventureGrabber fxmlAdventureGrabber = new FXMLAdventureGrabber();
-        fxmlAdventureGrabber.grabFXML("adventureMainMenu.fxml", mainPane);
+        fxmlAdventureGrabber.grabFXML("mainMenu.fxml", mainPane);
         controller = fxmlAdventureGrabber.getController();
         if(!isSplashLoaded)
             loadSplashScreen();
@@ -49,14 +50,14 @@ public class GameMainScreen extends GameStage {
         fadeIn.setOnFinished((e) -> {
             db.loadDatabase();
             fadeOut.play();
-            FXMLCampaignGrabber grabber = new FXMLCampaignGrabber();
-            grabber.grabFXML("adventureMainMenu.fxml", mainPane);
-            AdventureMainMenuController mainMenuController = grabber.getController();
+            FXMLAdventureGrabber grabber = new FXMLAdventureGrabber();
+            grabber.grabFXML("mainMenu.fxml", mainPane);
+            AdvMainMenuController mainMenuController = grabber.getController();
             mainMenuController.initialize(db);
         });
     }
 
-    public AdventureMainMenuController getController()
+    public AdvMainMenuController getController()
     {
         return controller;
     }

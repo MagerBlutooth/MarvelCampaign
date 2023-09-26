@@ -1,6 +1,6 @@
 package records.controller;
 
-import campaign.controller.CampaignPaneController;
+import campaign.controller.BasePaneController;
 import campaign.controller.ControllerDatabase;
 import campaign.controller.grid.GridActionController;
 import records.view.HallOfFameControlNode;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HallOfFameManagerController extends CampaignPaneController implements GridActionController<HallOfFameEntry> {
+public class HallOfFameManagerController extends BasePaneController implements GridActionController<HallOfFameEntry> {
 
     @FXML
     Button exitButton;

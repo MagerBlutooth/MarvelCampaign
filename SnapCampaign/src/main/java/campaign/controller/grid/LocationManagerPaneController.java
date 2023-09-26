@@ -13,7 +13,7 @@ import campaign.view.manager.LocationManager;
 import campaign.view.node.control.ControlNode;
 import campaign.view.pane.LocationEditorPane;
 
-public class LocationManagerPaneController extends ManagerPaneController<Location> {
+public class LocationManagerPaneController extends ManagerPaneController<Location, ControllerDatabase> {
     @FXML
     LocationManager locationManager;
 

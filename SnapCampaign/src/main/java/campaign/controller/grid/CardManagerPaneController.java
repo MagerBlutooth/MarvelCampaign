@@ -14,7 +14,7 @@ import campaign.view.node.control.ControlNode;
 import campaign.view.pane.editor.CardEditorPane;
 
 
-public class CardManagerPaneController extends ManagerPaneController<Card> {
+public class CardManagerPaneController extends ManagerPaneController<Card, ControllerDatabase> {
     @FXML
     CardManager cardManager;
     @FXML
@@ -49,6 +49,7 @@ public class CardManagerPaneController extends ManagerPaneController<Card> {
 
     @Override
     public void editSubject(ControlNode<Card> node) {
+
         CardEditorPane cardEditorPane = new CardEditorPane();
         cardEditorPane.initialize(controllerDatabase, ViewSize.LARGE, (Card)node.getSubject());
         changeScene(cardEditorPane);

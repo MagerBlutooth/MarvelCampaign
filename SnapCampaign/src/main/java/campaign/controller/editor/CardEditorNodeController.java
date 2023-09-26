@@ -19,7 +19,7 @@ import campaign.view.grabber.ImageGrabber;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardEditorNodeController extends CampaignNodeController {
+public class CardEditorNodeController extends BasicNodeController {
 
     ControllerDatabase database;
     Card card;

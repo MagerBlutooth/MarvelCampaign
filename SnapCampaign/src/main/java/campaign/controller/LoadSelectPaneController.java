@@ -7,7 +7,7 @@ import campaign.view.pane.MainMenuPane;
 import campaign.view.pane.PlayerLoadPane;
 import campaign.view.pane.WatcherLoadPane;
 
-public class LoadSelectPaneController extends CampaignBasePaneController {
+public class LoadSelectPaneController extends ButtonToolBarPaneController {
 
     @FXML
     VBox mainBox;

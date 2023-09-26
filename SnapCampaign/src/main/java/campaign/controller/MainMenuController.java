@@ -11,7 +11,7 @@ import campaign.view.pane.EditorMenuPane;
 import campaign.view.pane.LoadSelectPane;
 import campaign.view.pane.OptionsMenuPane;
 
-public class MainMenuController extends CampaignPaneController {
+public class MainMenuController extends BasePaneController {
 
     @FXML
     StackPane mainPane;

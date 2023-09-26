@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import campaign.view.pane.CampaignPane;
-import campaign.view.pane.CampaignStage;
+import campaign.view.pane.BasicPane;
+import campaign.view.pane.BasicStage;
 
 public class ButtonToolBarController {
 
@@ -18,9 +18,9 @@ public class ButtonToolBarController {
     Pane spacerPane;
     @FXML
     Button exitButton;
-    CampaignPane backPane;
+    BasicPane backPane;
 
-    public void initialize(CampaignPane bP) {
+    public void initialize(BasicPane bP) {
 
         backPane = bP;
         HBox.setHgrow(spacerPane, Priority.ALWAYS);
@@ -35,9 +35,9 @@ public class ButtonToolBarController {
         Platform.exit();
     }
 
-    public void changeScene(CampaignPane cPane)
+    public void changeScene(BasicPane cPane)
     {
-        CampaignStage primaryWindow = (CampaignStage) getCurrentScene().getWindow();
+        BasicStage primaryWindow = (BasicStage) getCurrentScene().getWindow();
         primaryWindow.initialize(cPane);
         primaryWindow.centerOnScreen();
     }

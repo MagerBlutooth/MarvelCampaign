@@ -8,7 +8,7 @@ import campaign.view.pane.manager.CardManagerPane;
 import campaign.view.pane.manager.LocationManagerPane;
 import campaign.view.pane.manager.TokenManagerPane;
 
-public class EditMenuController extends CampaignBasePaneController {
+public class EditMenuController extends ButtonToolBarPaneController {
     @FXML
     Button cardEditorButton;
     @FXML

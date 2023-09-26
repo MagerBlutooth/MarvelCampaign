@@ -17,7 +17,7 @@ import campaign.view.pane.WatcherLoadPane;
 import java.io.File;
 import java.util.List;
 
-public class WatcherLoadPaneController extends CampaignBasePaneController {
+public class WatcherLoadPaneController extends ButtonToolBarPaneController {
 
     @FXML
     WatcherLoadPane loadPane;
@@ -59,7 +59,7 @@ public class WatcherLoadPaneController extends CampaignBasePaneController {
 
     public void loadCampaign(String p1, String p2)
     {
-        CampaignDatabase cDatabase = new CampaignDatabase(controllerDatabase.getMasterThingDatabase());
+        CampaignDatabase cDatabase = new CampaignDatabase(controllerDatabase.getAdvMasterThingDatabase());
         Faction shield = new Faction(p1, cDatabase);
         Faction hydra = new Faction(p2, cDatabase);
         WatcherControlPane watcherControlPane = new WatcherControlPane();

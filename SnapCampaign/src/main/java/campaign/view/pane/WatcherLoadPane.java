@@ -4,7 +4,7 @@ import campaign.controller.ControllerDatabase;
 import campaign.controller.WatcherLoadPaneController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class WatcherLoadPane extends CampaignPane {
+public class WatcherLoadPane extends BasicPane {
 
     WatcherLoadPaneController controller;
 

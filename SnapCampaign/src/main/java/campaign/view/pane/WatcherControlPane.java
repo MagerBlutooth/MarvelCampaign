@@ -5,7 +5,7 @@ import campaign.controller.WatcherControlPaneController;
 import campaign.model.thing.Campaign;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class WatcherControlPane extends CampaignPane {
+public class WatcherControlPane extends BasicPane {
 
     WatcherControlPaneController controller;
 

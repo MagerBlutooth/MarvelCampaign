@@ -10,7 +10,12 @@ module SnapAdventure {
     exports adventure.view;
     exports adventure.controller;
     exports adventure.model;
+    exports adventure.controller.manager;
+    exports adventure.view.node;
     opens adventure.view;
+    opens adventure.view.node;
+    opens adventure.controller.manager;
     opens adventure.controller;
     opens adventure.model;
+    opens fxml_adventure;
 }

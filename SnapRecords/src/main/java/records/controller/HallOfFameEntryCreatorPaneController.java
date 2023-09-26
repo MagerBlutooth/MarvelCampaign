@@ -1,6 +1,6 @@
 package records.controller;
 
-import campaign.controller.CampaignPaneController;
+import campaign.controller.BasePaneController;
 import campaign.controller.ControllerDatabase;
 import campaign.controller.grid.GridActionController;
 import javafx.collections.FXCollections;
@@ -13,7 +13,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import campaign.model.constants.CampaignConstants;
 import campaign.model.database.ThingDatabase;
-import campaign.model.database.ThingSaver;
 import campaign.model.thing.Card;
 import campaign.model.thing.CardList;
 import campaign.model.thing.ThingType;
@@ -32,7 +31,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class HallOfFameEntryCreatorPaneController extends CampaignPaneController implements GridActionController<Card> {
+public class HallOfFameEntryCreatorPaneController extends BasePaneController implements GridActionController<Card> {
 
     @FXML
     CardManager cardManager;

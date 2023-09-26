@@ -3,12 +3,12 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import campaign.view.pane.CampaignPrepPane?>
+<?import campaign.view.pane.BasicPrepPane?>
 <?import campaign.view.node.FactionSelectNode?>
 <?import campaign.view.button.ButtonToolBar?>
-<fx:root type="CampaignPrepPane"
+<fx:root type="BasicPrepPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css/mainStyle.css" fx:controller="campaign.controller.CampaignPrepPaneController" prefWidth="1800" prefHeight="900">
+         stylesheets="@../css/mainStyle.css" fx:controller="campaign.controller.BasePrepPaneController" prefWidth="1800" prefHeight="900">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
     <ScrollPane hbarPolicy="NEVER">

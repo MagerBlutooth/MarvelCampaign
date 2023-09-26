@@ -5,11 +5,11 @@ import campaign.controller.grid.AgentSelectorGridController;
 import campaign.model.thing.Card;
 import campaign.model.thing.Faction;
 import campaign.view.fxml.FXMLCampaignGrabber;
-import campaign.view.pane.CampaignPane;
+import campaign.view.pane.BasicPane;
 
 import java.util.List;
 
-public class AgentSelectorGrid extends CampaignPane {
+public class AgentSelectorGrid extends BasicPane {
 
     AgentSelectorGridController controller;
 

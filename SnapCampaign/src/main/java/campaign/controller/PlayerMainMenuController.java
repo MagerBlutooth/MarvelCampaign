@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane;
 import campaign.model.database.MasterThingDatabase;
 import campaign.view.pane.PlayerLoadPane;
 
-public class PlayerMainMenuController extends CampaignPaneController {
+public class PlayerMainMenuController extends BasePaneController {
 
     @FXML
     StackPane mainPane;

@@ -4,7 +4,7 @@ import campaign.controller.ControllerDatabase;
 import campaign.controller.PlayerLoadPaneController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class PlayerLoadPane extends CampaignPane {
+public class PlayerLoadPane extends BasicPane {
     PlayerLoadPaneController controller;
 
     public PlayerLoadPane()

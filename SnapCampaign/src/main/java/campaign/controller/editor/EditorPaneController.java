@@ -1,6 +1,6 @@
 package campaign.controller.editor;
 
-import campaign.controller.CampaignBasePaneController;
+import campaign.controller.ButtonToolBarPaneController;
 import campaign.controller.ControllerDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
@@ -8,7 +8,7 @@ import campaign.model.thing.Thing;
 import campaign.view.pane.editor.EditorPane;
 
 
-public abstract class EditorPaneController extends CampaignBasePaneController {
+public abstract class EditorPaneController extends ButtonToolBarPaneController {
 
     @FXML
     Rectangle imageView;

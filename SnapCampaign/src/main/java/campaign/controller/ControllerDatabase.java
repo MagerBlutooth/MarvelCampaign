@@ -66,7 +66,7 @@ public class ControllerDatabase {
         return masterThingDatabase.getLocationsAndMedbay();
     }
 
-    public MasterThingDatabase getMasterThingDatabase() {
+    public MasterThingDatabase getAdvMasterThingDatabase() {
         return masterThingDatabase;
     }
 

@@ -8,7 +8,7 @@
 <?import campaign.view.node.FactionDisplayNode?>
 <fx:root type="CampaignStartPane" fx:id="startPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css/mainStyle.css" fx:controller="campaign.controller.CampaignStartPaneController" prefWidth="1600" prefHeight="800">
+         stylesheets="@../css/mainStyle.css" fx:controller="campaign.controller.BaseStartPaneController" prefWidth="1600" prefHeight="800">
     <VBox>
         <ButtonToolBar fx:id="buttonToolBar"/>
     <ScrollPane id="scroll" hbarPolicy="NEVER">

@@ -4,7 +4,7 @@ import campaign.controller.ControllerDatabase;
 import campaign.controller.LoadSelectPaneController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class LoadSelectPane extends CampaignPane {
+public class LoadSelectPane extends BasicPane {
 
     LoadSelectPaneController controller;
     public LoadSelectPane()

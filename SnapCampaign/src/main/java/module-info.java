@@ -58,4 +58,5 @@ module SnapCampaign {
     exports campaign.view.pane.manager;
     exports campaign.model.helper;
     exports campaign.view.pane.editor;
+    exports campaign.view.grabber;
 }

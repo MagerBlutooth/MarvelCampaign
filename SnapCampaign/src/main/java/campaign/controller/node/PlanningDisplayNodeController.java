@@ -28,7 +28,7 @@ public class PlanningDisplayNodeController {
 
     public void initialize(ControllerDatabase d, Faction f) {
         controllerDatabase = d;
-        masterThingDatabase = d.getMasterThingDatabase();
+        masterThingDatabase = d.getAdvMasterThingDatabase();
         passwordArea.setText("");
         planningSheet.initialize(f.getFactionLabel());
     }

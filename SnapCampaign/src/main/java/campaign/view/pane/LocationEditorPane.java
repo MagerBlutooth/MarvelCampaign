@@ -5,7 +5,7 @@ import campaign.controller.editor.LocationEditorPaneController;
 import campaign.model.thing.Location;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class LocationEditorPane extends CampaignPane {
+public class LocationEditorPane extends BasicPane {
 
     LocationEditorPaneController controller;
     public LocationEditorPane()

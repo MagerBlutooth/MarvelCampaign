@@ -12,7 +12,7 @@ import campaign.view.node.control.ControlNode;
 import campaign.view.pane.editor.TokenEditorPane;
 
 
-public class TokenManagerPaneController extends ManagerPaneController<Token> {
+public class TokenManagerPaneController extends ManagerPaneController<Token, ControllerDatabase> {
     @FXML
     TokenManager tokenManager;
 

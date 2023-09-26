@@ -11,7 +11,7 @@ import campaign.model.thing.Token;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TokenEditorNodeController extends CampaignNodeController<Token> {
+public class TokenEditorNodeController extends BasicNodeController<Token> {
 
     Token token;
     @FXML

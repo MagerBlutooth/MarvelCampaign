@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.CampaignBasePaneController;
+import campaign.controller.ButtonToolBarPaneController;
 import campaign.controller.ControllerDatabase;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -17,10 +17,10 @@ import campaign.view.node.control.ControlNode;
 import campaign.view.pane.EditorMenuPane;
 
 //Generic controller used for controlling a full window
-public abstract class ManagerPaneController<T extends Thing> extends CampaignBasePaneController implements GridActionController<T> {
+public abstract class ManagerPaneController<T extends Thing, C extends ControllerDatabase> extends ButtonToolBarPaneController<C> implements GridActionController<T> {
 
     @Override
-    public void initialize(ControllerDatabase database)
+    public void initialize(C database)
     {
         super.initialize(database);
     }

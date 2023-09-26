@@ -18,15 +18,15 @@ import campaign.view.ViewSize;
 
 public class ControlNode<T extends Thing> extends StackPane {
 
-    ControllerDatabase controllerDatabase;
-    private T subject;
+    protected ControllerDatabase controllerDatabase;
+    protected T subject;
 
     private boolean enabled;
 
-    ImageView imageView;
+    protected ImageView imageView;
 
-    ThingType thingType;
-    AnchorPane starPane;
+    protected ThingType thingType;
+    protected AnchorPane starPane;
 
     public Image getImage() {
         return imageView.getImage();

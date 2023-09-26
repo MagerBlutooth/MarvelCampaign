@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import static campaign.model.constants.CampaignConstants.STRING_SEPARATOR;
 
-public class WatcherControlPaneController extends CampaignBasePaneController {
+public class WatcherControlPaneController extends ButtonToolBarPaneController {
 
     @FXML
     HBox mainBox;
@@ -78,7 +78,7 @@ public class WatcherControlPaneController extends CampaignBasePaneController {
     public void loadShieldView()
     {
         String deployString = shieldPassword.getText().trim();
-        MasterThingDatabase masterThingDatabase = controllerDatabase.getMasterThingDatabase();
+        MasterThingDatabase masterThingDatabase = controllerDatabase.getAdvMasterThingDatabase();
         CampaignDatabase campaignDatabase = new CampaignDatabase(masterThingDatabase);
         String[] splitDeploy = deployString.split(STRING_SEPARATOR);
         FactionLabel name = FactionLabel.valueOf(splitDeploy[0].toUpperCase());
@@ -96,7 +96,7 @@ public class WatcherControlPaneController extends CampaignBasePaneController {
     public void loadHydraView()
     {
         String deployString = hydraPassword.getText().trim();
-        MasterThingDatabase masterThingDatabase = controllerDatabase.getMasterThingDatabase();
+        MasterThingDatabase masterThingDatabase = controllerDatabase.getAdvMasterThingDatabase();
         CampaignDatabase campaignDatabase = new CampaignDatabase(masterThingDatabase);
         String[] splitDeploy = deployString.split(STRING_SEPARATOR);
         FactionLabel name = FactionLabel.valueOf(splitDeploy[0].toUpperCase());

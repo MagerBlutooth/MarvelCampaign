@@ -3,7 +3,7 @@ package campaign.view.button;
 import campaign.controller.ButtonToolBarController;
 import javafx.scene.layout.HBox;
 import campaign.view.fxml.FXMLCampaignGrabber;
-import campaign.view.pane.CampaignPane;
+import campaign.view.pane.BasicPane;
 
 public class ButtonToolBar extends HBox {
 
@@ -16,7 +16,7 @@ public class ButtonToolBar extends HBox {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(CampaignPane backPane)
+    public void initialize(BasicPane backPane)
     {
         controller.initialize(backPane);
     }

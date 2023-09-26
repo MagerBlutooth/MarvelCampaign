@@ -1,14 +1,14 @@
 package records.view;
 
 import campaign.controller.ControllerDatabase;
-import campaign.view.pane.CampaignPane;
+import campaign.view.pane.BasicPane;
 import records.controller.HallOfFameEntryCreatorPaneController;
 import records.model.HallOfFameEntry;
 import records.view.fxml.FXMLRecordGrabber;
 
 import java.util.List;
 
-public class HallOfFameCreatorPane extends CampaignPane {
+public class HallOfFameCreatorPane extends BasicPane {
 
     HallOfFameEntryCreatorPaneController controller;
     public HallOfFameCreatorPane()

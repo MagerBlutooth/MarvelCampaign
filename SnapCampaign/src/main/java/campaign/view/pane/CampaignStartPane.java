@@ -1,12 +1,12 @@
 package campaign.view.pane;
 
-import campaign.controller.CampaignStartPaneController;
+import campaign.controller.BaseStartPaneController;
 import campaign.controller.ControllerDatabase;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class CampaignStartPane extends CampaignPane {
+public class CampaignStartPane extends BasicPane {
 
-    CampaignStartPaneController controller;
+    BaseStartPaneController controller;
 
     public CampaignStartPane()
     {

@@ -1,6 +1,6 @@
 package campaign.view;
 
-import campaign.view.pane.CampaignStage;
+import campaign.view.pane.BasicStage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -8,7 +8,7 @@ import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
-public class GameStage extends CampaignStage {
+public class GameStage extends BasicStage {
 
     private double xOffset;
     private double yOffset;

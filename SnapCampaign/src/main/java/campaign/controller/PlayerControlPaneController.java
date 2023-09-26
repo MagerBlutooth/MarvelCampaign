@@ -24,7 +24,7 @@ import campaign.view.pane.PlayerControlPane;
 
 import static campaign.model.constants.CampaignConstants.STRING_SEPARATOR;
 
-public class PlayerControlPaneController extends CampaignBasePaneController {
+public class PlayerControlPaneController extends ButtonToolBarPaneController {
 
     @FXML
     PlayerControlPane playerControlPane;

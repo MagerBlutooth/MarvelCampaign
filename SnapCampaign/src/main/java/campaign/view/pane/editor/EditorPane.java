@@ -1,7 +1,7 @@
 package campaign.view.pane.editor;
 
-import campaign.view.pane.CampaignPane;
+import campaign.view.pane.BasicPane;
 
-public class EditorPane extends CampaignPane {
+public class EditorPane extends BasicPane {
 
 }

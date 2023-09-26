@@ -4,7 +4,7 @@ import campaign.controller.ControllerDatabase;
 import campaign.controller.EditMenuController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class EditorMenuPane extends CampaignPane {
+public class EditorMenuPane extends BasicPane {
 
     EditMenuController controller;
     public EditorMenuPane() {

@@ -4,7 +4,7 @@ import campaign.controller.ControllerDatabase;
 import campaign.controller.grid.CardManagerPaneController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class CardManagerPane extends ManagerPane{
+public class CardManagerPane extends ManagerPane {
 
     CardManagerPaneController controller;
     public CardManagerPane()

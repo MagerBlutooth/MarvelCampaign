@@ -4,10 +4,10 @@ import javafx.scene.paint.Color;
 
 public class CampaignConstants {
 
-    public static final String CARD_FILE = "cardList.csv";
-    public static final String LOCATION_FILE = "locationList.csv";
-    public static final String TOKEN_FILE = "tokenList.csv";
-    public static final String CAMPAIGN_FILE = "campaign.txt";
+    public static final String CARD_FILE = "data/cardList.csv";
+    public static final String LOCATION_FILE = "data/locationList.csv";
+    public static final String TOKEN_FILE = "data/tokenList.csv";
+    public static final String CAMPAIGN_FILE = "data/campaign.txt";
     public static final int STARTING_LOCS = 10;
     public static final int STARTING_CARDS = 35;
     public static final int STARTING_CUBES = 10;

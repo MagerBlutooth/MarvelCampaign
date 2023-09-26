@@ -3,7 +3,7 @@ package campaign.controller;
 import javafx.scene.Scene;
 import campaign.view.pane.MainMenuPane;
 
-public class OptionsMenuPaneController extends CampaignBasePaneController {
+public class OptionsMenuPaneController extends ButtonToolBarPaneController {
 
     @Override
     public Scene getCurrentScene() {

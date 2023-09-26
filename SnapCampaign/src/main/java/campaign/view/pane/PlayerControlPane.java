@@ -6,7 +6,7 @@ import campaign.model.database.CampaignDatabase;
 import campaign.model.thing.Faction;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class PlayerControlPane extends CampaignPane {
+public class PlayerControlPane extends BasicPane {
 
     PlayerControlPaneController controller;
 

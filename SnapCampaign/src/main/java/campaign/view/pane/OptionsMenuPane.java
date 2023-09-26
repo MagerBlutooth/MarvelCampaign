@@ -4,7 +4,7 @@ import campaign.controller.ControllerDatabase;
 import campaign.controller.OptionsMenuPaneController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
-public class OptionsMenuPane extends CampaignPane {
+public class OptionsMenuPane extends BasicPane {
 
     OptionsMenuPaneController controller;
 
