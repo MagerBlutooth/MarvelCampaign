@@ -108,4 +108,9 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         Boss boss = getBoss(card);
         boss.setEnabled(!boss.isEnabled());
     }
+
+    public void toggleSection(Location loc) {
+        Section s = getSection(loc);
+        s.setEnabled(!loc.isEnabled());
+    }
 }

@@ -16,7 +16,7 @@ public class AdvCardManagerPane extends ManagerPane {
     {
 
         FXMLAdventureGrabber grabber = new FXMLAdventureGrabber();
-        grabber.grabFXML("cardManagerPane.fxml", this);
+        grabber.grabFXML("bossManagerPane.fxml", this);
         controller = grabber.getController();
     }
 

@@ -20,7 +20,7 @@ public abstract class CampaignNode extends StackPane {
         getController().initialize(d, t);
     }
 
-    public <V extends BasicNodeController<Thing>> V getController()
+    public <V extends BasicNodeController<ControllerDatabase, Thing>> V getController()
     {
         return fxmlCampaignGrabber.getController();
     }

@@ -1,0 +1,24 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import adventure.view.pane.AdvLocationManagerPane?>
+<?import javafx.scene.layout.VBox?>
+<?import campaign.view.button.ButtonToolBar?>
+<?import campaign.view.manager.LocationManager?>
+<fx:root type="adventure.view.pane.AdvLocationManagerPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvLocationManagerPaneController"
+         prefWidth="1200" prefHeight="800">
+    <VBox alignment="CENTER">
+        <ButtonToolBar fx:id="buttonToolBar"/>
+    <HBox spacing="30.0" alignment="CENTER">
+        <VBox alignment="CENTER">
+            <LocationManager fx:id="locationManager"/>
+        </VBox>
+    </HBox>
+    </VBox>
+
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

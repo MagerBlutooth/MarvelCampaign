@@ -3,8 +3,8 @@ package adventure.controller.manager;
 import adventure.model.AdvControllerDatabase;
 import adventure.model.Boss;
 import adventure.view.node.BossControlNode;
-import adventure.view.pane.AdvCardEditorPane;
-import adventure.view.pane.AdvEditMenuPane;
+import adventure.view.pane.BossEditorPane;
+import adventure.view.pane.AdvEditorMenuPane;
 import campaign.controller.grid.GridActionController;
 import campaign.controller.grid.ManagerPaneController;
 import campaign.model.thing.Card;
@@ -16,6 +16,7 @@ import campaign.view.manager.CardManager;
 import campaign.view.menu.CardFilterMenuButton;
 import campaign.view.menu.CardSortMenuButton;
 import campaign.view.node.control.ControlNode;
+import campaign.view.pane.EditorMenuPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -32,12 +33,12 @@ public class AdvCardManagerPaneController extends ManagerPaneController<Card, Ad
     @FXML
     CardFilterMenuButton filterButton;
 
-    @FXML
-    public void goBack()
-    {
-        AdvEditMenuPane menuPane = new AdvEditMenuPane();
+    @Override
+    public void initializeButtonToolBar() {
+
+        AdvEditorMenuPane menuPane = new AdvEditorMenuPane();
         menuPane.initialize(controllerDatabase);
-        changeScene(menuPane);
+        buttonToolBar.initialize(menuPane);
     }
 
     @Override
@@ -62,8 +63,9 @@ public class AdvCardManagerPaneController extends ManagerPaneController<Card, Ad
 
     @Override
     public void editSubject(ControlNode<Card> node) {
-        AdvCardEditorPane cardEditorPane = new AdvCardEditorPane();
-        cardEditorPane.initialize(controllerDatabase, ViewSize.LARGE, node.getSubject());
+        BossEditorPane cardEditorPane = new BossEditorPane();
+        Boss b = controllerDatabase.getBoss(node.getSubject());
+        cardEditorPane.initialize(controllerDatabase, b);
         changeScene(cardEditorPane);
     }
 
@@ -88,14 +90,6 @@ public class AdvCardManagerPaneController extends ManagerPaneController<Card, Ad
         editMenuItem.setOnAction(actionEvent -> editSubject(n));
         rightClickMenu.getItems().add(editMenuItem);
         n.setOnContextMenuRequested(e -> rightClickMenu.show(n, e.getScreenX(), e.getScreenY()));
-    }
-
-
-    public void editMenuItem(Card card)
-    {
-        AdvCardEditorPane cardEditorPane = new AdvCardEditorPane();
-        cardEditorPane.initialize(controllerDatabase, ViewSize.MEDIUM, card);
-        changeScene(cardEditorPane);
     }
     @Override
     public void createContextMenu(ControlNode<Card> n) {

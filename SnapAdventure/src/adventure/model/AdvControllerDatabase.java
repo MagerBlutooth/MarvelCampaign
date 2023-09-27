@@ -4,8 +4,6 @@ import campaign.controller.ControllerDatabase;
 import campaign.model.database.MasterThingDatabase;
 import campaign.model.database.ThingDatabase;
 import campaign.model.thing.*;
-import campaign.view.IconImage;
-import campaign.view.MasterImageCache;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,5 +86,12 @@ public class AdvControllerDatabase extends ControllerDatabase {
 
     public Boss getBoss(Card card) {
         return advMasterThingDatabase.getBoss(card);
+    }
+
+    public Section getSection(Location location) {
+        return advMasterThingDatabase.getSection(location);
+    }
+    public void toggleSection(Location loc) {
+        advMasterThingDatabase.toggleSection(loc);
     }
 }

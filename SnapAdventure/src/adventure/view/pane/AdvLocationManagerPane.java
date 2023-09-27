@@ -1,5 +1,7 @@
 package adventure.view.pane;
 
+import adventure.controller.manager.AdvLocationManagerPaneController;
+import adventure.model.AdvControllerDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.controller.ControllerDatabase;
 import campaign.controller.grid.LocationManagerPaneController;
@@ -8,16 +10,16 @@ import campaign.view.pane.manager.ManagerPane;
 
 public class AdvLocationManagerPane extends ManagerPane {
 
-    LocationManagerPaneController controller;
+    AdvLocationManagerPaneController controller;
     public AdvLocationManagerPane()
     {
 
         FXMLAdventureGrabber grabber = new FXMLAdventureGrabber();
-        grabber.grabFXML("locationManagerPane.fxml", this);
+        grabber.grabFXML("sectionManagerPane.fxml", this);
         controller = grabber.getController();
     }
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(AdvControllerDatabase database)
     {
         controller.initialize(database);
     }

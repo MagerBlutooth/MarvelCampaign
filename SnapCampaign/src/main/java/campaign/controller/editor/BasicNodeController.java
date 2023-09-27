@@ -3,13 +3,13 @@ package campaign.controller.editor;
 import campaign.controller.ControllerDatabase;
 import campaign.model.thing.Thing;
 
-public abstract class BasicNodeController<T extends Thing>{
+public abstract class BasicNodeController<C extends ControllerDatabase, T extends Thing>{
 
-    ControllerDatabase database;
+    C database;
     Thing subject;
 
-    public void initialize(ControllerDatabase d, T t) {
-        database = d;
+    public void initialize(C db, T t) {
+        database = db;
         subject = t;
     }
 }

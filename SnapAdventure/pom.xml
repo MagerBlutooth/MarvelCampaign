@@ -65,7 +65,7 @@
             <version>5.7.1</version>
         </dependency>
         <dependency>
-            <groupId>marvel</groupId>
+            <groupId>marvelsnap</groupId>
             <artifactId>SnapCampaign</artifactId>
             <version>1.0</version>
             <scope>compile</scope>

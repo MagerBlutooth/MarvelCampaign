@@ -3,6 +3,7 @@ package adventure.controller;
 import adventure.model.AdvControllerDatabase;
 import adventure.view.pane.AdvCardManagerPane;
 import adventure.view.pane.AdvLocationManagerPane;
+import adventure.view.pane.AdvMainMenuPane;
 import campaign.controller.ButtonToolBarPaneController;
 import campaign.view.pane.MainMenuPane;
 import javafx.fxml.FXML;
@@ -35,7 +36,7 @@ public class AdvEditMenuPaneController extends ButtonToolBarPaneController<AdvCo
 
     @Override
     public void initializeButtonToolBar() {
-        MainMenuPane mainMenuPane = new MainMenuPane();
+        AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
         mainMenuPane.initialize(controllerDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }

@@ -1,18 +1,14 @@
 package adventure.controller;
 
 import adventure.model.AdvControllerDatabase;
-import adventure.view.pane.AdvEditMenuPane;
+import adventure.view.pane.AdvEditorMenuPane;
 import adventure.view.pane.AdvStartPane;
-import campaign.controller.ControllerDatabase;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import campaign.model.database.MasterThingDatabase;
-import campaign.view.pane.CampaignStartPane;
-import campaign.view.pane.EditorMenuPane;
-import campaign.view.pane.LoadSelectPane;
 
 public class AdvMainMenuController extends AdvPaneController {
 
@@ -33,7 +29,7 @@ public class AdvMainMenuController extends AdvPaneController {
     }
 
     public void configureAdventure() {
-        AdvEditMenuPane editorMenuPane = new AdvEditMenuPane();
+        AdvEditorMenuPane editorMenuPane = new AdvEditorMenuPane();
         editorMenuPane.initialize(controllerDatabase);
         changeScene(editorMenuPane);
     }

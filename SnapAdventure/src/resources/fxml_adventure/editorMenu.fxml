@@ -10,7 +10,7 @@
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvEditMenuPaneController">
     <AnchorPane prefWidth="1200" prefHeight="800">
         <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <Text id="title-text" text="Campaign Editor">
+            <Text id="title-text" text="Adventure Editor">
             </Text>
             <VBox alignment="CENTER" spacing="20.0">
                 <Button fx:id="cardEditorButton" text="Cards" onAction="#cardEditor"/>

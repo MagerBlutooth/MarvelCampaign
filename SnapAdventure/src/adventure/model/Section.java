@@ -11,12 +11,14 @@ public class Section extends Thing {
     public Section(Location l)
     {
         location = l;
+        setName(l.getName());
+        setID(l.getID());
         effect = "";
     }
 
     public Section(Section section) {
-        location = section.location;
-        effect = section.effect;
+        location = section.getLocation();
+        effect = section.getEffect();
         setID(section.getID());
         setEnabled(section.isEnabled());
     }
@@ -50,5 +52,13 @@ public class Section extends Thing {
     @Override
     public Section clone() {
        return new Section(this);
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setEffect(String text) {
+        effect = text;
     }
 }

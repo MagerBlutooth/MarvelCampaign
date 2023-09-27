@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import campaign.model.thing.Location;
 
-public class LocationEditorNodeController extends BasicNodeController<Location> {
+public class LocationEditorNodeController extends BasicNodeController<ControllerDatabase, Location> {
 
     @FXML
     TextField nameField;

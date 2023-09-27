@@ -12,7 +12,7 @@ public class LocationSorter {
 
     public LocationSorter()
     {
-        locationSortMode = LocationSortMode.MAP_POSITION;
+        locationSortMode = LocationSortMode.NAME;
     }
 
     public List<Location> sort(List<Location> location)
