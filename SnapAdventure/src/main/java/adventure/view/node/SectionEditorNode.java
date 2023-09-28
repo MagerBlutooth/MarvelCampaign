@@ -1,9 +1,7 @@
 package adventure.view.node;
 
-import adventure.controller.BossEditorNodeController;
 import adventure.controller.SectionEditorNodeController;
 import adventure.model.AdvControllerDatabase;
-import adventure.model.Boss;
 import adventure.model.Section;
 
 public class SectionEditorNode extends AdvNode {

@@ -1,11 +1,7 @@
 package adventure.model;
 
-import campaign.model.database.FactionLabel;
-import campaign.model.database.MasterThingDatabase;
 import campaign.model.database.ThingDatabase;
 import campaign.model.thing.Card;
-import campaign.model.thing.Location;
-import campaign.model.thing.Token;
 
 public class AdventureDatabase {
 
@@ -20,11 +16,15 @@ public class AdventureDatabase {
         sections = masterThingDatabase.getEnabledSections();
     }
 
-    public ThingDatabase<Boss> getBoss() {
+    public ThingDatabase<Boss> getBosses() {
         return bosses;
     }
 
     public ThingDatabase<Section> getSections() {
         return sections;
+    }
+
+    public ThingDatabase<Card> getCards() {
+        return cards;
     }
 }

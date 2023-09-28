@@ -7,6 +7,7 @@ import campaign.model.thing.ThingType;
 public class Section extends Thing {
     Location location;
     String effect;
+    boolean revealed;
 
     public Section(Location l)
     {
@@ -14,6 +15,7 @@ public class Section extends Thing {
         setName(l.getName());
         setID(l.getID());
         effect = "";
+        revealed = false;
     }
 
     public Section(Section section) {
@@ -21,6 +23,7 @@ public class Section extends Thing {
         effect = section.getEffect();
         setID(section.getID());
         setEnabled(section.isEnabled());
+        revealed = section.revealed;
     }
 
     @Override
@@ -61,4 +64,15 @@ public class Section extends Thing {
     public void setEffect(String text) {
         effect = text;
     }
+
+    public void setRevealed(boolean r)
+    {
+        revealed = r;
+    }
+
+    public boolean isRevealed()
+    {
+        return revealed;
+    }
+
 }

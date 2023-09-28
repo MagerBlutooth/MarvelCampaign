@@ -1,12 +1,8 @@
 package adventure.model;
 
-import campaign.model.database.CardLoader;
-import campaign.model.database.LocationLoader;
 import campaign.model.database.ThingDatabase;
-import campaign.model.database.TokenLoader;
 import campaign.model.thing.Card;
 import campaign.model.thing.Location;
-import campaign.model.thing.Token;
 
 import java.util.List;
 

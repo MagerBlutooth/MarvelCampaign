@@ -1,6 +1,7 @@
 package campaign.model.thing;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -78,5 +79,9 @@ public abstract class ThingList<T extends Thing> implements Iterable<T> {
     public int indexOf(T t)
     {
         return things.indexOf(t);
+    }
+
+    public void shuffle() {
+        Collections.shuffle(things);
     }
 }

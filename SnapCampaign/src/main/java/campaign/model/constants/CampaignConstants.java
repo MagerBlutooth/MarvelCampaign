@@ -25,6 +25,7 @@ public class CampaignConstants {
     public static final String STRING_SEPARATOR = ":";
     public static final String CATEGORY_SEPARATOR = ";";
     public static final String SUBCATEGORY_SEPARATOR = "&";
+    public static final String CSV_SEPARATOR = ",";
 
     public static final Color SHIELD_COLOR = Color.DODGERBLUE;
     public static final Color HYDRA_COLOR = Color.CRIMSON;
@@ -36,4 +37,5 @@ public class CampaignConstants {
     public static final int SHIELD_MEDBAY_ID = 100000;
     public static final int HYDRA_MEDBAY_ID = 100001;
     public static final int STARTING_YEAR = 2022;
+
 }

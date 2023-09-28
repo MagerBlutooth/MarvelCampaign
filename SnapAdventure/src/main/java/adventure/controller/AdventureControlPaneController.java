@@ -1,7 +1,7 @@
 package adventure.controller;
 
 import adventure.model.AdvControllerDatabase;
-import adventure.model.Adventure;
+import adventure.model.adventure.Adventure;
 import adventure.model.AdventureDatabase;
 import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdvStartPane;

@@ -1,9 +1,7 @@
 package adventure.view.pane;
 
-import adventure.controller.BossEditorPaneController;
 import adventure.controller.SectionEditorPaneController;
 import adventure.model.AdvControllerDatabase;
-import adventure.model.Boss;
 import adventure.model.Section;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.view.pane.editor.EditorPane;

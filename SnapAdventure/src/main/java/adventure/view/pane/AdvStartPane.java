@@ -2,6 +2,7 @@ package adventure.view.pane;
 
 import adventure.controller.AdvStartPaneController;
 import adventure.model.AdvControllerDatabase;
+import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.view.fxml.FXMLCampaignGrabber;
 import campaign.view.pane.BasicPane;
 
@@ -11,9 +12,9 @@ public class AdvStartPane extends BasicPane {
 
     public AdvStartPane()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("startPane.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLAdventureGrabber fxmlAdventureGrabber = new FXMLAdventureGrabber();
+        fxmlAdventureGrabber.grabFXML("startPane.fxml", this);
+        controller = fxmlAdventureGrabber.getController();
     }
 
     public void initialize(AdvControllerDatabase database)

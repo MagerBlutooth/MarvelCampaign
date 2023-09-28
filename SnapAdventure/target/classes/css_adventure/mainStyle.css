@@ -16,6 +16,11 @@
     -fx-border-color: lightslategray;
 }
 
+#profilePane
+{
+    -fx-border-color: white;
+}
+
 #title
 {
     -fx-font-family: "Komika Slick";

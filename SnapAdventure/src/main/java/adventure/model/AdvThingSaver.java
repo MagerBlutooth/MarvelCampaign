@@ -1,10 +1,7 @@
 package adventure.model;
 
 import campaign.model.database.*;
-import campaign.model.thing.Card;
-import campaign.model.thing.Location;
 import campaign.model.thing.ThingType;
-import campaign.model.thing.Token;
 
 public class AdvThingSaver {
 

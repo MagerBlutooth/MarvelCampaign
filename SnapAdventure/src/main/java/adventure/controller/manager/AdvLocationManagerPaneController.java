@@ -1,22 +1,16 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvControllerDatabase;
-import adventure.model.Boss;
 import adventure.model.Section;
-import adventure.view.node.BossControlNode;
 import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdvEditorMenuPane;
-import adventure.view.pane.BossEditorPane;
 import adventure.view.pane.SectionEditorPane;
 import campaign.controller.grid.GridActionController;
 import campaign.controller.grid.ManagerPaneController;
 import campaign.model.thing.*;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
-import campaign.view.manager.CardManager;
 import campaign.view.manager.LocationManager;
-import campaign.view.menu.CardFilterMenuButton;
-import campaign.view.menu.CardSortMenuButton;
 import campaign.view.node.control.ControlNode;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;

@@ -1,15 +1,12 @@
 package adventure.controller;
 
 import adventure.model.AdvControllerDatabase;
-import adventure.model.Boss;
 import adventure.model.Section;
 import campaign.controller.editor.BasicNodeController;
-import campaign.model.thing.Card;
 import campaign.model.thing.Location;
 import campaign.model.thing.ThingType;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
-import campaign.view.thing.CardView;
 import campaign.view.thing.LocationView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

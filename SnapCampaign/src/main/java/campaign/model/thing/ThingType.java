@@ -1,9 +1,6 @@
 package campaign.model.thing;
 
-import campaign.model.sortFilter.CardSortMode;
-import campaign.model.sortFilter.HallOfFameSortMode;
-import campaign.model.sortFilter.LocationSortMode;
-import campaign.model.sortFilter.TokenSortMode;
+import campaign.model.sortFilter.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +63,20 @@ public enum ThingType {
         public List<String> getSortOptions() {
             List<String> options = new ArrayList<>();
             for (HallOfFameSortMode mode : HallOfFameSortMode.values())
+                options.add(mode.toString());
+            return options;
+        }
+
+        @Override
+        public List<String> getFilterOptions() {
+            return new ArrayList<>();
+        }
+    },
+    WORLD {
+        @Override
+        public List<String> getSortOptions() {
+            List<String> options = new ArrayList<>();
+            for (WorldSortMode mode : WorldSortMode.values())
                 options.add(mode.toString());
             return options;
         }

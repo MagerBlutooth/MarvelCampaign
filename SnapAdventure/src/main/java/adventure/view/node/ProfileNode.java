@@ -1,6 +1,8 @@
 package adventure.view.node;
 
 import adventure.controller.manager.ProfileNodeController;
+import adventure.model.AdvControllerDatabase;
+import adventure.model.adventure.Adventure;
 
 public class ProfileNode extends AdvNode {
 
@@ -10,5 +12,10 @@ public class ProfileNode extends AdvNode {
     {
         fxmlAdventureGrabber.grabFXML("profileNode.fxml", this);
         controller = fxmlAdventureGrabber.getController();
+    }
+
+    public void initialize(String profileString, String profileNum, Adventure adventure)
+    {
+        controller.initialize(profileString, profileNum, adventure);
     }
 }

@@ -4,7 +4,6 @@ import campaign.model.database.DatabaseContext;
 import campaign.model.database.MasterThingDatabase;
 import campaign.model.database.ThingDatabase;
 import campaign.model.thing.*;
-import campaign.view.IconImage;
 
 public class AdvMasterThingDatabase extends MasterThingDatabase {
     AdvThingFactory vFactory;

@@ -2,11 +2,8 @@ package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
 import adventure.model.AdvControllerDatabase;
-import adventure.model.Boss;
 import adventure.model.Section;
-import adventure.view.node.BossEditorNode;
 import adventure.view.node.SectionEditorNode;
-import adventure.view.pane.AdvCardManagerPane;
 import adventure.view.pane.AdvLocationManagerPane;
 import campaign.model.thing.ThingType;
 import campaign.view.grabber.ThingImageGrabber;
