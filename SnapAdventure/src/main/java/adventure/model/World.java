@@ -12,6 +12,7 @@ public class World extends Thing {
     Section section4;
     Boss boss;
     AdventureDatabase database;
+    int currentSectionNum;
 
     public World(AdventureDatabase db)
     {
@@ -26,6 +27,7 @@ public class World extends Thing {
         section3 = s3;
         section4 = s4;
         boss = b;
+        currentSectionNum = 1;
     }
 
     public World(World world) {
@@ -35,6 +37,7 @@ public class World extends Thing {
         section3 = world.section3;
         section4 = world.section4;
         boss = world.boss;
+        currentSectionNum = world.getCurrentSectionNum();
     }
 
     @Override
@@ -66,5 +69,50 @@ public class World extends Thing {
     @Override
     public World clone() {
         return new World(this);
+    }
+
+    public Section getFirstSection() {
+        return section1;
+    }
+
+    public Section getSecondSection()
+    {
+        return section2;
+    }
+
+    public Section getThirdSection()
+    {
+        return section3;
+    }
+
+    public Section getFourthSection()
+    {
+        return section4;
+    }
+
+    public Boss getBoss() {
+        return boss;
+    }
+
+    public Section getCurrentSection() {
+        switch(currentSectionNum)
+        {
+            case 2:
+                return section2;
+            case 3:
+                return section3;
+            case 4:
+                return section4;
+            default:
+                return section1;
+        }
+    }
+
+    public int getCurrentSectionNum() {
+        return currentSectionNum;
+    }
+    public void setCurrentSectionNum(int cs)
+    {
+        currentSectionNum = cs;
     }
 }

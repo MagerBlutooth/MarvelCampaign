@@ -18,8 +18,8 @@ public class AdventureControlPane extends EditorPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvControllerDatabase db, Adventure adventure)
+    public void initialize(AdvControllerDatabase db, Adventure a)
     {
-        controller.initialize(db, adventure);
+        controller.initialize(db, a);
     }
 }

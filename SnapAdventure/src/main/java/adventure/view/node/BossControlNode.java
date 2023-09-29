@@ -1,5 +1,6 @@
 package adventure.view.node;
 
+import adventure.model.Boss;
 import campaign.controller.ControllerDatabase;
 import campaign.model.thing.Card;
 import campaign.model.thing.ThingType;
@@ -11,42 +12,30 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class BossControlNode extends ControlNode<Card> {
+public class BossControlNode extends ControlNode<Boss> {
 
+    boolean revealed;
 
     @Override
-        public void initialize(ControllerDatabase db, Card c, IconImage i, ViewSize v, boolean blind) {
-
+        public void initialize(ControllerDatabase db, Boss b, IconImage i, ViewSize v, boolean revealed) {
             controllerDatabase = db;
             thingType = ThingType.CARD;
-            subject = c;
+            subject = b;
             imageView.setImage(i);
             imageView.setFitWidth(v.getSizeVal());
             imageView.setFitHeight(v.getSizeVal());
-            setEnabled(c.isEnabled());
-            if(!blind && c.isCaptain())
-                createCaptainView(v);
-            setDamage(c.isWounded());
-            setCaptain(c.isCaptain());
+            setEnabled(b.isEnabled());
+            if(!revealed)
+                unreveal();
         }
 
-        private void createCaptainView(ViewSize v) {
-            starPane.setMinSize(v.getSizeVal(), v.getSizeVal());
-            starPane.setMaxSize(v.getSizeVal(),v.getSizeVal());
-            ImageView captainStar = new ImageView(grabStarIcon());
-            captainStar.setFitWidth(30);
-            captainStar.setFitHeight(30);
-            AnchorPane.setLeftAnchor(captainStar, 0.0);
-            AnchorPane.setBottomAnchor(captainStar, 0.0);
-            starPane.getChildren().add(captainStar);
-            this.getChildren().add(starPane);
-            starPane.toFront();
-            starPane.setVisible(false);
-        }
+    public void unreveal() {
+        imageView.setImage(controllerDatabase.grabBlankImage(ThingType.LOCATION));
+        revealed = false;
+    }
 
-        private Image grabStarIcon() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabStarImage();
-        }
-
+    public void reveal() {
+        imageView.setImage(controllerDatabase.grabImage(subject, ThingType.LOCATION));
+        revealed = true;
+    }
 }

@@ -1,4 +1,4 @@
-package adventure.model.sorter;
+package campaign.model.sortFilter;
 
 public enum BossSortMode {
     NAME("Name");

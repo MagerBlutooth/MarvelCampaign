@@ -31,7 +31,7 @@ public class AdvControllerDatabase extends ControllerDatabase {
         return advMasterThingDatabase.lookupDatabase(type);
     }
 
-    private List<Boss> getBosses() {
+    public List<Boss> getBosses() {
         return advMasterThingDatabase.getBosses();
     }
     public List<Section> getSections() {

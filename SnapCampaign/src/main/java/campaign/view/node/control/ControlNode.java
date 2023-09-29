@@ -52,7 +52,7 @@ public class ControlNode<T extends Thing> extends StackPane {
         imageView.setFitHeight(v.getSizeVal());
         setEnabled(t.isEnabled());
 
-        if(t instanceof Card)
+        if(subject instanceof Card)
         {
             Card c = (Card)subject;
             if(!blind && c.isCaptain())
@@ -67,7 +67,7 @@ public class ControlNode<T extends Thing> extends StackPane {
         }
     }
 
-    private void createCaptainView(ViewSize v) {
+    protected void createCaptainView(ViewSize v) {
         starPane.setMinSize(v.getSizeVal(), v.getSizeVal());
         starPane.setMaxSize(v.getSizeVal(),v.getSizeVal());
         ImageView captainStar = new ImageView(grabStarIcon());

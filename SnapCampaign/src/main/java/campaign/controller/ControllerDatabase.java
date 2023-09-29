@@ -1,5 +1,6 @@
 package campaign.controller;
 
+import campaign.model.constants.CampaignConstants;
 import campaign.model.database.MasterThingDatabase;
 import campaign.model.database.ThingDatabase;
 import campaign.model.thing.*;
@@ -23,6 +24,11 @@ public class ControllerDatabase {
     public IconImage grabImage(Thing t, ThingType tt)
     {
         return imageCache.getImage(t.getID(), tt);
+    }
+
+    public IconImage grabBlankImage(ThingType tt)
+    {
+        return imageCache.getImage(CampaignConstants.NO_ICON_ID, tt);
     }
 
     public void addToken(Token t, IconImage i) {

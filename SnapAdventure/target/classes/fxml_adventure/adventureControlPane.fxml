@@ -1,11 +1,19 @@
 <?import javafx.geometry.Insets?>
 
-<?import campaign.view.pane.WatcherControlPane?>
-<fx:root type="WatcherControlPane"
+<?import adventure.view.node.TeamDisplayNode?>
+<?import adventure.view.node.WorldDisplayNode?>
+<?import adventure.view.pane.AdventureControlPane?>
+<?import campaign.view.button.ButtonToolBar?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="AdventureControlPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdventureControlPaneController" prefWidth="1600"
          prefHeight="900">
-
+    <VBox alignment="CENTER">
+        <ButtonToolBar fx:id="buttonToolBar"/>
+        <TeamDisplayNode fx:id="teamDisplayNode"/>
+        <WorldDisplayNode fx:id="worldDisplayNode"/>
+    </VBox>
     <padding>
         <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
     </padding>

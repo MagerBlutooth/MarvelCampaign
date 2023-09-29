@@ -1,0 +1,23 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import adventure.view.node.TeamDisplayNode?>
+<?import campaign.view.node.GridDisplayNode?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<fx:root type="TeamDisplayNode"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.TeamDisplayNodeController">
+    <VBox alignment="CENTER">
+        <HBox alignment="CENTER">
+            <VBox spacing = "20.0">
+                <Button text="Captured" onAction="#showCaptured"/>
+                <Button text="MIA" onAction="#showMIA"/>
+                <Button text="Eliminated" onAction="#showEliminated"/>
+            </VBox>
+            <GridDisplayNode fx:id="cardDisplay" prefWidth="1300"/>
+        </HBox>
+    </VBox>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

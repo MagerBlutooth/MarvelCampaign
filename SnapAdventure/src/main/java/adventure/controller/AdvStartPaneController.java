@@ -32,9 +32,9 @@ public class AdvStartPaneController extends AdvPaneController {
     }
 
     private void initializeProfiles() {
-        profile1.initialize("Empty", "1", initializeAdventure(AdventureConstants.PROFILE_1));
-        profile2.initialize("Empty", "2", initializeAdventure(AdventureConstants.PROFILE_2));
-        profile3.initialize("Empty", "3", initializeAdventure(AdventureConstants.PROFILE_3));
+        profile1.initialize("Empty", "1");
+        profile2.initialize("Empty", "2");
+        profile3.initialize("Empty", "3");
         profile1.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_1));
         profile2.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_2));
         profile3.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_3));
@@ -50,10 +50,11 @@ public class AdvStartPaneController extends AdvPaneController {
         AdventureControlPane adventureControlPane = new AdventureControlPane();
         Adventure adventure = initializeAdventure(profile);
         adventureControlPane.initialize(controllerDatabase, adventure);
+        changeScene(adventureControlPane);
     }
 
     @Override
     public Scene getCurrentScene() {
-        return null;
+        return buttonToolBar.getScene();
     }
 }

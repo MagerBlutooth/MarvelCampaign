@@ -18,6 +18,7 @@ public class Adventure {
     SectionList availableSections;
     WorldList worlds;
     String adventureNotes;
+    int currentWorld;
 
     public Adventure(AdventureDatabase database)
     {
@@ -38,6 +39,9 @@ public class Adventure {
     {
         List<String> adventureString = new ArrayList<>();
         adventureString.add(profileName);
+        adventureString.add(currentWorld+"");
+        World world = worlds.get(currentWorld);
+        adventureString.add(world.getCurrentSectionNum()+"");
         adventureString.add(team.convertToString());
         adventureString.add(availableBosses.toSaveString());
         adventureString.add(availableSections.toSaveString());
@@ -54,11 +58,15 @@ public class Adventure {
             return;
         }
         profileName = stringToConvert.get(0);
-        team.convertFromString(stringToConvert.get(1), adventureDatabase.getCards());
-        availableBosses.fromSaveString(stringToConvert.get(2), adventureDatabase.getBosses());
-        availableSections.fromSaveString(stringToConvert.get(3), adventureDatabase.getSections());
-        worlds.fromSaveString(adventureDatabase, stringToConvert.get(4));
-        adventureNotes = stringToConvert.get(5);
+        currentWorld = Integer.parseInt(stringToConvert.get(1));
+
+        team.convertFromString(stringToConvert.get(3), adventureDatabase.getCards());
+        availableBosses.fromSaveString(stringToConvert.get(4), adventureDatabase.getBosses());
+        availableSections.fromSaveString(stringToConvert.get(5), adventureDatabase.getSections());
+        worlds.fromSaveString(adventureDatabase, stringToConvert.get(6));
+        adventureNotes = stringToConvert.get(7);
+        World world = worlds.get(currentWorld);
+        world.setCurrentSectionNum(Integer.parseInt(stringToConvert.get(2)));
     }
 
     private void saveAdventure(String profile)
@@ -82,7 +90,20 @@ public class Adventure {
     private void generateAdventure() {
         availableBosses = new BossList(adventureDatabase.getBosses());
         availableSections = new SectionList(adventureDatabase.getSections());
+        team = new Team(adventureDatabase);
         worlds = new WorldList(adventureDatabase);
+        currentWorld = 1;
+    }
 
+    public World getCurrentWorld() {
+        return worlds.get(currentWorld);
+    }
+
+    public int getCurrentSectionNum() {
+        return worlds.get(currentWorld).getCurrentSectionNum();
+    }
+
+    public Team getTeam() {
+        return team;
     }
 }

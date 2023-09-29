@@ -1,10 +1,9 @@
 package adventure.model;
 
-import adventure.model.sorter.BossSortMode;
+import campaign.model.sortFilter.BossSortMode;
 import adventure.model.sorter.BossSorter;
 import campaign.model.constants.CampaignConstants;
 import campaign.model.database.ThingDatabase;
-import campaign.model.sortFilter.CardSortMode;
 import campaign.model.thing.*;
 
 import java.util.ArrayList;

@@ -21,12 +21,13 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
     }
     public void loadDatabase()
     {
-        dBContext.register(ThingType.CARD, vFactory.loadBosses(cards));
+        dBContext.register(ThingType.BOSS, vFactory.loadBosses(cards));
+        dBContext.register(ThingType.CARD, cards);
         dBContext.register(ThingType.LOCATION, vFactory.loadSections(locations));
     }
 
     public ThingDatabase<Boss> getBosses() {
-        ThingDatabase<Boss> lookup = dBContext.lookup(ThingType.CARD);
+        ThingDatabase<Boss> lookup = dBContext.lookup(ThingType.BOSS);
         return lookup;
     }
 
@@ -46,7 +47,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
     }
 
     public ThingDatabase<Card> getCards() {
-        return cards;
+        return dBContext.lookup(ThingType.CARD);
     }
 
     public ThingDatabase<Boss> getEnabledBosses() {
@@ -74,7 +75,8 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         ThingDatabase<Card> enabled = new ThingDatabase<>();
         for(Card c: getCards())
         {
-            if(c.isEnabled())
+            Boss b = getBoss(c);
+            if(b.isEnabled())
                 enabled.add(c);
         }
         return enabled;

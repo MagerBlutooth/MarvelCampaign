@@ -2,21 +2,20 @@ package adventure.controller.manager;
 
 import adventure.model.AdvControllerDatabase;
 import adventure.model.Boss;
+import adventure.model.BossList;
+import adventure.view.manager.BossManager;
 import adventure.view.node.BossControlNode;
 import adventure.view.pane.BossEditorPane;
 import adventure.view.pane.AdvEditorMenuPane;
 import campaign.controller.grid.GridActionController;
 import campaign.controller.grid.ManagerPaneController;
 import campaign.model.thing.Card;
-import campaign.model.thing.CardList;
 import campaign.model.thing.ThingType;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
-import campaign.view.manager.CardManager;
 import campaign.view.menu.CardFilterMenuButton;
 import campaign.view.menu.CardSortMenuButton;
 import campaign.view.node.control.ControlNode;
-import campaign.view.pane.EditorMenuPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -25,13 +24,9 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 
-public class AdvCardManagerPaneController extends ManagerPaneController<Card, AdvControllerDatabase> implements GridActionController<Card> {
+public class AdvBossManagerPaneController extends ManagerPaneController<Boss, AdvControllerDatabase> implements GridActionController<Boss> {
     @FXML
-    CardManager cardManager;
-    @FXML
-    CardSortMenuButton sortButton;
-    @FXML
-    CardFilterMenuButton filterButton;
+    BossManager bossManager;
 
     @Override
     public void initializeButtonToolBar() {
@@ -43,48 +38,42 @@ public class AdvCardManagerPaneController extends ManagerPaneController<Card, Ad
 
     @Override
     public Scene getCurrentScene() {
-        return cardManager.getScene();
+        return bossManager.getScene();
     }
 
     @Override
     public void initialize(AdvControllerDatabase m) {
         super.initialize(m);
-        CardList cards = new CardList(m.getCards());
+        BossList cards = new BossList(m.getBosses());
         /*When creating the card manager, automatically set all cards to not be captains to avoid the issue
         //of cards getting set as such from the most recent campaign*/
-        for(Card c: cards)
-        {
-            c.setCaptain(false);
-        }
-        cardManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, false);
-        sortButton.initialize(cardManager.getListNodeController());
-        filterButton.initialize(cardManager.getListNodeController());
+        bossManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, true);
     }
 
     @Override
-    public void editSubject(ControlNode<Card> node) {
-        BossEditorPane cardEditorPane = new BossEditorPane();
-        Boss b = controllerDatabase.getBoss(node.getSubject());
-        cardEditorPane.initialize(controllerDatabase, b);
-        changeScene(cardEditorPane);
+    public void editSubject(ControlNode<Boss> node) {
+        BossEditorPane bossEditorPane = new BossEditorPane();
+        Boss b = node.getSubject();
+        bossEditorPane.initialize(controllerDatabase, b);
+        changeScene(bossEditorPane);
     }
 
     @Override
-    public ControlNode<Card> createControlNode(Card c, IconImage i, ViewSize v, boolean blind) {
+    public ControlNode<Boss> createControlNode(Boss c, IconImage i, ViewSize v, boolean revealed) {
         BossControlNode node = new BossControlNode();
-        node.initialize(controllerDatabase, c, i, v, blind);
+        node.initialize(controllerDatabase, c, i, v, revealed);
         createTooltip(node);
         setMouseEvents(node);
         return node;
     }
 
     @Override
-    public void saveGridNode(ControlNode<Card> node) {
+    public void saveGridNode(ControlNode<Boss> node) {
 
     }
 
     @Override
-    public void createTooltip(ControlNode<Card> n) {
+    public void createTooltip(ControlNode<Boss> n) {
         ContextMenu rightClickMenu = new ContextMenu();
         MenuItem editMenuItem = new MenuItem("Edit");
         editMenuItem.setOnAction(actionEvent -> editSubject(n));
@@ -92,16 +81,16 @@ public class AdvCardManagerPaneController extends ManagerPaneController<Card, Ad
         n.setOnContextMenuRequested(e -> rightClickMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
     @Override
-    public void createContextMenu(ControlNode<Card> n) {
+    public void createContextMenu(ControlNode<Boss> n) {
 
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Card> controlNode) {
-        Card card = controlNode.getSubject();
+    public void setMouseEvents(ControlNode<Boss> controlNode) {
+        Boss boss = controlNode.getSubject();
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
-                controllerDatabase.toggleBoss(card);
+                controllerDatabase.toggleBoss(boss.getCard());
                 controllerDatabase.saveDatabase(ThingType.CARD);
                 controlNode.toggle();
             }});

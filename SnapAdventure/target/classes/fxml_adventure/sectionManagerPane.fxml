@@ -5,15 +5,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import campaign.view.button.ButtonToolBar?>
 <?import campaign.view.manager.LocationManager?>
+<?import adventure.view.manager.SectionManager?>
 <fx:root type="adventure.view.pane.AdvLocationManagerPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvLocationManagerPaneController"
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvSectionManagerPaneController"
          prefWidth="1200" prefHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
     <HBox spacing="30.0" alignment="CENTER">
         <VBox alignment="CENTER">
-            <LocationManager fx:id="locationManager"/>
+            <SectionManager fx:id="sectionManager"/>
         </VBox>
     </HBox>
     </VBox>

@@ -14,8 +14,8 @@ public class ProfileNode extends AdvNode {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(String profileString, String profileNum, Adventure adventure)
+    public void initialize(String profileString, String profileNum)
     {
-        controller.initialize(profileString, profileNum, adventure);
+        controller.initialize(profileString, profileNum);
     }
 }

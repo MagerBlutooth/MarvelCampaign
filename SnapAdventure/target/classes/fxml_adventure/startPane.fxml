@@ -1,5 +1,4 @@
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 <?import adventure.view.pane.AdvStartPane?>
 <?import adventure.view.node.ProfileNode?>

@@ -2,22 +2,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import campaign.view.button.ButtonToolBar?>
-<?import campaign.view.menu.CardFilterMenuButton?>
-<?import campaign.view.menu.CardSortMenuButton?>
-
-<?import campaign.view.manager.CardManager?>
+<?import adventure.view.manager.BossManager?>
 <fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvCardManagerPaneController"
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvBossManagerPaneController"
          prefWidth="1200" prefHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <HBox spacing="30.0" alignment="CENTER">
             <VBox alignment="CENTER">
-                <HBox spacing="20.0" alignment="CENTER">
-                    <CardSortMenuButton text="Sort" fx:id="sortButton"/>
-                    <CardFilterMenuButton text="Filter" fx:id="filterButton"/>
-                </HBox>
-                <CardManager fx:id="cardManager"/>
+                <BossManager fx:id="bossManager"/>
             </VBox>
         </HBox>
     </VBox>

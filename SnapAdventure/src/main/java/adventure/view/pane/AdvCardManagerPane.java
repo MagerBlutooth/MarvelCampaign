@@ -1,17 +1,14 @@
 package adventure.view.pane;
 
 
-import adventure.controller.manager.AdvCardManagerPaneController;
+import adventure.controller.manager.AdvBossManagerPaneController;
 import adventure.model.AdvControllerDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.controller.ControllerDatabase;
-import campaign.controller.grid.CardManagerPaneController;
-import campaign.view.fxml.FXMLCampaignGrabber;
 import campaign.view.pane.manager.ManagerPane;
 
 public class AdvCardManagerPane extends ManagerPane {
 
-    AdvCardManagerPaneController controller;
+    AdvBossManagerPaneController controller;
     public AdvCardManagerPane()
     {
 

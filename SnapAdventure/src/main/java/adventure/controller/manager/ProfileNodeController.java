@@ -11,7 +11,7 @@ public class ProfileNodeController {
     @FXML
     Label profileText;
 
-    public void initialize(String profile, String profileNum, Adventure adventure)
+    public void initialize(String profile, String profileNum)
     {
         profileText.setText(profile);
         profileNumber.setText(profileNum);

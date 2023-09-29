@@ -1,6 +1,7 @@
 package adventure.model.sorter;
 
 import adventure.model.Boss;
+import campaign.model.sortFilter.BossSortMode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
