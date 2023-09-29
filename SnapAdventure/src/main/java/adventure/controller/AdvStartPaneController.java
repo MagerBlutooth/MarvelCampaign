@@ -32,18 +32,34 @@ public class AdvStartPaneController extends AdvPaneController {
     }
 
     private void initializeProfiles() {
-        profile1.initialize("Empty", "1");
-        profile2.initialize("Empty", "2");
-        profile3.initialize("Empty", "3");
+        validateProfiles();
         profile1.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_1));
         profile2.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_2));
         profile3.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_3));
+
     }
 
+    private void validateProfiles() {
+        checkProfile(AdventureConstants.PROFILE_1, profile1, 1);
+        checkProfile(AdventureConstants.PROFILE_2, profile2, 2);
+        checkProfile(AdventureConstants.PROFILE_3, profile3, 3);
+
+    }
+
+    private void checkProfile(String profile, ProfileNode proNode, int num) {
+        AdventureDatabase adventureDatabase = new AdventureDatabase(controllerDatabase);
+        Adventure adventure = new Adventure(adventureDatabase, profile);
+        String name = adventure.getProfileName();
+        if(name == null)
+            name = "Empty";
+            proNode.initialize(name, "1");
+    }
+
+    //TODO: Create dialog pane for entering profileName and showing starting team
     private Adventure initializeAdventure(String profile)
     {
         AdventureDatabase adventureDatabase = new AdventureDatabase(controllerDatabase);
-        return new Adventure(adventureDatabase, profile);
+        return new Adventure(adventureDatabase, profile, "Chara");
     }
 
     private void startAdventure(String profile) {

@@ -9,7 +9,6 @@ import campaign.view.fxml.FXMLCampaignGrabber;
 import javafx.scene.layout.StackPane;
 
 
-//Node object created for JavaFX nodes that have their own dedicated constructor, to have a built-in initialize method.
 public abstract class AdvNode extends StackPane {
     protected FXMLAdventureGrabber fxmlAdventureGrabber;
 

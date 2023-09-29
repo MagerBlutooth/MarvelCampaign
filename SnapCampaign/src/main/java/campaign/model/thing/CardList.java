@@ -68,7 +68,8 @@ public class CardList extends ThingList<Card> {
             stringBuilder.append(c.getID());
             stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
         }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        if(!getCards().isEmpty())
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         String result = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
@@ -77,6 +78,8 @@ public class CardList extends ThingList<Card> {
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
+        if(decodedString.isBlank())
+            return;
         String[] cardsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
 
         for(String c: cardsList)

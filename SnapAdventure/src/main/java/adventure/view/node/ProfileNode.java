@@ -18,4 +18,8 @@ public class ProfileNode extends AdvNode {
     {
         controller.initialize(profileString, profileNum);
     }
+
+    public void setText(String profileName) {
+        controller.setText(profileName);
+    }
 }

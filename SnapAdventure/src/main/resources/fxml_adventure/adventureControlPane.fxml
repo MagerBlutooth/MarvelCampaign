@@ -5,6 +5,8 @@
 <?import adventure.view.pane.AdventureControlPane?>
 <?import campaign.view.button.ButtonToolBar?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import adventure.view.node.DiceNode?>
 <fx:root type="AdventureControlPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdventureControlPaneController" prefWidth="1600"
@@ -12,7 +14,10 @@
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <TeamDisplayNode fx:id="teamDisplayNode"/>
-        <WorldDisplayNode fx:id="worldDisplayNode"/>
+        <HBox>
+            <DiceNode/>
+            <WorldDisplayNode fx:id="worldDisplayNode"/>
+        </HBox>
     </VBox>
     <padding>
         <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>

@@ -17,4 +17,7 @@ public class ProfileNodeController {
         profileNumber.setText(profileNum);
     }
 
+    public void setText(String profileName) {
+        profileText.setText(profileName);
+    }
 }
