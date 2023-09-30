@@ -74,4 +74,6 @@ public class ThingDatabase<T extends Thing> extends ArrayList<T> {
         Collections.shuffle(items);
         return items.subList(0, num);
     }
+
+
 }

@@ -1,6 +1,6 @@
 package records.controller;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 import javafx.util.Pair;
@@ -19,13 +19,13 @@ import static campaign.model.constants.CampaignConstants.BASIC_COST_MIN;
 
 public class TopDisplayNodeController {
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     @FXML
     public TilePane topList;
     Map<Integer, Map<Card, Integer>> cardUseMap = new ConcurrentHashMap<>();
 
-    public void initialize(ControllerDatabase database, List<HallOfFameEntry> entries) {
-        controllerDatabase = database;
+    public void initialize(MainDatabase database, List<HallOfFameEntry> entries) {
+        mainDatabase = database;
         List<Card> cardList = database.getCards();
         for (int i = BASIC_COST_MIN; i <= BASIC_COST_MAX; i++) {
             cardUseMap.put(i, new ConcurrentHashMap<>());
@@ -65,7 +65,7 @@ public class TopDisplayNodeController {
         List<Pair<IconImage, Integer>> iconImages = new ArrayList<>();
         for (Map.Entry<Card,Integer> e : cards)
         {
-            IconImage iconImage = controllerDatabase.grabImage(e.getKey(), ThingType.CARD);
+            IconImage iconImage = mainDatabase.grabImage(e.getKey(), ThingType.CARD);
             iconImages.add(new Pair<>(iconImage, e.getValue()));
         }
         entry.initialize(cost, iconImages);

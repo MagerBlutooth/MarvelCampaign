@@ -21,7 +21,7 @@ public class PlayerLoadPaneController extends ButtonToolBarPaneController {
     @FXML
     TextArea passwordArea;
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
         super.initialize(database);
     }
@@ -34,7 +34,7 @@ public class PlayerLoadPaneController extends ButtonToolBarPaneController {
     @Override
     public void initializeButtonToolBar() {
         PlayerMainMenuPane mainMenuPane = new PlayerMainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
@@ -42,12 +42,12 @@ public class PlayerLoadPaneController extends ButtonToolBarPaneController {
     public void loadFaction()
     {
         String password = passwordArea.getText().trim();
-        CampaignDatabase campaignDatabase = new CampaignDatabase(controllerDatabase.getAdvMasterThingDatabase());
+        CampaignDatabase campaignDatabase = new CampaignDatabase(mainDatabase.getAdvMasterThingDatabase());
         Faction faction = new Faction(password, campaignDatabase);
         PlayerControlPane playerControlPane = new PlayerControlPane();
         Faction enemyFaction = new Faction(FactionLabel.ENEMY, new CardList(new ArrayList<>()), new LocationList(new ArrayList<>()), campaignDatabase);
         Faction unknownFaction = new Faction(FactionLabel.UNKNOWN, faction.getUnownedAgents(), faction.getUnownedLocations(), campaignDatabase);
-        playerControlPane.initialize(campaignDatabase, controllerDatabase, faction, enemyFaction, unknownFaction);
+        playerControlPane.initialize(campaignDatabase, mainDatabase, faction, enemyFaction, unknownFaction);
         changeScene(playerControlPane);
     }
 

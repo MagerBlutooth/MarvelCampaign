@@ -47,16 +47,16 @@ public class WatcherControlPaneController extends ButtonToolBarPaneController {
     Faction hydra;
     Faction freeAgents;
 
-    public void initialize(ControllerDatabase cd, Campaign c)
+    public void initialize(MainDatabase cd, Campaign c)
     {
         super.initialize(cd);
         campaign = c;
         shield = campaign.getShield();
         hydra = campaign.getHydra();
         freeAgents = campaign.getFreeFaction();
-        shieldDisplay.initialize(controllerDatabase, shield, false);
-        hydraDisplay.initialize(controllerDatabase, hydra, false);
-        freeAgentDisplay.initialize(controllerDatabase, this, freeAgents, shield.getName(), hydra.getName());
+        shieldDisplay.initialize(mainDatabase, shield, false);
+        hydraDisplay.initialize(mainDatabase, hydra, false);
+        freeAgentDisplay.initialize(mainDatabase, this, freeAgents, shield.getName(), hydra.getName());
         randomizerNode.initialize(cd, c);
         shieldPassword.setText("");
         hydraPassword.setText("");
@@ -70,7 +70,7 @@ public class WatcherControlPaneController extends ButtonToolBarPaneController {
     @Override
     public void initializeButtonToolBar() {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
@@ -78,7 +78,7 @@ public class WatcherControlPaneController extends ButtonToolBarPaneController {
     public void loadShieldView()
     {
         String deployString = shieldPassword.getText().trim();
-        MasterThingDatabase masterThingDatabase = controllerDatabase.getAdvMasterThingDatabase();
+        MasterThingDatabase masterThingDatabase = mainDatabase.getAdvMasterThingDatabase();
         CampaignDatabase campaignDatabase = new CampaignDatabase(masterThingDatabase);
         String[] splitDeploy = deployString.split(STRING_SEPARATOR);
         FactionLabel name = FactionLabel.valueOf(splitDeploy[0].toUpperCase());
@@ -89,14 +89,14 @@ public class WatcherControlPaneController extends ButtonToolBarPaneController {
         LocationList locationSetup = new LocationList(new ArrayList<>());
         locationSetup.fromString(stationedAgents, masterThingDatabase);
         Faction f = new Faction(name, agents, locationSetup, campaignDatabase);
-        shieldAgentGrid.initialize(controllerDatabase,f, false);
-        shieldLocationMap.initialize(controllerDatabase, f, false);
+        shieldAgentGrid.initialize(mainDatabase,f, false);
+        shieldLocationMap.initialize(mainDatabase, f, false);
     }
     @FXML
     public void loadHydraView()
     {
         String deployString = hydraPassword.getText().trim();
-        MasterThingDatabase masterThingDatabase = controllerDatabase.getAdvMasterThingDatabase();
+        MasterThingDatabase masterThingDatabase = mainDatabase.getAdvMasterThingDatabase();
         CampaignDatabase campaignDatabase = new CampaignDatabase(masterThingDatabase);
         String[] splitDeploy = deployString.split(STRING_SEPARATOR);
         FactionLabel name = FactionLabel.valueOf(splitDeploy[0].toUpperCase());
@@ -107,8 +107,8 @@ public class WatcherControlPaneController extends ButtonToolBarPaneController {
         LocationList locationSetup = new LocationList(new ArrayList<>());
         locationSetup.fromString(stationedAgents, masterThingDatabase);
         Faction f = new Faction(name, agents, locationSetup, campaignDatabase);
-        hydraAgentGrid.initialize(controllerDatabase,f, false);
-        hydraLocationMap.initialize(controllerDatabase, f, false);
+        hydraAgentGrid.initialize(mainDatabase,f, false);
+        hydraLocationMap.initialize(mainDatabase, f, false);
     }
 
     @FXML

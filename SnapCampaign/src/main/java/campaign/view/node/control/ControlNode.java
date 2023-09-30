@@ -1,6 +1,6 @@
 package campaign.view.node.control;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.view.grabber.ImageGrabber;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
@@ -18,7 +18,7 @@ import campaign.view.ViewSize;
 
 public class ControlNode<T extends Thing> extends StackPane {
 
-    protected ControllerDatabase controllerDatabase;
+    protected MainDatabase mainDatabase;
     protected T subject;
 
     private boolean enabled;
@@ -39,11 +39,11 @@ public class ControlNode<T extends Thing> extends StackPane {
         getChildren().add(imageView);
     }
 
-    public void initialize(ControllerDatabase db, T t, IconImage i, ViewSize v, boolean blind) {
+    public void initialize(MainDatabase db, T t, IconImage i, ViewSize v, boolean blind) {
 
-        controllerDatabase = db;
+        mainDatabase = db;
         thingType = t.getThingType();
-        ThingDatabase<T> thingDatabase = controllerDatabase.lookupDatabase(thingType);
+        ThingDatabase<T> thingDatabase = mainDatabase.lookupDatabase(thingType);
         subject = thingDatabase.lookup(t.getID());
         if(subject == null)
             subject = t;
@@ -54,7 +54,7 @@ public class ControlNode<T extends Thing> extends StackPane {
 
         if(subject instanceof Card)
         {
-            Card c = (Card)subject;
+            Card c = (Card)t;
             if(!blind && c.isCaptain())
                 createCaptainView(v);
             setDamage(c.isWounded());

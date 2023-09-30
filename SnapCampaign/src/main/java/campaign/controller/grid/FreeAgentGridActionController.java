@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.node.FreeAgentSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -11,7 +11,7 @@ import campaign.view.node.control.ControlNode;
 
 public class FreeAgentGridActionController extends ThingActionController<Card> {
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     FreeAgentSelectNodeController freeAgentController;
     String shieldName;
     String hydraName;
@@ -19,24 +19,24 @@ public class FreeAgentGridActionController extends ThingActionController<Card> {
     @Override
     public ControlNode<Card> createControlNode(Card c, IconImage i, ViewSize v, boolean blind) {
         ControlNode<Card> node = new ControlNode<>();
-        node.initialize(controllerDatabase, c, i, v, blind);
+        node.initialize(mainDatabase, c, i, v, blind);
         createTooltip(node);
         createContextMenu(node);
         setMouseEvents(node);
         return node;
     }
 
-    public void initialize(ControllerDatabase database, FreeAgentSelectNodeController controller, String s, String h)
+    public void initialize(MainDatabase database, FreeAgentSelectNodeController controller, String s, String h)
     {
-        controllerDatabase = database;
+        mainDatabase = database;
         freeAgentController = controller;
         shieldName = s;
         hydraName = h;
     }
 
     @Override
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 
     @Override

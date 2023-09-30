@@ -1,6 +1,6 @@
 package adventure.view.pane;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.editor.LocationEditorPaneController;
 import campaign.model.thing.Location;
 import campaign.view.fxml.FXMLCampaignGrabber;
@@ -17,7 +17,7 @@ public class AdvLocationEditorPane extends EditorPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase database, Location l)
+    public void initialize(MainDatabase database, Location l)
     {
         controller.initialize(database, l);
     }

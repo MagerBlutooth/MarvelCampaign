@@ -1,9 +1,9 @@
 package campaign.controller.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.model.thing.Thing;
 
-public abstract class BasicNodeController<C extends ControllerDatabase, T extends Thing>{
+public abstract class BasicNodeController<C extends MainDatabase, T extends Thing>{
 
     C database;
     Thing subject;

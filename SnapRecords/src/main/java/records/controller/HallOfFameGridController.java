@@ -1,6 +1,6 @@
 package records.controller;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.GridActionController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
@@ -17,15 +17,15 @@ import java.util.List;
 
 public class HallOfFameGridController implements GridActionController<Card> {
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     List<HallOfFameEntry> otherEntries;
     HallOfFameEntry activeEntry;
     CardView captainDisplay;
     GridDisplayNode<Card> deckDisplay;
 
-    public void initialize(ControllerDatabase db, CardView cDisplay, GridDisplayNode<Card> deck, HallOfFameEntry entry, List<HallOfFameEntry> other)
+    public void initialize(MainDatabase db, CardView cDisplay, GridDisplayNode<Card> deck, HallOfFameEntry entry, List<HallOfFameEntry> other)
     {
-        controllerDatabase = db;
+        mainDatabase = db;
         activeEntry = entry;
         deckDisplay = deck;
         otherEntries = other;
@@ -39,14 +39,14 @@ public class HallOfFameGridController implements GridActionController<Card> {
     @Override
     public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
         ControlNode<Card> controlNode = new ControlNode<>();
-        controlNode.initialize(controllerDatabase, card, i, v, blind);
+        controlNode.initialize(mainDatabase, card, i, v, blind);
         setMouseEvents(controlNode);
         return controlNode;
     }
 
     @Override
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 
     @Override

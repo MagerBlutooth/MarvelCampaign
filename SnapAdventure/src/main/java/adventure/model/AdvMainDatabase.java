@@ -1,6 +1,6 @@
 package adventure.model;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.model.database.MasterThingDatabase;
 import campaign.model.database.ThingDatabase;
 import campaign.model.thing.*;
@@ -8,11 +8,11 @@ import campaign.model.thing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvControllerDatabase extends ControllerDatabase {
+public class AdvMainDatabase extends MainDatabase {
 
     AdvMasterThingDatabase advMasterThingDatabase;
 
-    public AdvControllerDatabase(MasterThingDatabase database)
+    public AdvMainDatabase(MasterThingDatabase database)
     {
         super(database);
         advMasterThingDatabase = new AdvMasterThingDatabase(database);

@@ -1,7 +1,7 @@
 package records.controller;
 
 import campaign.controller.BasePaneController;
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.GridActionController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -59,15 +59,15 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
         return cardManager.getScene();
     }
 
-    public void initialize(ControllerDatabase d, HallOfFameEntry entry, List<HallOfFameEntry> other) {
+    public void initialize(MainDatabase d, HallOfFameEntry entry, List<HallOfFameEntry> other) {
         super.initialize(d);
         hallOfFameEntry = entry;
         otherEntries = other;
         nameBar.setText(entry.getName());
         CardList cards = new CardList(d.getCards());
-        captainDisplay.initialize(controllerDatabase, entry.getCaptain(), ViewSize.LARGE, false);
+        captainDisplay.initialize(mainDatabase, entry.getCaptain(), ViewSize.LARGE, false);
         deckController = new HallOfFameGridController();
-        deckController.initialize(controllerDatabase, captainDisplay, deckDisplay, entry, otherEntries);
+        deckController.initialize(mainDatabase, captainDisplay, deckDisplay, entry, otherEntries);
         deckDisplay.initialize(entry.getCards(), ThingType.CARD, deckController, ViewSize.SMALL, true);
         cardManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, true);
         initializeSearchBar(cards);
@@ -99,14 +99,14 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
     public void addNewEntry()
     {
         CardEditorPane cardEditorPane = new CardEditorPane();
-        cardEditorPane.initialize(controllerDatabase, ViewSize.LARGE, new Card());
+        cardEditorPane.initialize(mainDatabase, ViewSize.LARGE, new Card());
         changeScene(cardEditorPane);
     }
 
     @Override
     public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
         ControlNode<Card> node = new ControlNode<>();
-        node.initialize(controllerDatabase, card, i, v, blind);
+        node.initialize(mainDatabase, card, i, v, blind);
         setMouseEvents(node);
         node.highlight(); //Adding highlight call to remove enable-based lowlight for Hall of Fame
         node.setGolden(isGolden(card));
@@ -132,7 +132,7 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
     public void goBack()
     {
         HallOfFameManagerPane managerPane = new HallOfFameManagerPane();
-        managerPane.initialize(controllerDatabase);
+        managerPane.initialize(mainDatabase);
         changeScene(managerPane);
     }
     @FXML

@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.node.FactionSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -15,7 +15,7 @@ public class AgentGridActionController extends ThingActionController<Card> {
 
     FactionSelectNodeController factionController;
 
-    public void initialize(ControllerDatabase database, DraggableThingDisplayController<Card> agentDisplay,
+    public void initialize(MainDatabase database, DraggableThingDisplayController<Card> agentDisplay,
                            FactionSelectNodeController c) {
         super.initialize(database, agentDisplay);
         factionController = c;
@@ -53,7 +53,7 @@ public class AgentGridActionController extends ThingActionController<Card> {
         MenuItem addCardItem = new MenuItem("Add Card");
         addCardItem.setOnAction(e -> {
             CardSelectDialog dialog = new CardSelectDialog();
-            dialog.initialize(controllerDatabase);
+            dialog.initialize(mainDatabase);
             Optional<Card> newCard = dialog.showAndWait();
             newCard.ifPresent(value -> factionController.addAgent(value));
         });

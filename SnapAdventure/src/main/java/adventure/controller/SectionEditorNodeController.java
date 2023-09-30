@@ -1,6 +1,6 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Section;
 import campaign.controller.editor.BasicNodeController;
 import campaign.model.thing.Location;
@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-public class SectionEditorNodeController extends BasicNodeController<AdvControllerDatabase, Location> {
+public class SectionEditorNodeController extends BasicNodeController<AdvMainDatabase, Location> {
 
     @FXML
     LocationView imageView;
@@ -20,10 +20,10 @@ public class SectionEditorNodeController extends BasicNodeController<AdvControll
     Label nameLabel;
     @FXML
     TextArea effectField;
-    AdvControllerDatabase database;
+    AdvMainDatabase database;
     Location location;
 
-    public void initialize(AdvControllerDatabase d, Section s) {
+    public void initialize(AdvMainDatabase d, Section s) {
         database = d;
         location = s.getLocation();
         nameLabel.setText(s.getName());

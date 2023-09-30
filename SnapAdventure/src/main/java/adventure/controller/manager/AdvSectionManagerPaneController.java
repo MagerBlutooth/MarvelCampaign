@@ -1,6 +1,6 @@
 package adventure.controller.manager;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Section;
 import adventure.model.SectionList;
 import adventure.view.manager.SectionManager;
@@ -21,7 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 
-public class AdvSectionManagerPaneController extends ManagerPaneController<Section, AdvControllerDatabase> implements GridActionController<Section> {
+public class AdvSectionManagerPaneController extends ManagerPaneController<Section, AdvMainDatabase> implements GridActionController<Section> {
     @FXML
     SectionManager sectionManager;
 
@@ -29,7 +29,7 @@ public class AdvSectionManagerPaneController extends ManagerPaneController<Secti
     public void initializeButtonToolBar() {
 
         AdvEditorMenuPane menuPane = new AdvEditorMenuPane();
-        menuPane.initialize(controllerDatabase);
+        menuPane.initialize(mainDatabase);
         buttonToolBar.initialize(menuPane);
     }
 
@@ -39,7 +39,7 @@ public class AdvSectionManagerPaneController extends ManagerPaneController<Secti
     }
 
     @Override
-    public void initialize(AdvControllerDatabase m) {
+    public void initialize(AdvMainDatabase m) {
         super.initialize(m);
         SectionList sections = new SectionList(m.getSections());
         sectionManager.initialize(sections, ThingType.LOCATION, this, ViewSize.MEDIUM, true);
@@ -48,14 +48,14 @@ public class AdvSectionManagerPaneController extends ManagerPaneController<Secti
     @Override
     public void editSubject(ControlNode<Section> node) {
         SectionEditorPane locationEditorPane = new SectionEditorPane();
-        locationEditorPane.initialize(controllerDatabase, node.getSubject());
+        locationEditorPane.initialize(mainDatabase, node.getSubject());
         changeScene(locationEditorPane);
     }
 
     @Override
     public ControlNode<Section> createControlNode(Section s, IconImage i, ViewSize v, boolean blind) {
         SectionControlNode node = new SectionControlNode();
-        node.initialize(controllerDatabase, s, i, v, blind);
+        node.initialize(mainDatabase, s, i, v, blind);
         createContextMenu(node);
         setMouseEvents(node);
         return node;
@@ -84,8 +84,8 @@ public class AdvSectionManagerPaneController extends ManagerPaneController<Secti
         Section loc = controlNode.getSubject();
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
-                controllerDatabase.toggleSection(loc.getLocation());
-                controllerDatabase.saveDatabase(ThingType.CARD);
+                mainDatabase.toggleSection(loc.getLocation());
+                mainDatabase.saveDatabase(ThingType.CARD);
                 controlNode.toggle();
             }});
 

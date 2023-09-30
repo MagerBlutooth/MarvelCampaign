@@ -30,7 +30,7 @@ public class WatcherLoadPaneController extends ButtonToolBarPaneController {
     @FXML
     Button loadRecentButton;
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
         super.initialize(database);
         loadButton.disableProperty().bind(Bindings.isEmpty(passwordArea1.textProperty()).and(Bindings.isEmpty(passwordArea2.textProperty())));
@@ -53,18 +53,18 @@ public class WatcherLoadPaneController extends ButtonToolBarPaneController {
     @Override
     public void initializeButtonToolBar() {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
     public void loadCampaign(String p1, String p2)
     {
-        CampaignDatabase cDatabase = new CampaignDatabase(controllerDatabase.getAdvMasterThingDatabase());
+        CampaignDatabase cDatabase = new CampaignDatabase(mainDatabase.getAdvMasterThingDatabase());
         Faction shield = new Faction(p1, cDatabase);
         Faction hydra = new Faction(p2, cDatabase);
         WatcherControlPane watcherControlPane = new WatcherControlPane();
         Campaign campaign = new Campaign(cDatabase, shield, hydra);
-        watcherControlPane.initialize(controllerDatabase, campaign);
+        watcherControlPane.initialize(mainDatabase, campaign);
         changeScene(watcherControlPane);
     }
 

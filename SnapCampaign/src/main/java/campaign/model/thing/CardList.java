@@ -66,10 +66,16 @@ public class CardList extends ThingList<Card> {
         for(Card c: getCards())
         {
             stringBuilder.append(c.getID());
+            stringBuilder.append(CampaignConstants.CSV_SEPARATOR);
+            stringBuilder.append(c.isCaptain());
+            stringBuilder.append(CampaignConstants.CSV_SEPARATOR);
+            stringBuilder.append(c.isWounded());
             stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
         }
         if(!getCards().isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        else
+            stringBuilder.append(" ");
         String result = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
@@ -82,9 +88,13 @@ public class CardList extends ThingList<Card> {
             return;
         String[] cardsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
 
-        for(String c: cardsList)
+        for(String cString: cardsList)
         {
-            this.add(database.lookup(Integer.parseInt(c)));
+            String[] cOptions = cString.split(CampaignConstants.CSV_SEPARATOR);
+            Card card = new Card(database.lookup(Integer.parseInt(cOptions[0])));
+            card.setCaptain(Boolean.parseBoolean(cOptions[1]));
+            card.setWounded(Boolean.parseBoolean(cOptions[2]));
+            this.add(card);
         }
     }
 
@@ -105,18 +115,16 @@ public class CardList extends ThingList<Card> {
         return stringBuilder.toString();
     }
 
-    public CardList fromCardList(String cardList, ThingDatabase<Card> database)
-    {
-        String[] cardsList = cardList.split("\n");
-        CardList cards = new CardList(new ArrayList<>());
-        for(String c: cardsList)
-        {
-            cards.add(database.lookup(c));
-        }
-        return cards;
-    }
-
     public int getCardIndex(Card captain) {
         return this.indexOf(captain);
+    }
+
+    public CardList cloneNewList(List<Card> existingList) {
+        CardList clonedCards = new CardList(new ArrayList<>());
+        for(Card c: existingList)
+        {
+            clonedCards.add(new Card(c));
+        }
+        return clonedCards;
     }
 }

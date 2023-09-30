@@ -1,12 +1,11 @@
 package records.view;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.view.SplashScreen;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import campaign.model.database.MasterThingDatabase;
 import campaign.view.GameStage;
-import campaign.view.fxml.FXMLCampaignGrabber;
 import records.controller.HallOfFameManagerController;
 import records.view.fxml.FXMLRecordGrabber;
 
@@ -48,7 +47,7 @@ public class RecordMainScreen extends GameStage {
             FXMLRecordGrabber grabber = new FXMLRecordGrabber();
             grabber.grabFXML("hallOfFameManager.fxml", hallOfFameManagerPane);
             HallOfFameManagerController hallOfFameManagerController = grabber.getController();
-            hallOfFameManagerController.initialize(new ControllerDatabase(db));
+            hallOfFameManagerController.initialize(new MainDatabase(db));
         });
     }
 }

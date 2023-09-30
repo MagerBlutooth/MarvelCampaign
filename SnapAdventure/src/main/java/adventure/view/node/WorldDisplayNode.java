@@ -1,13 +1,9 @@
 package adventure.view.node;
 
-import adventure.controller.TeamDisplayNodeController;
 import adventure.controller.WorldDisplayNodeController;
-import adventure.model.AdvControllerDatabase;
-import adventure.model.Section;
-import adventure.model.Team;
+import adventure.model.AdvMainDatabase;
 import adventure.model.World;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.controller.ControllerDatabase;
 import javafx.scene.layout.StackPane;
 
 public class WorldDisplayNode extends StackPane {
@@ -20,8 +16,8 @@ public class WorldDisplayNode extends StackPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvControllerDatabase d, World w, int worldNum)
+    public void initialize(AdvMainDatabase d, World w, int worldNum, int sectionNum)
     {
-        controller.initialize(d, w, worldNum);
+        controller.initialize(d, w, worldNum, sectionNum);
     }
 }

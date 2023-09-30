@@ -1,6 +1,6 @@
 package campaign.controller.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -11,7 +11,7 @@ import campaign.model.thing.Token;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TokenEditorNodeController extends BasicNodeController<ControllerDatabase, Token> {
+public class TokenEditorNodeController extends BasicNodeController<MainDatabase, Token> {
 
     Token token;
     @FXML
@@ -22,7 +22,7 @@ public class TokenEditorNodeController extends BasicNodeController<ControllerDat
     ChoiceBox<Integer> powerChoice;
 
     @Override
-    public void initialize(ControllerDatabase d, Token t) {
+    public void initialize(MainDatabase d, Token t) {
         database = d;
         token = t;
         nameField.setText(t.getName());

@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -21,7 +21,7 @@ public class WatcherLocationMapNodeController extends LocationMapNodeController 
     public TextField influenceVal;
 
     @Override
-    public void initialize(ControllerDatabase d, Faction f, boolean blind)
+    public void initialize(MainDatabase d, Faction f, boolean blind)
     {
         super.initialize(d, f, blind);
         influenceVal.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -37,7 +37,7 @@ public class WatcherLocationMapNodeController extends LocationMapNodeController 
         MenuItem addCardItem = new MenuItem("Add Card");
         addCardItem.setOnAction(e -> {
             CardSelectDialog dialog = new CardSelectDialog();
-            dialog.initialize(controllerDatabase);
+            dialog.initialize(mainDatabase);
             Optional<Card> card = dialog.showAndWait();
             Location l = n.getSubject();
             if(card.isPresent() && !l.isFull())

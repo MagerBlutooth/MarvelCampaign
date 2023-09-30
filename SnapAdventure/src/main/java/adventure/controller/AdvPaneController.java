@@ -1,14 +1,13 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import campaign.controller.BasePaneController;
-import campaign.controller.ControllerDatabase;
 import campaign.view.pane.BasicPane;
 import campaign.view.pane.BasicStage;
 import javafx.scene.Scene;
 
 public abstract class AdvPaneController extends BasePaneController {
-    protected AdvControllerDatabase controllerDatabase;
+    protected AdvMainDatabase mainDatabase;
     public abstract Scene getCurrentScene();
 
     public void changeScene(BasicPane cPane)
@@ -18,12 +17,14 @@ public abstract class AdvPaneController extends BasePaneController {
         primaryWindow.centerOnScreen();
     }
 
-    public void initialize(AdvControllerDatabase controllerDatabase)
+    public void initialize(AdvMainDatabase controllerDatabase)
     {
-        this.controllerDatabase = controllerDatabase;
+        this.mainDatabase = controllerDatabase;
     }
 
-    public AdvControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public abstract void initializeButtonToolBar();
+
+    public AdvMainDatabase getDatabase() {
+        return mainDatabase;
     }
 }

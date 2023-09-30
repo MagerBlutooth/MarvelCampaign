@@ -1,6 +1,6 @@
 package campaign.view.pane.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.model.thing.*;
 import campaign.view.ViewSize;
 
@@ -27,7 +27,7 @@ public class EditorPaneFactory {
         });
     }
 
-    public EditorPane createEditorPane(ControllerDatabase database, Thing t)
+    public EditorPane createEditorPane(MainDatabase database, Thing t)
     {
         EditorPaneMaker paneMaker = EDITORS.get(t.getThingType());
         if(paneMaker == null)
@@ -36,7 +36,7 @@ public class EditorPaneFactory {
     }
 
     public interface EditorPaneMaker {
-       EditorPane create(ControllerDatabase d, Thing t);
+       EditorPane create(MainDatabase d, Thing t);
     }
 }
 

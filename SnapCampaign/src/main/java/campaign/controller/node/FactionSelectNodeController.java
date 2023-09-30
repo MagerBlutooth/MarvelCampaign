@@ -1,6 +1,6 @@
 package campaign.controller.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.AgentGridActionController;
 import campaign.controller.grid.GraveGridActionController;
 import campaign.controller.grid.MapGridActionController;
@@ -35,9 +35,9 @@ public class FactionSelectNodeController {
     StackPane copyAcceptanceStringPane;
     Faction faction;
 
-    ControllerDatabase database;
+    MainDatabase database;
 
-    public void initialize(ControllerDatabase d, Faction f, boolean blind)
+    public void initialize(MainDatabase d, Faction f, boolean blind)
     {
         database = d;
         faction = f;

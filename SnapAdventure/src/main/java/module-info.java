@@ -14,6 +14,7 @@ module SnapAdventure {
     exports adventure.view.fxml;
     exports adventure.view.node;
     exports adventure.view.manager;
+    exports adventure.view.pane;
     exports adventure.model.adventure;
     opens adventure.view;
     opens adventure.view.fxml;
@@ -22,5 +23,6 @@ module SnapAdventure {
     opens adventure.controller;
     opens adventure.model;
     opens adventure.model.adventure;
+    opens adventure.view.pane;
     opens fxml_adventure;
 }

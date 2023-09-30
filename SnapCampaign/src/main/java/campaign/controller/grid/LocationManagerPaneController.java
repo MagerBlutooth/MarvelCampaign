@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +13,7 @@ import campaign.view.manager.LocationManager;
 import campaign.view.node.control.ControlNode;
 import campaign.view.pane.LocationEditorPane;
 
-public class LocationManagerPaneController extends ManagerPaneController<Location, ControllerDatabase> {
+public class LocationManagerPaneController extends ManagerPaneController<Location, MainDatabase> {
     @FXML
     LocationManager locationManager;
 
@@ -23,7 +23,7 @@ public class LocationManagerPaneController extends ManagerPaneController<Locatio
     }
 
     @Override
-    public void initialize(ControllerDatabase m) {
+    public void initialize(MainDatabase m) {
         super.initialize(m);
         LocationList locations = new LocationList(m.getLocations());
         locations.setSortMode(LocationSortMode.NAME);
@@ -35,13 +35,13 @@ public class LocationManagerPaneController extends ManagerPaneController<Locatio
     //Left click toggles the node. Right-click allows you to edit.
     @Override
     public void saveGridNode(ControlNode<Location> node) {
-        controllerDatabase.saveDatabase(node.getSubject().getThingType());
+        mainDatabase.saveDatabase(node.getSubject().getThingType());
     }
 
     @Override
     public void editSubject(ControlNode<Location> node) {
         LocationEditorPane locationEditorPane = new LocationEditorPane();
-        locationEditorPane.initialize(controllerDatabase, node.getSubject());
+        locationEditorPane.initialize(mainDatabase, node.getSubject());
         changeScene(locationEditorPane);
     }
 
@@ -49,7 +49,7 @@ public class LocationManagerPaneController extends ManagerPaneController<Locatio
     public void addNewEntry()
     {
         LocationEditorPane locationEditorPane = new LocationEditorPane();
-        locationEditorPane.initialize(controllerDatabase, new Location());
+        locationEditorPane.initialize(mainDatabase, new Location());
         changeScene(locationEditorPane);
     }
 }

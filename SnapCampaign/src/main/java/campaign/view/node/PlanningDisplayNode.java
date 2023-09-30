@@ -1,6 +1,6 @@
 package campaign.view.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.node.PlanningDisplayNodeController;
 import javafx.scene.layout.StackPane;
 import campaign.model.thing.Faction;
@@ -16,7 +16,7 @@ public class PlanningDisplayNode extends StackPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase d, Faction f)
+    public void initialize(MainDatabase d, Faction f)
     {
         controller.initialize(d, f);
     }

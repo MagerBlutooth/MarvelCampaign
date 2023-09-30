@@ -24,7 +24,7 @@ public class BasePrepPaneController extends ButtonToolBarPaneController {
     Faction shield;
     Faction hydra;
 
-    public void initialize(ControllerDatabase database, Faction s, Faction h)
+    public void initialize(MainDatabase database, Faction s, Faction h)
     {
         super.initialize(database);
         shield = s;
@@ -37,7 +37,7 @@ public class BasePrepPaneController extends ButtonToolBarPaneController {
     public void initializeButtonToolBar()
     {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
@@ -50,8 +50,8 @@ public class BasePrepPaneController extends ButtonToolBarPaneController {
     public void startCampaign()
     {
         WatcherControlPane watcherControlPane = new WatcherControlPane();
-        CampaignDatabase campaignDatabase = new CampaignDatabase(controllerDatabase.getAdvMasterThingDatabase());
-        watcherControlPane.initialize(controllerDatabase, new Campaign(campaignDatabase, shield, hydra));
+        CampaignDatabase campaignDatabase = new CampaignDatabase(mainDatabase.getAdvMasterThingDatabase());
+        watcherControlPane.initialize(mainDatabase, new Campaign(campaignDatabase, shield, hydra));
         changeScene(watcherControlPane);
     }
 

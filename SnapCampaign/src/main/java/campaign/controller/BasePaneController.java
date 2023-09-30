@@ -4,9 +4,9 @@ import javafx.scene.Scene;
 import campaign.view.pane.BasicPane;
 import campaign.view.pane.BasicStage;
 
-public abstract class BasePaneController<C extends ControllerDatabase> {
+public abstract class BasePaneController<C extends MainDatabase> {
 
-    protected C controllerDatabase;
+    protected C mainDatabase;
     public abstract Scene getCurrentScene();
 
     public void changeScene(BasicPane cPane)
@@ -18,10 +18,10 @@ public abstract class BasePaneController<C extends ControllerDatabase> {
 
     public void initialize(C controllerDatabase)
     {
-        this.controllerDatabase = controllerDatabase;
+        this.mainDatabase = controllerDatabase;
     }
 
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 }

@@ -1,6 +1,6 @@
 package campaign.view.pane.manager;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.CardManagerPaneController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
@@ -15,7 +15,7 @@ public class CardManagerPane extends ManagerPane {
         controller = grabber.getController();
     }
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
         controller.initialize(database);
     }

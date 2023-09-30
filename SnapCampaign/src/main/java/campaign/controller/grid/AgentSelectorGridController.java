@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -28,8 +28,8 @@ public class AgentSelectorGridController extends ThingActionController<Card> {
 
     Faction faction;
 
-    public void initialize(ControllerDatabase database, Faction f, boolean blind) {
-        controllerDatabase = database;
+    public void initialize(MainDatabase database, Faction f, boolean blind) {
+        mainDatabase = database;
         faction = f;
         CardList factionAgents = new CardList(faction.getAgentsInHQ());
         factionAgents.sort();
@@ -71,7 +71,7 @@ public class AgentSelectorGridController extends ThingActionController<Card> {
         agentSelectorGrid.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             Object source = event.getGestureSource();
-            ThingDatabase<Card> cards = controllerDatabase.lookupDatabase(ThingType.CARD);
+            ThingDatabase<Card> cards = mainDatabase.lookupDatabase(ThingType.CARD);
             if (source instanceof Draggable && dragboard.hasString()) {
                 String dragID = dragboard.getString();
                 Card c = cards.lookup(Integer.parseInt(dragID));
@@ -88,15 +88,15 @@ public class AgentSelectorGridController extends ThingActionController<Card> {
     @Override
     public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
         ControlNode<Card> node = new DraggableControlNode<>(agentDisplay.getController());
-        node.initialize(controllerDatabase, card, i, v, blind);
+        node.initialize(mainDatabase, card, i, v, blind);
         createTooltip(node);
         //setMouseEvents(node);
         return node;
     }
 
     @Override
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 
     @Override

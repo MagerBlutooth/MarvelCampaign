@@ -4,7 +4,7 @@
 <?import adventure.view.node.ProfileNode?>
 <?import campaign.view.button.ButtonToolBar?>
 <?import javafx.scene.control.Label?>
-<fx:root type="AdvStartPane"
+<fx:root type="AdvStartPane" fx:id="advStartPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvStartPaneController" prefWidth="1600" prefHeight="800">
     <VBox alignment="CENTER">

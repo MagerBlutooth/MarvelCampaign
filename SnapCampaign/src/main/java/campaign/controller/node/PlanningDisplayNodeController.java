@@ -1,6 +1,6 @@
 package campaign.controller.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.BaseGridActionController;
 import campaign.model.thing.Card;
 import campaign.model.thing.Faction;
@@ -17,7 +17,7 @@ import campaign.view.node.PlanningSheet;
 public class PlanningDisplayNodeController {
 
     public Label influenceAmount;
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     MasterThingDatabase masterThingDatabase;
     @FXML
     GridDisplayNode<Card> agentDisplay;
@@ -26,8 +26,8 @@ public class PlanningDisplayNodeController {
     @FXML
     PlanningSheet planningSheet;
 
-    public void initialize(ControllerDatabase d, Faction f) {
-        controllerDatabase = d;
+    public void initialize(MainDatabase d, Faction f) {
+        mainDatabase = d;
         masterThingDatabase = d.getAdvMasterThingDatabase();
         passwordArea.setText("");
         planningSheet.initialize(f.getFactionLabel());
@@ -39,7 +39,7 @@ public class PlanningDisplayNodeController {
         PlanningInfo planningInfo = new PlanningInfo();
         planningInfo.fromSaveString(password, masterThingDatabase.getCards());
         BaseGridActionController<Card> baseGridActionController = new BaseGridActionController<>();
-        baseGridActionController.initialize(controllerDatabase);
+        baseGridActionController.initialize(mainDatabase);
         agentDisplay.initialize(planningInfo.getActiveAgents(), ThingType.CARD, baseGridActionController, ViewSize.SMALL, false);
         influenceAmount.setText(String.valueOf(planningInfo.getInfluence()));
     }

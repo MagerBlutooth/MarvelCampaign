@@ -1,18 +1,18 @@
 package adventure.model;
 
+import campaign.model.database.ThingDatabase;
 import campaign.model.thing.Thing;
 import campaign.model.thing.ThingType;
 
 import java.util.List;
 
-public class World extends Thing {
+public class World implements Cloneable{
     Section section1;
     Section section2;
     Section section3;
     Section section4;
     Boss boss;
     AdventureDatabase database;
-    int currentSectionNum;
 
     public World(AdventureDatabase db)
     {
@@ -27,7 +27,6 @@ public class World extends Thing {
         section3 = s3;
         section4 = s4;
         boss = b;
-        currentSectionNum = 1;
     }
 
     public World(World world) {
@@ -37,38 +36,30 @@ public class World extends Thing {
         section3 = world.section3;
         section4 = world.section4;
         boss = world.boss;
-        currentSectionNum = world.getCurrentSectionNum();
     }
 
-    @Override
     public String[] toSaveStringArray() {
         return new String[]{section1.getID()+"", section2.getID()+"", section3.getID()+"", section4.getID()+"", boss.getID()+""};
     }
 
-    @Override
+
     public void fromSaveStringArray(String[] mInfo) {
-        List<Section> dbSections = database.getSections();
-        List<Boss> dbBosses = database.getBosses();
-        section1 = dbSections.get(Integer.parseInt(mInfo[0]));
-        section2 = dbSections.get(Integer.parseInt(mInfo[1]));
-        section3 = dbSections.get(Integer.parseInt(mInfo[2]));
-        section4 = dbSections.get(Integer.parseInt(mInfo[3]));
-        boss = dbBosses.get(Integer.parseInt(mInfo[4]));
-    }
-
-    @Override
-    public ThingType getThingType() {
-        return null;
-    }
-
-    @Override
-    public boolean hasAttribute(String att) {
-        return false;
+        ThingDatabase<Section> dbSections = database.getSections();
+        ThingDatabase<Boss> dbBosses = database.getBosses();
+        section1 = new Section(dbSections.lookup(Integer.parseInt(mInfo[0].trim())));
+        section2 = new Section(dbSections.lookup(Integer.parseInt(mInfo[1].trim())));
+        section3 = new Section(dbSections.lookup(Integer.parseInt(mInfo[2].trim())));
+        section4 = new Section(dbSections.lookup(Integer.parseInt(mInfo[3].trim())));
+        boss = new Boss(dbBosses.lookup(Integer.parseInt(mInfo[4].trim())));
     }
 
     @Override
     public World clone() {
-        return new World(this);
+        try {
+            return (World) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Section getFirstSection() {
@@ -94,8 +85,8 @@ public class World extends Thing {
         return boss;
     }
 
-    public Section getCurrentSection() {
-        switch(currentSectionNum)
+    public Section getCurrentSection(int currentSection) {
+        switch(currentSection)
         {
             case 2:
                 return section2;
@@ -106,13 +97,5 @@ public class World extends Thing {
             default:
                 return section1;
         }
-    }
-
-    public int getCurrentSectionNum() {
-        return currentSectionNum;
-    }
-    public void setCurrentSectionNum(int cs)
-    {
-        currentSectionNum = cs;
     }
 }

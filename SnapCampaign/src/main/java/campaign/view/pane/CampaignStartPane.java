@@ -1,7 +1,7 @@
 package campaign.view.pane;
 
 import campaign.controller.BaseStartPaneController;
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
 public class CampaignStartPane extends BasicPane {
@@ -15,7 +15,7 @@ public class CampaignStartPane extends BasicPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
         controller.initialize(database);
     }

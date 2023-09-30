@@ -2,14 +2,14 @@ package adventure.view.pane;
 
 
 import adventure.controller.manager.AdvBossManagerPaneController;
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.view.pane.manager.ManagerPane;
 
-public class AdvCardManagerPane extends ManagerPane {
+public class AdvBossManagerPane extends ManagerPane {
 
     AdvBossManagerPaneController controller;
-    public AdvCardManagerPane()
+    public AdvBossManagerPane()
     {
 
         FXMLAdventureGrabber grabber = new FXMLAdventureGrabber();
@@ -17,7 +17,7 @@ public class AdvCardManagerPane extends ManagerPane {
         controller = grabber.getController();
     }
 
-    public void initialize(AdvControllerDatabase database)
+    public void initialize(AdvMainDatabase database)
     {
         controller.initialize(database);
     }

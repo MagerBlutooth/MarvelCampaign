@@ -1,7 +1,7 @@
 package campaign.controller.editor;
 
 import campaign.controller.ButtonToolBarPaneController;
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import campaign.model.thing.Thing;
@@ -18,7 +18,7 @@ public abstract class EditorPaneController extends ButtonToolBarPaneController {
 
     Thing thing;
 
-    public void initialize(ControllerDatabase database, Thing t)
+    public void initialize(MainDatabase database, Thing t)
     {
         super.initialize(database);
         thing = t;

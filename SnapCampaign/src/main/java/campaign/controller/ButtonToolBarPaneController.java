@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import campaign.view.button.ButtonToolBar;
 
-public abstract class ButtonToolBarPaneController<C extends ControllerDatabase> extends BasePaneController<C> {
+public abstract class ButtonToolBarPaneController<C extends MainDatabase> extends BasePaneController<C> {
 
     @FXML
     public ButtonToolBar buttonToolBar;

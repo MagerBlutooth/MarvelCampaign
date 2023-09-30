@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.node.FreeAgentSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -14,7 +14,7 @@ import campaign.view.node.control.ControlNode;
 import java.util.Optional;
 
 public class FreeLocationGridActionController extends ThingActionController<Location> {
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     FreeAgentSelectNodeController freeAgentController;
     String shieldName;
     String hydraName;
@@ -23,17 +23,17 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
     @Override
     public ControlNode<Location> createControlNode(Location l, IconImage i, ViewSize v, boolean blind) {
         ControlNode<Location> node = new ControlNode<>();
-        node.initialize(controllerDatabase, l, i, v, blind);
+        node.initialize(mainDatabase, l, i, v, blind);
         //createTooltip(node);
         createContextMenu(node);
         setMouseEvents(node);
         return node;
     }
 
-    public void initialize(ControllerDatabase database, FreeAgentSelectNodeController controller, String s, String h,
+    public void initialize(MainDatabase database, FreeAgentSelectNodeController controller, String s, String h,
                            GridDisplayNode<Location> locDisplay)
     {
-        controllerDatabase = database;
+        mainDatabase = database;
         freeAgentController = controller;
         shieldName = s;
         hydraName = h;
@@ -41,8 +41,8 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
     }
 
     @Override
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
         MenuItem addLocItem = new MenuItem("Add Location");
         addLocItem.setOnAction(e -> {
             LocationSelectDialog dialog = new LocationSelectDialog();
-            dialog.initialize(controllerDatabase);
+            dialog.initialize(mainDatabase);
             Optional<Location> newLoc = dialog.showAndWait();
             newLoc.ifPresent(location -> locationGridDisplayNode.addThing(location));
             locationGridDisplayNode.sortBy("Name");

@@ -28,25 +28,25 @@ public class MainMenuController extends BasePaneController {
     public void startCampaign() {
 
         CampaignStartPane campaignStartPane = new CampaignStartPane();
-        campaignStartPane.initialize(controllerDatabase);
+        campaignStartPane.initialize(mainDatabase);
         changeScene(campaignStartPane);
     }
 
     public void loadCampaign() {
         LoadSelectPane loadPane = new LoadSelectPane();
-        loadPane.initialize(controllerDatabase);
+        loadPane.initialize(mainDatabase);
         changeScene(loadPane);
     }
 
     public void campaignEdit() {
         EditorMenuPane editorMenuPane = new EditorMenuPane();
-        editorMenuPane.initialize(controllerDatabase);
+        editorMenuPane.initialize(mainDatabase);
         changeScene(editorMenuPane);
     }
 
     public void editOptions() {
         OptionsMenuPane optionsMenuPane = new OptionsMenuPane();
-        optionsMenuPane.initialize(controllerDatabase);
+        optionsMenuPane.initialize(mainDatabase);
         changeScene(new OptionsMenuPane());
     }
 
@@ -62,6 +62,6 @@ public class MainMenuController extends BasePaneController {
 
     public void initialize(MasterThingDatabase masterThingDatabase)
     {
-        controllerDatabase = new ControllerDatabase(masterThingDatabase);
+        mainDatabase = new MainDatabase(masterThingDatabase);
     }
 }

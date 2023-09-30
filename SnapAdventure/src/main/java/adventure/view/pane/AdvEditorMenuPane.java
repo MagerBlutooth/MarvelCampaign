@@ -1,7 +1,7 @@
 package adventure.view.pane;
 
 import adventure.controller.AdvEditMenuPaneController;
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.view.pane.BasicPane;
 
@@ -13,7 +13,7 @@ public class AdvEditorMenuPane extends BasicPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvControllerDatabase controllerDatabase) {
+    public void initialize(AdvMainDatabase controllerDatabase) {
             controller.initialize(controllerDatabase);
         }
 }

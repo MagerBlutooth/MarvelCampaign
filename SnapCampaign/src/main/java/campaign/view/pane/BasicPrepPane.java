@@ -1,7 +1,7 @@
 package campaign.view.pane;
 
 import campaign.controller.BasePrepPaneController;
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.scene.Node;
 import campaign.model.thing.Faction;
 import campaign.view.fxml.FXMLCampaignGrabber;
@@ -19,7 +19,7 @@ public class BasicPrepPane extends BasicPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase db, Faction shield, Faction hydra)
+    public void initialize(MainDatabase db, Faction shield, Faction hydra)
     {
         controller.initialize(db, shield, hydra);
     }

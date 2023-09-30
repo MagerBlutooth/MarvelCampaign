@@ -1,6 +1,6 @@
 package campaign.view.dialog;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Dialog;
@@ -23,7 +23,7 @@ public class SelectDialog<T extends Thing> extends Dialog<T> {
     @FXML
     GridDisplayNode<T> choices;
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
 
     T selection;
 
@@ -35,16 +35,16 @@ public class SelectDialog<T extends Thing> extends Dialog<T> {
         this.initStyle(StageStyle.UNDECORATED);
     }
 
-    public void initialize(ControllerDatabase cd)
+    public void initialize(MainDatabase cd)
     {
-        controllerDatabase = cd;
+        mainDatabase = cd;
     }
 
     public void setChoice(T t) {
         displayPane.getChildren().clear();
         ControlNode<Thing> viewNode = new ControlNode<>();
         viewNode.setMaxWidth(300.0);
-        viewNode.initialize(controllerDatabase, t,controllerDatabase.grabImage(t, t.getThingType()), ViewSize.LARGE, true);
+        viewNode.initialize(mainDatabase, t, mainDatabase.grabImage(t, t.getThingType()), ViewSize.LARGE, true);
         displayPane.getChildren().add(viewNode);
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());

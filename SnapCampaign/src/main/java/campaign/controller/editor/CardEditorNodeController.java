@@ -1,6 +1,6 @@
 package campaign.controller.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class CardEditorNodeController extends BasicNodeController {
 
-    ControllerDatabase database;
+    MainDatabase database;
     Card card;
     @FXML
     TextField nameField;
@@ -40,7 +40,7 @@ public class CardEditorNodeController extends BasicNodeController {
     @FXML
     ListView<CardAttribute> cardCheckList;
 
-    public void initialize(ControllerDatabase d, Card c) {
+    public void initialize(MainDatabase d, Card c) {
         database = d;
         card = c;
         nameField.setText(c.getName());

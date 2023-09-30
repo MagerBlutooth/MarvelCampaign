@@ -72,22 +72,6 @@ public enum ThingType {
             return new ArrayList<>();
         }
     },
-    WORLD {
-        @Override
-        public List<String> getSortOptions() {
-            List<String> options = new ArrayList<>();
-            for (WorldSortMode mode : WorldSortMode.values())
-                options.add(mode.toString());
-            return options;
-        }
-
-        @Override
-        public List<String> getFilterOptions() {
-            return new ArrayList<>();
-        }
-
-    },
-
     BOSS {
         @Override
         public List<String> getSortOptions() {

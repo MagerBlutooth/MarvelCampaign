@@ -1,7 +1,6 @@
 package records.view;
 
-import campaign.controller.ControllerDatabase;
-import campaign.view.fxml.FXMLCampaignGrabber;
+import campaign.controller.MainDatabase;
 import campaign.view.pane.manager.ManagerPane;
 import records.controller.HallOfFameManagerController;
 import records.view.fxml.FXMLRecordGrabber;
@@ -16,7 +15,7 @@ public class HallOfFameManagerPane extends ManagerPane {
         controller = grabber.getController();
     }
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
         controller.initialize(database);
     }

@@ -1,6 +1,6 @@
 package campaign.view.node.control;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.DraggableThingDisplayController;
 import campaign.model.thing.Card;
 import campaign.model.thing.Location;
@@ -23,7 +23,7 @@ public class DraggableControlNode<T extends Thing> extends ControlNode<T> implem
     }
 
     @Override
-    public void initialize(ControllerDatabase db, T t, IconImage i, ViewSize v, boolean blind) {
+    public void initialize(MainDatabase db, T t, IconImage i, ViewSize v, boolean blind) {
 
         super.initialize(db, t, i, v, blind);
     }

@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -11,11 +11,11 @@ import campaign.view.node.control.ControlNode;
 
 public class BaseGridActionController<T extends Thing> implements GridActionController<T>{
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
-        controllerDatabase = database;
+        mainDatabase = database;
     }
     @Override
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind) {
@@ -26,8 +26,8 @@ public class BaseGridActionController<T extends Thing> implements GridActionCont
     }
 
     @Override
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BaseGridActionController<T extends Thing> implements GridActionCont
     @Override
     public void createTooltip(ControlNode<T> n) {
         Tooltip tooltip = new Tooltip();
-        ImageView tooltipImage = new ImageView(controllerDatabase.grabImage(n.getSubject(), n.getThingType()));
+        ImageView tooltipImage = new ImageView(mainDatabase.grabImage(n.getSubject(), n.getThingType()));
         tooltipImage.setFitHeight(ViewSize.MEDIUM.getSizeVal());
         tooltipImage.setFitWidth(ViewSize.MEDIUM.getSizeVal());
         tooltip.setGraphic(tooltipImage);

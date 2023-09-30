@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.model.thing.Thing;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
@@ -10,7 +10,7 @@ public interface GridActionController<T extends Thing> {
 
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind);
     //Blind boolean specifies whether Captain status should be visible
-    public ControllerDatabase getDatabase();
+    public MainDatabase getDatabase();
     public void saveGridNode(ControlNode<T> node);
 
     public void createTooltip(ControlNode<T> n);

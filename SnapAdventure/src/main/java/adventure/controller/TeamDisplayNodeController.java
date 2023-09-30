@@ -1,7 +1,7 @@
 package adventure.controller;
 
 import adventure.model.Team;
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.BaseGridActionController;
 import campaign.model.thing.Card;
 import campaign.model.thing.ThingType;
@@ -15,9 +15,9 @@ public class TeamDisplayNodeController {
     GridDisplayNode<Card> cardDisplay;
     Team team;
 
-    ControllerDatabase database;
+    MainDatabase database;
 
-    public void initialize(ControllerDatabase d, Team t)
+    public void initialize(MainDatabase d, Team t)
     {
         database = d;
         team = t;

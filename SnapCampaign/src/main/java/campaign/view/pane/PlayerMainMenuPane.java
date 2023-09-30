@@ -1,6 +1,6 @@
 package campaign.view.pane;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.PlayerMainMenuController;
 import campaign.view.fxml.FXMLCampaignGrabber;
 
@@ -14,7 +14,7 @@ public class PlayerMainMenuPane extends BasicPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase controllerDatabase) {
-        controller.initialize(controllerDatabase);
+    public void initialize(MainDatabase mainDatabase) {
+        controller.initialize(mainDatabase);
     }
 }

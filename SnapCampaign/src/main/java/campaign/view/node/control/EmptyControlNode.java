@@ -1,6 +1,6 @@
 package campaign.view.node.control;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
 import javafx.scene.image.Image;
@@ -10,7 +10,7 @@ import campaign.model.thing.ThingType;
 
 public class EmptyControlNode<T extends Thing> extends ControlNode<T> {
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     private T subject;
 
     private boolean enabled;
@@ -29,9 +29,9 @@ public class EmptyControlNode<T extends Thing> extends ControlNode<T> {
         getChildren().add(imageView);
     }
 
-    public void initialize(ControllerDatabase db, IconImage i, ViewSize v) {
+    public void initialize(MainDatabase db, IconImage i, ViewSize v) {
 
-        controllerDatabase = db;
+        mainDatabase = db;
         imageView.setImage(i);
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());

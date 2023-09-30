@@ -1,6 +1,6 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Boss;
 import adventure.model.Section;
 import adventure.model.World;
@@ -32,19 +32,19 @@ public class WorldDisplayNodeController {
     World world;
     List<SectionControlNode> sections;
 
-    AdvControllerDatabase database;
+    AdvMainDatabase database;
 
     int worldNum;
+    int sectionNum;
 
-    public void initialize(AdvControllerDatabase d, World w, int num)
+    public void initialize(AdvMainDatabase d, World w, int wNum, int sNum)
     {
         database = d;
         world = w;
-        worldNum = num;
+        worldNum = wNum;
+        sectionNum = sNum;
         worldLabel.setText("World "+ worldNum);
         sections = new ArrayList<>();
-
-        int currentSection = world.getCurrentSectionNum();
 
         Section section1 = w.getFirstSection();
         Section section2 = w.getSecondSection();
@@ -60,7 +60,7 @@ public class WorldDisplayNodeController {
         sections.add(section3Node);
         sections.add(section4Node);
 
-        for(int i = 0; i < currentSection; i++)
+        for(int i = 0; i < sectionNum; i++)
         {
             sections.get(i).reveal();
         }
@@ -70,7 +70,7 @@ public class WorldDisplayNodeController {
 
     public void revealNextSection()
     {
-        SectionControlNode node = sections.get(world.getCurrentSectionNum());
+        SectionControlNode node = sections.get(sectionNum);
         node.reveal();
     }
 

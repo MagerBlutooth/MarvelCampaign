@@ -1,6 +1,6 @@
 package records.view;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
 import campaign.view.node.control.ControlNode;
@@ -12,7 +12,7 @@ import records.model.HallOfFameEntry;
 
 public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     private HallOfFameEntry subject;
     private boolean enabled;
 
@@ -33,9 +33,9 @@ public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {
     }
 
      @Override
-    public void initialize(ControllerDatabase db, HallOfFameEntry entry, IconImage i, ViewSize v, boolean blind) {
+    public void initialize(MainDatabase db, HallOfFameEntry entry, IconImage i, ViewSize v, boolean blind) {
 
-        controllerDatabase = db;
+        mainDatabase = db;
         thingType = ThingType.HALL_OF_FAME;
         subject = entry;
         imageView.setImage(i);

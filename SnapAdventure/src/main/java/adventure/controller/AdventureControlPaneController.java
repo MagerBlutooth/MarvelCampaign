@@ -1,17 +1,19 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.World;
 import adventure.model.adventure.Adventure;
 import adventure.model.AdventureDatabase;
-import adventure.model.adventure.AdventureSaver;
 import adventure.view.node.AdventureActionNode;
 import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
 import adventure.view.pane.AdvMainMenuPane;
+import campaign.model.thing.Card;
 import campaign.view.button.ButtonToolBar;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+
+import java.util.List;
 
 public class AdventureControlPaneController extends AdvPaneController {
 
@@ -27,17 +29,15 @@ public class AdventureControlPaneController extends AdvPaneController {
     AdventureDatabase adventureDatabase;
 
 
-    public void initialize(AdvControllerDatabase database, Adventure a)
+    public void initialize(AdvMainDatabase database, Adventure a)
     {
         super.initialize(database);
-        AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
-        buttonToolBar.initialize(mainMenuPane);
+        initializeButtonToolBar();
         adventureDatabase = new AdventureDatabase(database);
         adventure = a;
         World world = a.getCurrentWorld();
         teamDisplayNode.initialize(database, a.getTeam());
-        int num = adventure.getCurrentWorldNum();
-        worldDisplayNode.initialize(database,world, adventure.getCurrentWorldNum());
+        worldDisplayNode.initialize(database,world, adventure.getCurrentWorldNum(), adventure.getCurrentSectionNum());
         adventure.saveAdventure();
     }
 
@@ -45,4 +45,13 @@ public class AdventureControlPaneController extends AdvPaneController {
     public Scene getCurrentScene() {
         return buttonToolBar.getScene();
     }
+
+    @Override
+    public void initializeButtonToolBar() {
+        AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
+        mainMenuPane.initialize(mainDatabase);
+        buttonToolBar.initialize(mainMenuPane);
+    }
+
+
 }

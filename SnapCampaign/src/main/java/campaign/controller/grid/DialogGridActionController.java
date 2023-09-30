@@ -1,7 +1,7 @@
 package campaign.controller.grid;
 
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.model.thing.Thing;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
@@ -12,7 +12,7 @@ public class DialogGridActionController<T extends Thing> extends BaseGridActionC
 
     SelectDialog<T> dialog;
 
-    public void intialize(ControllerDatabase cd, SelectDialog<T> d)
+    public void intialize(MainDatabase cd, SelectDialog<T> d)
     {
         super.initialize(cd);
         dialog = d;

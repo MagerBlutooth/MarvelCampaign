@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
@@ -16,12 +16,12 @@ import campaign.view.node.control.DraggableControlNode;
 
 public abstract class ThingActionController<T extends EffectThing> implements GridActionController<T> {
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     DraggableThingDisplayController<T> displayController;
 
-    void initialize(ControllerDatabase d, DraggableThingDisplayController<T> c)
+    void initialize(MainDatabase d, DraggableThingDisplayController<T> c)
     {
-        controllerDatabase = d;
+        mainDatabase = d;
         displayController = c;
     }
 
@@ -33,7 +33,7 @@ public abstract class ThingActionController<T extends EffectThing> implements Gr
     @Override
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind) {
         ControlNode<T> node = new DraggableControlNode<>(displayController);
-        node.initialize(controllerDatabase, t, i, v, blind);
+        node.initialize(mainDatabase, t, i, v, blind);
         createTooltip(node);
         createContextMenu(node);
         setMouseEvents(node);
@@ -41,8 +41,8 @@ public abstract class ThingActionController<T extends EffectThing> implements Gr
     }
 
     @Override
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 
     @Override

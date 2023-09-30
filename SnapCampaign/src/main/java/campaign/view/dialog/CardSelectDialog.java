@@ -1,6 +1,6 @@
 package campaign.view.dialog;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.DialogGridActionController;
 import campaign.view.ViewSize;
 import campaign.view.node.control.ControlNode;
@@ -17,10 +17,10 @@ import java.util.List;
 public class CardSelectDialog extends SelectDialog<Card> {
 
     @Override
-    public void initialize(ControllerDatabase cd)
+    public void initialize(MainDatabase cd)
     {
         super.initialize(cd);
-        List<Card> allCards = controllerDatabase.getCards();
+        List<Card> allCards = mainDatabase.getCards();
 
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             CardList cards = new CardList(new ArrayList<>());
@@ -49,7 +49,7 @@ public class CardSelectDialog extends SelectDialog<Card> {
         displayPane.getChildren().clear();
         ControlNode<EffectThing> viewNode = new ControlNode<>();
         viewNode.setMaxWidth(300.0);
-        viewNode.initialize(controllerDatabase, c,controllerDatabase.grabImage(c, c.getThingType()), ViewSize.LARGE, true);
+        viewNode.initialize(mainDatabase, c, mainDatabase.grabImage(c, c.getThingType()), ViewSize.LARGE, true);
         displayPane.getChildren().add(viewNode);
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());

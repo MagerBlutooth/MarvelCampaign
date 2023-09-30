@@ -1,6 +1,6 @@
 package campaign.view.node.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.editor.TokenEditorNodeController;
 import campaign.model.thing.Card;
 import campaign.model.thing.Token;
@@ -15,7 +15,7 @@ public class TokenEditorNode extends CampaignNode {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase d, Card c)
+    public void initialize(MainDatabase d, Card c)
     {
         getController().initialize(d, c);
     }

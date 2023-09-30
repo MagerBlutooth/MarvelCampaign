@@ -1,6 +1,6 @@
 package campaign.controller.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.model.thing.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -35,7 +35,7 @@ public class RandomizerNodeController {
     Text effectText;
 
     Campaign campaign;
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     Faction shield;
     Faction hydra;
 
@@ -133,10 +133,10 @@ public class RandomizerNodeController {
         displayPaneRight.getChildren().add(viewNodeRight);
     }
 
-    public void initialize(ControllerDatabase cd, Campaign c) {
+    public void initialize(MainDatabase cd, Campaign c) {
 
         campaign = c;
-        controllerDatabase = cd;
+        mainDatabase = cd;
         shield = campaign.getShield();
         hydra = campaign.getHydra();
         shieldLabel.setText(shield.getName());
@@ -147,7 +147,7 @@ public class RandomizerNodeController {
     {
         ControlNode<EffectThing> viewNode = new ControlNode<>();
         viewNode.setMaxWidth(300.0);
-        viewNode.initialize(controllerDatabase, e,controllerDatabase.grabImage(e, e.getThingType()), ViewSize.LARGE, true);
+        viewNode.initialize(mainDatabase, e, mainDatabase.grabImage(e, e.getThingType()), ViewSize.LARGE, true);
         viewNode.setBorder(new Border(new BorderStroke(campaign.getColor(e), BorderStrokeStyle.SOLID, new CornerRadii(5.0), new BorderWidths(3.0))));
         return viewNode;
     }

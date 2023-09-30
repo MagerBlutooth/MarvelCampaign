@@ -30,11 +30,11 @@ public class BaseStartPaneController extends ButtonToolBarPaneController {
     @Override
     public void initializeButtonToolBar() {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
         super.initialize(database);
         CardList cards = new CardList(database.getEnabledCards());
@@ -58,12 +58,12 @@ public class BaseStartPaneController extends ButtonToolBarPaneController {
         shieldLocations.sort();
         hydraLocations.sort();
 
-        CampaignDatabase campaignDatabase = new CampaignDatabase(controllerDatabase.getAdvMasterThingDatabase());
+        CampaignDatabase campaignDatabase = new CampaignDatabase(mainDatabase.getAdvMasterThingDatabase());
         Faction shield = new Faction(FactionLabel.SHIELD, shieldAgents, shieldLocations, campaignDatabase);
         Faction hydra = new Faction(FactionLabel.HYDRA, hydraAgents, hydraLocations, campaignDatabase);
 
-        shieldDisplay.initialize(controllerDatabase, shield, false);
-        hydraDisplay.initialize(controllerDatabase, hydra, false);
+        shieldDisplay.initialize(mainDatabase, shield, false);
+        hydraDisplay.initialize(mainDatabase, hydra, false);
 
         campaign = new Campaign(campaignDatabase, shield, hydra);
     }

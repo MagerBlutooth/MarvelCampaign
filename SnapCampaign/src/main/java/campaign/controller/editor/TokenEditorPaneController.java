@@ -1,6 +1,6 @@
 package campaign.controller.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import campaign.model.thing.ThingType;
 import campaign.model.thing.Token;
@@ -28,11 +28,11 @@ public class TokenEditorPaneController extends EditorPaneController {
     @Override
     public void initializeButtonToolBar() {
         TokenManagerPane tokenManagerPane = new TokenManagerPane();
-        tokenManagerPane.initialize(controllerDatabase);
+        tokenManagerPane.initialize(mainDatabase);
         buttonToolBar.initialize(tokenManagerPane);
     }
 
-    public void initialize(ControllerDatabase database, ViewSize v, Token t)
+    public void initialize(MainDatabase database, ViewSize v, Token t)
     {
         super.initialize(database);
         tokenEditorNode.initialize(database, t);
@@ -46,7 +46,7 @@ public class TokenEditorPaneController extends EditorPaneController {
         getDatabase().addToken(t, imagePane.getImage());
         imageGrabber.saveImage(imagePane.getImage(), t.getID());
         TokenManagerPane tokenManagerPane = new TokenManagerPane();
-        tokenManagerPane.initialize(controllerDatabase);
+        tokenManagerPane.initialize(mainDatabase);
         changeScene(tokenManagerPane);
     }
 

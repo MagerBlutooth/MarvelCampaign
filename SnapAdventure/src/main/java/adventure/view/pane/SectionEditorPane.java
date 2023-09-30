@@ -1,7 +1,7 @@
 package adventure.view.pane;
 
 import adventure.controller.SectionEditorPaneController;
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Section;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.view.pane.editor.EditorPane;
@@ -16,7 +16,7 @@ public class SectionEditorPane extends EditorPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvControllerDatabase database, Section s)
+    public void initialize(AdvMainDatabase database, Section s)
     {
         controller.initialize(database, s);
     }

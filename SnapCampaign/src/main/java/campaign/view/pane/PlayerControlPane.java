@@ -1,6 +1,6 @@
 package campaign.view.pane;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.PlayerControlPaneController;
 import campaign.model.database.CampaignDatabase;
 import campaign.model.thing.Faction;
@@ -17,7 +17,7 @@ public class PlayerControlPane extends BasicPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(CampaignDatabase cD, ControllerDatabase db, Faction f, Faction e, Faction u)
+    public void initialize(CampaignDatabase cD, MainDatabase db, Faction f, Faction e, Faction u)
     {
         controller.initialize(cD, db, f,e,u);
     }

@@ -1,6 +1,6 @@
 package campaign.view.node.control;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.LocationMapNodeController;
 import campaign.model.thing.*;
 import campaign.view.IconImage;
@@ -42,7 +42,7 @@ public class DraggableMapControlNode extends ControlNode<Location> implements Dr
     }
 
     @Override
-    public void initialize(ControllerDatabase db, Location l, IconImage i, ViewSize v, boolean blind)
+    public void initialize(MainDatabase db, Location l, IconImage i, ViewSize v, boolean blind)
     {
         super.initialize(db, l, i, v, blind);
         nodeEffectText.setText(l.getEffect());
@@ -59,7 +59,7 @@ public class DraggableMapControlNode extends ControlNode<Location> implements Dr
             if(cardList.size()-1 >= i)
             {
                 Card c = cardList.get(i);
-                DraggableCardImageView cardView = new DraggableCardImageView(controllerDatabase.grabImage(c, ThingType.CARD), ViewSize.TINY, this);
+                DraggableCardImageView cardView = new DraggableCardImageView(mainDatabase.grabImage(c, ThingType.CARD), ViewSize.TINY, this);
                 addDragDetected(cardView, c.getID());
                 cardBox.getChildren().add(cardView);
             }

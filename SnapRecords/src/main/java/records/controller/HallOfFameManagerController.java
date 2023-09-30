@@ -1,7 +1,7 @@
 package records.controller;
 
 import campaign.controller.BasePaneController;
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.GridActionController;
 import records.view.HallOfFameControlNode;
 import javafx.application.Platform;
@@ -45,19 +45,19 @@ public class HallOfFameManagerController extends BasePaneController implements G
     }
 
     @Override
-    public void initialize(ControllerDatabase db) {
+    public void initialize(MainDatabase db) {
 
         hallOfFameEntries = thingFactory.loadHallOfFame(db.lookupDatabase(ThingType.CARD));
-        controllerDatabase = db;
+        mainDatabase = db;
         ThingList<HallOfFameEntry> entriesList = new HallOfFameEntryList(hallOfFameEntries);
         hallOfFameDisplay.initialize(entriesList, ThingType.HALL_OF_FAME, this, ViewSize.MEDIUM, false);
-        topDisplay.initialize(controllerDatabase, hallOfFameEntries);
+        topDisplay.initialize(mainDatabase, hallOfFameEntries);
     }
 
     @Override
     public ControlNode<HallOfFameEntry> createControlNode(HallOfFameEntry entry, IconImage i, ViewSize v, boolean blind) {
         HallOfFameControlNode c = new HallOfFameControlNode();
-        c.initialize(controllerDatabase, entry, i, v, blind);
+        c.initialize(mainDatabase, entry, i, v, blind);
         setMouseEvents(c);
         return c;
     }
@@ -102,7 +102,7 @@ public class HallOfFameManagerController extends BasePaneController implements G
         HallOfFameCreatorPane hallOfFameCreatorPane = new HallOfFameCreatorPane();
         HallOfFameEntry chosenEntry = node.getSubject();
         List<HallOfFameEntry> otherEntries = getOtherEntries(chosenEntry);
-        hallOfFameCreatorPane.initialize(controllerDatabase, chosenEntry, otherEntries);
+        hallOfFameCreatorPane.initialize(mainDatabase, chosenEntry, otherEntries);
         changeScene(hallOfFameCreatorPane);
     }
 
@@ -122,7 +122,7 @@ public class HallOfFameManagerController extends BasePaneController implements G
     public void addNewEntry()
     {
         HallOfFameCreatorPane hallOfFameCreatorPane = new HallOfFameCreatorPane();
-        hallOfFameCreatorPane.initialize(controllerDatabase, new HallOfFameEntry(controllerDatabase.lookupDatabase(ThingType.CARD)), new ArrayList<>(hallOfFameEntries));
+        hallOfFameCreatorPane.initialize(mainDatabase, new HallOfFameEntry(mainDatabase.lookupDatabase(ThingType.CARD)), new ArrayList<>(hallOfFameEntries));
         changeScene(hallOfFameCreatorPane);
     }
 

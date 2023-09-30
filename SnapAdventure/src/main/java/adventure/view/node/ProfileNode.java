@@ -1,8 +1,6 @@
 package adventure.view.node;
 
 import adventure.controller.manager.ProfileNodeController;
-import adventure.model.AdvControllerDatabase;
-import adventure.model.adventure.Adventure;
 
 public class ProfileNode extends AdvNode {
 

@@ -1,16 +1,15 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
-import adventure.view.pane.AdvCardManagerPane;
+import adventure.model.AdvMainDatabase;
+import adventure.view.pane.AdvBossManagerPane;
 import adventure.view.pane.AdvLocationManagerPane;
 import adventure.view.pane.AdvMainMenuPane;
 import campaign.controller.ButtonToolBarPaneController;
-import campaign.view.pane.MainMenuPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
-public class AdvEditMenuPaneController extends ButtonToolBarPaneController<AdvControllerDatabase> {
+public class AdvEditMenuPaneController extends ButtonToolBarPaneController<AdvMainDatabase> {
     @FXML
     Button cardEditorButton;
     @FXML
@@ -19,14 +18,14 @@ public class AdvEditMenuPaneController extends ButtonToolBarPaneController<AdvCo
     @FXML
     public void cardEditor()
     {
-        AdvCardManagerPane cardManagerPane = new AdvCardManagerPane();
-        cardManagerPane.initialize(controllerDatabase);
+        AdvBossManagerPane cardManagerPane = new AdvBossManagerPane();
+        cardManagerPane.initialize(mainDatabase);
         changeScene(cardManagerPane);
     }
     @FXML
     public void locationEditor() {
         AdvLocationManagerPane locationManagerPane = new AdvLocationManagerPane();
-        locationManagerPane.initialize(controllerDatabase);
+        locationManagerPane.initialize(mainDatabase);
         changeScene(locationManagerPane);}
 
     @Override
@@ -37,12 +36,12 @@ public class AdvEditMenuPaneController extends ButtonToolBarPaneController<AdvCo
     @Override
     public void initializeButtonToolBar() {
         AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
     @Override
-    public void initialize(AdvControllerDatabase database) {
+    public void initialize(AdvMainDatabase database) {
         super.initialize(database);
     }
 }

@@ -24,6 +24,7 @@ public class DiceNodeController {
     @FXML
     Label dieResult;
 
+    public void rolld2() {rollDie(2); }
     public void rolld4()
     {
         rollDie(4);

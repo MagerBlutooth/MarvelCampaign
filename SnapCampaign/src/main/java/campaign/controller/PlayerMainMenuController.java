@@ -19,7 +19,7 @@ public class PlayerMainMenuController extends BasePaneController {
 
     public void loadCampaign() {
         PlayerLoadPane loadPane = new PlayerLoadPane();
-        loadPane.initialize(controllerDatabase);
+        loadPane.initialize(mainDatabase);
         changeScene(loadPane);
     }
     public void exit() {
@@ -34,6 +34,6 @@ public class PlayerMainMenuController extends BasePaneController {
 
     public void initialize(MasterThingDatabase masterThingDatabase)
     {
-        controllerDatabase = new ControllerDatabase(masterThingDatabase);
+        mainDatabase = new MainDatabase(masterThingDatabase);
     }
 }

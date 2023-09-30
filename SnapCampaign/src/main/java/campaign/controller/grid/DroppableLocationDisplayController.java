@@ -30,7 +30,7 @@ public class DroppableLocationDisplayController extends GridDisplayController<Lo
     MLogger logger = new MLogger(DroppableLocationDisplayNode.class);
     @Override
     protected void addNewNode(Location l, List<ControlNode<Location>> listOfObjects) {
-        IconImage i = controllerDatabase.grabImage(l, ThingType.LOCATION);
+        IconImage i = mainDatabase.grabImage(l, ThingType.LOCATION);
         ControlNode<Location> n = gridActionController.createControlNode(l,i,viewSize, blind);
         n.setOnDragOver(mouseDragOver(n));
         n.setOnDragDropped(mouseDragDropped(n));
@@ -68,7 +68,7 @@ public class DroppableLocationDisplayController extends GridDisplayController<Lo
     private EventHandler<DragEvent> mouseDragDropped(ControlNode<Location> n) {
         return event -> {
             Dragboard dragboard = event.getDragboard();
-            ThingDatabase<Card> cards = controllerDatabase.lookupDatabase(ThingType.CARD);
+            ThingDatabase<Card> cards = mainDatabase.lookupDatabase(ThingType.CARD);
             Object source = event.getGestureSource();
             if (source instanceof Draggable && dragboard.hasString()) {
                 String dragID = dragboard.getString();

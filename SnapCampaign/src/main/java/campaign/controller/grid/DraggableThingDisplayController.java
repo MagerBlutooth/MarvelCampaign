@@ -31,7 +31,7 @@ public class DraggableThingDisplayController<T extends Thing> extends GridDispla
 
     @Override
     protected void addNewNode(T t, List<ControlNode<T>> listOfObjects) {
-        IconImage i = controllerDatabase.grabImage(t, t.getThingType());
+        IconImage i = mainDatabase.grabImage(t, t.getThingType());
         ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, blind);
         addDragDetected(n);
         addDragOver();
@@ -72,7 +72,7 @@ public class DraggableThingDisplayController<T extends Thing> extends GridDispla
         draggableThingDisplayNode.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             Object source = event.getGestureSource();
-            ThingDatabase<T> things = controllerDatabase.lookupDatabase(getThingType());
+            ThingDatabase<T> things = mainDatabase.lookupDatabase(getThingType());
             if (source instanceof Draggable && dragboard.hasString()) {
                 String dragID = dragboard.getString();
                 T t = things.lookup(Integer.parseInt(dragID));

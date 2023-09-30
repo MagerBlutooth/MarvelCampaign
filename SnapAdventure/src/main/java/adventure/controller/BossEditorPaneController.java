@@ -1,10 +1,10 @@
 package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Boss;
 import adventure.view.node.BossEditorNode;
-import adventure.view.pane.AdvCardManagerPane;
+import adventure.view.pane.AdvBossManagerPane;
 import campaign.model.thing.ThingType;
 import campaign.view.grabber.ThingImageGrabber;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ public class BossEditorPaneController extends AdvEditorPaneController
         imageGrabber = new ThingImageGrabber(ThingType.CARD);
     }
 
-    public void initialize(AdvControllerDatabase database, Boss b)
+    public void initialize(AdvMainDatabase database, Boss b)
     {
         super.initialize(database);
         bossEditorNode.initialize(database, b);
@@ -30,16 +30,16 @@ public class BossEditorPaneController extends AdvEditorPaneController
     private void saveBoss()
     {
         Boss b = bossEditorNode.generateBoss();
-        controllerDatabase.modifyBoss(b);
-        AdvCardManagerPane cardManagerPane = new AdvCardManagerPane();
-        cardManagerPane.initialize(controllerDatabase);
+        mainDatabase.modifyBoss(b);
+        AdvBossManagerPane cardManagerPane = new AdvBossManagerPane();
+        cardManagerPane.initialize(mainDatabase);
         changeScene(cardManagerPane);
     }
 
     @Override
     public void initializeButtonToolBar() {
-        AdvCardManagerPane cardManagerPane = new AdvCardManagerPane();
-        cardManagerPane.initialize(controllerDatabase);
+        AdvBossManagerPane cardManagerPane = new AdvBossManagerPane();
+        cardManagerPane.initialize(mainDatabase);
         buttonToolBar.initialize(cardManagerPane);
     }
 }

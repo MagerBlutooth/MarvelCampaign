@@ -1,6 +1,5 @@
 package adventure.model;
 
-import adventure.controller.AdventureControlPaneController;
 import campaign.model.constants.CampaignConstants;
 import campaign.model.database.ThingDatabase;
 import campaign.model.thing.Card;
@@ -21,7 +20,7 @@ public class Team {
     CardList miaCards;
     CardList eliminatedCards;
 
-    public Team(AdventureDatabase database)
+    public Team()
     {
         activeCards = new CardList(new ArrayList<>());
         tempCards = new CardList(new ArrayList<>());
@@ -29,7 +28,10 @@ public class Team {
         capturedCards = new CardList(new ArrayList<>());
         miaCards = new CardList(new ArrayList<>());
         eliminatedCards = new CardList(new ArrayList<>());
-
+    }
+    public Team(AdventureDatabase database)
+    {
+        this();
         List<Card> cards = new ArrayList<>(database.getCards());
         Collections.shuffle(cards);
         for(int i = 0; i < AdventureConstants.STARTING_CARDS; i++)
@@ -45,11 +47,11 @@ public class Team {
     }
 
     public String convertToString() {
-        String teamString =  activeCards.toSaveString() + CampaignConstants.STRING_SEPARATOR +
-                tempCards.toSaveString() + CampaignConstants.STRING_SEPARATOR +
-                freeAgentCards.toSaveString() + CampaignConstants.STRING_SEPARATOR +
-                capturedCards.toSaveString() + CampaignConstants.STRING_SEPARATOR +
-                miaCards.toSaveString() + CampaignConstants.STRING_SEPARATOR +
+        String teamString =  activeCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
+                tempCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
+                freeAgentCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
+                capturedCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
+                miaCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
                 eliminatedCards.toSaveString();
         return Base64.getEncoder().encodeToString(teamString.getBytes());
     }
@@ -57,7 +59,7 @@ public class Team {
     public void convertFromString(String teamString, ThingDatabase<Card> db) {
         byte[] decodedBytes = Base64.getDecoder().decode(teamString);
         String decodedString = new String(decodedBytes);
-        String[] teamList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] teamList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
         activeCards.fromSaveString(teamList[0], db);
         tempCards.fromSaveString(teamList[1], db);
         freeAgentCards.fromSaveString(teamList[2], db);
@@ -116,5 +118,15 @@ public class Team {
             miaCards.add(card);
             activeCards.remove(card);
         }
+    }
+
+    public ThingList<Card> getCaptains() {
+        CardList captains = new CardList(new ArrayList<>());
+        for(Card c: getActiveCards())
+        {
+            if(c.isCaptain())
+                captains.add(c);
+        }
+        return captains;
     }
 }

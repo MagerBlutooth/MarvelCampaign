@@ -1,6 +1,6 @@
 package campaign.view.pane.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.editor.CardEditorPaneController;
 import campaign.model.thing.Card;
 import campaign.view.ViewSize;
@@ -16,7 +16,7 @@ public class CardEditorPane extends EditorPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase database, ViewSize v, Card c)
+    public void initialize(MainDatabase database, ViewSize v, Card c)
     {
         controller.initialize(database, v, c);
     }

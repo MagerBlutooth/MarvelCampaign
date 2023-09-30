@@ -1,6 +1,6 @@
 package adventure.controller.manager;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Boss;
 import adventure.model.BossList;
 import adventure.view.manager.BossManager;
@@ -9,12 +9,9 @@ import adventure.view.pane.BossEditorPane;
 import adventure.view.pane.AdvEditorMenuPane;
 import campaign.controller.grid.GridActionController;
 import campaign.controller.grid.ManagerPaneController;
-import campaign.model.thing.Card;
 import campaign.model.thing.ThingType;
 import campaign.view.IconImage;
 import campaign.view.ViewSize;
-import campaign.view.menu.CardFilterMenuButton;
-import campaign.view.menu.CardSortMenuButton;
 import campaign.view.node.control.ControlNode;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -24,7 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 
-public class AdvBossManagerPaneController extends ManagerPaneController<Boss, AdvControllerDatabase> implements GridActionController<Boss> {
+public class AdvBossManagerPaneController extends ManagerPaneController<Boss, AdvMainDatabase> implements GridActionController<Boss> {
     @FXML
     BossManager bossManager;
 
@@ -32,7 +29,7 @@ public class AdvBossManagerPaneController extends ManagerPaneController<Boss, Ad
     public void initializeButtonToolBar() {
 
         AdvEditorMenuPane menuPane = new AdvEditorMenuPane();
-        menuPane.initialize(controllerDatabase);
+        menuPane.initialize(mainDatabase);
         buttonToolBar.initialize(menuPane);
     }
 
@@ -42,7 +39,7 @@ public class AdvBossManagerPaneController extends ManagerPaneController<Boss, Ad
     }
 
     @Override
-    public void initialize(AdvControllerDatabase m) {
+    public void initialize(AdvMainDatabase m) {
         super.initialize(m);
         BossList cards = new BossList(m.getBosses());
         /*When creating the card manager, automatically set all cards to not be captains to avoid the issue
@@ -54,14 +51,14 @@ public class AdvBossManagerPaneController extends ManagerPaneController<Boss, Ad
     public void editSubject(ControlNode<Boss> node) {
         BossEditorPane bossEditorPane = new BossEditorPane();
         Boss b = node.getSubject();
-        bossEditorPane.initialize(controllerDatabase, b);
+        bossEditorPane.initialize(mainDatabase, b);
         changeScene(bossEditorPane);
     }
 
     @Override
     public ControlNode<Boss> createControlNode(Boss c, IconImage i, ViewSize v, boolean revealed) {
         BossControlNode node = new BossControlNode();
-        node.initialize(controllerDatabase, c, i, v, revealed);
+        node.initialize(mainDatabase, c, i, v, revealed);
         createTooltip(node);
         setMouseEvents(node);
         return node;
@@ -90,8 +87,8 @@ public class AdvBossManagerPaneController extends ManagerPaneController<Boss, Ad
         Boss boss = controlNode.getSubject();
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
-                controllerDatabase.toggleBoss(boss.getCard());
-                controllerDatabase.saveDatabase(ThingType.CARD);
+                mainDatabase.toggleBoss(boss.getCard());
+                mainDatabase.saveDatabase(ThingType.CARD);
                 controlNode.toggle();
             }});
 

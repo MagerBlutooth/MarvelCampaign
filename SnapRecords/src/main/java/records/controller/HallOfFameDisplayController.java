@@ -37,7 +37,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
         if(thingList.isEmpty())
         {
             HallOfFameEntry blankObject = null;
-                HallOfFameEntry h = new HallOfFameEntry(controllerDatabase.lookupDatabase(ThingType.CARD));
+                HallOfFameEntry h = new HallOfFameEntry(mainDatabase.lookupDatabase(ThingType.CARD));
                 try {
                     blankObject = h.getClass().getDeclaredConstructor().newInstance();
                 }
@@ -58,7 +58,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     @Override
     protected void addNewNode(HallOfFameEntry t, List<ControlNode<HallOfFameEntry>> listOfObjects)
     {
-        IconImage i = controllerDatabase.grabImage(t.getCaptain(), ThingType.CARD);
+        IconImage i = mainDatabase.grabImage(t.getCaptain(), ThingType.CARD);
         ControlNode<HallOfFameEntry> n = getGridActionController().createControlNode(t, i, getViewSize(), isBlind());
         listOfObjects.add(n);
     }

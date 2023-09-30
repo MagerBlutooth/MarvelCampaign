@@ -13,7 +13,7 @@ public class LoadSelectPaneController extends ButtonToolBarPaneController {
     VBox mainBox;
 
     @Override
-    public void initialize(ControllerDatabase database)
+    public void initialize(MainDatabase database)
     {
         super.initialize(database);
     }
@@ -21,14 +21,14 @@ public class LoadSelectPaneController extends ButtonToolBarPaneController {
     public void loadPlayer()
     {
         PlayerLoadPane loadPane = new PlayerLoadPane();
-        loadPane.initialize(controllerDatabase);
+        loadPane.initialize(mainDatabase);
         changeScene(loadPane);
 
     }
     public void loadWatcher()
     {
         WatcherLoadPane loadPane = new WatcherLoadPane();
-        loadPane.initialize(controllerDatabase);
+        loadPane.initialize(mainDatabase);
         changeScene(loadPane);
     }
 
@@ -40,7 +40,7 @@ public class LoadSelectPaneController extends ButtonToolBarPaneController {
     @Override
     public void initializeButtonToolBar() {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 }

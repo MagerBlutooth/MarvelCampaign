@@ -1,5 +1,6 @@
 package adventure.view;
 
+import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.model.database.MasterThingDatabase;
 import campaign.view.GameStage;
@@ -53,7 +54,8 @@ public class GameMainScreen extends GameStage {
             FXMLAdventureGrabber grabber = new FXMLAdventureGrabber();
             grabber.grabFXML("mainMenu.fxml", mainPane);
             AdvMainMenuController mainMenuController = grabber.getController();
-            mainMenuController.initialize(db);
+            AdvMainDatabase mainDatabase = new AdvMainDatabase(db);
+            mainMenuController.initialize(mainDatabase);
         });
     }
 

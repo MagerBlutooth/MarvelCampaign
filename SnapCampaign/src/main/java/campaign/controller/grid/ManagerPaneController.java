@@ -1,7 +1,7 @@
 package campaign.controller.grid;
 
 import campaign.controller.ButtonToolBarPaneController;
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
@@ -17,7 +17,7 @@ import campaign.view.node.control.ControlNode;
 import campaign.view.pane.EditorMenuPane;
 
 //Generic controller used for controlling a full window
-public abstract class ManagerPaneController<T extends Thing, C extends ControllerDatabase> extends ButtonToolBarPaneController<C> implements GridActionController<T> {
+public abstract class ManagerPaneController<T extends Thing, C extends MainDatabase> extends ButtonToolBarPaneController<C> implements GridActionController<T> {
 
     @Override
     public void initialize(C database)
@@ -28,7 +28,7 @@ public abstract class ManagerPaneController<T extends Thing, C extends Controlle
     @Override
     public void initializeButtonToolBar() {
         EditorMenuPane menuPane = new EditorMenuPane();
-        menuPane.initialize(controllerDatabase);
+        menuPane.initialize(mainDatabase);
         buttonToolBar.initialize(menuPane);
     }
 
@@ -78,7 +78,7 @@ public abstract class ManagerPaneController<T extends Thing, C extends Controlle
     @Override
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind) {
         ControlNode<T> n = new ControlNode<>();
-        n.initialize(controllerDatabase, t, i, v, blind);
+        n.initialize(mainDatabase, t, i, v, blind);
         createTooltip(n);
         createContextMenu(n);
         setMouseEvents(n);

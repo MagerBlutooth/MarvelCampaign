@@ -1,11 +1,9 @@
 package adventure.view.node;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.controller.ControllerDatabase;
 import campaign.controller.editor.BasicNodeController;
 import campaign.model.thing.Thing;
-import campaign.view.fxml.FXMLCampaignGrabber;
 import javafx.scene.layout.StackPane;
 
 
@@ -17,11 +15,11 @@ public abstract class AdvNode extends StackPane {
         fxmlAdventureGrabber = new FXMLAdventureGrabber();
     }
 
-    public void initialize(AdvControllerDatabase d, Thing t) {
+    public void initialize(AdvMainDatabase d, Thing t) {
         getController().initialize(d, t);
     }
 
-    public <V extends BasicNodeController<AdvControllerDatabase, Thing>> V getController()
+    public <V extends BasicNodeController<AdvMainDatabase, Thing>> V getController()
     {
         return fxmlAdventureGrabber.getController();
     }

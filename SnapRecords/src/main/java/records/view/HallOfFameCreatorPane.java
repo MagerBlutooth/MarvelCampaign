@@ -1,6 +1,6 @@
 package records.view;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.view.pane.BasicPane;
 import records.controller.HallOfFameEntryCreatorPaneController;
 import records.model.HallOfFameEntry;
@@ -18,7 +18,7 @@ public class HallOfFameCreatorPane extends BasicPane {
         controller = fxmlGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase controllerDatabase, HallOfFameEntry hof, List<HallOfFameEntry> otherEntries) {
-        controller.initialize(controllerDatabase, hof, otherEntries);
+    public void initialize(MainDatabase mainDatabase, HallOfFameEntry hof, List<HallOfFameEntry> otherEntries) {
+        controller.initialize(mainDatabase, hof, otherEntries);
     }
 }

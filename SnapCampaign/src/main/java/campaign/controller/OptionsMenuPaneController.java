@@ -11,14 +11,14 @@ public class OptionsMenuPaneController extends ButtonToolBarPaneController {
     }
 
     @Override
-    public void initialize(ControllerDatabase database) {
+    public void initialize(MainDatabase database) {
         super.initialize(database);
     }
 
     @Override
     public void initializeButtonToolBar() {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 

@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import campaign.model.thing.Location;
@@ -13,7 +13,7 @@ public class MapGridActionController extends ThingActionController<Location> {
 
 
     @Override
-    public void initialize(ControllerDatabase d, DraggableThingDisplayController<Location> c)
+    public void initialize(MainDatabase d, DraggableThingDisplayController<Location> c)
     {
         super.initialize(d, c);
     }
@@ -37,7 +37,7 @@ public class MapGridActionController extends ThingActionController<Location> {
         MenuItem addOption = new MenuItem("Add Location");
         addOption.setOnAction(e -> {
             LocationSelectDialog dialog = new LocationSelectDialog();
-            dialog.initialize(controllerDatabase);
+            dialog.initialize(mainDatabase);
             Optional<Location> newLoc = dialog.showAndWait();
             newLoc.ifPresent(value -> displayController.add(newLoc.get()));
         });

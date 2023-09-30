@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.node.FactionSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -11,7 +11,7 @@ public class PrisonGridActionController extends ThingActionController<Card> {
 
     FactionSelectNodeController factionController;
 
-    public void initialize(ControllerDatabase database, DraggableThingDisplayController<Card> prisonDisplay, FactionSelectNodeController c)
+    public void initialize(MainDatabase database, DraggableThingDisplayController<Card> prisonDisplay, FactionSelectNodeController c)
     {
         super.initialize(database, prisonDisplay);
         factionController = c;

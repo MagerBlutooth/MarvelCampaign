@@ -1,6 +1,6 @@
 package campaign.controller.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.BaseGridActionController;
 import campaign.controller.grid.FreeAgentGridActionController;
 import campaign.controller.grid.FreeLocationGridActionController;
@@ -23,7 +23,7 @@ public class FreeAgentSelectNodeController extends FactionSelectNodeController{
 
     WatcherControlPaneController watcherControlPaneController;
 
-    public void initialize(ControllerDatabase d, WatcherControlPaneController watcherController, Faction free, String shieldName, String hydraName)
+    public void initialize(MainDatabase d, WatcherControlPaneController watcherController, Faction free, String shieldName, String hydraName)
     {
         database = d;
         faction = free;

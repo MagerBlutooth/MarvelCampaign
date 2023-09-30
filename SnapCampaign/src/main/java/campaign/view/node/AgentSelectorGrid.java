@@ -1,6 +1,6 @@
 package campaign.view.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.AgentSelectorGridController;
 import campaign.model.thing.Card;
 import campaign.model.thing.Faction;
@@ -23,7 +23,7 @@ public class AgentSelectorGrid extends BasicPane {
         return controller;
     }
 
-    public void initialize(ControllerDatabase cD, Faction faction, boolean blind) {
+    public void initialize(MainDatabase cD, Faction faction, boolean blind) {
         controller.initialize(cD, faction, blind);
     }
 

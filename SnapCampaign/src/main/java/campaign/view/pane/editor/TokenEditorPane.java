@@ -1,6 +1,6 @@
 package campaign.view.pane.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.editor.TokenEditorPaneController;
 import campaign.model.thing.Token;
 import campaign.view.ViewSize;
@@ -16,7 +16,7 @@ public class TokenEditorPane extends EditorPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase database, ViewSize v, Token t)
+    public void initialize(MainDatabase database, ViewSize v, Token t)
     {
         controller.initialize(database, v, t);
     }

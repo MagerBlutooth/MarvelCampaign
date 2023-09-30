@@ -1,6 +1,6 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Boss;
 import campaign.controller.editor.BasicNodeController;
 import campaign.model.thing.Card;
@@ -11,10 +11,8 @@ import campaign.view.thing.CardView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 
-public class BossEditorNodeController extends BasicNodeController<AdvControllerDatabase, Card> {
+public class BossEditorNodeController extends BasicNodeController<AdvMainDatabase, Card> {
 
     @FXML
     CardView imageView;
@@ -22,10 +20,10 @@ public class BossEditorNodeController extends BasicNodeController<AdvControllerD
     Label nameLabel;
     @FXML
     TextArea effectField;
-    AdvControllerDatabase database;
+    AdvMainDatabase database;
     Card card;
 
-    public void initialize(AdvControllerDatabase d, Boss b) {
+    public void initialize(AdvMainDatabase d, Boss b) {
         database = d;
         card = b.getCard();
         nameLabel.setText(card.getName());

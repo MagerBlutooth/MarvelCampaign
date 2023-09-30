@@ -1,6 +1,6 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.view.pane.AdvEditorMenuPane;
 import adventure.view.pane.AdvStartPane;
 import javafx.application.Platform;
@@ -24,13 +24,13 @@ public class AdvMainMenuController extends AdvPaneController {
     public void startAdventure() {
 
         AdvStartPane advStartPane = new AdvStartPane();
-        advStartPane.initialize(controllerDatabase);
+        advStartPane.initialize(mainDatabase);
         changeScene(advStartPane);
     }
 
     public void configureAdventure() {
         AdvEditorMenuPane editorMenuPane = new AdvEditorMenuPane();
-        editorMenuPane.initialize(controllerDatabase);
+        editorMenuPane.initialize(mainDatabase);
         changeScene(editorMenuPane);
     }
 
@@ -43,9 +43,9 @@ public class AdvMainMenuController extends AdvPaneController {
         return mainPane.getScene();
     }
 
+    @Override
+    public void initializeButtonToolBar() {
 
-    public void initialize(MasterThingDatabase masterThingDatabase)
-    {
-        controllerDatabase = new AdvControllerDatabase(masterThingDatabase);
     }
+
 }

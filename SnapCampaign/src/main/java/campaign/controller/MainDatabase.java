@@ -10,12 +10,12 @@ import campaign.view.IconImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerDatabase {
+public class MainDatabase {
 
     MasterThingDatabase masterThingDatabase;
     MasterImageCache imageCache;
 
-    public ControllerDatabase(MasterThingDatabase database)
+    public MainDatabase(MasterThingDatabase database)
     {
         masterThingDatabase = database;
         imageCache = new MasterImageCache(database);

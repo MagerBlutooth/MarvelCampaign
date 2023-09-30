@@ -2,9 +2,12 @@ package adventure.model.adventure;
 
 import adventure.model.*;
 import campaign.model.constants.CampaignConstants;
+import campaign.model.thing.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static adventure.model.AdventureConstants.STARTING_CAPTAINS;
 
 public class Adventure {
 
@@ -19,18 +22,26 @@ public class Adventure {
     WorldList worlds;
     String adventureNotes;
     int currentWorldNum;
+    int currentSectionNum;
+    boolean newProfileCheck;
+    //Constructor for loading old profiles
     public Adventure(AdventureDatabase database, String proFile, String proName)
     {
         profileName = proName;
         profileFile = proFile;
         adventureDatabase = database;
+        adventureNotes = "";
+        newProfileCheck = false;
         loadAdventure(profileFile);
     }
 
+    //Constructor for creating new profiles
     public Adventure(AdventureDatabase database, String proFile)
     {
         profileFile = proFile;
         adventureDatabase = database;
+        adventureNotes = "";
+        newProfileCheck = false;
         loadAdventure(proFile);
     }
 
@@ -39,8 +50,7 @@ public class Adventure {
         List<String> adventureString = new ArrayList<>();
         adventureString.add(profileName);
         adventureString.add(currentWorldNum +"");
-        World world = worlds.get(currentWorldNum);
-        adventureString.add(world.getCurrentSectionNum()+"");
+        adventureString.add(currentSectionNum+"");
         adventureString.add(team.convertToString());
         adventureString.add(availableBosses.toSaveString());
         adventureString.add(availableSections.toSaveString());
@@ -57,7 +67,7 @@ public class Adventure {
             return;
         }
         //Initialize base objects
-        team = new Team(adventureDatabase);
+        team = new Team();
         availableBosses = new BossList(new ArrayList<>());
         availableSections = new SectionList(new ArrayList<>());
         worlds = new WorldList(new ArrayList<>());
@@ -70,8 +80,11 @@ public class Adventure {
         availableSections.fromSaveString(splitString[5], adventureDatabase.getSections());
         worlds.fromSaveString(adventureDatabase, splitString[6]);
         adventureNotes = splitString[7];
-        World world = worlds.get(currentWorldNum);
-        world.setCurrentSectionNum(Integer.parseInt(splitString[2]));
+        setCurrentSectionNum(Integer.parseInt(splitString[2]));
+    }
+
+    private void setCurrentSectionNum(int num) {
+        currentSectionNum = num;
     }
 
     public void saveAdventure()
@@ -98,6 +111,7 @@ public class Adventure {
         team = new Team(adventureDatabase);
         worlds = new WorldList(adventureDatabase);
         currentWorldNum = 1;
+        currentSectionNum = 1;
     }
 
     public World getCurrentWorld() {
@@ -105,7 +119,7 @@ public class Adventure {
     }
 
     public int getCurrentSectionNum() {
-        return worlds.get(currentWorldNum).getCurrentSectionNum();
+        return currentSectionNum;
     }
 
     public Team getTeam() {
@@ -118,5 +132,17 @@ public class Adventure {
 
     public String getProfileName() {
         return profileName;
+    }
+
+    public boolean isNewProfile() {
+        return newProfileCheck;
+    }
+
+    public void setProfileName(String p) {
+        profileName = p;
+    }
+
+    public void setNewProfile(boolean b) {
+        newProfileCheck = b;
     }
 }

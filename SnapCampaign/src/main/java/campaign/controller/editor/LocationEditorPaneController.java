@@ -1,6 +1,6 @@
 package campaign.controller.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import campaign.model.thing.Location;
 import campaign.model.thing.ThingType;
@@ -21,14 +21,14 @@ public class LocationEditorPaneController extends EditorPaneController {
 
     ThingImageGrabber imageGrabber = new ThingImageGrabber(ThingType.LOCATION);
 
-    public void initialize(ControllerDatabase database, Location l)
+    public void initialize(MainDatabase database, Location l)
     {
         super.initialize(database);
         locationSetup(database, l);
         imagePane.initialize(l, ViewSize.LARGE, true);
     }
 
-    private void locationSetup(ControllerDatabase d, Location l) {
+    private void locationSetup(MainDatabase d, Location l) {
         locationEditorNode.initialize(d, l);
     }
 
@@ -36,17 +36,17 @@ public class LocationEditorPaneController extends EditorPaneController {
     private void saveLocation()
     {
         Location l = locationEditorNode.generateLocation();
-        controllerDatabase.addLocation(l, imagePane.getImage());
+        mainDatabase.addLocation(l, imagePane.getImage());
         imageGrabber.saveImage(imagePane.getImage(), l.getID());
         LocationManagerPane locationManagerPane = new LocationManagerPane();
-        locationManagerPane.initialize(controllerDatabase);
+        locationManagerPane.initialize(mainDatabase);
         changeScene(locationManagerPane);
     }
 
     @Override
     public void initializeButtonToolBar() {
         LocationManagerPane locManagerPane = new LocationManagerPane();
-        locManagerPane.initialize(controllerDatabase);
+        locManagerPane.initialize(mainDatabase);
         buttonToolBar.initialize(locManagerPane);
     }
 }

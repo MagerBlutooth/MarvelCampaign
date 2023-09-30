@@ -20,20 +20,20 @@ public class EditMenuController extends ButtonToolBarPaneController {
     public void cardEditor()
     {
         CardManagerPane cardManagerPane = new CardManagerPane();
-        cardManagerPane.initialize(controllerDatabase);
+        cardManagerPane.initialize(mainDatabase);
         changeScene(cardManagerPane);
     }
     @FXML
     public void locationEditor() {
         LocationManagerPane locationManagerPane = new LocationManagerPane();
-        locationManagerPane.initialize(controllerDatabase);
+        locationManagerPane.initialize(mainDatabase);
         changeScene(locationManagerPane);}
 
     @FXML
     public void tokenEditor()
     {
         TokenManagerPane tokenManagerPane = new TokenManagerPane();
-        tokenManagerPane.initialize(controllerDatabase);
+        tokenManagerPane.initialize(mainDatabase);
         changeScene(tokenManagerPane);
     }
 
@@ -45,12 +45,12 @@ public class EditMenuController extends ButtonToolBarPaneController {
     @Override
     public void initializeButtonToolBar() {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
     @Override
-    public void initialize(ControllerDatabase database) {
+    public void initialize(MainDatabase database) {
         super.initialize(database);
     }
 }

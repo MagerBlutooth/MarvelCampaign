@@ -11,7 +11,7 @@ import java.util.List;
 
 import static adventure.model.AdventureConstants.NUMBER_OF_WORLDS;
 
-public class WorldList extends ThingList<World> {
+public class WorldList extends ArrayList<World> {
 
     public WorldList(AdventureDatabase database)
     {
@@ -37,30 +37,16 @@ public class WorldList extends ThingList<World> {
         super(t);
     }
 
-    public List<World> getWorlds()
-    {
-        return getThings();
-    }
-
-    @Override
-    public void sort() {
-
-    }
-
-    @Override
-    public void setSortMode(String m) {
-
-    }
-
     public String toSaveString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for(World w: getWorlds())
+        for(World w: this)
         {
             stringBuilder.append(Arrays.toString(w.toSaveStringArray()));
             stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
         }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        if(!stringBuilder.isEmpty())
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         String result = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
@@ -73,7 +59,10 @@ public class WorldList extends ThingList<World> {
         for(int i = 0; i < worldsList.length; i++)
         {
             World w = new World(db);
-            w.fromSaveStringArray(worldsList);
+            String[] worldString = worldsList[i].split(CampaignConstants.CSV_SEPARATOR);
+            worldString[0] = worldString[0].replace("[","");
+            worldString[worldString.length-1] = worldString[worldString.length-1].replace("]", "");
+            w.fromSaveStringArray(worldString);
             this.add(w);
         }
     }

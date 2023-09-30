@@ -1,20 +1,24 @@
 package adventure.controller;
 
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
 import adventure.view.node.ProfileNode;
 import adventure.view.pane.AdvMainMenuPane;
+import adventure.view.pane.AdvNewProfilePane;
+import adventure.view.pane.AdvStartPane;
 import adventure.view.pane.AdventureControlPane;
 import campaign.view.button.ButtonToolBar;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AdvStartPaneController extends AdvPaneController {
 
+    @FXML
+    AdvStartPane advStartPane;
     @FXML
     ButtonToolBar buttonToolBar;
     @FXML
@@ -24,11 +28,22 @@ public class AdvStartPaneController extends AdvPaneController {
     @FXML
     ProfileNode profile3;
 
-    public void initialize(AdvControllerDatabase dB)
+
+    ConcurrentHashMap<String, Adventure> adventureStorageMap;
+
+    public void initialize(AdvMainDatabase dB)
     {
-        controllerDatabase = dB;
-        buttonToolBar.initialize(new AdvMainMenuPane());
+        mainDatabase = dB;
+        initializeButtonToolBar();
+        adventureStorageMap = new ConcurrentHashMap<>();
         initializeProfiles();
+    }
+
+    @Override
+    public void initializeButtonToolBar() {
+        AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
+        mainMenuPane.initialize(mainDatabase);
+        buttonToolBar.initialize(mainMenuPane);
     }
 
     private void initializeProfiles() {
@@ -43,30 +58,41 @@ public class AdvStartPaneController extends AdvPaneController {
         checkProfile(AdventureConstants.PROFILE_1, profile1, 1);
         checkProfile(AdventureConstants.PROFILE_2, profile2, 2);
         checkProfile(AdventureConstants.PROFILE_3, profile3, 3);
-
     }
 
     private void checkProfile(String profile, ProfileNode proNode, int num) {
-        AdventureDatabase adventureDatabase = new AdventureDatabase(controllerDatabase);
+        AdventureDatabase adventureDatabase = new AdventureDatabase(mainDatabase);
         Adventure adventure = new Adventure(adventureDatabase, profile);
+        adventureStorageMap.put(profile, adventure);
         String name = adventure.getProfileName();
-        if(name == null)
+        if(name == null) {
             name = "Empty";
-            proNode.initialize(name, "1");
+            adventure.setNewProfile(true);
+        }
+            proNode.initialize(name, num+"");
     }
 
     //TODO: Create dialog pane for entering profileName and showing starting team
-    private Adventure initializeAdventure(String profile)
+    private Adventure selectAdventure(String profile)
     {
-        AdventureDatabase adventureDatabase = new AdventureDatabase(controllerDatabase);
-        return new Adventure(adventureDatabase, profile, "Chara");
+        return adventureStorageMap.get(profile);
     }
 
     private void startAdventure(String profile) {
-        AdventureControlPane adventureControlPane = new AdventureControlPane();
-        Adventure adventure = initializeAdventure(profile);
-        adventureControlPane.initialize(controllerDatabase, adventure);
-        changeScene(adventureControlPane);
+        Adventure adventure = selectAdventure(profile);
+
+        if(adventure.isNewProfile())
+        {
+            AdvNewProfilePane advNewProfilePane = new AdvNewProfilePane();
+            advNewProfilePane.initialize(mainDatabase, adventure, advStartPane);
+            changeScene(advNewProfilePane);
+        }
+        else
+        {
+            AdventureControlPane adventureControlPane = new AdventureControlPane();
+            adventureControlPane.initialize(mainDatabase, adventure);
+            changeScene(adventureControlPane);
+        }
     }
 
     @Override

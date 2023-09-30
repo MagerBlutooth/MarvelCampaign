@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import campaign.model.thing.ThingType;
@@ -12,7 +12,7 @@ import campaign.view.node.control.ControlNode;
 import campaign.view.pane.editor.TokenEditorPane;
 
 
-public class TokenManagerPaneController extends ManagerPaneController<Token, ControllerDatabase> {
+public class TokenManagerPaneController extends ManagerPaneController<Token, MainDatabase> {
     @FXML
     TokenManager tokenManager;
 
@@ -22,20 +22,20 @@ public class TokenManagerPaneController extends ManagerPaneController<Token, Con
     }
 
     @Override
-    public void initialize(ControllerDatabase m) {
+    public void initialize(MainDatabase m) {
         super.initialize(m);
         tokenManager.initialize(new TokenList<>(m.getTokens()), ThingType.TOKEN,this, ViewSize.MEDIUM, true);
     }
 
     @Override
     public void saveGridNode(ControlNode<Token> node) {
-        controllerDatabase.saveDatabase(node.getSubject().getThingType());
+        mainDatabase.saveDatabase(node.getSubject().getThingType());
     }
 
     @Override
     public void editSubject(ControlNode<Token> node) {
         TokenEditorPane tokenEditorPane = new TokenEditorPane();
-        tokenEditorPane.initialize(controllerDatabase, ViewSize.LARGE, (Token)node.getSubject());
+        tokenEditorPane.initialize(mainDatabase, ViewSize.LARGE, (Token)node.getSubject());
         changeScene(tokenEditorPane);
     }
 
@@ -43,7 +43,7 @@ public class TokenManagerPaneController extends ManagerPaneController<Token, Con
     public void addNewEntry()
     {
         TokenEditorPane tokenEditorPane = new TokenEditorPane();
-        tokenEditorPane.initialize(controllerDatabase, ViewSize.LARGE, new Token());
+        tokenEditorPane.initialize(mainDatabase, ViewSize.LARGE, new Token());
         changeScene(tokenEditorPane);
     }
 }

@@ -1,6 +1,6 @@
 package campaign.view.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.node.FactionDisplayNodeController;
 import javafx.scene.layout.StackPane;
 import campaign.model.thing.Faction;
@@ -17,7 +17,7 @@ public class FactionDisplayNode extends StackPane {
     }
 
     //Display Node should be "blind" if Captain status should be hidden
-    public void initialize(ControllerDatabase d, Faction f, boolean blind)
+    public void initialize(MainDatabase d, Faction f, boolean blind)
     {
         controller.initialize(d, f, blind);
     }

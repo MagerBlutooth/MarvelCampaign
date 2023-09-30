@@ -1,6 +1,6 @@
 package campaign.view.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.editor.BasicNodeController;
 import javafx.scene.layout.StackPane;
 import campaign.model.thing.Thing;
@@ -16,11 +16,11 @@ public abstract class CampaignNode extends StackPane {
         fxmlCampaignGrabber = new FXMLCampaignGrabber();
     }
 
-    public void initialize(ControllerDatabase d, Thing t) {
+    public void initialize(MainDatabase d, Thing t) {
         getController().initialize(d, t);
     }
 
-    public <V extends BasicNodeController<ControllerDatabase, Thing>> V getController()
+    public <V extends BasicNodeController<MainDatabase, Thing>> V getController()
     {
         return fxmlCampaignGrabber.getController();
     }

@@ -1,7 +1,7 @@
 package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Section;
 import adventure.view.node.SectionEditorNode;
 import adventure.view.pane.AdvLocationManagerPane;
@@ -20,7 +20,7 @@ public class SectionEditorPaneController extends AdvEditorPaneController
         imageGrabber = new ThingImageGrabber(ThingType.LOCATION);
     }
 
-    public void initialize(AdvControllerDatabase database, Section s)
+    public void initialize(AdvMainDatabase database, Section s)
     {
         super.initialize(database);
         sectionEditorNode.initialize(database, s);
@@ -30,16 +30,16 @@ public class SectionEditorPaneController extends AdvEditorPaneController
     private void saveSection()
     {
         Section s = sectionEditorNode.generateSection();
-        controllerDatabase.modifySection(s);
+        mainDatabase.modifySection(s);
         AdvLocationManagerPane locManagerPane = new AdvLocationManagerPane();
-        locManagerPane.initialize(controllerDatabase);
+        locManagerPane.initialize(mainDatabase);
         changeScene(locManagerPane);
     }
 
     @Override
     public void initializeButtonToolBar() {
         AdvLocationManagerPane locManagerPane = new AdvLocationManagerPane();
-        locManagerPane.initialize(controllerDatabase);
+        locManagerPane.initialize(mainDatabase);
         buttonToolBar.initialize(locManagerPane);
     }
 }

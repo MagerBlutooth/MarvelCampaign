@@ -1,7 +1,7 @@
 package adventure.view.node;
 
 import adventure.controller.BossEditorNodeController;
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Boss;
 
 public class BossEditorNode extends AdvNode {
@@ -14,7 +14,7 @@ public class BossEditorNode extends AdvNode {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvControllerDatabase d, Boss b)
+    public void initialize(AdvMainDatabase d, Boss b)
     {
         controller.initialize(d, b);
     }

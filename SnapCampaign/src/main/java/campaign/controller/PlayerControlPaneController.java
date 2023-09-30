@@ -53,13 +53,13 @@ public class PlayerControlPaneController extends ButtonToolBarPaneController {
     CampaignDatabase campaignDatabase;
     Faction myFaction;
 
-    public void initialize(CampaignDatabase camp, ControllerDatabase cd, Faction f, Faction enemy, Faction unknown)
+    public void initialize(CampaignDatabase camp, MainDatabase cd, Faction f, Faction enemy, Faction unknown)
     {
         super.initialize(cd);
         campaignDatabase = camp;
         myFaction = f;
-        myAgentSelector.initialize(controllerDatabase, f, false);
-        myLocationMap.initialize(controllerDatabase, f, false);
+        myAgentSelector.initialize(mainDatabase, f, false);
+        myLocationMap.initialize(mainDatabase, f, false);
         enemyIntel.initialize(cd, enemy, true);
         unknownIntel.initialize(cd, unknown, true);
         FactionPainter painter = new FactionPainter();
@@ -91,7 +91,7 @@ public class PlayerControlPaneController extends ButtonToolBarPaneController {
     @Override
     public void initializeButtonToolBar() {
         MainMenuPane mainMenuPane = new MainMenuPane();
-        mainMenuPane.initialize(controllerDatabase);
+        mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
     }
 
@@ -123,8 +123,8 @@ public class PlayerControlPaneController extends ButtonToolBarPaneController {
     {
         String factionString = passwordArea.getText().trim();
         myFaction = new Faction(factionString, campaignDatabase);
-        myAgentSelector.initialize(controllerDatabase, myFaction, false);
-        myLocationMap.initialize(controllerDatabase, myFaction, false);
+        myAgentSelector.initialize(mainDatabase, myFaction, false);
+        myLocationMap.initialize(mainDatabase, myFaction, false);
         passwordArea.clear();
     }
 }

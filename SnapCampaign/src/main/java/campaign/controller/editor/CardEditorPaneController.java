@@ -1,6 +1,6 @@
 package campaign.controller.editor;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import javafx.fxml.FXML;
 import campaign.model.thing.Card;
 import campaign.model.thing.ThingType;
@@ -23,11 +23,11 @@ public class CardEditorPaneController extends EditorPaneController {
         imageGrabber = new ThingImageGrabber(ThingType.CARD);
     }
 
-    public void initialize(ControllerDatabase database, ViewSize viewSize, Card card)
+    public void initialize(MainDatabase database, ViewSize viewSize, Card card)
     {
         super.initialize(database);
         cardEditorNode.initialize(database, card);
-        imagePane.initialize(controllerDatabase, card, viewSize, true);
+        imagePane.initialize(mainDatabase, card, viewSize, true);
         imagePane.disableTooltip();
     }
 
@@ -35,17 +35,17 @@ public class CardEditorPaneController extends EditorPaneController {
     private void saveCard()
     {
         Card c = cardEditorNode.generateCard();
-        controllerDatabase.addCard(c, imagePane.getImage());
+        mainDatabase.addCard(c, imagePane.getImage());
         imageGrabber.saveImage(imagePane.getImage(), c.getID());
         CardManagerPane cardManagerPane = new CardManagerPane();
-        cardManagerPane.initialize(controllerDatabase);
+        cardManagerPane.initialize(mainDatabase);
         changeScene(cardManagerPane);
     }
 
     @Override
     public void initializeButtonToolBar() {
         CardManagerPane cardManagerPane = new CardManagerPane();
-        cardManagerPane.initialize(controllerDatabase);
+        cardManagerPane.initialize(mainDatabase);
         buttonToolBar.initialize(cardManagerPane);
     }
 }

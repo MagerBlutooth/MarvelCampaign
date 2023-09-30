@@ -1,6 +1,6 @@
 package campaign.view.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.LocationMapNodeController;
 import campaign.controller.grid.WatcherLocationMapNodeController;
 import campaign.view.fxml.FXMLCampaignGrabber;
@@ -20,7 +20,7 @@ public class WatcherLocationMapNode extends StackPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase cD, Faction faction, boolean blind) {
+    public void initialize(MainDatabase cD, Faction faction, boolean blind) {
         controller.initialize(cD, faction, blind);
     }
 

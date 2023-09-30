@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.ScrollSetup;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
@@ -29,13 +29,13 @@ public class LocationMapNodeController implements GridActionController<Location>
     @FXML
     Label agentCounter;
 
-    ControllerDatabase controllerDatabase;
+    MainDatabase mainDatabase;
     Faction faction;
 
 
-    public void initialize(ControllerDatabase d, Faction f, boolean blind)
+    public void initialize(MainDatabase d, Faction f, boolean blind)
     {
-        controllerDatabase = d;
+        mainDatabase = d;
         faction = f;
         locationGrid.initialize(f, ThingType.LOCATION, this, ViewSize.MEDIUM, blind);
         ScrollSetup scrollSetup = new ScrollSetup();
@@ -45,13 +45,13 @@ public class LocationMapNodeController implements GridActionController<Location>
     @Override
     public ControlNode<Location> createControlNode(Location l, IconImage i, ViewSize v, boolean blind) {
         DraggableMapControlNode n = new DraggableMapControlNode(this);
-        n.initialize(controllerDatabase, l, i, v, blind);
+        n.initialize(mainDatabase, l, i, v, blind);
         return n;
     }
 
     @Override
-    public ControllerDatabase getDatabase() {
-        return controllerDatabase;
+    public MainDatabase getDatabase() {
+        return mainDatabase;
     }
 
     @Override

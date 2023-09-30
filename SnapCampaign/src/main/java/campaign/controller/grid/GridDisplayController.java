@@ -1,6 +1,6 @@
 package campaign.controller.grid;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.model.thing.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +21,7 @@ public class GridDisplayController<T extends Thing>  {
     Map<String, Boolean> filterOptionsMap;
     List<String> sortOptions;
     ViewSize viewSize;
-    protected ControllerDatabase controllerDatabase;
+    protected MainDatabase mainDatabase;
 
     GridActionController<T> gridActionController;
     ThingType thingType;
@@ -34,7 +34,7 @@ public class GridDisplayController<T extends Thing>  {
 
     public void initialize(ThingList<T> things, ThingType tType, GridActionController<T> controller, ViewSize v, boolean bl)
     {
-        controllerDatabase = controller.getDatabase();
+        mainDatabase = controller.getDatabase();
         thingType = tType;
         gridActionController = controller;
         groupList.getChildren().clear();
@@ -114,7 +114,7 @@ public class GridDisplayController<T extends Thing>  {
     }
 
      protected void addNewNode(T t, List<ControlNode<T>> listOfObjects) {
-        IconImage i = controllerDatabase.grabImage(t, t.getThingType());
+        IconImage i = mainDatabase.grabImage(t, t.getThingType());
         ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, blind);
         listOfObjects.add(n);
     }
@@ -177,9 +177,9 @@ public class GridDisplayController<T extends Thing>  {
         populateDisplay();
     }
 
-    public ControllerDatabase getControllerDatabase()
+    public MainDatabase getControllerDatabase()
     {
-        return controllerDatabase;
+        return mainDatabase;
     }
 
     protected GridActionController<T> getGridActionController() {

@@ -1,6 +1,6 @@
 package campaign.view.node;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.LocationMapNodeController;
 import javafx.scene.layout.StackPane;
 import campaign.model.thing.Faction;
@@ -19,7 +19,7 @@ public class LocationMapNode extends StackPane {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase cD, Faction faction, boolean blind) {
+    public void initialize(MainDatabase cD, Faction faction, boolean blind) {
         controller.initialize(cD, faction, blind);
     }
 

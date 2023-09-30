@@ -1,6 +1,6 @@
 package campaign.view.dialog;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.grid.DialogGridActionController;
 import campaign.view.ViewSize;
 import campaign.view.node.control.ControlNode;
@@ -17,10 +17,10 @@ import java.util.List;
 public class LocationSelectDialog extends SelectDialog<Location> {
 
     @Override
-    public void initialize(ControllerDatabase cd)
+    public void initialize(MainDatabase cd)
     {
         super.initialize(cd);
-        List<Location> allLocations = controllerDatabase.getLocations();
+        List<Location> allLocations = mainDatabase.getLocations();
 
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             LocationList locs = new LocationList(new ArrayList<>());
@@ -48,7 +48,7 @@ public class LocationSelectDialog extends SelectDialog<Location> {
         displayPane.getChildren().clear();
         ControlNode<EffectThing> viewNode = new ControlNode<>();
         viewNode.setMaxWidth(300.0);
-        viewNode.initialize(controllerDatabase, l,controllerDatabase.grabImage(l, l.getThingType()), ViewSize.LARGE, true);
+        viewNode.initialize(mainDatabase, l, mainDatabase.grabImage(l, l.getThingType()), ViewSize.LARGE, true);
         displayPane.getChildren().add(viewNode);
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());

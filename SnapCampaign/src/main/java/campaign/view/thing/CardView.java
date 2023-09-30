@@ -1,6 +1,6 @@
 package campaign.view.thing;
 
-import campaign.controller.ControllerDatabase;
+import campaign.controller.MainDatabase;
 import campaign.controller.view.CardViewController;
 import campaign.model.thing.Card;
 import campaign.model.thing.ThingType;
@@ -17,7 +17,7 @@ public class CardView extends ThingView<Card> {
         controller = fxmlCampaignGrabber.getController();
     }
 
-    public void initialize(ControllerDatabase cd, Card c, ViewSize size, boolean editable)
+    public void initialize(MainDatabase cd, Card c, ViewSize size, boolean editable)
     {
         viewSize = size;
         this.editable = editable;

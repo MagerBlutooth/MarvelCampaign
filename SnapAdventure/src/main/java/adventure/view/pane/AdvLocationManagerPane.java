@@ -1,7 +1,7 @@
 package adventure.view.pane;
 
 import adventure.controller.manager.AdvSectionManagerPaneController;
-import adventure.model.AdvControllerDatabase;
+import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import campaign.view.pane.manager.ManagerPane;
 
@@ -16,7 +16,7 @@ public class AdvLocationManagerPane extends ManagerPane {
         controller = grabber.getController();
     }
 
-    public void initialize(AdvControllerDatabase database)
+    public void initialize(AdvMainDatabase database)
     {
         controller.initialize(database);
     }
