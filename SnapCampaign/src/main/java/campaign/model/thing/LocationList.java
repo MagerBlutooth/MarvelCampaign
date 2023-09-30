@@ -12,11 +12,12 @@ import java.util.List;
 
 public class LocationList extends ThingList<Location> {
 
-    LocationSorter locationSorter = new LocationSorter();
+    LocationSorter locationSorter;
 
     public LocationList(List<Location> locs)
     {
         super(locs);
+        locationSorter = new LocationSorter();
     }
 
     public void sort()

@@ -27,7 +27,7 @@ public class BossEditorPaneController extends AdvEditorPaneController
     }
 
     @FXML
-    private void saveBoss()
+    public void saveBoss()
     {
         Boss b = bossEditorNode.generateBoss();
         mainDatabase.modifyBoss(b);

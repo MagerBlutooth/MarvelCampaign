@@ -50,6 +50,19 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         return dBContext.lookup(ThingType.CARD);
     }
 
+    public void modifyBoss(Boss b) {
+        ThingDatabase<Boss> lookup = dBContext.lookup(ThingType.BOSS);
+        lookup.addNewEntry(b);
+        vSaver.saveBosses(getBosses());
+    }
+
+    public void modifySection(Section s)
+    {
+        ThingDatabase<Section> lookup = dBContext.lookup(ThingType.LOCATION);
+        lookup.addNewEntry(s);
+        vSaver.saveSections(getSections());
+    }
+
     public ThingDatabase<Boss> getEnabledBosses() {
         ThingDatabase<Boss> enabled = new ThingDatabase<>();
         for(Boss b: getBosses())
@@ -80,19 +93,6 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
                 enabled.add(c);
         }
         return enabled;
-    }
-
-    public void modifyBoss(Boss b) {
-        ThingDatabase<Boss> lookup = dBContext.lookup(ThingType.CARD);
-        lookup.addNewEntry(b);
-        vSaver.saveBosses(getBosses());
-    }
-
-    public void modifySection(Section s)
-    {
-        ThingDatabase<Section> lookup = dBContext.lookup(ThingType.LOCATION);
-        lookup.addNewEntry(s);
-        vSaver.saveSections(getSections());
     }
 
     public Boss getBoss(Card card)

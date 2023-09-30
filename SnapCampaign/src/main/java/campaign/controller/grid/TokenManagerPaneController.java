@@ -11,6 +11,8 @@ import campaign.view.manager.TokenManager;
 import campaign.view.node.control.ControlNode;
 import campaign.view.pane.editor.TokenEditorPane;
 
+import java.util.ArrayList;
+
 
 public class TokenManagerPaneController extends ManagerPaneController<Token, MainDatabase> {
     @FXML
@@ -24,7 +26,8 @@ public class TokenManagerPaneController extends ManagerPaneController<Token, Mai
     @Override
     public void initialize(MainDatabase m) {
         super.initialize(m);
-        tokenManager.initialize(new TokenList<>(m.getTokens()), ThingType.TOKEN,this, ViewSize.MEDIUM, true);
+        TokenList tokenList = new TokenList(m.getTokens());
+        tokenManager.initialize(tokenList, ThingType.TOKEN,this, ViewSize.MEDIUM, true);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class TokenManagerPaneController extends ManagerPaneController<Token, Mai
     @Override
     public void editSubject(ControlNode<Token> node) {
         TokenEditorPane tokenEditorPane = new TokenEditorPane();
-        tokenEditorPane.initialize(mainDatabase, ViewSize.LARGE, (Token)node.getSubject());
+        tokenEditorPane.initialize(mainDatabase, ViewSize.LARGE, node.getSubject());
         changeScene(tokenEditorPane);
     }
 
