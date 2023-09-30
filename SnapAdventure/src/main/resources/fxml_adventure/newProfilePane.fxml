@@ -18,7 +18,8 @@
                 <Label text="Enter New Profile"/>
                 <TextField fx:id="profileField"/>
                 <Label text="Starting Team:"/>
-                    <GridDisplayNode fx:id="teamIntro" padding="120 0 120 0"/>
+                    <GridDisplayNode fx:id="teamIntro" minHeight="300"/>
+                    <GridDisplayNode fx:id="captainIntro" minHeight="150"/>
                 <Button fx:id="startButton" text="Start Adventure" onAction="#startAdventure"/>
             </VBox>
         </VBox>

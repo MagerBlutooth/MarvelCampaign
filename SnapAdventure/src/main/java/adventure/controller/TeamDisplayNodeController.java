@@ -2,7 +2,6 @@ package adventure.controller;
 
 import adventure.model.Team;
 import campaign.controller.MainDatabase;
-import campaign.controller.grid.BaseGridActionController;
 import campaign.model.thing.Card;
 import campaign.model.thing.ThingType;
 import campaign.view.ViewSize;
@@ -13,6 +12,9 @@ public class TeamDisplayNodeController {
 
     @FXML
     GridDisplayNode<Card> cardDisplay;
+    @FXML
+    public GridDisplayNode<Card> tempCardDisplay;
+
     Team team;
 
     MainDatabase database;
@@ -21,10 +23,10 @@ public class TeamDisplayNodeController {
     {
         database = d;
         team = t;
-
-        BaseGridActionController<Card> cardController = new BaseGridActionController<>();
-        cardController.initialize(d);
+        TeamGridActionController cardController = new TeamGridActionController();
+        cardController.initialize(d, this);
         cardDisplay.initialize(t.getActiveCards(), ThingType.CARD, cardController, ViewSize.SMALL, false);
+        tempCardDisplay.initialize(t.getTempCards(), ThingType.CARD, cardController, ViewSize.SMALL, false);
     }
 
     public void showCaptured()
@@ -46,6 +48,7 @@ public class TeamDisplayNodeController {
     public void refresh()
     {
         cardDisplay.refreshToMatch(team.getActiveCards());
+        tempCardDisplay.refreshToMatch(team.getTempCards());
     }
 
     public void capture(Card card)
@@ -67,7 +70,7 @@ public class TeamDisplayNodeController {
 
     public void free(Card card)
     {
-        team.freeCard(card);
+        team.freeCapturedCard(card);
         refresh();
     }
 
@@ -80,5 +83,15 @@ public class TeamDisplayNodeController {
     {
         team.returnCard(card);
         refresh();
+    }
+
+    public void update(Card subject) {
+        cardDisplay.update(subject);
+        tempCardDisplay.update(subject);
+    }
+
+    public void toggleWound(Card card) {
+        card.setWounded(!card.isWounded());
+        update(card);
     }
 }

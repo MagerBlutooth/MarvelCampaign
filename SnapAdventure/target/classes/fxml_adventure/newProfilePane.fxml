@@ -9,7 +9,7 @@
 <?import campaign.view.node.GridDisplayNode?>
 <fx:root type="AdvNewProfilePane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvNewProfilePaneController" maxHeight="1000">
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvNewProfilePaneController" maxHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <VBox alignment="CENTER">
@@ -18,9 +18,8 @@
                 <Label text="Enter New Profile"/>
                 <TextField fx:id="profileField"/>
                 <Label text="Starting Team:"/>
-                    <GridDisplayNode fx:id="teamIntro" maxHeight="400"/>
-                <Label text="Starting Captains:"/>
-                    <GridDisplayNode fx:id="captainIntro" minHeight="150" vbarPolicy="NEVER"/>
+                    <GridDisplayNode fx:id="teamIntro" minHeight="300"/>
+                    <GridDisplayNode fx:id="captainIntro" minHeight="150"/>
                 <Button fx:id="startButton" text="Start Adventure" onAction="#startAdventure"/>
             </VBox>
         </VBox>

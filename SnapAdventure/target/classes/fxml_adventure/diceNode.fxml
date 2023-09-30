@@ -15,8 +15,9 @@
     </HBox>
       <HBox spacing="10.0" alignment="CENTER">
           <Button fx:id="d8Button" text="d8" onAction="#rolld8"/>
-          <Button fx:id="d12Button" text="d12" onAction="#rolld20"/>
+          <Button fx:id="d12Button" text="d12" onAction="#rolld12"/>
           <Button fx:id="d20Button" text="d20" onAction="#rolld20"/>
+          <Button fx:id="d100Button" text="d100" onAction="#rolld100"/>
       </HBox>
         <Label fx:id="dieResult" alignment="CENTER"/>
   </VBox>

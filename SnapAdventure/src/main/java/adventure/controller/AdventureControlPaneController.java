@@ -12,6 +12,7 @@ import campaign.model.thing.Card;
 import campaign.view.button.ButtonToolBar;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class AdventureControlPaneController extends AdvPaneController {
         World world = a.getCurrentWorld();
         teamDisplayNode.initialize(database, a.getTeam());
         worldDisplayNode.initialize(database,world, adventure.getCurrentWorldNum(), adventure.getCurrentSectionNum());
+        adventureActionNode.initialize(database, adventure);
         adventure.saveAdventure();
     }
 

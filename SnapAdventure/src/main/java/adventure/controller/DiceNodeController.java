@@ -22,6 +22,8 @@ public class DiceNodeController {
     @FXML
     Button d20Button;
     @FXML
+    Button d100Button;
+    @FXML
     Label dieResult;
 
     public void rolld2() {rollDie(2); }
@@ -48,6 +50,10 @@ public class DiceNodeController {
     public void rolld20()
     {
         rollDie(20);
+    }
+    public void rolld100()
+    {
+        rollDie(100);
     }
 
 

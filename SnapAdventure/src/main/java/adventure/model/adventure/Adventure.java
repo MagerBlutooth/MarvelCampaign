@@ -35,6 +35,7 @@ public class Adventure {
         loadAdventure(profileFile);
     }
 
+    //TODO: Have the current run not break if new cards/locations are added to the game
     //Constructor for creating new profiles
     public Adventure(AdventureDatabase database, String proFile)
     {

@@ -119,3 +119,5 @@
 "118","Valley Of The Hand","If no Agents are stationed here, revive a random Eliminated Agent here until the end of the month.","true","false"
 "119","Mount Vesuvius","Upset: In September, destroy this Location and eliminate any Agents stationed here.","true","false"
 "120","Time Theater","Upset: Agents are not considered stationed here until after this effect resolves.","true","false"
+"121","The Abbey","","true","false"
+"122","Hotel Inferno","","true","false"

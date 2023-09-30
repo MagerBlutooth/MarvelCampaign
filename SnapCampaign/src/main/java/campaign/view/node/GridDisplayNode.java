@@ -56,4 +56,8 @@ public class GridDisplayNode<T extends Thing> extends ScrollPane {
     public void setPrefColumns(int i) {
         gridDisplayController.setPrefColumns(i);
     }
+
+    public void update(T subject) {
+        gridDisplayController.update(subject);
+    }
 }
