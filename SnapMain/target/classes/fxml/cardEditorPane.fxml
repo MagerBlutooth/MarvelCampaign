@@ -1,0 +1,28 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+<?import snapMain.view.node.editor.CardEditorNode?>
+<?import snapMain.view.baseObject.CardView?>
+<?import snapMain.view.button.ButtonToolBar?>
+<fx:root type="javafx.scene.layout.StackPane" fx:id="mainPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/editorStyle.css" fx:controller="snapMain.controller.editor.CardEditorPaneController"
+         prefWidth="1200" prefHeight="800">
+    <VBox>
+        <VBox alignment="CENTER" spacing="50.0">
+            <ButtonToolBar fx:id="buttonToolBar"/>
+            <StackPane>
+                <HBox spacing="30.0" alignment="CENTER">
+                    <VBox alignment="CENTER">
+                        <CardView fx:id="imagePane"/>
+                    </VBox>
+                    <CardEditorNode fx:id="cardEditorNode"/>
+                </HBox>
+            </StackPane>
+        </VBox>
+        <Button fx:id="saveButton" text="Save" alignment="CENTER" onAction="#saveCard"/>
+    </VBox>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

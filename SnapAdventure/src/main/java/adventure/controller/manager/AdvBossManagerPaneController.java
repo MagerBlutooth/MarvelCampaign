@@ -1,18 +1,18 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.Boss;
-import adventure.model.BossList;
+import adventure.model.thing.AdvCard;
+import adventure.model.thing.AdvCardList;
 import adventure.view.manager.BossManager;
 import adventure.view.node.BossControlNode;
 import adventure.view.pane.BossEditorPane;
 import adventure.view.pane.AdvEditorMenuPane;
-import campaign.controller.grid.GridActionController;
-import campaign.controller.grid.ManagerPaneController;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.control.ControlNode;
+import snapMain.controller.grid.GridActionController;
+import snapMain.controller.grid.ManagerPaneController;
+import snapMain.model.thing.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -21,7 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 
-public class AdvBossManagerPaneController extends ManagerPaneController<Boss, AdvMainDatabase> implements GridActionController<Boss> {
+public class AdvBossManagerPaneController extends ManagerPaneController<AdvCard, AdvMainDatabase> implements GridActionController<AdvCard> {
     @FXML
     BossManager bossManager;
 
@@ -41,22 +41,22 @@ public class AdvBossManagerPaneController extends ManagerPaneController<Boss, Ad
     @Override
     public void initialize(AdvMainDatabase m) {
         super.initialize(m);
-        BossList cards = new BossList(m.getBosses());
+        AdvCardList cards = new AdvCardList(m.getBosses());
         /*When creating the card manager, automatically set all cards to not be captains to avoid the issue
         //of cards getting set as such from the most recent campaign*/
-        bossManager.initialize(cards, ThingType.CARD, this, ViewSize.MEDIUM, true);
+        bossManager.initialize(cards, TargetType.CARD, this, ViewSize.MEDIUM, true);
     }
 
     @Override
-    public void editSubject(ControlNode<Boss> node) {
+    public void editSubject(ControlNode<AdvCard> node) {
         BossEditorPane bossEditorPane = new BossEditorPane();
-        Boss b = node.getSubject();
+        AdvCard b = node.getSubject();
         bossEditorPane.initialize(mainDatabase, b);
         changeScene(bossEditorPane);
     }
 
     @Override
-    public ControlNode<Boss> createControlNode(Boss c, IconImage i, ViewSize v, boolean revealed) {
+    public ControlNode<AdvCard> createControlNode(AdvCard c, IconImage i, ViewSize v, boolean revealed) {
         BossControlNode node = new BossControlNode();
         node.initialize(mainDatabase, c, i, v, revealed);
         createTooltip(node);
@@ -65,12 +65,12 @@ public class AdvBossManagerPaneController extends ManagerPaneController<Boss, Ad
     }
 
     @Override
-    public void saveGridNode(ControlNode<Boss> node) {
+    public void saveGridNode(ControlNode<AdvCard> node) {
 
     }
 
     @Override
-    public void createTooltip(ControlNode<Boss> n) {
+    public void createTooltip(ControlNode<AdvCard> n) {
         ContextMenu rightClickMenu = new ContextMenu();
         MenuItem editMenuItem = new MenuItem("Edit");
         editMenuItem.setOnAction(actionEvent -> editSubject(n));
@@ -78,17 +78,17 @@ public class AdvBossManagerPaneController extends ManagerPaneController<Boss, Ad
         n.setOnContextMenuRequested(e -> rightClickMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
     @Override
-    public void createContextMenu(ControlNode<Boss> n) {
+    public void createContextMenu(ControlNode<AdvCard> n) {
 
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Boss> controlNode) {
-        Boss boss = controlNode.getSubject();
+    public void setMouseEvents(ControlNode<AdvCard> controlNode) {
+        AdvCard advCard = controlNode.getSubject();
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
-                mainDatabase.toggleBoss(boss.getCard());
-                mainDatabase.saveDatabase(ThingType.CARD);
+                mainDatabase.toggleBoss(advCard.getCard());
+                mainDatabase.saveDatabase(TargetType.CARD);
                 controlNode.toggle();
             }});
 

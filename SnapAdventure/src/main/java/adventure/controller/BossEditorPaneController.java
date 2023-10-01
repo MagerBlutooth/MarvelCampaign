@@ -2,11 +2,11 @@ package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.Boss;
+import adventure.model.thing.AdvCard;
 import adventure.view.node.BossEditorNode;
 import adventure.view.pane.AdvBossManagerPane;
-import campaign.model.thing.ThingType;
-import campaign.view.grabber.ThingImageGrabber;
+import snapMain.model.thing.TargetType;
+import snapMain.view.grabber.ThingImageGrabber;
 import javafx.fxml.FXML;
 
 public class BossEditorPaneController extends AdvEditorPaneController
@@ -17,10 +17,10 @@ public class BossEditorPaneController extends AdvEditorPaneController
 
     public BossEditorPaneController()
     {
-        imageGrabber = new ThingImageGrabber(ThingType.CARD);
+        imageGrabber = new ThingImageGrabber(TargetType.CARD);
     }
 
-    public void initialize(AdvMainDatabase database, Boss b)
+    public void initialize(AdvMainDatabase database, AdvCard b)
     {
         super.initialize(database);
         bossEditorNode.initialize(database, b);
@@ -29,7 +29,7 @@ public class BossEditorPaneController extends AdvEditorPaneController
     @FXML
     public void saveBoss()
     {
-        Boss b = bossEditorNode.generateBoss();
+        AdvCard b = bossEditorNode.generateBoss();
         mainDatabase.modifyBoss(b);
         AdvBossManagerPane cardManagerPane = new AdvBossManagerPane();
         cardManagerPane.initialize(mainDatabase);

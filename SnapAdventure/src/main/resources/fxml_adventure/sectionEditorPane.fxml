@@ -1,8 +1,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
-<?import campaign.view.thing.CardView?>
-<?import campaign.view.button.ButtonToolBar?>
+<?import snapMain.view.baseObject.CardView?>
+<?import snapMain.view.button.ButtonToolBar?>
 <?import adventure.view.node.SectionEditorNode?>
 <fx:root type="javafx.scene.layout.StackPane" fx:id="mainPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"

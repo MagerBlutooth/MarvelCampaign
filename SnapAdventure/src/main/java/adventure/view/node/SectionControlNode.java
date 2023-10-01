@@ -1,11 +1,11 @@
 package adventure.view.node;
 
-import adventure.model.Section;
-import campaign.controller.MainDatabase;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.control.ControlNode;
+import adventure.model.thing.Section;
+import snapMain.controller.MainDatabase;
+import snapMain.model.thing.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 
 public class SectionControlNode extends ControlNode<Section> {
 
@@ -14,12 +14,11 @@ public class SectionControlNode extends ControlNode<Section> {
     @Override
         public void initialize(MainDatabase db, Section s, IconImage i, ViewSize v, boolean revealed) {
             mainDatabase = db;
-            thingType = ThingType.LOCATION;
+            targetType = TargetType.LOCATION;
             subject = s;
             imageView.setImage(i);
             imageView.setFitWidth(v.getSizeVal());
             imageView.setFitHeight(v.getSizeVal());
-            setEnabled(s.isEnabled());
             if(!revealed)
                 unreveal();
         }
@@ -32,12 +31,12 @@ public class SectionControlNode extends ControlNode<Section> {
         }
 
     public void unreveal() {
-        imageView.setImage(mainDatabase.grabBlankImage(ThingType.LOCATION));
+        imageView.setImage(mainDatabase.grabBlankImage(TargetType.LOCATION));
         revealed = false;
     }
 
     public void reveal() {
-        imageView.setImage(mainDatabase.grabImage(subject, ThingType.LOCATION));
+        imageView.setImage(mainDatabase.grabImage(subject.getLocation(), TargetType.LOCATION));
         revealed = true;
     }
 }

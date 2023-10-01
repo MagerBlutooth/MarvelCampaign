@@ -185,6 +185,7 @@
 
 .context-menu {
     -fx-background-color: black;
+    -fx-border-color: lightslategray;
 }
 
 .scroll-pane {

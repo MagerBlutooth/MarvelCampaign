@@ -5,7 +5,7 @@ module SnapRecords {
     requires java.logging;
     requires com.opencsv;
     requires javafx.controls;
-    requires SnapCampaign;
+    requires SnapMain;
 
     exports records;
     exports records.view;

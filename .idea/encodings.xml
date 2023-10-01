@@ -3,8 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/SnapAdventure/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SnapAdventure/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SnapCampaign/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SnapCampaign/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SnapMain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SnapMain/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SnapRecords/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SnapRecords/src/main/resources" charset="UTF-8" />
   </component>

@@ -4,7 +4,7 @@ import adventure.model.AdvMainDatabase;
 import adventure.view.pane.AdvBossManagerPane;
 import adventure.view.pane.AdvLocationManagerPane;
 import adventure.view.pane.AdvMainMenuPane;
-import campaign.controller.ButtonToolBarPaneController;
+import snapMain.controller.ButtonToolBarPaneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

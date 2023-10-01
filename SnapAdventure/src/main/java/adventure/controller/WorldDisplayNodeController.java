@@ -1,20 +1,23 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.Boss;
-import adventure.model.Section;
 import adventure.model.World;
+import adventure.model.thing.Boss;
+import adventure.model.thing.Section;
 import adventure.view.node.BossControlNode;
 import adventure.view.node.SectionControlNode;
-import campaign.model.thing.ThingType;
-import campaign.view.ViewSize;
+import adventure.view.pane.AdventureControlPane;
+import adventure.view.pane.SectionViewPane;
+import javafx.scene.Scene;
+import snapMain.model.thing.TargetType;
+import snapMain.view.ViewSize;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorldDisplayNodeController {
+public class WorldDisplayNodeController extends AdvPaneController {
 
     @FXML
     SectionControlNode section1Node;
@@ -37,7 +40,7 @@ public class WorldDisplayNodeController {
     int worldNum;
     int sectionNum;
 
-    public void initialize(AdvMainDatabase d, World w, int wNum, int sNum)
+    public void initialize(AdvMainDatabase d, World w, int wNum, int sNum, AdventureControlPane aPane)
     {
         database = d;
         world = w;
@@ -46,26 +49,36 @@ public class WorldDisplayNodeController {
         worldLabel.setText("World "+ worldNum);
         sections = new ArrayList<>();
 
-        Section section1 = w.getFirstSection();
-        Section section2 = w.getSecondSection();
-        Section section3 = w.getThirdSection();
-        Section section4 = w.getFourthSection();
+        Section advLocation1 = w.getFirstSection();
+        Section advLocation2 = w.getSecondSection();
+        Section advLocation3 = w.getThirdSection();
+        Section advLocation4 = w.getFourthSection();
         Boss boss = w.getBoss();
-        section1Node.initialize(d, section1, d.grabImage(section1, ThingType.LOCATION), ViewSize.MEDIUM, true);
-        section2Node.initialize(d, section2, d.grabImage(section2, ThingType.LOCATION), ViewSize.MEDIUM, false);
-        section3Node.initialize(d, section3, d.grabImage(section3, ThingType.LOCATION), ViewSize.MEDIUM, false);
-        section4Node.initialize(d, section4, d.grabImage(section4, ThingType.LOCATION), ViewSize.MEDIUM, false);
+        section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+                ViewSize.MEDIUM, true);
+        section2Node.initialize(d, advLocation2, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+                ViewSize.MEDIUM, false);
+        section3Node.initialize(d, advLocation3, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+                ViewSize.MEDIUM, false);
+        section4Node.initialize(d, advLocation4, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+                ViewSize.MEDIUM, false);
         sections.add(section1Node);
         sections.add(section2Node);
         sections.add(section3Node);
         sections.add(section4Node);
+        setSectionMouseOption(section1Node, aPane);
+        setSectionMouseOption(section2Node, aPane);
+        setSectionMouseOption(section3Node, aPane);
+        setSectionMouseOption(section4Node, aPane);
+        bossNode.initialize(d, boss.getCard(), d.grabImage(boss.getCard(), TargetType.CARD), ViewSize.MEDIUM, false);
+    }
 
-        for(int i = 0; i < sectionNum; i++)
-        {
-            sections.get(i).reveal();
-        }
-
-        bossNode.initialize(d, boss, d.grabImage(boss, ThingType.CARD), ViewSize.MEDIUM, false);
+    private void setSectionMouseOption(SectionControlNode sectionNode, AdventureControlPane aPane) {
+        sectionNode.setOnMouseClicked(mouseEvent -> {
+            SectionViewPane sectionViewPane = new SectionViewPane();
+            sectionViewPane.initialize(database, aPane, sectionNode.getSubject());
+            changeScene(sectionViewPane);
+        });
     }
 
     public void revealNextSection()
@@ -84,4 +97,13 @@ public class WorldDisplayNodeController {
 
     }
 
+    @Override
+    public Scene getCurrentScene() {
+        return bossNode.getScene();
+    }
+
+    @Override
+    public void initializeButtonToolBar() {
+
+    }
 }

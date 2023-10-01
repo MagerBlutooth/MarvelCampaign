@@ -3,9 +3,9 @@ package adventure.view.pane;
 import adventure.controller.AdvStartPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.view.pane.BasicPane;
+import snapMain.view.pane.FullViewPane;
 
-public class AdvStartPane extends BasicPane {
+public class AdvStartPane extends FullViewPane {
 
     AdvStartPaneController controller;
 

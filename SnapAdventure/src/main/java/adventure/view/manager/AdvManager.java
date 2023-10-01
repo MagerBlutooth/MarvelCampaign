@@ -1,9 +1,8 @@
 package adventure.view.manager;
 
 import adventure.view.node.AdvListNode;
-import campaign.model.thing.Thing;
-import campaign.view.node.ListNode;
+import snapMain.model.thing.BaseObject;
 
-public abstract class AdvManager<T extends Thing> extends AdvListNode<T> {
+public abstract class AdvManager<T extends BaseObject> extends AdvListNode<T> {
 
 }

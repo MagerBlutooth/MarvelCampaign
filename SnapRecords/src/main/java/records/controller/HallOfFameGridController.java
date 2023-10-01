@@ -1,16 +1,16 @@
 package records.controller;
 
-import campaign.controller.MainDatabase;
-import campaign.controller.grid.GridActionController;
+import snapMain.controller.MainDatabase;
+import snapMain.controller.grid.GridActionController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import campaign.model.thing.Card;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.GridDisplayNode;
-import campaign.view.node.control.ControlNode;
-import campaign.view.thing.CardView;
+import snapMain.model.thing.Card;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.GridDisplayNode;
+import snapMain.view.node.control.ControlNode;
+import snapMain.view.thing.CardView;
 import records.model.HallOfFameEntry;
 
 import java.util.List;

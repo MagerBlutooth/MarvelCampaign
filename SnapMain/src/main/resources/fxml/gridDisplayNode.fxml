@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<fx:root type="ScrollPane" id="managerPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/displayPane.css" fx:controller="snapMain.controller.grid.GridDisplayController" hbarPolicy="NEVER" vbarPolicy="ALWAYS" fitToHeight="true" fitToWidth="true">
+    <StackPane id="groupPane">
+        <TilePane fx:id="groupList" prefColumns="4" alignment="CENTER"/>
+    </StackPane>
+</fx:root>

@@ -1,13 +1,14 @@
 package adventure.model.adventure;
 
 import adventure.model.*;
-import campaign.model.constants.CampaignConstants;
-import campaign.model.thing.Card;
+import adventure.model.thing.AdvCardList;
+import adventure.model.thing.AdvLocationList;
+import snapMain.model.constants.CampaignConstants;
+import snapMain.model.thing.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static adventure.model.AdventureConstants.STARTING_CAPTAINS;
+import java.util.Random;
 
 public class Adventure {
 
@@ -17,32 +18,32 @@ public class Adventure {
     AdventureSaver saver;
     AdventureLoader loader;
     Team team;
-    BossList availableBosses;
-    SectionList availableSections;
+    AdvCardList availableBosses;
+    AdvLocationList availableSections;
     WorldList worlds;
     String adventureNotes;
     int currentWorldNum;
     int currentSectionNum;
     boolean newProfileCheck;
     //Constructor for loading old profiles
-    public Adventure(AdventureDatabase database, String proFile, String proName)
+    public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile, String proName)
     {
         profileName = proName;
         profileFile = proFile;
         adventureDatabase = database;
         adventureNotes = "";
         newProfileCheck = false;
-        loadAdventure(profileFile);
+        loadAdventure(profileFile, mainDB);
     }
 
     //Constructor for creating new profiles
-    public Adventure(AdventureDatabase database, String proFile)
+    public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile)
     {
         profileFile = proFile;
         adventureDatabase = database;
         adventureNotes = "";
         newProfileCheck = false;
-        loadAdventure(proFile);
+        loadAdventure(proFile, mainDB);
     }
 
     public List<String> convertToString()
@@ -59,7 +60,7 @@ public class Adventure {
         return adventureString;
     }
 
-    public void convertFromString(List<String> stringToConvert)
+    public void convertFromString(AdvMainDatabase mainDB, List<String> stringToConvert)
     {
         if(stringToConvert.isEmpty())
         {
@@ -68,8 +69,8 @@ public class Adventure {
         }
         //Initialize base objects
         team = new Team();
-        availableBosses = new BossList(new ArrayList<>());
-        availableSections = new SectionList(new ArrayList<>());
+        availableBosses = new AdvCardList(new ArrayList<>());
+        availableSections = new AdvLocationList(new ArrayList<>());
         worlds = new WorldList(new ArrayList<>());
 
         String[] splitString = stringToConvert.get(0).split(CampaignConstants.CSV_SEPARATOR);
@@ -78,7 +79,7 @@ public class Adventure {
         team.convertFromString(splitString[3], adventureDatabase.getCards());
         availableBosses.fromSaveString(splitString[4], adventureDatabase.getBosses());
         availableSections.fromSaveString(splitString[5], adventureDatabase.getSections());
-        worlds.fromSaveString(adventureDatabase, splitString[6]);
+        worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
         adventureNotes = splitString[7];
         setCurrentSectionNum(Integer.parseInt(splitString[2]));
     }
@@ -93,11 +94,11 @@ public class Adventure {
         saver.writeFile();
     }
 
-    private void loadAdventure(String profile) {
+    private void loadAdventure(String profile, AdvMainDatabase db) {
         loader = new AdventureLoader(profile);
         List<String> adventureFile = loader.readFile();
         List<String> adventureString = new ArrayList<>(adventureFile);
-        convertFromString(adventureString);
+        convertFromString(db, adventureString);
     }
 
     public void editNotes(String n)
@@ -106,8 +107,8 @@ public class Adventure {
     }
 
     private void generateAdventure() {
-        availableBosses = new BossList(adventureDatabase.getBosses());
-        availableSections = new SectionList(adventureDatabase.getSections());
+        availableBosses = new AdvCardList(adventureDatabase.getBosses());
+        availableSections = new AdvLocationList(adventureDatabase.getSections());
         team = new Team(adventureDatabase);
         worlds = new WorldList(adventureDatabase);
         currentWorldNum = 1;
@@ -144,5 +145,19 @@ public class Adventure {
 
     public void setNewProfile(boolean b) {
         newProfileCheck = b;
+    }
+
+    public void sendAway(Card card) {
+        World world = getFutureWorld();
+        if(world != null)
+        {
+            world.getRandomSection().addStation(card);
+        }
+    }
+
+    private World getFutureWorld() {
+        Random random = new Random();
+        int worldChosen = random.nextInt(worlds.size()-1) + 1;
+        return worlds.get(worldChosen);
     }
 }

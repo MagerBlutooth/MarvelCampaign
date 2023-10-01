@@ -2,11 +2,11 @@ package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.Section;
+import adventure.model.thing.AdvLocation;
 import adventure.view.node.SectionEditorNode;
 import adventure.view.pane.AdvLocationManagerPane;
-import campaign.model.thing.ThingType;
-import campaign.view.grabber.ThingImageGrabber;
+import snapMain.model.thing.TargetType;
+import snapMain.view.grabber.ThingImageGrabber;
 import javafx.fxml.FXML;
 
 public class SectionEditorPaneController extends AdvEditorPaneController
@@ -17,10 +17,10 @@ public class SectionEditorPaneController extends AdvEditorPaneController
 
     public SectionEditorPaneController()
     {
-        imageGrabber = new ThingImageGrabber(ThingType.LOCATION);
+        imageGrabber = new ThingImageGrabber(TargetType.LOCATION);
     }
 
-    public void initialize(AdvMainDatabase database, Section s)
+    public void initialize(AdvMainDatabase database, AdvLocation s)
     {
         super.initialize(database);
         sectionEditorNode.initialize(database, s);
@@ -29,7 +29,7 @@ public class SectionEditorPaneController extends AdvEditorPaneController
     @FXML
     private void saveSection()
     {
-        Section s = sectionEditorNode.generateSection();
+        AdvLocation s = sectionEditorNode.generateSection();
         mainDatabase.modifySection(s);
         AdvLocationManagerPane locManagerPane = new AdvLocationManagerPane();
         locManagerPane.initialize(mainDatabase);

@@ -1,0 +1,50 @@
+package snapMain.controller.grid;
+
+import snapMain.controller.MainDatabase;
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import snapMain.model.thing.TargetType;
+import snapMain.model.thing.Token;
+import snapMain.model.thing.TokenList;
+import snapMain.view.ViewSize;
+import snapMain.view.manager.TokenManager;
+import snapMain.view.node.control.ControlNode;
+import snapMain.view.pane.editor.TokenEditorPane;
+
+
+public class TokenManagerPaneController extends ManagerPaneController<Token, MainDatabase> {
+    @FXML
+    TokenManager tokenManager;
+
+    @Override
+    public Scene getCurrentScene() {
+        return tokenManager.getScene();
+    }
+
+    @Override
+    public void initialize(MainDatabase m) {
+        super.initialize(m);
+        TokenList tokenList = new TokenList(m.getTokens());
+        tokenManager.initialize(tokenList, TargetType.TOKEN,this, ViewSize.MEDIUM, true);
+    }
+
+    @Override
+    public void saveGridNode(ControlNode<Token> node) {
+        mainDatabase.saveDatabase(node.getSubject().getTargetType());
+    }
+
+    @Override
+    public void editSubject(ControlNode<Token> node) {
+        TokenEditorPane tokenEditorPane = new TokenEditorPane();
+        tokenEditorPane.initialize(mainDatabase, ViewSize.LARGE, node.getSubject());
+        changeScene(tokenEditorPane);
+    }
+
+    @FXML
+    public void addNewEntry()
+    {
+        TokenEditorPane tokenEditorPane = new TokenEditorPane();
+        tokenEditorPane.initialize(mainDatabase, ViewSize.LARGE, new Token());
+        changeScene(tokenEditorPane);
+    }
+}

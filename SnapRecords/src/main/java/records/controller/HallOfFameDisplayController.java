@@ -1,12 +1,12 @@
 package records.controller;
 
-import campaign.controller.grid.GridActionController;
-import campaign.controller.grid.GridDisplayController;
-import campaign.model.logger.MLogger;
-import campaign.model.thing.*;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.control.ControlNode;
+import snapMain.controller.grid.GridActionController;
+import snapMain.controller.grid.GridDisplayController;
+import snapMain.model.logger.MLogger;
+import snapMain.model.thing.*;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     HallOfFameDisplayNode hallOfFameDisplayNode;
 
     @Override
-    public void initialize(ThingList<HallOfFameEntry> entries, ThingType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean blind)
+    public void initialize(ThingList<HallOfFameEntry> entries, TargetType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean blind)
     {
         super.initialize(entries, tType, controller, v, blind);
     }
@@ -37,7 +37,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
         if(thingList.isEmpty())
         {
             HallOfFameEntry blankObject = null;
-                HallOfFameEntry h = new HallOfFameEntry(mainDatabase.lookupDatabase(ThingType.CARD));
+                HallOfFameEntry h = new HallOfFameEntry(mainDatabase.lookupDatabase(TargetType.CARD));
                 try {
                     blankObject = h.getClass().getDeclaredConstructor().newInstance();
                 }
@@ -58,7 +58,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     @Override
     protected void addNewNode(HallOfFameEntry t, List<ControlNode<HallOfFameEntry>> listOfObjects)
     {
-        IconImage i = mainDatabase.grabImage(t.getCaptain(), ThingType.CARD);
+        IconImage i = mainDatabase.grabImage(t.getCaptain(), TargetType.CARD);
         ControlNode<HallOfFameEntry> n = getGridActionController().createControlNode(t, i, getViewSize(), isBlind());
         listOfObjects.add(n);
     }

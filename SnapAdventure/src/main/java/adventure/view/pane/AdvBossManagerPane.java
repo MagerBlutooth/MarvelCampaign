@@ -4,7 +4,7 @@ package adventure.view.pane;
 import adventure.controller.manager.AdvBossManagerPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.view.pane.manager.ManagerPane;
+import snapMain.view.pane.manager.ManagerPane;
 
 public class AdvBossManagerPane extends ManagerPane {
 

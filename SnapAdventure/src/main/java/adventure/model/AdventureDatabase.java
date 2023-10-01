@@ -1,37 +1,49 @@
 package adventure.model;
 
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.Card;
-import campaign.model.thing.CardList;
-import campaign.model.thing.Thing;
+import adventure.model.thing.AdvCard;
+import adventure.model.thing.AdvLocation;
+import snapMain.model.database.PlayableDatabase;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.thing.Card;
+import snapMain.model.thing.CardList;
+import snapMain.model.thing.Token;
 
 import java.util.ArrayList;
 
 public class AdventureDatabase {
 
-    ThingDatabase<Card> cards;
-    ThingDatabase<Boss> bosses;
-    ThingDatabase<Section> sections;
+    TargetDatabase<Card> cards;
+    TargetDatabase<AdvCard> advCards;
+    TargetDatabase<AdvLocation> advLocations;
+    TargetDatabase<Token> tokens;
     public AdventureDatabase(AdvMainDatabase controllerDatabase)
     {
         AdvMasterThingDatabase masterThingDatabase = controllerDatabase.getAdvMasterThingDatabase();
         CardList clonedCards = new CardList(new ArrayList<>());
         clonedCards = clonedCards.cloneNewList(masterThingDatabase.getEnabledCards());
-        cards = new ThingDatabase<>();
+        cards = new TargetDatabase<>();
         cards.addAll(clonedCards.getCards());
-        bosses = masterThingDatabase.getEnabledBosses();
-        sections = masterThingDatabase.getEnabledSections();
+        advCards = masterThingDatabase.getEnabledAdvCards();
+        advLocations = masterThingDatabase.getEnabledAdvLocations();
+        tokens = masterThingDatabase.getEnabledTokens();
     }
 
-    public ThingDatabase<Boss> getBosses() {
-        return bosses;
+    public TargetDatabase<AdvCard> getBosses() {
+        return advCards;
     }
 
-    public ThingDatabase<Section> getSections() {
-        return sections;
+    public TargetDatabase<AdvLocation> getSections() {
+        return advLocations;
     }
 
-    public ThingDatabase<Card> getCards() {
+    public TargetDatabase<Card> getCards() {
         return cards;
+    }
+
+    public PlayableDatabase getCardsAndTokens() {
+        PlayableDatabase playableDatabase = new PlayableDatabase();
+        playableDatabase.addAll(cards);
+        playableDatabase.addAll(tokens);
+        return playableDatabase;
     }
 }

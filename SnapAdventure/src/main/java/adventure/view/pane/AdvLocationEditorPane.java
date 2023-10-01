@@ -1,10 +1,10 @@
 package adventure.view.pane;
 
-import campaign.controller.MainDatabase;
-import campaign.controller.editor.LocationEditorPaneController;
-import campaign.model.thing.Location;
-import campaign.view.fxml.FXMLCampaignGrabber;
-import campaign.view.pane.editor.EditorPane;
+import snapMain.controller.MainDatabase;
+import snapMain.controller.editor.LocationEditorPaneController;
+import snapMain.model.thing.Location;
+import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.pane.editor.EditorPane;
 
 public class AdvLocationEditorPane extends EditorPane {
 

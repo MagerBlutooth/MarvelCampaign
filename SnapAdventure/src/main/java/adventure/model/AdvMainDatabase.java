@@ -1,9 +1,12 @@
 package adventure.model;
 
-import campaign.controller.MainDatabase;
-import campaign.model.database.MasterThingDatabase;
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.*;
+import adventure.model.thing.AdvCard;
+import adventure.model.thing.AdvLocation;
+import snapMain.controller.MainDatabase;
+import snapMain.model.database.MasterThingDatabase;
+import snapMain.model.database.PlayableDatabase;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.thing.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +25,23 @@ public class AdvMainDatabase extends MainDatabase {
     public List<Card> getCards() {
         return advMasterThingDatabase.getCards();
     }
-
-    public void saveDatabase(ThingType thingType) {
-        advMasterThingDatabase.saveDatabase(thingType);
+    public List<Token> getTokens()
+    {
+        return advMasterThingDatabase.getTokens();
     }
 
-    public <T extends Thing> ThingDatabase<T> lookupDatabase(ThingType type) {
+    public void saveDatabase(TargetType targetType) {
+        advMasterThingDatabase.saveDatabase(targetType);
+    }
+
+    public <T extends Target> TargetDatabase<T> lookupDatabase(TargetType type) {
         return advMasterThingDatabase.lookupDatabase(type);
     }
 
-    public List<Boss> getBosses() {
+    public List<AdvCard> getBosses() {
         return advMasterThingDatabase.getBosses();
     }
-    public List<Section> getSections() {
+    public List<AdvLocation> getSections() {
         return advMasterThingDatabase.getSections();
     }
 
@@ -42,15 +49,15 @@ public class AdvMainDatabase extends MainDatabase {
         return advMasterThingDatabase;
     }
 
-    public List<Boss> getEnabledBosses()
+    public List<AdvCard> getEnabledBosses()
     {
-        List<Boss> enabledBosses = new ArrayList<>();
-        for(Boss b: getBosses())
+        List<AdvCard> enabledAdvCards = new ArrayList<>();
+        for(AdvCard b: getBosses())
         {
             if(b.isEnabled())
-                enabledBosses.add(b);
+                enabledAdvCards.add(b);
         }
-        return enabledBosses;
+        return enabledAdvCards;
     }
 
     public List<Card> getEnabledCards() {
@@ -63,9 +70,9 @@ public class AdvMainDatabase extends MainDatabase {
         return enabledCards;
     }
 
-    public List<Section> getEnabledSections() {
-        List<Section> enabledLocs = new ArrayList<>();
-        for(Section s: getSections())
+    public List<AdvLocation> getEnabledSections() {
+        List<AdvLocation> enabledLocs = new ArrayList<>();
+        for(AdvLocation s: getSections())
         {
             if(s.isEnabled())
                 enabledLocs.add(s);
@@ -73,10 +80,10 @@ public class AdvMainDatabase extends MainDatabase {
         return enabledLocs;
     }
 
-    public void modifyBoss(Boss b) {
+    public void modifyBoss(AdvCard b) {
         advMasterThingDatabase.modifyBoss(b);
     }
-    public void modifySection(Section s) {
+    public void modifySection(AdvLocation s) {
         advMasterThingDatabase.modifySection(s);
     }
 
@@ -84,14 +91,21 @@ public class AdvMainDatabase extends MainDatabase {
         advMasterThingDatabase.toggleBoss(c);
     }
 
-    public Boss getBoss(Card card) {
+    public AdvCard getBoss(Card card) {
         return advMasterThingDatabase.getBoss(card);
     }
 
-    public Section getSection(Location location) {
+    public AdvLocation getSection(Location location) {
         return advMasterThingDatabase.getSection(location);
     }
     public void toggleSection(Location loc) {
         advMasterThingDatabase.toggleSection(loc);
+    }
+
+    public PlayableDatabase getCardsAndTokens() {
+        PlayableDatabase playableDatabase = new PlayableDatabase();
+        playableDatabase.addAll(getCards());
+        playableDatabase.addAll(getTokens());
+        return playableDatabase;
     }
 }

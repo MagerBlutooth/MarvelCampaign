@@ -1,7 +1,6 @@
 package adventure.model.adventure;
 
-import campaign.model.constants.CampaignConstants;
-import com.opencsv.CSVWriter;
+import snapMain.model.constants.CampaignConstants;
 
 import java.io.File;
 import java.io.FileWriter;

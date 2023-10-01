@@ -1,21 +1,20 @@
 package adventure.view.node;
 
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.controller.grid.GridActionController;
-import campaign.controller.grid.GridDisplayController;
-import campaign.controller.node.CampaignListNodeController;
-import campaign.model.thing.Thing;
-import campaign.model.thing.ThingList;
-import campaign.model.thing.ThingType;
-import campaign.view.ViewSize;
-import campaign.view.fxml.FXMLCampaignGrabber;
-import campaign.view.node.GridDisplayNode;
+import snapMain.controller.grid.GridActionController;
+import snapMain.controller.grid.GridDisplayController;
+import snapMain.controller.node.CampaignListNodeController;
+import snapMain.model.thing.BaseObject;
+import snapMain.model.thing.ThingList;
+import snapMain.model.thing.TargetType;
+import snapMain.view.ViewSize;
+import snapMain.view.node.GridDisplayNode;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 
 
 //Node object created for JavaFX nodes that have their own dedicated constructor, to have a built-in initialize method.
-public abstract class AdvListNode<T extends Thing> extends StackPane {
+public abstract class AdvListNode<T extends BaseObject> extends StackPane {
     @FXML
     GridDisplayNode<T> list;
 
@@ -31,11 +30,11 @@ public abstract class AdvListNode<T extends Thing> extends StackPane {
         return list.getController();
     }
 
-    public void initialize(ThingList<T> things, ThingType t, GridActionController<T> c, ViewSize v, boolean blind) {
+    public void initialize(ThingList<T> things, TargetType t, GridActionController<T> c, ViewSize v, boolean blind) {
         list.initialize(things, t, c, v, blind);
     }
 
-    public <V extends CampaignListNodeController<Thing>> V getController() {
+    public <V extends CampaignListNodeController<BaseObject>> V getController() {
         return fxmlAdventureGrabber.getController();
     }
 

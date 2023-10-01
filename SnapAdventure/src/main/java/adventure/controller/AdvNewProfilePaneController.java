@@ -3,17 +3,16 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
-import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdvStartPane;
 import adventure.view.pane.AdventureControlPane;
-import campaign.controller.grid.GridActionController;
-import campaign.model.thing.Card;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.button.ButtonToolBar;
-import campaign.view.node.GridDisplayNode;
-import campaign.view.node.control.ControlNode;
+import snapMain.controller.grid.GridActionController;
+import snapMain.model.thing.Card;
+import snapMain.model.thing.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.button.ButtonToolBar;
+import snapMain.view.node.GridDisplayNode;
+import snapMain.view.node.control.ControlNode;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -42,9 +41,9 @@ public class AdvNewProfilePaneController extends AdvPaneController implements Gr
         startButton.setDisable(true);
         initializeButtonToolBar();
         Team t = adventure.getTeam();
-        teamIntro.initialize(t.getActiveCards(), ThingType.CARD, this, ViewSize.SMALL, false);
+        teamIntro.initialize(t.getActiveCards(), TargetType.CARD, this, ViewSize.SMALL, false);
         teamIntro.setFitToHeight(true);
-        captainIntro.initialize(t.getCaptains(), ThingType.CARD, this, ViewSize.SMALL, false);
+        captainIntro.initialize(t.getCaptains(), TargetType.CARD, this, ViewSize.SMALL, false);
         initializeStartButton();
     }
 
@@ -70,7 +69,7 @@ public class AdvNewProfilePaneController extends AdvPaneController implements Gr
     @Override
     public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
        ControlNode<Card> cardControlNode = new ControlNode<>();
-       cardControlNode.initialize(mainDatabase, card, i, v, blind);
+       cardControlNode.initialize(mainDatabase, card, i, v, true);
        return cardControlNode;
     }
     @FXML

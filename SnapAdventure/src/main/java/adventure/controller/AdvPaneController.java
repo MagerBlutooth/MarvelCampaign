@@ -1,16 +1,16 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import campaign.controller.BasePaneController;
-import campaign.view.pane.BasicPane;
-import campaign.view.pane.BasicStage;
+import snapMain.controller.BasePaneController;
+import snapMain.view.pane.FullViewPane;
+import snapMain.view.pane.BasicStage;
 import javafx.scene.Scene;
 
 public abstract class AdvPaneController extends BasePaneController {
     protected AdvMainDatabase mainDatabase;
     public abstract Scene getCurrentScene();
 
-    public void changeScene(BasicPane cPane)
+    public void changeScene(FullViewPane cPane)
     {
         BasicStage primaryWindow = (BasicStage) getCurrentScene().getWindow();
         primaryWindow.initialize(cPane);

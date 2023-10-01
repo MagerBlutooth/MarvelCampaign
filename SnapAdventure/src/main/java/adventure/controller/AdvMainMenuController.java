@@ -1,6 +1,5 @@
 package adventure.controller;
 
-import adventure.model.AdvMainDatabase;
 import adventure.view.pane.AdvEditorMenuPane;
 import adventure.view.pane.AdvStartPane;
 import javafx.application.Platform;
@@ -8,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import campaign.model.database.MasterThingDatabase;
 
 public class AdvMainMenuController extends AdvPaneController {
 

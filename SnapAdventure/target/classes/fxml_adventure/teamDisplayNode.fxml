@@ -1,20 +1,33 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 <?import adventure.view.node.TeamDisplayNode?>
-<?import campaign.view.node.GridDisplayNode?>
+<?import snapMain.view.node.GridDisplayNode?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <fx:root type="TeamDisplayNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.TeamDisplayNodeController">
     <VBox alignment="CENTER">
+
         <HBox alignment="CENTER">
             <VBox spacing = "20.0">
                 <Button text="Captured" onAction="#showCaptured"/>
                 <Button text="MIA" onAction="#showMIA"/>
-                <Button text="Eliminated" onAction="#showEliminated"/>
+                <Button fx:id="eliminateButton" text="Eliminated" onAction="#showEliminated"/>
             </VBox>
-            <GridDisplayNode fx:id="cardDisplay" prefWidth="1300"/>
+            <VBox>
+                <HBox alignment="CENTER">
+                    <VBox alignment="CENTER">
+                        <Label text="Main Cards"/>
+                        <GridDisplayNode fx:id="cardDisplay" prefWidth="900"/>
+                    </VBox>
+                    <VBox alignment="CENTER">
+                        <Label text="Temp Cards"/>
+                        <GridDisplayNode fx:id="tempCardDisplay" prefWidth="400"/>
+                    </VBox>
+                </HBox>
+            </VBox>
         </HBox>
     </VBox>
     <padding>

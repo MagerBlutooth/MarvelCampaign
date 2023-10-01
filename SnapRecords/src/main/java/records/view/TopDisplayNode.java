@@ -1,9 +1,9 @@
 package records.view;
 
-import campaign.controller.MainDatabase;
+import snapMain.controller.MainDatabase;
 import records.controller.TopDisplayNodeController;
 import javafx.scene.layout.StackPane;
-import campaign.model.database.ThingDatabase;
+import snapMain.model.database.TargetDatabase;
 import records.model.HallOfFameEntry;
 import records.view.fxml.FXMLRecordGrabber;
 
@@ -17,7 +17,7 @@ public class TopDisplayNode extends StackPane {
         controller = fxmlRecordGrabber.getController();
     }
 
-    public void initialize(MainDatabase mainDatabase, ThingDatabase<HallOfFameEntry> hallOfFameEntries) {
+    public void initialize(MainDatabase mainDatabase, TargetDatabase<HallOfFameEntry> hallOfFameEntries) {
         controller.initialize(mainDatabase, hallOfFameEntries);
     }
 }

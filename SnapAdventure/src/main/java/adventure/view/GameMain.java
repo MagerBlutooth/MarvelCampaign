@@ -2,8 +2,8 @@ package adventure.view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import campaign.model.logger.MHandler;
-import campaign.model.logger.MLogger;
+import snapMain.model.logger.MHandler;
+import snapMain.model.logger.MLogger;
 
 public class GameMain extends Application {
 

@@ -1,10 +1,10 @@
 package adventure.model;
 
-import campaign.model.constants.CampaignConstants;
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.Card;
-import campaign.model.thing.CardList;
-import campaign.model.thing.ThingList;
+import snapMain.model.constants.CampaignConstants;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.thing.Card;
+import snapMain.model.thing.CardList;
+import snapMain.model.thing.ThingList;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -56,7 +56,7 @@ public class Team {
         return Base64.getEncoder().encodeToString(teamString.getBytes());
     }
 
-    public void convertFromString(String teamString, ThingDatabase<Card> db) {
+    public void convertFromString(String teamString, TargetDatabase<Card> db) {
         byte[] decodedBytes = Base64.getDecoder().decode(teamString);
         String decodedString = new String(decodedBytes);
         String[] teamList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
@@ -77,9 +77,14 @@ public class Team {
             capturedCards.add(card);
             activeCards.remove(card);
         }
+        if(tempCards.contains(card))
+        {
+            makeCardFreeAgent(card);
+            tempCards.remove(card);
+        }
     }
 
-    public void freeCard(Card card)
+    public void freeCapturedCard(Card card)
     {
         if(capturedCards.contains(card))
         {
@@ -88,12 +93,22 @@ public class Team {
         }
     }
 
+    public void makeCardFreeAgent(Card card)
+    {
+        if(activeCards.contains(card) || tempCards.contains(card)) {
+            freeAgentCards.add(card);
+            activeCards.remove(card);
+            tempCards.remove(card);
+        }
+    }
+
 
     public void eliminateCard(Card card) {
 
-        if(activeCards.contains(card)) {
+        if(activeCards.contains(card) || tempCards.contains(card)) {
             eliminatedCards.add(card);
             activeCards.remove(card);
+            tempCards.remove(card);
         }
     }
 
@@ -128,5 +143,22 @@ public class Team {
                 captains.add(c);
         }
         return captains;
+    }
+
+    public ThingList<Card> getTempCards() {
+        return tempCards;
+    }
+
+    public CardList getEliminatedCards() {
+        return eliminatedCards;
+    }
+
+    public CardList getCapturedCards() {
+        return capturedCards;
+    }
+
+    public CardList getMIACards()
+    {
+        return miaCards;
     }
 }

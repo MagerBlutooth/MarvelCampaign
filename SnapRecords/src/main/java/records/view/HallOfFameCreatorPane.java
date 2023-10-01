@@ -1,14 +1,14 @@
 package records.view;
 
-import campaign.controller.MainDatabase;
-import campaign.view.pane.BasicPane;
+import snapMain.controller.MainDatabase;
+import snapMain.view.pane.FullViewPane;
 import records.controller.HallOfFameEntryCreatorPaneController;
 import records.model.HallOfFameEntry;
 import records.view.fxml.FXMLRecordGrabber;
 
 import java.util.List;
 
-public class HallOfFameCreatorPane extends BasicPane {
+public class HallOfFameCreatorPane extends FullViewPane {
 
     HallOfFameEntryCreatorPaneController controller;
     public HallOfFameCreatorPane()

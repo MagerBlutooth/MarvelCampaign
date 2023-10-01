@@ -1,13 +1,13 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.Boss;
-import campaign.controller.editor.BasicNodeController;
-import campaign.model.thing.Card;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.thing.CardView;
+import adventure.model.thing.AdvCard;
+import snapMain.controller.editor.BasicNodeController;
+import snapMain.model.thing.Card;
+import snapMain.model.thing.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.thing.CardView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -23,7 +23,7 @@ public class BossEditorNodeController extends BasicNodeController<AdvMainDatabas
     AdvMainDatabase database;
     Card card;
 
-    public void initialize(AdvMainDatabase d, Boss b) {
+    public void initialize(AdvMainDatabase d, AdvCard b) {
         database = d;
         card = b.getCard();
         nameLabel.setText(card.getName());
@@ -32,12 +32,12 @@ public class BossEditorNodeController extends BasicNodeController<AdvMainDatabas
     }
 
     private void setImages() {
-        IconImage i = database.grabImage(card, ThingType.CARD);
+        IconImage i = database.grabImage(card, TargetType.CARD);
         imageView.setImage(i, ViewSize.LARGE);
     }
 
-    public Boss generateBoss() {
-        Boss b = new Boss(card);
+    public AdvCard generateBoss() {
+        AdvCard b = new AdvCard(card);
         b.setEffect(effectField.getText());
         return b;
     }

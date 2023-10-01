@@ -1,7 +1,7 @@
 package records.view;
 
-import campaign.controller.MainDatabase;
-import campaign.view.pane.manager.ManagerPane;
+import snapMain.controller.MainDatabase;
+import snapMain.view.pane.manager.ManagerPane;
 import records.controller.HallOfFameManagerController;
 import records.view.fxml.FXMLRecordGrabber;
 

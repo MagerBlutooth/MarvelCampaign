@@ -22,7 +22,7 @@
             <artifactId>javafx-maven-plugin</artifactId>
             <version>0.0.8</version>
             <configuration>
-                <mainClass>campaign.main.view.GameApplication</mainClass>
+                <mainClass>snapMain.main.view.GameApplication</mainClass>
             </configuration>
         </plugin> -->
 		<plugin>
@@ -40,7 +40,7 @@
     <dependencies>
         <dependency>
             <groupId>marvelsnap</groupId>
-            <artifactId>SnapCampaign</artifactId>
+            <artifactId>SnapMain</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>

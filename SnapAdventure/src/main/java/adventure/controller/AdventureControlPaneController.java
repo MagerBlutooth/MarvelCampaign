@@ -8,12 +8,10 @@ import adventure.view.node.AdventureActionNode;
 import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
 import adventure.view.pane.AdvMainMenuPane;
-import campaign.model.thing.Card;
-import campaign.view.button.ButtonToolBar;
+import adventure.view.pane.AdventureControlPane;
+import snapMain.view.button.ButtonToolBar;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-
-import java.util.List;
 
 public class AdventureControlPaneController extends AdvPaneController {
 
@@ -25,6 +23,8 @@ public class AdventureControlPaneController extends AdvPaneController {
     WorldDisplayNode worldDisplayNode;
     @FXML
     AdventureActionNode adventureActionNode;
+    @FXML
+    AdventureControlPane adventureControlPane;
     Adventure adventure;
     AdventureDatabase adventureDatabase;
 
@@ -36,8 +36,10 @@ public class AdventureControlPaneController extends AdvPaneController {
         adventureDatabase = new AdventureDatabase(database);
         adventure = a;
         World world = a.getCurrentWorld();
-        teamDisplayNode.initialize(database, a.getTeam());
-        worldDisplayNode.initialize(database,world, adventure.getCurrentWorldNum(), adventure.getCurrentSectionNum());
+        teamDisplayNode.initialize(database, a.getTeam(), a);
+        worldDisplayNode.initialize(database,world, adventure.getCurrentWorldNum(), adventure.getCurrentSectionNum(),
+        adventureControlPane);
+        adventureActionNode.initialize(database, adventure);
         adventure.saveAdventure();
     }
 

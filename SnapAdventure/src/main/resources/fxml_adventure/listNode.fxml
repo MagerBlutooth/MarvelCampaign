@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
-<?import campaign.view.node.GridDisplayNode?>
+<?import snapMain.view.node.GridDisplayNode?>
 <fx:root type="javafx.scene.layout.StackPane" fx:id="mainPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css"

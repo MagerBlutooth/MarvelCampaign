@@ -1,7 +1,7 @@
 package adventure.model.sorter;
 
-import adventure.model.Boss;
-import campaign.model.sortFilter.BossSortMode;
+import adventure.model.thing.AdvCard;
+import snapMain.model.sortFilter.BossSortMode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,13 +16,13 @@ public class BossSorter {
         bossSortMode = BossSortMode.NAME;
     }
 
-    public List<Boss> sort(List<Boss> bosses)
+    public List<AdvCard> sort(List<AdvCard> advCards)
     {
-        List<Boss> sortedCards = new ArrayList<>(bosses);
+        List<AdvCard> sortedCards = new ArrayList<>(advCards);
         switch(bossSortMode)
         {
             case NAME:
-                sortedCards.sort((o1, o2) -> Comparator.comparing(Boss::getName).compare(o1, o2));
+                sortedCards.sort((o1, o2) -> Comparator.comparing(AdvCard::getName).compare(o1, o2));
                 break;
         }
         return sortedCards;

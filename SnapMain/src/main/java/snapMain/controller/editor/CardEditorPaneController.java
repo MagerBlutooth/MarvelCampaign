@@ -1,0 +1,51 @@
+package snapMain.controller.editor;
+
+import snapMain.controller.MainDatabase;
+import javafx.fxml.FXML;
+import snapMain.model.thing.Card;
+import snapMain.model.thing.TargetType;
+import snapMain.view.ViewSize;
+import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.node.editor.CardEditorNode;
+import snapMain.view.pane.manager.CardManagerPane;
+import snapMain.view.thing.CardView;
+
+public class CardEditorPaneController extends EditorPaneController {
+
+    @FXML
+    CardView imagePane;
+    ThingImageGrabber imageGrabber;
+    @FXML
+    CardEditorNode cardEditorNode;
+
+    public CardEditorPaneController()
+    {
+        imageGrabber = new ThingImageGrabber(TargetType.CARD);
+    }
+
+    public void initialize(MainDatabase database, ViewSize viewSize, Card card)
+    {
+        super.initialize(database);
+        cardEditorNode.initialize(database, card);
+        imagePane.initialize(mainDatabase, card, viewSize, true);
+        imagePane.disableTooltip();
+    }
+
+    @FXML
+    private void saveCard()
+    {
+        Card c = cardEditorNode.generateCard();
+        mainDatabase.addCard(c, imagePane.getImage());
+        imageGrabber.saveImage(imagePane.getImage(), c.getID());
+        CardManagerPane cardManagerPane = new CardManagerPane();
+        cardManagerPane.initialize(mainDatabase);
+        changeScene(cardManagerPane);
+    }
+
+    @Override
+    public void initializeButtonToolBar() {
+        CardManagerPane cardManagerPane = new CardManagerPane();
+        cardManagerPane.initialize(mainDatabase);
+        buttonToolBar.initialize(cardManagerPane);
+    }
+}

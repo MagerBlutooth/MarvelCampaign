@@ -3,18 +3,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import adventure.view.pane.AdvLocationManagerPane?>
 <?import javafx.scene.layout.VBox?>
-<?import campaign.view.button.ButtonToolBar?>
-<?import campaign.view.manager.LocationManager?>
-<?import adventure.view.manager.SectionManager?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import snapMain.view.manager.LocationManager?>
+<?import adventure.view.manager.AdvLocationManager?>
 <fx:root type="adventure.view.pane.AdvLocationManagerPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvSectionManagerPaneController"
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvLocationManagerPaneController"
          prefWidth="1200" prefHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
     <HBox spacing="30.0" alignment="CENTER">
         <VBox alignment="CENTER">
-            <SectionManager fx:id="sectionManager"/>
+            <AdvLocationManager fx:id="advLocationManager"/>
         </VBox>
     </HBox>
     </VBox>

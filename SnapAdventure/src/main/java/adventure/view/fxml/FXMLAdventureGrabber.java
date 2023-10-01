@@ -1,6 +1,6 @@
 package adventure.view.fxml;
 
-import campaign.view.fxml.FXMLGrabber;
+import snapMain.view.fxml.FXMLGrabber;
 
 public class FXMLAdventureGrabber extends FXMLGrabber {
     @Override

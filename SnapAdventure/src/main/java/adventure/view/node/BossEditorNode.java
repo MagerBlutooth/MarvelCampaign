@@ -2,7 +2,7 @@ package adventure.view.node;
 
 import adventure.controller.BossEditorNodeController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.Boss;
+import adventure.model.thing.AdvCard;
 
 public class BossEditorNode extends AdvNode {
 
@@ -14,12 +14,12 @@ public class BossEditorNode extends AdvNode {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase d, Boss b)
+    public void initialize(AdvMainDatabase d, AdvCard b)
     {
         controller.initialize(d, b);
     }
 
-    public Boss generateBoss()
+    public AdvCard generateBoss()
     {
         return controller.generateBoss();
     }

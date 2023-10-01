@@ -1,10 +1,17 @@
 package adventure.model;
 
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.Thing;
-import campaign.model.thing.ThingType;
+import adventure.model.thing.AdvCard;
+import adventure.model.thing.AdvLocation;
+import adventure.model.thing.Boss;
+import adventure.model.thing.Section;
+import snapMain.model.constants.CampaignConstants;
+import snapMain.model.database.PlayableDatabase;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.thing.TargetType;
 
+import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 
 public class World implements Cloneable{
     Section section1;
@@ -13,20 +20,24 @@ public class World implements Cloneable{
     Section section4;
     Boss boss;
     AdventureDatabase database;
+    int worldNum;
 
     public World(AdventureDatabase db)
     {
         database = db;
     }
 
-    public World(AdventureDatabase db, Section s1, Section s2, Section s3, Section s4, Boss b)
+    public World(AdventureDatabase db, List<AdvLocation> locations, AdvCard b, int wNum)
     {
         database = db;
-        section1 = s1;
-        section2 = s2;
-        section3 = s3;
-        section4 = s4;
-        boss = b;
+        worldNum = wNum;
+        PlayableDatabase pD = db.getCardsAndTokens();
+        section1 = new Section(locations.get(0), pD);
+        section2 = new Section(locations.get(1), pD);
+        section3 = new Section(locations.get(2), pD);
+        section4 = new Section(locations.get(3), pD);
+        boss = new Boss(b, worldNum);
+        section1.reveal();
     }
 
     public World(World world) {
@@ -38,19 +49,44 @@ public class World implements Cloneable{
         boss = world.boss;
     }
 
-    public String[] toSaveStringArray() {
-        return new String[]{section1.getID()+"", section2.getID()+"", section3.getID()+"", section4.getID()+"", boss.getID()+""};
+    //TODO: Need to save sections and bosses exactly as they are to save HP and modified details
+    public String toSaveString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(worldNum);
+        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
+        stringBuilder.append(section1.toSaveString());
+        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
+        stringBuilder.append(section2.toSaveString());
+        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
+        stringBuilder.append(section3.toSaveString());
+        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
+        stringBuilder.append(section4.toSaveString());
+        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
+        stringBuilder.append(boss.toSaveString());
+        String result = stringBuilder.toString();
+        return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
-
-    public void fromSaveStringArray(String[] mInfo) {
-        ThingDatabase<Section> dbSections = database.getSections();
-        ThingDatabase<Boss> dbBosses = database.getBosses();
-        section1 = new Section(dbSections.lookup(Integer.parseInt(mInfo[0].trim())));
-        section2 = new Section(dbSections.lookup(Integer.parseInt(mInfo[1].trim())));
-        section3 = new Section(dbSections.lookup(Integer.parseInt(mInfo[2].trim())));
-        section4 = new Section(dbSections.lookup(Integer.parseInt(mInfo[3].trim())));
-        boss = new Boss(dbBosses.lookup(Integer.parseInt(mInfo[4].trim())));
+    public void fromSaveString(String saveString, AdvMainDatabase dB) {
+        byte[] decodedBytes = Base64.getDecoder().decode(saveString);
+        String decodedString = new String(decodedBytes);
+        if(decodedString.isBlank())
+            return;
+        String[] stringList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
+        TargetDatabase<AdvLocation> dbAdvLocations = database.getSections();
+        TargetDatabase<AdvCard> dbAdvCards = database.getBosses();
+        PlayableDatabase pD = database.getCardsAndTokens();
+        worldNum = Integer.parseInt(stringList[0]);
+        section1 = new Section();
+        section1.fromSaveString(stringList[1].trim(), dB.lookupDatabase(TargetType.LOCATION));
+        section2 = new Section();
+        section2.fromSaveString(stringList[2].trim(), dB.lookupDatabase(TargetType.LOCATION));
+        section3 = new Section();
+        section3.fromSaveString(stringList[3].trim(), dB.lookupDatabase(TargetType.LOCATION));
+        section4 = new Section();
+        section1.fromSaveString(stringList[4].trim(), dB.lookupDatabase(TargetType.LOCATION));
+        boss = new Boss();
+        boss.fromSaveString(stringList[5].trim(), dB.lookupDatabase(TargetType.ADV_CARD));
     }
 
     @Override
@@ -86,7 +122,17 @@ public class World implements Cloneable{
     }
 
     public Section getCurrentSection(int currentSection) {
-        switch(currentSection)
+        return getSection(currentSection);
+    }
+
+    public Section getRandomSection() {
+        Random random = new Random();
+        int sectionNum = random.nextInt(4)+1;
+        return getSection(sectionNum);
+    }
+
+    private Section getSection(int sectionNum) {
+        switch(sectionNum)
         {
             case 2:
                 return section2;

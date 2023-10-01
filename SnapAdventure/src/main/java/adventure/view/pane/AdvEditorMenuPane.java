@@ -3,9 +3,9 @@ package adventure.view.pane;
 import adventure.controller.AdvEditMenuPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.view.pane.BasicPane;
+import snapMain.view.pane.FullViewPane;
 
-public class AdvEditorMenuPane extends BasicPane {
+public class AdvEditorMenuPane extends FullViewPane {
     AdvEditMenuPaneController controller;
     public AdvEditorMenuPane() {
         FXMLAdventureGrabber fxmlAdventureGrabber = new FXMLAdventureGrabber();

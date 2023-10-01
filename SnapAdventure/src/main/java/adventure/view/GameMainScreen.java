@@ -2,11 +2,9 @@ package adventure.view;
 
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.model.database.MasterThingDatabase;
-import campaign.view.GameStage;
-import campaign.view.SplashScreen;
-import campaign.view.fxml.FXMLCampaignGrabber;
-import campaign.view.fxml.FXMLGrabber;
+import snapMain.model.database.MasterThingDatabase;
+import snapMain.view.GameStage;
+import snapMain.view.SplashScreen;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import adventure.controller.AdvMainMenuController;

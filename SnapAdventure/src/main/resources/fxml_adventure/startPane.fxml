@@ -2,7 +2,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import adventure.view.pane.AdvStartPane?>
 <?import adventure.view.node.ProfileNode?>
-<?import campaign.view.button.ButtonToolBar?>
+<?import snapMain.view.button.ButtonToolBar?>
 <?import javafx.scene.control.Label?>
 <fx:root type="AdvStartPane" fx:id="advStartPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"

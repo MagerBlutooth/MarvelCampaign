@@ -1,0 +1,80 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import snapMain.view.node.FactionSelectNode?>
+<?import snapMain.view.node.RandomizerNode?>
+<?import snapMain.view.pane.WatcherControlPane?>
+<?import snapMain.view.node.AgentSelectorGrid?>
+<?import snapMain.view.node.LocationMapNode?>
+<?import snapMain.view.node.FreeAgentSelectNode?>
+<?import snapMain.view.node.WatcherLocationMapNode?>
+<fx:root type="WatcherControlPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/mainStyle.css" fx:controller="snapMain.controller.WatcherControlPaneController" prefWidth="1600"
+         prefHeight="900">
+    <TabPane tabClosingPolicy="UNAVAILABLE">
+        <Tab text="adventure.view.GameMain">
+            <VBox alignment="TOP_CENTER">
+                <ButtonToolBar fx:id="buttonToolBar"/>
+                <ScrollPane vbarPolicy="ALWAYS">
+                    <VBox alignment="TOP_CENTER">
+                        <HBox fx:id="mainBox" alignment="TOP_CENTER">
+                            <FactionSelectNode fx:id="shieldDisplay"/>
+                            <FactionSelectNode fx:id="hydraDisplay"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+        </Tab>
+        <Tab text="Randomizer">
+            <VBox alignment="TOP_CENTER">
+                <RandomizerNode fx:id="randomizerNode"/>
+            </VBox>
+        </Tab>
+        <Tab text="Free Agents">
+            <ScrollPane>
+                <FreeAgentSelectNode fx:id="freeAgentDisplay"/>
+            </ScrollPane>
+        </Tab>
+        <Tab text="Judge SHIELD">
+            <VBox>
+                <VBox>
+                    <TextArea fx:id="shieldPassword" wrapText="true" maxHeight="300.0"/>
+                    <Button text="Load" onAction="#loadShieldView"/>
+                </VBox>
+                <HBox>
+                    <AgentSelectorGrid fx:id="shieldAgentGrid"/>
+                    <VBox alignment="CENTER">
+                        <Label text="Map"/>
+                        <WatcherLocationMapNode fx:id="shieldLocationMap"/>
+                        <HBox alignment="BOTTOM_CENTER">
+                            <Button text="Save" onAction="#saveShieldInfo"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+        <Tab text="Judge HYDRA">
+            <VBox>
+                <VBox>
+                    <TextArea fx:id="hydraPassword" wrapText="true" maxHeight="300.0"/>
+                    <Button text="Load" onAction="#loadHydraView"/>
+                </VBox>
+                <HBox>
+                    <AgentSelectorGrid fx:id="hydraAgentGrid"/>
+                    <VBox alignment="CENTER">
+                        <Label text="Map"/>
+                        <WatcherLocationMapNode fx:id="hydraLocationMap"/>
+                        <HBox alignment="BOTTOM_CENTER">
+                            <Button text="Save" onAction="#saveHydraInfo"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

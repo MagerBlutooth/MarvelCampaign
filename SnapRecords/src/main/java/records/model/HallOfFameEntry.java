@@ -1,28 +1,28 @@
 package records.model;
 
-import campaign.model.constants.CampaignConstants;
-import campaign.model.database.ThingDatabase;
-import campaign.model.helper.ListHelper;
-import campaign.model.thing.Card;
-import campaign.model.thing.CardList;
-import campaign.model.thing.Thing;
-import campaign.model.thing.ThingType;
+import snapMain.model.constants.CampaignConstants;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.helper.ListHelper;
+import snapMain.model.thing.BaseObject;
+import snapMain.model.thing.Card;
+import snapMain.model.thing.CardList;
+import snapMain.model.thing.TargetType;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class HallOfFameEntry extends Thing {
+public class HallOfFameEntry extends BaseObject {
 
     private static final int MAX_SIZE = 12;
     private static final int MAX_SHARED_CARDS = 3;
     Card captain;
     CardList cards;
-    ThingDatabase<Card> cardDatabase;
+    TargetDatabase<Card> cardDatabase;
     SnapMonth month;
     int year;
 
-    public HallOfFameEntry(ThingDatabase<Card> db)
+    public HallOfFameEntry(TargetDatabase<Card> db)
     {
         cards = new CardList(new ArrayList<>());
         cardDatabase = db;
@@ -39,7 +39,7 @@ public class HallOfFameEntry extends Thing {
         month = e.getMonth();
         year = e.getYear();
     }
-    public HallOfFameEntry(ArrayList<Card> c, Card cpt, ThingDatabase<Card> db) {
+    public HallOfFameEntry(ArrayList<Card> c, Card cpt, TargetDatabase<Card> db) {
         cards = new CardList(c);
         cardDatabase = db;
         month = SnapMonth.JANUARY;
@@ -52,11 +52,6 @@ public class HallOfFameEntry extends Thing {
         StringBuilder attributeStrings = new StringBuilder();
         attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
         return new String[]{String.valueOf(getID()), getName(), getMonth().toString(), getYear()+"", cards.toCSVSaveString(), String.valueOf(cards.getCardIndex(captain))};
-    }
-
-    @Override
-    public ThingType getThingType() {
-        return ThingType.HALL_OF_FAME;
     }
 
     @Override
@@ -175,5 +170,10 @@ public class HallOfFameEntry extends Thing {
     public void setYear(int y)
     {
         year = y;
+    }
+
+    @Override
+    public TargetType getTargetType() {
+        return TargetType.HALL_OF_FAME;
     }
 }

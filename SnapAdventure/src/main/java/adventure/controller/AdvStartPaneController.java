@@ -9,7 +9,7 @@ import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdvNewProfilePane;
 import adventure.view.pane.AdvStartPane;
 import adventure.view.pane.AdventureControlPane;
-import campaign.view.button.ButtonToolBar;
+import snapMain.view.button.ButtonToolBar;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 
@@ -62,7 +62,7 @@ public class AdvStartPaneController extends AdvPaneController {
 
     private void checkProfile(String profile, ProfileNode proNode, int num) {
         AdventureDatabase adventureDatabase = new AdventureDatabase(mainDatabase);
-        Adventure adventure = new Adventure(adventureDatabase, profile);
+        Adventure adventure = new Adventure(mainDatabase, adventureDatabase, profile);
         adventureStorageMap.put(profile, adventure);
         String name = adventure.getProfileName();
         if(name == null) {
@@ -72,7 +72,6 @@ public class AdvStartPaneController extends AdvPaneController {
             proNode.initialize(name, num+"");
     }
 
-    //TODO: Create dialog pane for entering profileName and showing starting team
     private Adventure selectAdventure(String profile)
     {
         return adventureStorageMap.get(profile);

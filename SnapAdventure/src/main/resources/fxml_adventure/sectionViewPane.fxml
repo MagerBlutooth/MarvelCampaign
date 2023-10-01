@@ -1,0 +1,19 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import adventure.view.pane.SectionViewPane?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import adventure.view.node.AdvLocationControlNode?>
+<?import javafx.scene.control.Label?>
+<fx:root type="SectionViewPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.SectionViewPaneController"
+         prefWidth="1200" prefHeight="800">
+    <VBox alignment="CENTER" spacing="40.0">
+        <ButtonToolBar fx:id="buttonToolBar"/>
+        <AdvLocationControlNode fx:id="sectionView"/>
+        <Label fx:id="effectText" alignment="CENTER" maxWidth="1000" wrapText="true" id="info"/>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+    </padding>
+</fx:root>

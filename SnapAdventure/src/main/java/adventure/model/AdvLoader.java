@@ -1,6 +1,6 @@
 package adventure.model;
 
-import campaign.model.thing.Thing;
+import snapMain.model.thing.BaseObject;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AdvLoader<T extends Thing> {
+public abstract class AdvLoader<T extends BaseObject> {
     String loadFile;
 
     public AdvLoader(String file)

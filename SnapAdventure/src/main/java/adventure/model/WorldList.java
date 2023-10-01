@@ -1,8 +1,10 @@
 package adventure.model;
 
-import campaign.model.constants.CampaignConstants;
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.ThingList;
+import adventure.model.thing.AdvCard;
+import adventure.model.thing.AdvCardList;
+import adventure.model.thing.AdvLocation;
+import adventure.model.thing.AdvLocationList;
+import snapMain.model.constants.CampaignConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,18 +18,23 @@ public class WorldList extends ArrayList<World> {
     public WorldList(AdventureDatabase database)
     {
         super(new ArrayList<>());
-        BossList bosses = new BossList(database.getBosses());
-        SectionList sections = new SectionList(database.getSections());
+        AdvCardList bosses = new AdvCardList(database.getBosses());
+        AdvLocationList sections = new AdvLocationList(database.getSections());
         bosses.shuffle();
         sections.shuffle();
         for(int i = 0; i < NUMBER_OF_WORLDS; i++)
         {
-            Section s1 = sections.get(4*i);
-            Section s2 = sections.get(4*i+1);
-            Section s3 = sections.get(4*i+2);
-            Section s4 = sections.get(4*i+3);
-            Boss b = bosses.get(i);
-            World world = new World(database, s1, s2, s3, s4, b);
+            AdvLocation s1 = sections.get(4*i);
+            AdvLocation s2 = sections.get(4*i+1);
+            AdvLocation s3 = sections.get(4*i+2);
+            AdvLocation s4 = sections.get(4*i+3);
+            List<AdvLocation> locations = new ArrayList<>();
+            locations.add(s1);
+            locations.add(s2);
+            locations.add(s3);
+            locations.add(s4);
+            AdvCard b = bosses.get(i);
+            World world = new World(database, locations, b, i);
             add(world);
         }
 
@@ -42,7 +49,7 @@ public class WorldList extends ArrayList<World> {
         StringBuilder stringBuilder = new StringBuilder();
         for(World w: this)
         {
-            stringBuilder.append(Arrays.toString(w.toSaveStringArray()));
+            stringBuilder.append(w.toSaveString());
             stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
         }
         if(!stringBuilder.isEmpty())
@@ -51,7 +58,7 @@ public class WorldList extends ArrayList<World> {
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
-    public void fromSaveString(AdventureDatabase db, String cardString)
+    public void fromSaveString(AdventureDatabase db, AdvMainDatabase mainDB, String cardString)
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
@@ -59,10 +66,7 @@ public class WorldList extends ArrayList<World> {
         for(int i = 0; i < worldsList.length; i++)
         {
             World w = new World(db);
-            String[] worldString = worldsList[i].split(CampaignConstants.CSV_SEPARATOR);
-            worldString[0] = worldString[0].replace("[","");
-            worldString[worldString.length-1] = worldString[worldString.length-1].replace("]", "");
-            w.fromSaveStringArray(worldString);
+            w.fromSaveString(worldsList[i],mainDB);
             this.add(w);
         }
     }

@@ -2,9 +2,9 @@ package adventure.view.pane;
 
 import adventure.controller.BossEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.Boss;
+import adventure.model.thing.AdvCard;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.view.pane.editor.EditorPane;
+import snapMain.view.pane.editor.EditorPane;
 
 public class BossEditorPane extends EditorPane {
 
@@ -16,7 +16,7 @@ public class BossEditorPane extends EditorPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase database, Boss b)
+    public void initialize(AdvMainDatabase database, AdvCard b)
     {
         controller.initialize(database, b);
     }

@@ -4,7 +4,7 @@ import adventure.controller.AdventureControlPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.view.pane.editor.EditorPane;
+import snapMain.view.pane.editor.EditorPane;
 
 public class AdventureControlPane extends EditorPane {
 

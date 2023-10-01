@@ -3,8 +3,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import adventure.view.node.WorldDisplayNode?>
 <?import javafx.scene.control.Label?>
-<?import adventure.view.node.SectionControlNode?>
 <?import adventure.view.node.BossControlNode?>
+<?import adventure.view.node.SectionControlNode?>
 <fx:root type="WorldDisplayNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.WorldDisplayNodeController">

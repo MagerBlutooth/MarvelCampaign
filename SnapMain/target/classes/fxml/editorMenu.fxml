@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import snapMain.view.button.ButtonToolBar?>
+<fx:root fx:id="editorMenu" type="StackPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/mainStyle.css" fx:controller="snapMain.controller.EditMenuController">
+    <AnchorPane prefWidth="1200" prefHeight="800">
+        <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Text id="title-text" text="Campaign Editor">
+            </Text>
+            <VBox alignment="CENTER" spacing="20.0">
+                <Button fx:id="cardEditorButton" text="Cards" onAction="#cardEditor"/>
+                <padding>
+                    <Insets left="5.0" right="5.0"/>
+                </padding>
+                <Button fx:id="locationEditorButton" text="Locations" onAction="#locationEditor"/>
+                <padding>
+                    <Insets left="5.0" right="5.0"/>
+                </padding>
+                <Button fx:id="tokenEditorButton" text="Tokens" onAction="#tokenEditor"/>
+                <padding>
+                    <Insets left="5.0" right="5.0"/>
+                </padding>
+            </VBox>
+        </VBox>
+        <ButtonToolBar fx:id="buttonToolBar" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+    </AnchorPane>
+</fx:root>

@@ -1,0 +1,12 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import snapMain.view.node.PlanningSheet?>
+<fx:root type="PlanningSheet"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/editorStyle.css">
+    <VBox fx:id="mainBox"/>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="40.0" right="10.0"/>
+    </padding>
+
+</fx:root>
