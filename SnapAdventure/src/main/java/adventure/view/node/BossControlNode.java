@@ -1,6 +1,7 @@
 package adventure.view.node;
 
 import adventure.model.thing.AdvCard;
+import adventure.model.thing.Boss;
 import snapMain.controller.MainDatabase;
 import snapMain.model.thing.TargetType;
 import snapMain.view.IconImage;
@@ -32,5 +33,13 @@ public class BossControlNode extends ControlNode<AdvCard> {
     public void reveal() {
         imageView.setImage(mainDatabase.grabImage(subject, TargetType.LOCATION));
         revealed = true;
+    }
+
+    public void refresh(Boss boss) {
+        IconImage i = mainDatabase.grabImage(boss.getCard(), TargetType.CARD);
+        subject = boss.getCard();
+        imageView.setImage(i);
+        if(!boss.isRevealed())
+            unreveal();
     }
 }

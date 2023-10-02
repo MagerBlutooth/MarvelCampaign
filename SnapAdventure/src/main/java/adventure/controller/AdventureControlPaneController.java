@@ -4,6 +4,7 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.World;
 import adventure.model.adventure.Adventure;
 import adventure.model.AdventureDatabase;
+import adventure.model.thing.Section;
 import adventure.view.node.AdventureActionNode;
 import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
@@ -55,5 +56,21 @@ public class AdventureControlPaneController extends AdvPaneController {
         buttonToolBar.initialize(mainMenuPane);
     }
 
+    public Adventure getAdventure() {
+        return adventure;
+    }
 
+    public void skipSection(Section section) {
+        worldDisplayNode.revealNextSection(section.getSectionNum());
+    }
+
+    public void refreshToMatch() {
+        teamDisplayNode.refresh();
+        worldDisplayNode.refresh();
+    }
+
+    public void completeSection() {
+        adventure.completeCurrentSection();
+        worldDisplayNode.refresh();
+    }
 }

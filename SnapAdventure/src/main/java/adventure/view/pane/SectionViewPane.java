@@ -2,6 +2,7 @@ package adventure.view.pane;
 
 import adventure.controller.SectionViewPaneController;
 import adventure.model.AdvMainDatabase;
+import adventure.model.adventure.Adventure;
 import adventure.model.thing.Section;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.view.pane.FullViewPane;

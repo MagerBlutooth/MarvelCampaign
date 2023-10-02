@@ -2,6 +2,7 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.World;
+import adventure.model.adventure.Adventure;
 import adventure.model.thing.Boss;
 import adventure.model.thing.Section;
 import adventure.view.node.BossControlNode;
@@ -9,6 +10,7 @@ import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.SectionViewPane;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import snapMain.model.thing.TargetType;
 import snapMain.view.ViewSize;
 import javafx.fxml.FXML;
@@ -75,16 +77,18 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     private void setSectionMouseOption(SectionControlNode sectionNode, AdventureControlPane aPane) {
         sectionNode.setOnMouseClicked(mouseEvent -> {
-            SectionViewPane sectionViewPane = new SectionViewPane();
-            sectionViewPane.initialize(database, aPane, sectionNode.getSubject());
-            changeScene(sectionViewPane);
+            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                SectionViewPane sectionViewPane = new SectionViewPane();
+                sectionViewPane.initialize(database, aPane, sectionNode.getSubject());
+                changeScene(sectionViewPane);
+            }
         });
     }
 
-    public void revealNextSection()
+    public void revealNextSection(int currentSectionNum)
     {
-        SectionControlNode node = sections.get(sectionNum);
-        node.reveal();
+        world.revealNextSection(currentSectionNum);
+        refresh();
     }
 
     public void revealBoss()
@@ -94,7 +98,11 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     public void refresh()
     {
-
+        section1Node.refresh(world.getFirstSection());
+        section2Node.refresh(world.getSecondSection());
+        section3Node.refresh(world.getThirdSection());
+        section4Node.refresh(world.getFourthSection());
+        bossNode.refresh(world.getBoss());
     }
 
     @Override

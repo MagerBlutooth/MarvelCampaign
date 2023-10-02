@@ -2,11 +2,14 @@ package adventure.model.adventure;
 
 import adventure.model.*;
 import adventure.model.thing.AdvCardList;
+import adventure.model.thing.AdvLocation;
 import adventure.model.thing.AdvLocationList;
+import adventure.model.thing.Section;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.thing.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +22,7 @@ public class Adventure {
     AdventureLoader loader;
     Team team;
     AdvCardList availableBosses;
-    AdvLocationList availableSections;
+    AdvLocationList availableLocations;
     WorldList worlds;
     String adventureNotes;
     int currentWorldNum;
@@ -54,7 +57,7 @@ public class Adventure {
         adventureString.add(currentSectionNum+"");
         adventureString.add(team.convertToString());
         adventureString.add(availableBosses.toSaveString());
-        adventureString.add(availableSections.toSaveString());
+        adventureString.add(availableLocations.toSaveString());
         adventureString.add(worlds.toSaveString());
         adventureString.add("\"" +adventureNotes + "\"");
         return adventureString;
@@ -70,22 +73,19 @@ public class Adventure {
         //Initialize base objects
         team = new Team();
         availableBosses = new AdvCardList(new ArrayList<>());
-        availableSections = new AdvLocationList(new ArrayList<>());
+        availableLocations = new AdvLocationList(new ArrayList<>());
         worlds = new WorldList(new ArrayList<>());
 
         String[] splitString = stringToConvert.get(0).split(CampaignConstants.CSV_SEPARATOR);
         profileName = splitString[0];
         currentWorldNum = Integer.parseInt(splitString[1]);
+        currentSectionNum = Integer.parseInt(splitString[2]);
         team.convertFromString(splitString[3], adventureDatabase.getCards());
         availableBosses.fromSaveString(splitString[4], adventureDatabase.getBosses());
-        availableSections.fromSaveString(splitString[5], adventureDatabase.getSections());
+        availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
         worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
         adventureNotes = splitString[7];
-        setCurrentSectionNum(Integer.parseInt(splitString[2]));
-    }
 
-    private void setCurrentSectionNum(int num) {
-        currentSectionNum = num;
     }
 
     public void saveAdventure()
@@ -108,9 +108,11 @@ public class Adventure {
 
     private void generateAdventure() {
         availableBosses = new AdvCardList(adventureDatabase.getBosses());
-        availableSections = new AdvLocationList(adventureDatabase.getSections());
+        availableLocations = new AdvLocationList(adventureDatabase.getSections());
         team = new Team(adventureDatabase);
         worlds = new WorldList(adventureDatabase);
+        availableBosses.removeAll(worlds.getAllBosses());
+        availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
         currentSectionNum = 1;
     }
@@ -159,5 +161,33 @@ public class Adventure {
         Random random = new Random();
         int worldChosen = random.nextInt(worlds.size()-1) + 1;
         return worlds.get(worldChosen);
+    }
+
+    public void randomizeSection(Section section) {
+        List<AdvLocation> advLocations = new ArrayList<>(availableLocations.getLocations());
+        Collections.shuffle(advLocations);
+        AdvLocation chosenLoc = advLocations.get(0);
+        AdvLocation previousLoc = section.getLocation();
+        availableLocations.add(previousLoc);
+        availableLocations.remove(chosenLoc);
+        section.changeLocation(chosenLoc);
+    }
+
+    public void completeCurrentSection()
+    {
+        getCurrentWorld().clearSection(getCurrentSectionNum());
+        if(getCurrentWorld().numClearedSections() == AdventureConstants.SECTION_CLEAR_GOAL)
+        {
+            getCurrentWorld().revealBoss();
+        }
+        getCurrentWorld().revealNextSection(currentSectionNum);
+        incrementCurrentSectionNum();
+    }
+
+    public void incrementCurrentSectionNum() {
+        if(currentSectionNum == AdventureConstants.SECTIONS_PER_WORLD)
+            currentSectionNum = 1;
+        else
+            currentSectionNum++;
     }
 }

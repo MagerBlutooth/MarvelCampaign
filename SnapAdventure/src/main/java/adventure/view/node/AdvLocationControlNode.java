@@ -1,7 +1,9 @@
 package adventure.view.node;
 
+import adventure.model.AdvMainDatabase;
 import adventure.model.thing.AdvLocation;
 import snapMain.controller.MainDatabase;
+import snapMain.model.thing.Target;
 import snapMain.model.thing.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
@@ -39,5 +41,11 @@ public class AdvLocationControlNode extends ControlNode<AdvLocation> {
     public void reveal() {
         imageView.setImage(mainDatabase.grabImage(subject, TargetType.LOCATION));
         revealed = true;
+    }
+
+    public void update(AdvLocation l) {
+        subject = l;
+        IconImage i = mainDatabase.grabImage(l, TargetType.LOCATION);
+        imageView.setImage(i);
     }
 }

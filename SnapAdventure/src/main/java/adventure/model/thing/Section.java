@@ -14,15 +14,18 @@ public class Section implements Cloneable, Target {
     PlayableList pickups;
     PlayableDatabase cardsAndTokens;
     boolean revealed;
-    int id;
+    boolean completed;
+    int sectionNum;
 
-    public Section(){
+    public Section(int num){
+        sectionNum = num;
         stationedCards = new PlayableList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
     }
 
-    public Section(AdvLocation l, PlayableDatabase pD)
+    public Section(int num, AdvLocation l, PlayableDatabase pD)
     {
+        sectionNum = num;
         advLocation = l;
         stationedCards = new PlayableList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
@@ -31,20 +34,24 @@ public class Section implements Cloneable, Target {
     }
 
     public Section(Section loc) {
+        sectionNum = loc.sectionNum;
         advLocation = loc.advLocation;
         stationedCards = new PlayableList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
         cardsAndTokens = loc.cardsAndTokens;
-        revealed = loc.isRevealed();
+        revealed = loc.revealed;
+        completed = loc.completed;
     }
 
     public String toSaveString() {
-        String result = advLocation.getID() +
+        String result = sectionNum + CampaignConstants.SUBCATEGORY_SEPARATOR +
+                advLocation.getID() +
                 CampaignConstants.SUBCATEGORY_SEPARATOR +
                 stationedCards.toSaveString() +
                 CampaignConstants.SUBCATEGORY_SEPARATOR +
-                pickups.toSaveString() +
-                revealed;
+                pickups.toSaveString() + CampaignConstants.SUBCATEGORY_SEPARATOR +
+                revealed + CampaignConstants.SUBCATEGORY_SEPARATOR +
+                completed;
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
@@ -54,10 +61,12 @@ public class Section implements Cloneable, Target {
         if(decodedString.isBlank())
             return;
         String[] stringList = decodedString.split(CampaignConstants.SUBCATEGORY_SEPARATOR);
-        advLocation = locations.lookup(stringList[0]);
-        stationedCards.fromSaveString(stringList[1], cardsAndTokens);
-        pickups.fromSaveString(stringList[2], cardsAndTokens);
-        revealed = Boolean.parseBoolean(stringList[3]);
+        sectionNum = Integer.parseInt(stringList[0]);
+        advLocation = locations.lookup(Integer.parseInt(stringList[1]));
+        stationedCards.fromSaveString(stringList[2], cardsAndTokens);
+        pickups.fromSaveString(stringList[3], cardsAndTokens);
+        revealed = Boolean.parseBoolean(stringList[4]);
+        completed = Boolean.parseBoolean(stringList[5]);
     }
 
     @Override
@@ -87,7 +96,7 @@ public class Section implements Cloneable, Target {
 
     @Override
     public void setID(int i) {
-        id = i;
+        advLocation.setID(i);
     }
 
     @Override
@@ -118,5 +127,27 @@ public class Section implements Cloneable, Target {
 
     public void reveal() {
         revealed = true;
+    }
+
+    public void complete()
+    {
+        completed = true;
+    }
+
+    public void changeLocation(AdvLocation loc)
+    {
+        advLocation = loc;
+    }
+
+    public String getEffect() {
+        return advLocation.getEffect();
+    }
+
+    public int getSectionNum() {
+        return sectionNum;
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 }

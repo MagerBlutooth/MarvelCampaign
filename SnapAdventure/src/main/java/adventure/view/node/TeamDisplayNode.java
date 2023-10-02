@@ -23,4 +23,7 @@ public class TeamDisplayNode extends StackPane {
         controller.initialize(d, t, a);
     }
 
+    public void refresh() {
+        controller.refresh();
+    }
 }

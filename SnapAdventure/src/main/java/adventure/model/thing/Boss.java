@@ -10,6 +10,7 @@ public class Boss {
     AdvCard card;
     int baseHP;
     int currentHP;
+    boolean revealed;
 
     public Boss()
     {
@@ -21,6 +22,7 @@ public class Boss {
         card = c;
         baseHP = 5;
         currentHP = baseHP;
+        revealed = false;
     }
 
     public Boss(AdvCard c, int worldBonus)
@@ -28,12 +30,14 @@ public class Boss {
         card = c;
         baseHP = 5 + worldBonus;
         currentHP = baseHP;
+        revealed = false;
     }
 
     public Boss(Boss boss) {
         card = boss.card;
         baseHP = boss.baseHP;
         currentHP = boss.currentHP;
+        revealed = boss.revealed;
     }
 
    public int getID()
@@ -53,10 +57,12 @@ public class Boss {
 
     public String toSaveString() {
         String result = getID() +
-                CampaignConstants.CATEGORY_SEPARATOR +
+                CampaignConstants.SUBCATEGORY_SEPARATOR +
                 baseHP +
-                CampaignConstants.CATEGORY_SEPARATOR +
-                currentHP;
+                CampaignConstants.SUBCATEGORY_SEPARATOR +
+                currentHP +
+                CampaignConstants.SUBCATEGORY_SEPARATOR +
+                revealed;
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
@@ -67,12 +73,21 @@ public class Boss {
         if(decodedString.isBlank())
             return;
         String[] stringList = decodedString.split(CampaignConstants.SUBCATEGORY_SEPARATOR);
-        card = cards.lookup(stringList[0]);
+        card = cards.lookup(Integer.parseInt(stringList[0]));
         baseHP = Integer.parseInt(stringList[1]);
         currentHP = Integer.parseInt(stringList[2]);
+        revealed = Boolean.parseBoolean(stringList[3]);
     }
 
     public AdvCard getCard() {
         return card;
+    }
+
+    public boolean isRevealed() {
+        return revealed;
+    }
+
+    public void reveal() {
+        revealed = true;
     }
 }

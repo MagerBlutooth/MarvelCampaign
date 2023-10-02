@@ -63,11 +63,31 @@ public class WorldList extends ArrayList<World> {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
         String[] worldsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
-        for(int i = 0; i < worldsList.length; i++)
-        {
+        for (String s : worldsList) {
             World w = new World(db);
-            w.fromSaveString(worldsList[i],mainDB);
+            w.fromSaveString(s, mainDB);
             this.add(w);
         }
+    }
+
+    public List<AdvLocation> getAllLocations() {
+        List<AdvLocation> allLocations = new ArrayList<>();
+        for(World w: this)
+        {
+            allLocations.add(w.getFirstSection().getLocation());
+            allLocations.add(w.getSecondSection().getLocation());
+            allLocations.add(w.getThirdSection().getLocation());
+            allLocations.add(w.getFourthSection().getLocation());
+        }
+        return allLocations;
+    }
+
+    public List<AdvCard> getAllBosses() {
+        List<AdvCard> allBosses = new ArrayList<>();
+        for(World w: this)
+        {
+            allBosses.add(w.getBoss().getCard());
+        }
+        return allBosses;
     }
 }

@@ -21,4 +21,12 @@ public class WorldDisplayNode extends StackPane {
     {
         controller.initialize(d, w, worldNum, sectionNum, aPane);
     }
+
+    public void refresh() {
+        controller.refresh();
+    }
+
+    public void revealNextSection(int nextSection) {
+        controller.revealNextSection(nextSection);
+    }
 }

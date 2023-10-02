@@ -1,5 +1,6 @@
 package adventure.view.node;
 
+import adventure.model.World;
 import adventure.model.thing.Section;
 import snapMain.controller.MainDatabase;
 import snapMain.model.thing.TargetType;
@@ -38,5 +39,13 @@ public class SectionControlNode extends ControlNode<Section> {
     public void reveal() {
         imageView.setImage(mainDatabase.grabImage(subject.getLocation(), TargetType.LOCATION));
         revealed = true;
+    }
+
+    public void refresh(Section s) {
+        IconImage i = mainDatabase.grabImage(s.getLocation(), TargetType.LOCATION);
+        subject = s;
+        imageView.setImage(i);
+        if(!subject.isRevealed())
+            unreveal();
     }
 }

@@ -21,28 +21,28 @@ public class AdvLocationList extends ThingList<AdvLocation> {
 
     public AdvLocationList(AdvLocationList Sectiones)
     {
-        super(Sectiones.getSectiones());
+        super(Sectiones.getLocations());
         SectionSorter = Sectiones.SectionSorter;
     }
 
     public void sort()
     {
-        List<AdvLocation> sortedSectiones = SectionSorter.sort(new ArrayList<>(getSectiones()));
+        List<AdvLocation> sortedLocations = SectionSorter.sort(new ArrayList<>(getLocations()));
         this.clear();
-        this.addAll(sortedSectiones);
+        this.addAll(sortedLocations);
     }
     public void setSortMode(String m) {
         SectionSorter.changeMode(SectionSortMode.parseString(m));
     }
 
-    public List<AdvLocation> getSectiones() {
+    public List<AdvLocation> getLocations() {
         return getThings();
     }
 
     public String toCSVSaveString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for(AdvLocation b: getSectiones())
+        for(AdvLocation b: getLocations())
         {
             stringBuilder.append(b.getID());
             stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
@@ -64,7 +64,7 @@ public class AdvLocationList extends ThingList<AdvLocation> {
     public String toSaveString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for(AdvLocation c: getSectiones())
+        for(AdvLocation c: getLocations())
         {
             stringBuilder.append(c.getID());
             stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
@@ -95,7 +95,7 @@ public class AdvLocationList extends ThingList<AdvLocation> {
     public String toCardListString() {
         StringBuilder stringBuilder = new StringBuilder();
         sort();
-        for(AdvLocation c: getSectiones())
+        for(AdvLocation c: getLocations())
         {
             stringBuilder.append(c.getName());
             stringBuilder.append("\n");
