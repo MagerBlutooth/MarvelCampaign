@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import snapMain.model.thing.Location;
+import snapMain.model.target.Location;
 
 public class LocationEditorNodeController extends BasicNodeController<MainDatabase, Location> {
 

@@ -4,14 +4,13 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.thing.AdvLocation;
 import adventure.model.thing.Section;
-import adventure.view.AdvTooltip;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.pane.AdventureControlPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.button.ButtonToolBar;
 
@@ -45,21 +44,6 @@ public class SectionViewPaneController extends AdvPaneController {
         effectText.setMouseTransparent(true);
         effectText.setFocusTraversable(false);
         initializeButtonToolBar();
-        addTooltips();
-    }
-
-    private void addTooltips() {
-        AdvTooltip skipTooltip = new AdvTooltip();
-        skipTooltip.setText("Skip current section and advance to next. A random card on your team will be captured.");
-        skipButton.setTooltip(skipTooltip);
-
-        AdvTooltip completeTooltip = new AdvTooltip();
-        completeTooltip.setText("Clear current section. Reveal next section.");
-        completeButton.setTooltip(completeTooltip);
-
-        AdvTooltip randomTooltip = new AdvTooltip();
-        randomTooltip.setText("Randomize the current section.");
-        randomizeButton.setTooltip(randomTooltip);
     }
 
     @Override

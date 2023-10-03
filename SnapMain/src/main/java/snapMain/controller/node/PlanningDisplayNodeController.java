@@ -2,10 +2,10 @@ package snapMain.controller.node;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.BaseGridActionController;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.Faction;
-import snapMain.model.thing.PlanningInfo;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.Faction;
+import snapMain.model.target.PlanningInfo;
+import snapMain.model.target.TargetType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;

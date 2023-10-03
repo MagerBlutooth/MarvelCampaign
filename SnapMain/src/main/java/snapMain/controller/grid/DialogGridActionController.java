@@ -2,7 +2,7 @@ package snapMain.controller.grid;
 
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.dialog.SelectDialog;

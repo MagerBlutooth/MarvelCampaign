@@ -1,7 +1,7 @@
 package snapMain.controller.editor;
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 
 public abstract class BasicNodeController<C extends MainDatabase, T extends BaseObject>{
 

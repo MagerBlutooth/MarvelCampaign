@@ -2,7 +2,7 @@ package snapMain.view;
 
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-import snapMain.model.thing.Faction;
+import snapMain.model.target.Faction;
 
 public class FactionPainter {
 

@@ -1,7 +1,7 @@
 package snapMain.view.node.control;
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import snapMain.view.grabber.ImageGrabber;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;

@@ -1,6 +1,6 @@
 package snapMain.model.sortFilter;
 
-import snapMain.model.thing.Token;
+import snapMain.model.target.Token;
 
 import java.util.ArrayList;
 import java.util.Comparator;

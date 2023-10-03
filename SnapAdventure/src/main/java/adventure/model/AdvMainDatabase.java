@@ -6,7 +6,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.List;

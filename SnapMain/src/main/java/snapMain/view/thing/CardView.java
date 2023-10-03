@@ -2,8 +2,8 @@ package snapMain.view.thing;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.view.CardViewController;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 

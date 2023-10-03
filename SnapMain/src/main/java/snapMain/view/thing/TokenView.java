@@ -1,8 +1,8 @@
 package snapMain.view.thing;
 
 import snapMain.controller.view.TokenViewController;
-import snapMain.model.thing.TargetType;
-import snapMain.model.thing.Token;
+import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 import snapMain.view.grabber.ThingImageGrabber;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;

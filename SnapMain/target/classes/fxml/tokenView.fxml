@@ -1,7 +1,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<fx:root type="snapMain.view.baseObject.TokenView" fx:id="tokenView"
+<fx:root type="snapMain.view.thing.TokenView" fx:id="tokenView"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="snapMain.controller.view.TokenViewController">
     <AnchorPane fx:id="imageBox">

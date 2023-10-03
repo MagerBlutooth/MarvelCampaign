@@ -7,7 +7,7 @@ import snapMain.view.node.control.ControlNode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 import records.model.HallOfFameEntry;
 
 public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {

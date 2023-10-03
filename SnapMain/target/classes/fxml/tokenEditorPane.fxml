@@ -4,7 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import snapMain.view.node.editor.TokenEditorNode?>
 <?import snapMain.view.button.ButtonToolBar?>
-<?import snapMain.view.baseObject.TokenView?>
+<?import snapMain.view.thing.TokenView?>
 <fx:root type="javafx.scene.layout.StackPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css/editorStyle.css" fx:controller="snapMain.controller.editor.TokenEditorPaneController"

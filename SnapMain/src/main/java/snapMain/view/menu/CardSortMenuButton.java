@@ -3,7 +3,7 @@ package snapMain.view.menu;
 import snapMain.controller.grid.GridDisplayController;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 
 import java.util.ArrayList;
 import java.util.List;

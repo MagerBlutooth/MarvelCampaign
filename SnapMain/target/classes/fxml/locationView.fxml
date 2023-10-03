@@ -1,7 +1,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import snapMain.view.baseObject.LocationView?>
+<?import snapMain.view.thing.LocationView?>
 <fx:root type="LocationView" fx:id="locationView"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="snapMain.controller.view.LocationViewController">

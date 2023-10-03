@@ -2,7 +2,7 @@ package snapMain.view.node.control;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.LocationMapNodeController;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.dragdrop.DraggableCardImageView;

@@ -2,7 +2,7 @@ package adventure.view.pane;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.LocationEditorPaneController;
-import snapMain.model.thing.Location;
+import snapMain.model.target.Location;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 import snapMain.view.pane.editor.EditorPane;
 

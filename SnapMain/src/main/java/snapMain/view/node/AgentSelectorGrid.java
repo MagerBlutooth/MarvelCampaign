@@ -2,8 +2,8 @@ package snapMain.view.node;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.AgentSelectorGridController;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.Faction;
+import snapMain.model.target.Card;
+import snapMain.model.target.Faction;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 import snapMain.view.pane.FullViewPane;
 

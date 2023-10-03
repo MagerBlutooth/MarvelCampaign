@@ -4,7 +4,7 @@ import adventure.model.sorter.SectionSortMode;
 import adventure.model.sorter.SectionSorter;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.ThingList;
+import snapMain.model.target.ThingList;
 
 import java.util.ArrayList;
 import java.util.Base64;

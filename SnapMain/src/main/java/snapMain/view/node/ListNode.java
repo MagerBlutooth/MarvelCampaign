@@ -5,9 +5,9 @@ import snapMain.controller.grid.GridDisplayController;
 import snapMain.controller.node.CampaignListNodeController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.ThingList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 

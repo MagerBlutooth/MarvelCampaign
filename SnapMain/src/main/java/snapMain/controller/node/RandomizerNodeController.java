@@ -1,7 +1,7 @@
 package snapMain.controller.node;
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

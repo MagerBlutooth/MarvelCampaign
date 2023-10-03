@@ -4,7 +4,7 @@ import snapMain.controller.ButtonToolBarPaneController;
 import snapMain.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import snapMain.view.pane.editor.EditorPane;
 
 

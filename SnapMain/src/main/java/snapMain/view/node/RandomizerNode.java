@@ -2,7 +2,7 @@ package snapMain.view.node;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.node.RandomizerNodeController;
-import snapMain.model.thing.Campaign;
+import snapMain.model.target.Campaign;
 
 public class RandomizerNode extends CampaignNode {
 

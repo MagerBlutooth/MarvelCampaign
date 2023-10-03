@@ -3,8 +3,8 @@ package snapMain.view.node;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.LocationMapNodeController;
 import javafx.scene.layout.StackPane;
-import snapMain.model.thing.Faction;
-import snapMain.model.thing.Location;
+import snapMain.model.target.Faction;
+import snapMain.model.target.Location;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 
 import java.util.List;

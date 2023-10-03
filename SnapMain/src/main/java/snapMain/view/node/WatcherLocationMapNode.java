@@ -5,8 +5,8 @@ import snapMain.controller.grid.LocationMapNodeController;
 import snapMain.controller.grid.WatcherLocationMapNodeController;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 import javafx.scene.layout.StackPane;
-import snapMain.model.thing.Faction;
-import snapMain.model.thing.Location;
+import snapMain.model.target.Faction;
+import snapMain.model.target.Location;
 
 import java.util.List;
 

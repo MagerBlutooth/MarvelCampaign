@@ -1,8 +1,8 @@
 package adventure.model.thing;
 
-import snapMain.model.thing.Card;
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.TargetType;
 
 public class AdvCard extends BaseObject {
     Card card;
@@ -63,4 +63,5 @@ public class AdvCard extends BaseObject {
     public Card getCard() {
         return card;
     }
+
 }

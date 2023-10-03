@@ -3,7 +3,7 @@ package adventure.model.thing;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -149,5 +149,9 @@ public class Section implements Cloneable, Target {
 
     public boolean isCompleted() {
         return completed;
+    }
+
+    public void addPickup(InfinityStone infinityStone) {
+        pickups.add(infinityStone);
     }
 }

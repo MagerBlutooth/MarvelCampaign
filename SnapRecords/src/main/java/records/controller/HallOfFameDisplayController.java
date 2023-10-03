@@ -3,7 +3,7 @@ package records.controller;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
 import snapMain.model.logger.MLogger;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;

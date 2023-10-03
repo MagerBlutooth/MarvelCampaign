@@ -3,7 +3,7 @@ package snapMain.view.node;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.node.PlanningDisplayNodeController;
 import javafx.scene.layout.StackPane;
-import snapMain.model.thing.Faction;
+import snapMain.model.target.Faction;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 
 public class PlanningDisplayNode extends StackPane {

@@ -6,7 +6,6 @@
 <?import snapMain.view.node.RandomizerNode?>
 <?import snapMain.view.pane.WatcherControlPane?>
 <?import snapMain.view.node.AgentSelectorGrid?>
-<?import snapMain.view.node.LocationMapNode?>
 <?import snapMain.view.node.FreeAgentSelectNode?>
 <?import snapMain.view.node.WatcherLocationMapNode?>
 <fx:root type="WatcherControlPane"

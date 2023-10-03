@@ -7,7 +7,7 @@ import adventure.model.thing.AdvThingSaver;
 import snapMain.model.database.DatabaseContext;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 
 public class AdvMasterThingDatabase extends MasterThingDatabase {
     AdvThingFactory vFactory;

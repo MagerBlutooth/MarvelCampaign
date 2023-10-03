@@ -6,10 +6,10 @@ import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
-import snapMain.model.thing.EffectBaseObject;
-import snapMain.model.thing.Location;
-import snapMain.model.thing.LocationList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.EffectBaseObject;
+import snapMain.model.target.Location;
+import snapMain.model.target.LocationList;
+import snapMain.model.target.TargetType;
 
 import java.util.ArrayList;
 import java.util.List;

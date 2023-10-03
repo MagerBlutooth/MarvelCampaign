@@ -12,8 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.ImageView;
 import snapMain.model.constants.CampaignConstants;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.CardAttribute;
+import snapMain.model.target.Card;
+import snapMain.model.target.CardAttribute;
 import snapMain.view.grabber.ImageGrabber;
 
 import java.util.ArrayList;

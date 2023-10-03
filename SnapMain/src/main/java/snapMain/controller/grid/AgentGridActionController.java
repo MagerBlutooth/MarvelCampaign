@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.node.FactionSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 import snapMain.view.dialog.CardSelectDialog;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.node.control.DraggableControlNode;

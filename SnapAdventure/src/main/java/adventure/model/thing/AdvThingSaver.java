@@ -2,7 +2,7 @@ package adventure.model.thing;
 
 import adventure.model.AdvMasterThingDatabase;
 import snapMain.model.database.*;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 
 public class AdvThingSaver {
 

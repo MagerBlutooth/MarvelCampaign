@@ -4,7 +4,7 @@ import snapMain.model.sortFilter.BossSortMode;
 import adventure.model.sorter.BossSorter;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Base64;

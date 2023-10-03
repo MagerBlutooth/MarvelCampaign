@@ -39,4 +39,8 @@ public class AdventureControlPane extends EditorPane {
     public void completeCurrentSection() {
         controller.completeSection();
     }
+
+    public void completeCurrentWorld() {
+        controller.completeWorld();
+    }
 }

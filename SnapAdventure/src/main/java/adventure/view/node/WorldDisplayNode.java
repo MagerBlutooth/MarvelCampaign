@@ -3,6 +3,7 @@ package adventure.view.node;
 import adventure.controller.WorldDisplayNodeController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.World;
+import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import adventure.view.pane.AdventureControlPane;
 import javafx.scene.layout.StackPane;
@@ -17,13 +18,13 @@ public class WorldDisplayNode extends StackPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase d, World w, int worldNum, int sectionNum, AdventureControlPane aPane)
+    public void initialize(AdvMainDatabase d, World w, int worldNum, AdventureControlPane aPane)
     {
-        controller.initialize(d, w, worldNum, sectionNum, aPane);
+        controller.initialize(d, w, worldNum, aPane);
     }
 
-    public void refresh() {
-        controller.refresh();
+    public void refresh(World w) {
+        controller.refresh(w);
     }
 
     public void revealNextSection(int nextSection) {

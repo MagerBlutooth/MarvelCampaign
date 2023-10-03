@@ -2,8 +2,8 @@ package snapMain.controller.editor;
 
 import snapMain.controller.MainDatabase;
 import javafx.fxml.FXML;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.grabber.ThingImageGrabber;
 import snapMain.view.node.editor.CardEditorNode;

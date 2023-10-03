@@ -1,8 +1,8 @@
 package adventure.model.thing;
 
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.Location;
+import snapMain.model.target.Card;
+import snapMain.model.target.Location;
 
 import java.util.List;
 

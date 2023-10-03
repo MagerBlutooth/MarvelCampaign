@@ -2,7 +2,7 @@ package snapMain.view.pane.editor;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.TokenEditorPaneController;
-import snapMain.model.thing.Token;
+import snapMain.model.target.Token;
 import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 

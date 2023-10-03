@@ -2,9 +2,9 @@ package snapMain.view.node;
 
 import snapMain.controller.grid.DraggableThingDisplayController;
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.ThingList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.dragdrop.Draggable;
 

@@ -4,9 +4,9 @@ import adventure.model.thing.AdvCard;
 import adventure.model.thing.AdvLocation;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.CardList;
-import snapMain.model.thing.Token;
+import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
+import snapMain.model.target.Token;
 
 import java.util.ArrayList;
 

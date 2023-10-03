@@ -9,7 +9,7 @@ import adventure.view.pane.AdvEditorMenuPane;
 import adventure.view.pane.SectionEditorPane;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.ManagerPaneController;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;

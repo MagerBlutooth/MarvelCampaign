@@ -1,7 +1,7 @@
 package records.model;
 
 import snapMain.model.database.Loader;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 
 public class HallOfFameLoader extends Loader<Card> {
 

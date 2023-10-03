@@ -1,7 +1,7 @@
 package snapMain.model.database;
 
 import com.opencsv.CSVWriter;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 
 import java.io.File;
 import java.io.FileWriter;

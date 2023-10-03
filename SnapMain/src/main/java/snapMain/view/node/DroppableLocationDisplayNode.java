@@ -2,10 +2,10 @@ package snapMain.view.node;
 
 import snapMain.controller.grid.DroppableLocationDisplayController;
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.thing.Faction;
-import snapMain.model.thing.Location;
-import snapMain.model.thing.ThingList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Faction;
+import snapMain.model.target.Location;
+import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 
 import java.util.List;

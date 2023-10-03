@@ -10,6 +10,7 @@ import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
 import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdventureControlPane;
+import javafx.scene.control.Button;
 import snapMain.view.button.ButtonToolBar;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -36,10 +37,8 @@ public class AdventureControlPaneController extends AdvPaneController {
         initializeButtonToolBar();
         adventureDatabase = new AdventureDatabase(database);
         adventure = a;
-        World world = a.getCurrentWorld();
         teamDisplayNode.initialize(database, a.getTeam(), a);
-        worldDisplayNode.initialize(database,world, adventure.getCurrentWorldNum(), adventure.getCurrentSectionNum(),
-        adventureControlPane);
+        worldDisplayNode.initialize(database,a.getCurrentWorld(), adventure.getCurrentWorldNum(), adventureControlPane);
         adventureActionNode.initialize(database, adventure);
         adventure.saveAdventure();
     }
@@ -66,11 +65,16 @@ public class AdventureControlPaneController extends AdvPaneController {
 
     public void refreshToMatch() {
         teamDisplayNode.refresh();
-        worldDisplayNode.refresh();
+        worldDisplayNode.refresh(adventure.getCurrentWorld());
     }
 
     public void completeSection() {
         adventure.completeCurrentSection();
-        worldDisplayNode.refresh();
+        worldDisplayNode.refresh(adventure.getCurrentWorld());
+    }
+
+    public void completeWorld() {
+        adventure.completeCurrentWorld();
+        worldDisplayNode.refresh(adventure.getCurrentWorld());
     }
 }

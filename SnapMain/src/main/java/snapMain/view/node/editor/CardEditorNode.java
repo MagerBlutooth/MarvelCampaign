@@ -2,7 +2,7 @@ package snapMain.view.node.editor;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.CardEditorNodeController;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 import snapMain.view.node.CampaignNode;
 
 public class CardEditorNode extends CampaignNode {

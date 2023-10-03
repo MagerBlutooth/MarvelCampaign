@@ -1,10 +1,11 @@
 package adventure.model;
 
+import adventure.model.thing.InfinityStone;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.CardList;
-import snapMain.model.thing.ThingList;
+import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
+import snapMain.model.target.ThingList;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -19,6 +20,7 @@ public class Team {
     CardList capturedCards;
     CardList miaCards;
     CardList eliminatedCards;
+    List<InfinityStone> infinityStones;
 
     public Team()
     {

@@ -1,12 +1,12 @@
 package snapMain.view.node.control;
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 
 public class EmptyControlNode<T extends BaseObject> extends ControlNode<T> {
 

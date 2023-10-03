@@ -1,6 +1,6 @@
 package snapMain.model.helper;
 
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;

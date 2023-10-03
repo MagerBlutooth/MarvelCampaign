@@ -10,8 +10,11 @@
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.WorldDisplayNodeController">
     <VBox alignment="CENTER">
         <VBox alignment="CENTER">
-            <Label fx:id="worldLabel" text="" alignment="CENTER"/>
-            <BossControlNode fx:id="bossNode"/>
+            <Label fx:id="worldLabel" alignment="CENTER"/>
+            <HBox alignment="CENTER" spacing="10.0">
+                <Label text="Boss"/>
+                <BossControlNode fx:id="bossNode"/>
+            </HBox>
             <HBox spacing="20.0" alignment="CENTER">
                 <SectionControlNode fx:id="section1Node"/>
                 <SectionControlNode fx:id="section2Node"/>

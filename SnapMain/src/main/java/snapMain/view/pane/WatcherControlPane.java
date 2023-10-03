@@ -2,7 +2,7 @@ package snapMain.view.pane;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.WatcherControlPaneController;
-import snapMain.model.thing.Campaign;
+import snapMain.model.target.Campaign;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 
 public class WatcherControlPane extends FullViewPane {

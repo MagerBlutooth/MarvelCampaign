@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.node.FactionSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 import snapMain.view.node.control.ControlNode;
 
 public class PrisonGridActionController extends ThingActionController<Card> {

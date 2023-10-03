@@ -3,7 +3,7 @@ package snapMain.controller.grid;
 import snapMain.controller.MainDatabase;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import snapMain.model.thing.Location;
+import snapMain.model.target.Location;
 import snapMain.view.dialog.LocationSelectDialog;
 import snapMain.view.node.control.ControlNode;
 

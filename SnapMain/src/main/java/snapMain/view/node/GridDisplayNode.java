@@ -6,9 +6,9 @@ import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 import javafx.scene.control.ScrollPane;
 import snapMain.model.logger.MLogger;
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.ThingList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetType;
 
 public class GridDisplayNode<T extends BaseObject> extends ScrollPane {
 

@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;

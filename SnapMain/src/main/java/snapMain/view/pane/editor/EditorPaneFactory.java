@@ -1,7 +1,7 @@
 package snapMain.view.pane.editor;
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import snapMain.view.ViewSize;
 
 import java.util.Map;

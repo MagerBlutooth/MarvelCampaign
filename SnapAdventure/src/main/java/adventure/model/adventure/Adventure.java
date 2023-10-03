@@ -1,12 +1,11 @@
 package adventure.model.adventure;
 
 import adventure.model.*;
-import adventure.model.thing.AdvCardList;
-import adventure.model.thing.AdvLocation;
-import adventure.model.thing.AdvLocationList;
-import adventure.model.thing.Section;
+import adventure.model.thing.*;
 import snapMain.model.constants.CampaignConstants;
-import snapMain.model.thing.Card;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.Card;
+import snapMain.model.target.Token;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +27,7 @@ public class Adventure {
     int currentWorldNum;
     int currentSectionNum;
     boolean newProfileCheck;
+    List<InfinityStone> infinityStones;
     //Constructor for loading old profiles
     public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile, String proName)
     {
@@ -36,6 +36,7 @@ public class Adventure {
         adventureDatabase = database;
         adventureNotes = "";
         newProfileCheck = false;
+        infinityStones = new ArrayList<>();
         loadAdventure(profileFile, mainDB);
     }
 
@@ -46,6 +47,7 @@ public class Adventure {
         adventureDatabase = database;
         adventureNotes = "";
         newProfileCheck = false;
+        infinityStones = new ArrayList<>();
         loadAdventure(proFile, mainDB);
     }
 
@@ -67,7 +69,7 @@ public class Adventure {
     {
         if(stringToConvert.isEmpty())
         {
-            generateAdventure();
+            generateAdventure(mainDB);
             return;
         }
         //Initialize base objects
@@ -106,7 +108,7 @@ public class Adventure {
         adventureNotes = n;
     }
 
-    private void generateAdventure() {
+    private void generateAdventure(AdvMainDatabase database) {
         availableBosses = new AdvCardList(adventureDatabase.getBosses());
         availableLocations = new AdvLocationList(adventureDatabase.getSections());
         team = new Team(adventureDatabase);
@@ -115,6 +117,36 @@ public class Adventure {
         availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
         currentSectionNum = 1;
+        createInfinityStones(database);
+        placeInfinityStones();
+    }
+
+    private void createInfinityStones(AdvMainDatabase database)
+    {
+        for(InfinityStoneID id: InfinityStoneID.values())
+        {
+            InfinityStone infinityStone = new InfinityStone(database.getTokens().get(id.getID()), id);
+            infinityStones.add(infinityStone);
+        }
+    }
+
+    private void placeInfinityStones() {
+
+        List<Integer> possibleSections = new ArrayList<>();
+        for(int i = 0; i < AdventureConstants.NUMBER_OF_WORLDS*AdventureConstants.SECTIONS_PER_WORLD; i++)
+        {
+            possibleSections.add(i);
+        }
+        Collections.shuffle(possibleSections);
+        for(int i = 0; i < infinityStones.size(); i++)
+        {
+            int choice = possibleSections.get(i);
+            int worldNum = (int) Math.floor((double) choice /AdventureConstants.SECTIONS_PER_WORLD);
+            int secNum = choice % AdventureConstants.SECTIONS_PER_WORLD + 1;
+            World w = worlds.get(worldNum);
+            Section s = w.getSection(secNum);
+            s.addPickup(infinityStones.get(i));
+        }
     }
 
     public World getCurrentWorld() {
@@ -176,7 +208,7 @@ public class Adventure {
     public void completeCurrentSection()
     {
         getCurrentWorld().clearSection(getCurrentSectionNum());
-        if(getCurrentWorld().numClearedSections() == AdventureConstants.SECTION_CLEAR_GOAL)
+        if(getCurrentWorld().numClearedSections() >= AdventureConstants.SECTION_CLEAR_GOAL)
         {
             getCurrentWorld().revealBoss();
         }
@@ -189,5 +221,15 @@ public class Adventure {
             currentSectionNum = 1;
         else
             currentSectionNum++;
+    }
+
+    public void randomizeBoss() {
+
+    }
+
+    public void completeCurrentWorld() {
+        if(currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
+            currentWorldNum++;
+        }
     }
 }

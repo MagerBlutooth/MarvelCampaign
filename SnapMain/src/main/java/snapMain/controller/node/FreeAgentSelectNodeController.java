@@ -5,7 +5,7 @@ import snapMain.controller.grid.BaseGridActionController;
 import snapMain.controller.grid.FreeAgentGridActionController;
 import snapMain.controller.grid.FreeLocationGridActionController;
 import snapMain.controller.WatcherControlPaneController;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import javafx.fxml.FXML;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;

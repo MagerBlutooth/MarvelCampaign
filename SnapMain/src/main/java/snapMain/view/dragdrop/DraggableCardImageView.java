@@ -3,8 +3,8 @@ package snapMain.view.dragdrop;
 import snapMain.view.ViewSize;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.node.control.DraggableMapControlNode;
 
 //Class created for Stationed Agents. Could be repurposed elsewhere if made less specific.

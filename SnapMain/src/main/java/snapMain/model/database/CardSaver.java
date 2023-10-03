@@ -1,7 +1,7 @@
 package snapMain.model.database;
 
 import snapMain.model.constants.CampaignConstants;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 
 public class CardSaver extends Saver<Card>{
 

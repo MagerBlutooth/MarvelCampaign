@@ -1,7 +1,7 @@
 package records.model;
 
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.ThingList;
+import snapMain.model.target.ThingList;
 
 import java.util.ArrayList;
 import java.util.Base64;

@@ -2,10 +2,10 @@ package snapMain.view.node.control;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.DraggableThingDisplayController;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.Location;
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.Location;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.dragdrop.Draggable;

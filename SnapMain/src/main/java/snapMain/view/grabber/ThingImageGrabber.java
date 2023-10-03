@@ -1,7 +1,7 @@
 package snapMain.view.grabber;
 
 import snapMain.model.helper.FileHelper;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 
 import java.io.File;

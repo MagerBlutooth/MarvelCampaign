@@ -2,9 +2,9 @@ package adventure.view.popup;
 
 import javafx.scene.control.ScrollPane;
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.CardList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
 import javafx.geometry.Point2D;

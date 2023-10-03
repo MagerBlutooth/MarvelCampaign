@@ -2,8 +2,8 @@ package snapMain.view.node.editor;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.TokenEditorNodeController;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.Token;
+import snapMain.model.target.Card;
+import snapMain.model.target.Token;
 import snapMain.view.node.CampaignNode;
 
 public class TokenEditorNode extends CampaignNode {

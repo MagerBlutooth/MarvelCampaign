@@ -1,8 +1,8 @@
 package snapMain.controller.context;
 
 import javafx.scene.control.MenuItem;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.EffectBaseObject;
+import snapMain.model.target.Card;
+import snapMain.model.target.EffectBaseObject;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -53,9 +53,6 @@
 -fx-alignment: center;
 }
 
-.text {
-}
-
 .button .text {
 -fx-fill:white;
  }
@@ -179,6 +176,12 @@
     -fx-background-color:white;
 }
 
+.dialog-pane {
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-border-color: white;
+}
+
 .dialog-pane > .content.label {
     -fx-text-fill: white;
 }
@@ -269,3 +272,17 @@
     -fx-border-color: transparent;
 }
 
+.toggle-button {
+    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-border-color: white;
+    -fx-border-width: 4;
+
+}
+
+.toggle-button:selected {
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-border-color: white;
+     -fx-border-width: 4;
+}

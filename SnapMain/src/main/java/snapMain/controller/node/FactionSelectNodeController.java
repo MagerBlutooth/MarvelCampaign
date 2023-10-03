@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.AgentGridActionController;
 import snapMain.controller.grid.GraveGridActionController;
 import snapMain.controller.grid.MapGridActionController;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;

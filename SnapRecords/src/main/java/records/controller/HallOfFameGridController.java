@@ -5,7 +5,7 @@ import snapMain.controller.grid.GridActionController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;

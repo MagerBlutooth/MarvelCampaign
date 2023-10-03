@@ -2,7 +2,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.node.editor.CardEditorNode?>
-<?import snapMain.view.baseObject.CardView?>
+<?import snapMain.view.thing.CardView?>
 <?import snapMain.view.button.ButtonToolBar?>
 <fx:root type="javafx.scene.layout.StackPane" fx:id="mainPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"

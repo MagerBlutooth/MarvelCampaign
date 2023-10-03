@@ -27,8 +27,8 @@ module SnapMain {
     opens snapMain.controller.editor;
     exports snapMain.model.constants;
     opens snapMain.model.constants;
-    exports snapMain.model.thing;
-    opens snapMain.model.thing;
+    exports snapMain.model.target;
+    opens snapMain.model.target;
     exports snapMain.model.sortFilter;
     opens snapMain.model.sortFilter;
     exports snapMain.model.database;

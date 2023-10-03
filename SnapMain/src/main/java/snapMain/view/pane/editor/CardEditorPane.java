@@ -2,7 +2,7 @@ package snapMain.view.pane.editor;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.CardEditorPaneController;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 

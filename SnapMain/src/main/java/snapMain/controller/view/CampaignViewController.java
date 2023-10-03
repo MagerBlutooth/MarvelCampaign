@@ -1,6 +1,6 @@
 package snapMain.controller.view;
 
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 

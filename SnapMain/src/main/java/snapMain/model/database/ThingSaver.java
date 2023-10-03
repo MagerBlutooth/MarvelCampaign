@@ -1,6 +1,6 @@
 package snapMain.model.database;
 
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 
 public class ThingSaver {
 

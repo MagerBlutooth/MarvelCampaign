@@ -2,8 +2,8 @@ package snapMain.controller.editor;
 
 import snapMain.controller.MainDatabase;
 import javafx.fxml.FXML;
-import snapMain.model.thing.TargetType;
-import snapMain.model.thing.Token;
+import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 import snapMain.view.ViewSize;
 import snapMain.view.grabber.ThingImageGrabber;
 import snapMain.view.node.editor.TokenEditorNode;

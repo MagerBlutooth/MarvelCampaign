@@ -1,7 +1,7 @@
 package snapMain.model.database;
 
 import snapMain.model.constants.CampaignConstants;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 
 public class CardLoader extends Loader<BaseObject>{
 

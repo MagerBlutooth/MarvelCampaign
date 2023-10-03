@@ -6,13 +6,14 @@ import adventure.model.thing.Boss;
 import adventure.model.thing.Section;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.PlayableDatabase;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 
 import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
 public class World implements Cloneable{
+
     Section section1;
     Section section2;
     Section section3;
@@ -35,7 +36,7 @@ public class World implements Cloneable{
         section2 = new Section(2, locations.get(1), pD);
         section3 = new Section(3, locations.get(2), pD);
         section4 = new Section(4, locations.get(3), pD);
-        boss = new Boss(b, worldNum);
+        boss = new Boss(b, 0);
         section1.reveal();
     }
 
@@ -122,7 +123,7 @@ public class World implements Cloneable{
         return getSection(sectionNum);
     }
 
-    private Section getSection(int sectionNum) {
+    public Section getSection(int sectionNum) {
         switch(sectionNum)
         {
             case 2:
@@ -153,6 +154,11 @@ public class World implements Cloneable{
 
         Section s = getSection(currentNum+1);
         s.reveal();
+    }
+
+    public int getWorldNum()
+    {
+        return worldNum;
     }
 
     public int numClearedSections() {

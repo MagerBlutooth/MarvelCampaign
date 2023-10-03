@@ -3,7 +3,7 @@ package snapMain.view.pane;
 import snapMain.controller.BasePrepPaneController;
 import snapMain.controller.MainDatabase;
 import javafx.scene.Node;
-import snapMain.model.thing.Faction;
+import snapMain.model.target.Faction;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 
 public class FullViewPrepPane extends FullViewPane {

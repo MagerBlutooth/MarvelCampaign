@@ -1,7 +1,7 @@
 package snapMain.controller.node;
 
 import snapMain.model.database.MasterThingDatabase;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 
 public abstract class CampaignListNodeController<T extends BaseObject>{
 

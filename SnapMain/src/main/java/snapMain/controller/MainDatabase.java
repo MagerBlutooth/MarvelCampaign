@@ -3,7 +3,7 @@ package snapMain.controller;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import snapMain.view.MasterImageCache;
 import snapMain.view.IconImage;
 

@@ -1,7 +1,7 @@
 package snapMain.controller.grid;
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -1,0 +1,35 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import adventure.view.pane.BossViewPane?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import adventure.view.AdvTooltip?>
+<?import adventure.view.node.BossControlNode?>
+<?import adventure.view.node.HPDisplayNode?>
+<fx:root type="BossViewPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.BossViewPaneController"
+         prefWidth="1200" prefHeight="800">
+    <VBox alignment="CENTER" spacing="20.0">
+        <ButtonToolBar fx:id="buttonToolBar"/>
+        <BossControlNode fx:id="bossView"/>
+        <HPDisplayNode fx:id="hpDisplay"/>
+        <Label fx:id="effectText" alignment="CENTER" maxWidth="1000" wrapText="true" id="info"/>
+        <HBox alignment="CENTER" spacing="20.0">
+            <Button text="Change HP" onAction="#changeHP">
+                <tooltip>
+                    <AdvTooltip text="Change the boss's HP." id="info"/>
+                </tooltip>
+            </Button>
+            <Button fx:id="completeButton" text="Defeat" onAction="#defeatBoss">
+                <tooltip>
+                    <AdvTooltip text="Defeat the current boss. Advance to next world." id="info"/>
+                </tooltip>
+            </Button>
+        </HBox>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+    </padding>
+</fx:root>

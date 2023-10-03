@@ -2,7 +2,7 @@ package adventure.controller;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
@@ -44,13 +44,16 @@ public class TeamGridActionController implements GridActionController<Card> {
         MenuItem eliminateItem = new MenuItem("Eliminate");
         MenuItem captureItem = new MenuItem("Capture");
         MenuItem miaItem = new MenuItem("Send Away");
+        MenuItem captainItem = new MenuItem("Toggle Captain");
         eliminateItem.setOnAction(actionEvent -> teamDisplayNodeController.eliminate(n.getSubject()));
         captureItem.setOnAction(actionEvent -> teamDisplayNodeController.capture(n.getSubject()));
         miaItem.setOnAction(actionEvent -> teamDisplayNodeController.sendAway(n.getSubject()));
+        captainItem.setOnAction(actionEvent -> teamDisplayNodeController.toggleCaptain(n.getSubject()));
         contextMenu.getItems().add(woundItem);
         contextMenu.getItems().add(eliminateItem);
         contextMenu.getItems().add(captureItem);
         contextMenu.getItems().add(miaItem);
+        contextMenu.getItems().add(captainItem);
         n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
 

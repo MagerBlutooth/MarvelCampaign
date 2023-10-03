@@ -3,10 +3,10 @@ package records.model;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.helper.ListHelper;
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.CardList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
+import snapMain.model.target.TargetType;
 
 import java.util.ArrayList;
 import java.util.Calendar;

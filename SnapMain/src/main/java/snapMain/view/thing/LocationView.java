@@ -1,7 +1,7 @@
 package snapMain.view.thing;
 
-import snapMain.model.thing.Location;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Location;
+import snapMain.model.target.TargetType;
 import snapMain.view.grabber.ThingImageGrabber;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;

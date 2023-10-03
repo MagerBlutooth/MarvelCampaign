@@ -3,7 +3,7 @@ package snapMain.view.menu;
 import snapMain.controller.grid.GridDisplayController;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuButton;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 
 public class CardFilterMenuButton extends MenuButton {
 

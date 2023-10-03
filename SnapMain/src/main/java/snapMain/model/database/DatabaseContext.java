@@ -1,7 +1,7 @@
 package snapMain.model.database;
 
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.TargetType;
 
 import java.util.LinkedHashMap;
 

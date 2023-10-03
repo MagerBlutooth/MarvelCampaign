@@ -1,8 +1,8 @@
 package snapMain.model.database;
 
-import snapMain.model.thing.Card;
-import snapMain.model.thing.Location;
-import snapMain.model.thing.Token;
+import snapMain.model.target.Card;
+import snapMain.model.target.Location;
+import snapMain.model.target.Token;
 
 public class CampaignDatabase {
 

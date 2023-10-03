@@ -5,7 +5,7 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.thing.AdvLocation;
 import adventure.view.node.SectionEditorNode;
 import adventure.view.pane.AdvLocationManagerPane;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 import snapMain.view.grabber.ThingImageGrabber;
 import javafx.fxml.FXML;
 

@@ -1,8 +1,8 @@
 package records.view;
 
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.thing.ThingList;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
 import records.controller.HallOfFameDisplayController;

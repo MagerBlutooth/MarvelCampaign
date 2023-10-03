@@ -2,7 +2,7 @@ package snapMain.model.database;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 
 import java.io.File;
 import java.io.FileReader;

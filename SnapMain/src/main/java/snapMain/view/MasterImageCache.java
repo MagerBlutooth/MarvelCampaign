@@ -1,10 +1,10 @@
 package snapMain.view;
 
 import snapMain.model.database.MasterThingDatabase;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.Location;
-import snapMain.model.thing.TargetType;
-import snapMain.model.thing.Token;
+import snapMain.model.target.Card;
+import snapMain.model.target.Location;
+import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 import snapMain.view.grabber.ThingImageGrabber;
 
 import java.util.LinkedHashMap;

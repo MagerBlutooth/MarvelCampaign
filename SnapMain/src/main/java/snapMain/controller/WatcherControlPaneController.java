@@ -1,6 +1,6 @@
 package snapMain.controller;
 
-import snapMain.model.thing.*;
+import snapMain.model.target.*;
 import snapMain.view.node.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;

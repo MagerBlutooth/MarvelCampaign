@@ -4,8 +4,8 @@ import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.view.popup.CardDisplayPopup;
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.Card;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
 import javafx.fxml.FXML;
@@ -19,6 +19,7 @@ public class TeamDisplayNodeController {
     public GridDisplayNode<Card> tempCardDisplay;
     @FXML
     public Button eliminateButton;
+
 
     TeamGridActionController cardController;
 
@@ -120,6 +121,11 @@ public class TeamDisplayNodeController {
 
     public void toggleWound(Card card) {
         card.setWounded(!card.isWounded());
+        update(card);
+    }
+
+    public void toggleCaptain(Card card) {
+        card.setCaptain(!card.isCaptain());
         update(card);
     }
 }

@@ -1,16 +1,13 @@
 package adventure.view.node;
 
-import adventure.model.World;
 import adventure.model.thing.Section;
 import snapMain.controller.MainDatabase;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 
 public class SectionControlNode extends ControlNode<Section> {
-
-    boolean revealed;
 
     @Override
         public void initialize(MainDatabase db, Section s, IconImage i, ViewSize v, boolean revealed) {
@@ -20,25 +17,26 @@ public class SectionControlNode extends ControlNode<Section> {
             imageView.setImage(i);
             imageView.setFitWidth(v.getSizeVal());
             imageView.setFitHeight(v.getSizeVal());
-            if(!revealed)
+            if(!s.isRevealed())
                 unreveal();
-        }
-        public void toggleReveal()
-        {
-            if(revealed)
-                unreveal();
-            else
-                reveal();
         }
 
     public void unreveal() {
         imageView.setImage(mainDatabase.grabBlankImage(TargetType.LOCATION));
-        revealed = false;
     }
+
+    private void complete()
+    {
+        lowlight();
+    }
+
+    private void incomplete() {
+        highlight();
+    }
+
 
     public void reveal() {
         imageView.setImage(mainDatabase.grabImage(subject.getLocation(), TargetType.LOCATION));
-        revealed = true;
     }
 
     public void refresh(Section s) {
@@ -47,5 +45,15 @@ public class SectionControlNode extends ControlNode<Section> {
         imageView.setImage(i);
         if(!subject.isRevealed())
             unreveal();
+        else
+            reveal();
+        if(subject.isCompleted())
+            complete();
+        else
+            incomplete();
+    }
+
+    public boolean isRevealed() {
+        return subject.isRevealed();
     }
 }

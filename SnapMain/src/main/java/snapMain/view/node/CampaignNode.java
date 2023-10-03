@@ -3,7 +3,7 @@ package snapMain.view.node;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.BasicNodeController;
 import javafx.scene.layout.StackPane;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 
 

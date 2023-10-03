@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 import snapMain.view.node.GridDisplayNode;

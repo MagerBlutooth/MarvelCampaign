@@ -2,11 +2,13 @@ package adventure.model.thing;
 
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
+import snapMain.model.target.Target;
+import snapMain.model.target.TargetType;
 
 import java.util.Base64;
 
-public class Boss {
+public class Boss implements Target {
     AdvCard card;
     int baseHP;
     int currentHP;
@@ -20,7 +22,7 @@ public class Boss {
     public Boss(AdvCard c)
     {
         card = c;
-        baseHP = 5;
+        setBaseHP(5);
         currentHP = baseHP;
         revealed = false;
     }
@@ -28,27 +30,47 @@ public class Boss {
     public Boss(AdvCard c, int worldBonus)
     {
         card = c;
-        baseHP = 5 + worldBonus;
+        setBaseHP(5 + worldBonus);
         currentHP = baseHP;
         revealed = false;
     }
 
     public Boss(Boss boss) {
         card = boss.card;
-        baseHP = boss.baseHP;
+        setBaseHP(boss.baseHP);
         currentHP = boss.currentHP;
         revealed = boss.revealed;
     }
 
-   public int getID()
+    @Override
+    public TargetType getTargetType() {
+        return TargetType.ADV_CARD;
+    }
+
+    public int getID()
    {
        return card.getID();
    }
-   
-   public String getName()
+
+    @Override
+    public void setEnabled(boolean enabled) {
+
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    public String getName()
    {
        return card.getName();
    }
+
+    @Override
+    public void setID(int id) {
+
+    }
 
     @Override
     public Boss clone() {
@@ -89,5 +111,28 @@ public class Boss {
 
     public void reveal() {
         revealed = true;
+    }
+
+    public String getEffect() {
+        return card.getEffect();
+    }
+
+    public void setCurrentHP(int newHP) {
+        currentHP = newHP;
+    }
+
+    private void setBaseHP(int h) {
+        if (h <= 0)
+            h = 1;
+        baseHP = h;
+    }
+
+    public int getCurrentHP()
+    {
+        return currentHP;
+    }
+
+    public int getBaseHP() {
+        return baseHP;
     }
 }

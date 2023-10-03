@@ -1,6 +1,6 @@
 package snapMain.model.database;
 
-import snapMain.model.thing.Target;
+import snapMain.model.target.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;

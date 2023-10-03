@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.node.FreeAgentSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import snapMain.model.thing.Location;
+import snapMain.model.target.Location;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.dialog.LocationSelectDialog;

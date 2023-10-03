@@ -1,8 +1,8 @@
 package adventure.model.thing;
 
-import snapMain.model.thing.BaseObject;
-import snapMain.model.thing.TargetType;
-import snapMain.model.thing.Token;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 
 public class AdvToken extends BaseObject {
     Token token;

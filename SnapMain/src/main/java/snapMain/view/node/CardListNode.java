@@ -1,6 +1,6 @@
 package snapMain.view.node;
 
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 
 public class CardListNode extends ListNode<Card> {
 

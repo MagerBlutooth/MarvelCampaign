@@ -1,6 +1,6 @@
 package snapMain.model.sortFilter;
 
-import snapMain.model.thing.Location;
+import snapMain.model.target.Location;
 
 import java.util.ArrayList;
 import java.util.Comparator;

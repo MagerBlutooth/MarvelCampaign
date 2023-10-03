@@ -3,7 +3,7 @@ package adventure.view.node;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.controller.editor.BasicNodeController;
-import snapMain.model.thing.BaseObject;
+import snapMain.model.target.BaseObject;
 import javafx.scene.layout.StackPane;
 
 

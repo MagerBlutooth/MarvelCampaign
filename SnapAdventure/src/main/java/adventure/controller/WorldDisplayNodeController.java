@@ -2,16 +2,16 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.World;
-import adventure.model.adventure.Adventure;
 import adventure.model.thing.Boss;
 import adventure.model.thing.Section;
 import adventure.view.node.BossControlNode;
 import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
+import adventure.view.pane.BossViewPane;
 import adventure.view.pane.SectionViewPane;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -34,21 +34,18 @@ public class WorldDisplayNodeController extends AdvPaneController {
     @FXML
     Label worldLabel;
 
-    World world;
     List<SectionControlNode> sections;
 
     AdvMainDatabase database;
 
-    int worldNum;
-    int sectionNum;
+    World world;
 
-    public void initialize(AdvMainDatabase d, World w, int wNum, int sNum, AdventureControlPane aPane)
+
+    public void initialize(AdvMainDatabase d, World w, int wNum, AdventureControlPane aPane)
     {
         database = d;
         world = w;
-        worldNum = wNum;
-        sectionNum = sNum;
-        worldLabel.setText("World "+ worldNum);
+        setWorldLabel(w);
         sections = new ArrayList<>();
 
         Section advLocation1 = w.getFirstSection();
@@ -72,12 +69,23 @@ public class WorldDisplayNodeController extends AdvPaneController {
         setSectionMouseOption(section2Node, aPane);
         setSectionMouseOption(section3Node, aPane);
         setSectionMouseOption(section4Node, aPane);
-        bossNode.initialize(d, boss.getCard(), d.grabImage(boss.getCard(), TargetType.CARD), ViewSize.MEDIUM, false);
+        setBossMouseOption(bossNode, aPane);
+        bossNode.initialize(d, boss, d.grabImage(boss.getCard(), TargetType.CARD), ViewSize.MEDIUM, false);
+    }
+
+    private void setBossMouseOption(BossControlNode bossNode, AdventureControlPane aPane) {
+        bossNode.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.PRIMARY && bossNode.isRevealed()) {
+                BossViewPane bossViewPane = new BossViewPane();
+                bossViewPane.initialize(database, aPane, bossNode.getSubject());
+                changeScene(bossViewPane);
+            }
+        });
     }
 
     private void setSectionMouseOption(SectionControlNode sectionNode, AdventureControlPane aPane) {
         sectionNode.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+            if(mouseEvent.getButton() == MouseButton.PRIMARY && sectionNode.isRevealed()) {
                 SectionViewPane sectionViewPane = new SectionViewPane();
                 sectionViewPane.initialize(database, aPane, sectionNode.getSubject());
                 changeScene(sectionViewPane);
@@ -88,21 +96,21 @@ public class WorldDisplayNodeController extends AdvPaneController {
     public void revealNextSection(int currentSectionNum)
     {
         world.revealNextSection(currentSectionNum);
-        refresh();
+        refresh(world);
     }
 
-    public void revealBoss()
+    public void refresh(World w)
     {
-        bossNode.reveal();
+        setWorldLabel(w);
+        section1Node.refresh(w.getFirstSection());
+        section2Node.refresh(w.getSecondSection());
+        section3Node.refresh(w.getThirdSection());
+        section4Node.refresh(w.getFourthSection());
+        bossNode.refresh(w.getBoss());
     }
 
-    public void refresh()
-    {
-        section1Node.refresh(world.getFirstSection());
-        section2Node.refresh(world.getSecondSection());
-        section3Node.refresh(world.getThirdSection());
-        section4Node.refresh(world.getFourthSection());
-        bossNode.refresh(world.getBoss());
+    private void setWorldLabel(World w) {
+        worldLabel.setText("World " + w.getWorldNum());
     }
 
     @Override
@@ -112,6 +120,5 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     @Override
     public void initializeButtonToolBar() {
-
     }
 }

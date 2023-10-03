@@ -1,7 +1,7 @@
 package snapMain.model.database;
 
-import snapMain.model.thing.Playable;
-import snapMain.model.thing.TargetType;
+import snapMain.model.target.Playable;
+import snapMain.model.target.TargetType;
 
 import java.util.ArrayList;
 import java.util.Collections;

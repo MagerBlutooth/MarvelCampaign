@@ -3,7 +3,7 @@ package snapMain.view.pane;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.PlayerControlPaneController;
 import snapMain.model.database.CampaignDatabase;
-import snapMain.model.thing.Faction;
+import snapMain.model.target.Faction;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 
 public class PlayerControlPane extends FullViewPane {

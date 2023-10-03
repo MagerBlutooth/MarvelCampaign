@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.WatcherControlPaneController;
 import snapMain.controller.node.FreeAgentSelectNodeController;
 import javafx.scene.layout.StackPane;
-import snapMain.model.thing.Faction;
+import snapMain.model.target.Faction;
 import snapMain.view.fxml.FXMLCampaignGrabber;
 
 public class FreeAgentSelectNode extends StackPane {

@@ -1,7 +1,7 @@
 package records.model;
 
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.thing.Card;
+import snapMain.model.target.Card;
 
 import java.util.List;
 
