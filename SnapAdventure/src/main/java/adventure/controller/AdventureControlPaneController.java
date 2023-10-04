@@ -44,7 +44,7 @@ public class AdventureControlPaneController extends AdvPaneController {
         adventure = a;
         teamDisplayNode.initialize(database, a.getTeam(), a);
         worldDisplayNode.initialize(database,a.getCurrentWorld(), adventure.getCurrentWorldNum(), adventureControlPane);
-        adventureActionNode.initialize(database, adventure);
+        adventureActionNode.initialize(database, adventure, adventureControlPane);
         adventure.saveAdventure();
     }
 
@@ -88,14 +88,20 @@ public class AdventureControlPaneController extends AdvPaneController {
         DraftDialog draftCardDialog = new DraftDialog();
         draftCardDialog.initialize(mainDatabase, adventure.draftCards());
         Optional<Card> card = draftCardDialog.showAndWait();
-        card.ifPresent(value -> adventure.addFreeAgentToTeam(value));
+        card.ifPresent(value ->
+        {
+            if(draftCardDialog.isTeam())
+                adventure.addFreeAgentToTeam(value);
+            else
+                adventure.addFreeAgentToTemp(value);
+
+        });
     }
 
     public void healCard() {
         CardChooserDialog chooserDialog = new CardChooserDialog();
         chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
         Optional<Card> card = chooserDialog.showAndWait();
-        if(card.isPresent())
-            adventure.healCard(card.get());
+        card.ifPresent(value -> adventure.healCard(value));
     }
 }

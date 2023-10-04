@@ -33,8 +33,8 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
         things.addAll(toAdd);
     }
 
-    public List<T> subList(int i, int fromIndex) {
-        return things.subList(i, fromIndex);
+    public List<T> subList(int fromIndex, int toIndex) {
+        return things.subList(fromIndex, toIndex);
     }
 
     public void clear() {

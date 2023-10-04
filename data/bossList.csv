@@ -232,7 +232,7 @@
 "231","Mobius M. Mobius","true","You cannot include cards in your deck that increase or decrease the cost of other cards."
 "232","Ravonna Renslayer","false","Your deck must include at least three cards with 1 or less POW."
 "233","Alioth","false","This boss’s HP cannot be reduced below 1 until you retreat from at least one match while you have priority (turn 4 or later)."
-"234","Elsa Bloodstone","false","This boss has +1 HP for each of your stationed cards in this world."
+"234","Elsa Bloodstone","true","This boss has +1 HP for each of your stationed cards in this world."
 "235","Black Knight","false","You must add exactly one discard card to your deck."
 "236","Werewolf By Night","false","This boss has 3 base HP. After deck construction, give a silver bullet to 2 cards in your deck. T his boss cannot take damage unless you win a location with a card carrying a silver bullet."
 "237","Nico Minoru","false","Before deck construction, roll a d6 to determine this boss's effect until the end of the next match: 1: Target a random card on your team. That card cannot be added to your deck this match. 2: If you reveal the first card in a match, it is wounded. 3: Randomize the current location. 4: Target a random card on your team. That card must be added to your deck this match. 5: Target a random card on your team. If it has less than 6 power, send it away. 6: This boss captures/eliminates twice as many cards this match."

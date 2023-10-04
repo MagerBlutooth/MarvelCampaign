@@ -42,6 +42,10 @@ public class DiceNodeController {
         rollDie(8);
     }
 
+    public void rolld10()
+    {
+        rollDie(10);
+    }
     public void rolld12()
     {
         rollDie(12);

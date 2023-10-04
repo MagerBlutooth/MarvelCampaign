@@ -4,6 +4,7 @@ import adventure.controller.AdventureActionNodeController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import adventure.view.pane.AdventureControlPane;
 import javafx.scene.layout.StackPane;
 
 public class AdventureActionNode extends StackPane {
@@ -17,7 +18,7 @@ public class AdventureActionNode extends StackPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase database, Adventure a) {
-        controller.initialize(database, a);
+    public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane aControlPane) {
+        controller.initialize(database, a, aControlPane);
     }
 }

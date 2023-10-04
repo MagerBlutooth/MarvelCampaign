@@ -31,19 +31,10 @@ public class ChooserDialogController<T extends SnapTarget> {
     TargetList<T> choices;
     T selection;
 
-    @FXML
-    ToggleButton toTeamButton;
-    @FXML
-    ToggleButton toTempButton;
-
-    ToggleGroup toggleGroup;
-
     public void initialize(MainDatabase md, Choosable<T> dialog, TargetList<T> selectables, TargetType targetType)
     {
         choices = selectables;
         mainDatabase = md;
-        toggleGroup = new ToggleGroup();
-        toggleGroup.getToggles().addAll(toTeamButton, toTempButton);
         ChooserDialogGridActionController<T> gridActionController = new ChooserDialogGridActionController<>();
         gridActionController.initialize(mainDatabase, dialog);
         choiceNodes.initialize(selectables, targetType, gridActionController, ViewSize.SMALL, false);

@@ -248,11 +248,20 @@ public class Adventure {
         return reclaimedCards;
     }
 
+    public CardList getStationedCards()
+    {
+        CardList stationedCards = new CardList(new ArrayList<>());
+        for(Section s: getCurrentWorld().getSections()) {
+            stationedCards.addAll(s.getStationedCards().getThings());
+        }
+        return stationedCards;
+    }
+
     public TargetList<Card> draftCards() {
         CardList cards = new CardList(new ArrayList<>());
         CardList freeAgents = new CardList(team.getFreeAgents());
         Collections.shuffle(freeAgents.getCards());
-        cards.addAll(freeAgents.subList(AdventureConstants.NUM_DRAFT_CARDS, 0));
+        cards.addAll(freeAgents.subList(0, AdventureConstants.NUM_DRAFT_CARDS));
         return cards;
     }
 
@@ -270,7 +279,11 @@ public class Adventure {
     }
 
     public void stationCard(Section s, Card card) {
-        stationCard(s, card);
+        team.stationCard(s, card);
+    }
 
+    public void addFreeAgentToTemp(Card card) {
+        team.getTempCards().add(card);
+        team.getFreeAgents().remove(card);
     }
 }

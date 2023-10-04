@@ -123,5 +123,6 @@ public class SectionViewPaneController extends AdvPaneController {
         Optional<Card> cardSelect = chooserDialog.showAndWait();
         cardSelect.ifPresent(card -> adventure.stationCard(section, card));
         initializeStations(section);
+        controlPane.refreshToMatch();
     }
 }

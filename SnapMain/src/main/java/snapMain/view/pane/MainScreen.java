@@ -45,8 +45,8 @@ public class MainScreen extends GameStage {
         fadeIn.setOnFinished((e) -> {
             fadeOut.play();
             MasterThingDatabase db = new MasterThingDatabase();
-            MainDatabase mainDatabase = new MainDatabase(db);
             db.loadDatabase();
+            MainDatabase mainDatabase = new MainDatabase(db);
             FXMLMainGrabber grabber = new FXMLMainGrabber();
             grabber.grabFXML("editorMenu.fxml", mainPane);
             controller = grabber.getController();
