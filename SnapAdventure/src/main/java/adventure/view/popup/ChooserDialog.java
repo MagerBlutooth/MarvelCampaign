@@ -11,7 +11,7 @@ import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
-public class ChooserDialog<T extends SnapTarget> extends Dialog<T> {
+public class ChooserDialog<T extends SnapTarget> extends Dialog<T> implements Choosable<T> {
 
     ChooserDialogController<T> controller;
     public ChooserDialog()
@@ -25,7 +25,7 @@ public class ChooserDialog<T extends SnapTarget> extends Dialog<T> {
 
     public void initialize(MainDatabase cd, TargetList<T> selectables, TargetType tType)
     {
-        controller.initialize(cd, selectables, tType);
+        controller.initialize(cd, this, selectables, tType);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return controller.getSelection();
@@ -34,6 +34,7 @@ public class ChooserDialog<T extends SnapTarget> extends Dialog<T> {
         });
     }
 
+    @Override
     public void setChoice(T subject) {
         controller.setChoice(subject);
     }

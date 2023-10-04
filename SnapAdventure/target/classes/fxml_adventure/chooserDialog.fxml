@@ -4,15 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.node.GridDisplayNode?>
 <?import javafx.scene.control.ToggleButton?>
-<fx:root type="DialogPane" fx:id="dialogPane"
+<?import javafx.scene.control.Label?>
+<fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" prefWidth="600" prefHeight="600"
+         stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
          fx:controller="adventure.controller.ChooserDialogController">
     <content>
-        <VBox>
-            <StackPane fx:id="displayPane"/>
-            <GridDisplayNode fx:id="choices"/>
-            <HBox>
+        <VBox alignment="CENTER" spacing="10.0">
+            <Label text="Choose"/>
+            <StackPane fx:id="displayPane" maxWidth="200" maxHeight="200"/>
+            <GridDisplayNode fx:id="choiceNodes"/>
+            <HBox alignment="CENTER">
                 <ToggleButton fx:id="toTeamButton" text="To Team"/>
                 <ToggleButton fx:id="toTempButton" text="To Temp"/>
             </HBox>

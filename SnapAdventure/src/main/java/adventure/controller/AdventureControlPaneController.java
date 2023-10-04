@@ -39,6 +39,7 @@ public class AdventureControlPaneController extends AdvPaneController {
     {
         super.initialize(database);
         initializeButtonToolBar();
+        mainDatabase = database;
         adventureDatabase = new AdventureDatabase(database);
         adventure = a;
         teamDisplayNode.initialize(database, a.getTeam(), a);

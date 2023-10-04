@@ -1,13 +1,11 @@
 package adventure.model.thing;
 
-import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -115,7 +113,7 @@ public class Section implements Cloneable, SnapTarget {
         return new Section(this);
     }
 
-    public void addStation(Card c) {
+    public void stationCard(Card c) {
         stationedCards.add(c);
     }
 

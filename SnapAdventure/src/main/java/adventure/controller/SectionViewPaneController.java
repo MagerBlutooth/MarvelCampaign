@@ -41,19 +41,18 @@ public class SectionViewPaneController extends AdvPaneController {
     Button completeButton;
     @FXML
     Button randomizeButton;
-    AdvMainDatabase database;
     AdventureControlPane controlPane;
     Section section;
     Adventure adventure;
     GridDisplayNode<Card> stationedDisplay;
 
     public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Section s) {
-        database = dB;
+        mainDatabase = dB;
         controlPane = cP;
         section = s;
         adventure = cP.getAdventure();
         AdvLocation l = s.getLocation();
-        sectionView.initialize(database, s.getLocation(), database.grabImage(s.getLocation()),
+        sectionView.initialize(mainDatabase, s.getLocation(), mainDatabase.grabImage(s.getLocation()),
                 ViewSize.LARGE, s.isRevealed());
         effectText.setText(l.getEffect());
         effectText.setMouseTransparent(true);
@@ -68,7 +67,7 @@ public class SectionViewPaneController extends AdvPaneController {
         if(s.hasStationedCards()) {
             stationedDisplay = new GridDisplayNode<>();
             BaseGridActionController<Card> gridActionController = new BaseGridActionController<>();
-            gridActionController.initialize(database);
+            gridActionController.initialize(mainDatabase);
              stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD_OR_TOKEN, gridActionController,
                     ViewSize.TINY, false);
             stationedDisplayBox.getChildren().add(stationedDisplay);
@@ -79,7 +78,7 @@ public class SectionViewPaneController extends AdvPaneController {
         if(s.hasPickups()) {
             GridDisplayNode<Playable> pickupDisplay = new GridDisplayNode<>();
             BaseGridActionController<Playable> gridActionController = new BaseGridActionController<>();
-            gridActionController.initialize(database);
+            gridActionController.initialize(mainDatabase);
             pickupDisplay.initialize(s.getPickups(), TargetType.CARD_OR_TOKEN, gridActionController,
                     ViewSize.TINY, false);
             pickupDisplayBox.getChildren().add(pickupDisplay);
@@ -122,6 +121,7 @@ public class SectionViewPaneController extends AdvPaneController {
         CardChooserDialog chooserDialog = new CardChooserDialog();
         chooserDialog.initialize(mainDatabase, adventure.getActiveCards(), TargetType.CARD);
         Optional<Card> cardSelect = chooserDialog.showAndWait();
-        cardSelect.ifPresent(card -> stationedDisplay.addThing(card));
+        cardSelect.ifPresent(card -> adventure.stationCard(section, card));
+        initializeStations(section);
     }
 }

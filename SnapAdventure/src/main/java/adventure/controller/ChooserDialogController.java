@@ -1,12 +1,15 @@
 package adventure.controller;
 
+import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.MainDatabase;
-import snapMain.controller.grid.DialogGridActionController;
+import snapMain.model.target.Card;
 import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
@@ -16,6 +19,10 @@ import snapMain.view.node.control.ControlNode;
 
 public class ChooserDialogController<T extends SnapTarget> {
 
+    @FXML
+    public ButtonType okButton;
+    @FXML
+    public ButtonType cancelButton;
     @FXML
     StackPane displayPane;
     @FXML
@@ -31,15 +38,20 @@ public class ChooserDialogController<T extends SnapTarget> {
 
     ToggleGroup toggleGroup;
 
-    public void initialize(MainDatabase md, TargetList<T> selectables, TargetType targetType)
+    public void initialize(MainDatabase md, Choosable<T> dialog, TargetList<T> selectables, TargetType targetType)
     {
         choices = selectables;
         mainDatabase = md;
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(toTeamButton, toTempButton);
-        DialogGridActionController<T> gridActionController = new DialogGridActionController<>();
-        gridActionController.initialize(mainDatabase);
+        ChooserDialogGridActionController<T> gridActionController = new ChooserDialogGridActionController<>();
+        gridActionController.initialize(mainDatabase, dialog);
         choiceNodes.initialize(selectables, targetType, gridActionController, ViewSize.SMALL, false);
+    }
+
+
+    public T getSelection() {
+        return selection;
     }
 
     public void setChoice(T t) {
@@ -50,9 +62,6 @@ public class ChooserDialogController<T extends SnapTarget> {
         displayPane.getChildren().add(viewNode);
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());
-    }
-
-    public T getSelection() {
-        return selection;
+        selection = t;
     }
 }

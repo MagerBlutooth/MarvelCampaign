@@ -182,7 +182,7 @@ public class Adventure {
         World world = getFutureWorld();
         if(world != null)
         {
-            world.getRandomSection().addStation(card);
+            world.getRandomSection().stationCard(card);
         }
     }
 
@@ -267,5 +267,10 @@ public class Adventure {
 
     public TargetList<Card> getWoundedCards() {
         return team.getWoundedCards();
+    }
+
+    public void stationCard(Section s, Card card) {
+        stationCard(s, card);
+
     }
 }

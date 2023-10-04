@@ -37,14 +37,14 @@ public class BaseGridActionController<T extends SnapTarget> implements GridActio
 
     @Override
     public void createTooltip(ControlNode<T> n) {
-        Tooltip tooltip = new Tooltip();
+        /*Tooltip tooltip = new Tooltip();
         ImageView tooltipImage = new ImageView(mainDatabase.grabImage(n.getSubject()));
         tooltipImage.setFitHeight(ViewSize.MEDIUM.getSizeVal());
         tooltipImage.setFitWidth(ViewSize.MEDIUM.getSizeVal());
         tooltip.setGraphic(tooltipImage);
         tooltip.setText(n.getSubject().getName());
         tooltip.setShowDelay(new Duration(1.0));
-        Tooltip.install(n, tooltip);
+        Tooltip.install(n, tooltip);*/
     }
 
     @Override

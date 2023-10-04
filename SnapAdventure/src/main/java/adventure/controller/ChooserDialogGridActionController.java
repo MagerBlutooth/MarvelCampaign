@@ -1,20 +1,19 @@
 package adventure.controller;
 
 
-import adventure.view.popup.ChooserDialog;
+import adventure.view.popup.Choosable;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.SnapTarget;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.dialog.SearchSelectDialog;
 import snapMain.view.node.control.ControlNode;
 
 public class ChooserDialogGridActionController<T extends SnapTarget> extends BaseGridActionController<T> {
 
-    ChooserDialog<T> dialog;
+    Choosable<T> dialog;
 
-    public void initialize(MainDatabase cd, ChooserDialog<T> d)
+    public void initialize(MainDatabase cd, Choosable<T> d)
     {
         super.initialize(cd);
         dialog = d;

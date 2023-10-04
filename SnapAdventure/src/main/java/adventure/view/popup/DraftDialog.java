@@ -8,7 +8,7 @@ import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
-public class DraftDialog extends Dialog<Card> {
+public class DraftDialog extends Dialog<Card> implements Choosable<Card> {
 
     ChooserDialogController<Card> controller;
 
@@ -20,7 +20,11 @@ public class DraftDialog extends Dialog<Card> {
 
     public void initialize(MainDatabase cd, TargetList<Card> selectables)
     {
-        controller.initialize(cd, selectables, TargetType.CARD);
+        controller.initialize(cd, this, selectables, TargetType.CARD);
     }
 
+    @Override
+    public void setChoice(Card card) {
+        controller.setChoice(card);
+    }
 }

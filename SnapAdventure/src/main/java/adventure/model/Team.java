@@ -1,6 +1,7 @@
 package adventure.model;
 
 import adventure.model.thing.InfinityStone;
+import adventure.model.thing.Section;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
@@ -181,5 +182,11 @@ public class Team {
                 cards.add(c);
         }
         return cards;
+    }
+
+    public void stationCard(Section s ,Card c)
+    {
+        s.stationCard(c);
+        activeCards.remove(c);
     }
 }
