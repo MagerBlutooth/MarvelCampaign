@@ -85,6 +85,20 @@ public enum TargetType {
         public List<String> getFilterOptions() {
             return new ArrayList<>();
         }
+    },
+    CARD_OR_TOKEN {
+        @Override
+        public List<String> getSortOptions() {
+            List<String> options = new ArrayList<>();
+            for (CardSortMode mode : CardSortMode.values())
+                options.add(mode.toString());
+            return options;
+        }
+
+        @Override
+        public List<String> getFilterOptions() {
+            return new ArrayList<>();
+        }
     };
 
     public abstract List<String> getSortOptions();

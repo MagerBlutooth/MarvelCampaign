@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import snapMain.view.button.ButtonToolBar?>
 <?import javafx.scene.layout.Pane?>
-<fx:root type="ButtonToolBar"
+<fx:root type="ButtonToolBar" fx:id="buttonToolBar"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css/mainStyle.css" fx:controller="snapMain.controller.ButtonToolBarController">
     <Button fx:id="backButton" text="Back" onAction="#goBack"/>

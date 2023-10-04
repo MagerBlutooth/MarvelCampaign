@@ -9,6 +9,7 @@
 .label {
     -fx-font-family: "Avengeance Heroic Avenger";
     -fx-font-size: 32px;
+    -fx-text-fill: white;
 }
 
 #info {

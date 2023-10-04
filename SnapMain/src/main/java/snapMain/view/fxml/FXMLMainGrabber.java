@@ -1,6 +1,6 @@
 package snapMain.view.fxml;
 
-public class FXMLCampaignGrabber extends FXMLGrabber {
+public class FXMLMainGrabber extends FXMLGrabber {
 
     public String getFXMLFolder()
     {

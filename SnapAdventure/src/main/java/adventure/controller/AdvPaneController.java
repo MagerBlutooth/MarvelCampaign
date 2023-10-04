@@ -6,7 +6,7 @@ import snapMain.view.pane.FullViewPane;
 import snapMain.view.pane.BasicStage;
 import javafx.scene.Scene;
 
-public abstract class AdvPaneController extends BasePaneController {
+public abstract class AdvPaneController extends BasePaneController<AdvMainDatabase> {
     protected AdvMainDatabase mainDatabase;
     public abstract Scene getCurrentScene();
 

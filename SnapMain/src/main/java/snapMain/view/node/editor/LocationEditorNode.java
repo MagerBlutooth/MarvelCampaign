@@ -10,8 +10,8 @@ public class LocationEditorNode extends CampaignNode {
     LocationEditorNodeController controller;
     public LocationEditorNode()
     {
-        fxmlCampaignGrabber.grabFXML("locationEditorNode.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        fxmlMainGrabber.grabFXML("locationEditorNode.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase d, Location w)

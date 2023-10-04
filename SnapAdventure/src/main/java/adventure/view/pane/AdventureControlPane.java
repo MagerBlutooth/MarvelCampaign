@@ -43,4 +43,12 @@ public class AdventureControlPane extends EditorPane {
     public void completeCurrentWorld() {
         controller.completeWorld();
     }
+
+    public void draftCard() {
+        controller.draftCard();
+    }
+
+    public void healCard() {
+        controller.healCard();
+    }
 }

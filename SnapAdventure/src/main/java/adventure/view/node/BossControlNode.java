@@ -26,11 +26,11 @@ public class BossControlNode extends ControlNode<Boss> {
     }
 
     public void reveal() {
-        imageView.setImage(mainDatabase.grabImage(subject.getCard(), TargetType.CARD));
+        imageView.setImage(mainDatabase.grabImage(subject.getCard()));
     }
 
     public void refresh(Boss boss) {
-        IconImage i = mainDatabase.grabImage(boss.getCard(), TargetType.CARD);
+        IconImage i = mainDatabase.grabImage(boss.getCard());
         subject = boss;
         imageView.setImage(i);
         if(!boss.isRevealed())

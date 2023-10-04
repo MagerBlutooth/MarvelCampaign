@@ -36,11 +36,11 @@ public class SectionControlNode extends ControlNode<Section> {
 
 
     public void reveal() {
-        imageView.setImage(mainDatabase.grabImage(subject.getLocation(), TargetType.LOCATION));
+        imageView.setImage(mainDatabase.grabImage(subject.getLocation()));
     }
 
     public void refresh(Section s) {
-        IconImage i = mainDatabase.grabImage(s.getLocation(), TargetType.LOCATION);
+        IconImage i = mainDatabase.grabImage(s.getLocation());
         subject = s;
         imageView.setImage(i);
         if(!subject.isRevealed())

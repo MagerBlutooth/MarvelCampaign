@@ -2,39 +2,35 @@ package snapMain.view.dialog;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.DialogGridActionController;
+import snapMain.model.target.*;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
-import snapMain.model.target.EffectBaseObject;
-import snapMain.model.target.Location;
-import snapMain.model.target.LocationList;
-import snapMain.model.target.TargetType;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class LocationSelectDialog extends SelectDialog<Location> {
+public class CardSearchSelectDialog extends SearchSelectDialog<Card> {
 
     @Override
-    public void initialize(MainDatabase cd)
+    public void initialize(MainDatabase cd, TargetList<Card> selectableCards)
     {
-        super.initialize(cd);
-        List<Location> allLocations = mainDatabase.getLocations();
+        super.initialize(cd, selectableCards);
 
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            LocationList locs = new LocationList(new ArrayList<>());
-            for(Location l: allLocations)
+            CardList cards = new CardList(new ArrayList<>());
+            for(Card c: selectableCards)
             {
-                String name = l.getName().toLowerCase();
+                String name = c.getName().toLowerCase();
                 String searchString = searchBar.textProperty().get().toLowerCase();
                 if(name.contains(searchString))
-                    locs.add(l);
+                    cards.add(c);
             }
-            DialogGridActionController<Location> gridController = new DialogGridActionController<>();
-            gridController.intialize(cd, this);
-            choices.initialize(locs, TargetType.LOCATION, gridController, ViewSize.MEDIUM, false);
+            DialogGridActionController<Card> gridController = new DialogGridActionController<>();
+            gridController.initialize(cd, this);
+            choiceNodes.initialize(cards, TargetType.CARD, gridController, ViewSize.MEDIUM, false);
     });
+
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return selection;
@@ -44,14 +40,14 @@ public class LocationSelectDialog extends SelectDialog<Location> {
     }
 
     @Override
-    public void setChoice(Location l) {
+    public void setChoice(Card c) {
         displayPane.getChildren().clear();
         ControlNode<EffectBaseObject> viewNode = new ControlNode<>();
         viewNode.setMaxWidth(300.0);
-        viewNode.initialize(mainDatabase, l, mainDatabase.grabImage(l, l.getTargetType()), ViewSize.LARGE, true);
+        viewNode.initialize(mainDatabase, c, mainDatabase.grabImage(c), ViewSize.LARGE, true);
         displayPane.getChildren().add(viewNode);
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());
-        selection = l;
+        selection = c;
     }
 }

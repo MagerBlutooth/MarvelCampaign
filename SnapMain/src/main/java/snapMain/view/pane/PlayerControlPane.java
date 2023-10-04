@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.PlayerControlPaneController;
 import snapMain.model.database.CampaignDatabase;
 import snapMain.model.target.Faction;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class PlayerControlPane extends FullViewPane {
 
@@ -12,9 +12,9 @@ public class PlayerControlPane extends FullViewPane {
 
     public PlayerControlPane()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("playerControlPane.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("playerControlPane.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(CampaignDatabase cD, MainDatabase db, Faction f, Faction e, Faction u)

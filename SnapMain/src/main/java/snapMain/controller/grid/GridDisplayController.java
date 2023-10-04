@@ -12,12 +12,12 @@ import snapMain.view.node.control.ControlNode;
 
 import java.util.*;
 
-public class GridDisplayController<T extends BaseObject>  {
+public class GridDisplayController<T extends SnapTarget>  {
 
 
     @FXML
     protected TilePane groupList;
-    protected ThingList<T> thingList;
+    protected TargetList<T> targetList;
     Map<String, Boolean> filterOptionsMap;
     List<String> sortOptions;
     ViewSize viewSize;
@@ -32,14 +32,14 @@ public class GridDisplayController<T extends BaseObject>  {
 
     boolean blind;
 
-    public void initialize(ThingList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v, boolean bl)
+    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v, boolean bl)
     {
         mainDatabase = controller.getDatabase();
         targetType = tType;
         gridActionController = controller;
         groupList.getChildren().clear();
         viewSize = v;
-        thingList = things;
+        targetList = things;
         blind = bl;
         sortOptions = new ArrayList<>(tType.getSortOptions());
         setFilterOptions(tType.getFilterOptions());
@@ -58,8 +58,8 @@ public class GridDisplayController<T extends BaseObject>  {
     {
         groupList.getChildren().clear();
         List<ControlNode<T>> listOfObjects = new ArrayList<>();
-        thingList.sort();
-        if(thingList.isEmpty())
+        targetList.sort();
+        if(targetList.isEmpty())
         {
             T blankObject = null;
             switch(targetType)
@@ -88,11 +88,18 @@ public class GridDisplayController<T extends BaseObject>  {
                         throw new RuntimeException(e);
                     }
                     break;
-
+                case CARD_OR_TOKEN:
+                    CardOrToken ct = new CardOrToken();
+                    try {
+                        blankObject = (T) ct.getClass().getDeclaredConstructor().newInstance();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
             }
             addNewNode(blankObject, listOfObjects);
         }
-        for(T t: thingList)
+        for(T t: targetList)
         {
             boolean disabled = false;
             for(String entry: getEnabledFilters())
@@ -114,13 +121,13 @@ public class GridDisplayController<T extends BaseObject>  {
     }
 
      protected void addNewNode(T t, List<ControlNode<T>> listOfObjects) {
-        IconImage i = mainDatabase.grabImage(t, t.getTargetType());
+        IconImage i = mainDatabase.grabImage(t);
         ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, blind);
         listOfObjects.add(n);
     }
 
     public void sort(String m) {
-        thingList.setSortMode(m);
+        targetList.setSortMode(m);
         populateDisplay();
     }
 
@@ -153,12 +160,12 @@ public class GridDisplayController<T extends BaseObject>  {
     }
 
     public void update(T thing) {
-        thingList.replace(thing);
+        targetList.replace(thing);
         populateDisplay();
     }
 
-    public void refresh(ThingList<T> things) {
-        thingList = things;
+    public void refresh(TargetList<T> things) {
+        targetList = things;
         populateDisplay();
     }
 
@@ -167,13 +174,13 @@ public class GridDisplayController<T extends BaseObject>  {
     }
 
     public void addThing(T t) {
-        thingList.add(t);
+        targetList.add(t);
         populateDisplay();
     }
 
     public void removeThing(T t)
     {
-        thingList.remove(t);
+        targetList.remove(t);
         populateDisplay();
     }
 

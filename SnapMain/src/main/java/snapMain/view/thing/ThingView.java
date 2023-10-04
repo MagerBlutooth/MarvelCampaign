@@ -9,25 +9,25 @@ import javafx.scene.layout.StackPane;
 import snapMain.model.target.BaseObject;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 import java.io.File;
 import java.net.MalformedURLException;
 
 public class ThingView<T extends BaseObject> extends StackPane {
     IconImage image;
-    protected FXMLCampaignGrabber fxmlCampaignGrabber;
+    protected FXMLMainGrabber fxmlMainGrabber;
     boolean editable;
     ViewSize viewSize = ViewSize.SMALL;
 
     public ThingView()
     {
-        fxmlCampaignGrabber = new FXMLCampaignGrabber();
+        fxmlMainGrabber = new FXMLMainGrabber();
     }
 
     public <V extends CampaignViewController<T>> V getController()
     {
-        return fxmlCampaignGrabber.getController();
+        return fxmlMainGrabber.getController();
     }
 
     public void addDragAndDrop()

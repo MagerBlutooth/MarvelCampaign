@@ -5,16 +5,16 @@ import snapMain.controller.WatcherControlPaneController;
 import snapMain.controller.node.FreeAgentSelectNodeController;
 import javafx.scene.layout.StackPane;
 import snapMain.model.target.Faction;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class FreeAgentSelectNode extends StackPane {
 
     FreeAgentSelectNodeController controller;
 
     public FreeAgentSelectNode() {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("freeAgentSelectNode.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("freeAgentSelectNode.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase d, WatcherControlPaneController c, Faction f, String s, String h)

@@ -5,7 +5,8 @@ import snapMain.controller.node.FactionSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.model.target.Card;
-import snapMain.view.dialog.CardSelectDialog;
+import snapMain.model.target.CardList;
+import snapMain.view.dialog.CardSearchSelectDialog;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.node.control.DraggableControlNode;
 
@@ -52,8 +53,8 @@ public class AgentGridActionController extends ThingActionController<Card> {
         contextMenu.getItems().add(captainItem);
         MenuItem addCardItem = new MenuItem("Add Card");
         addCardItem.setOnAction(e -> {
-            CardSelectDialog dialog = new CardSelectDialog();
-            dialog.initialize(mainDatabase);
+            CardSearchSelectDialog dialog = new CardSearchSelectDialog();
+            dialog.initialize(mainDatabase, new CardList(mainDatabase.getCards()));
             Optional<Card> newCard = dialog.showAndWait();
             newCard.ifPresent(value -> factionController.addAgent(value));
         });

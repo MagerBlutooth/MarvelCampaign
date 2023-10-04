@@ -1,42 +1,48 @@
 package adventure.model.thing;
 
+import adventure.model.AdvMainDatabase;
+import adventure.model.AdventureDatabase;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Base64;
 
-public class Section implements Cloneable, Target {
+public class Section implements Cloneable, SnapTarget {
     AdvLocation advLocation;
-    PlayableList stationedCards;
+    CardList stationedCards;
     PlayableList pickups;
     PlayableDatabase cardsAndTokens;
+    TargetDatabase<Card> cardDatabase;
     boolean revealed;
     boolean completed;
     int sectionNum;
 
-    public Section(int num){
+    public Section(int num, AdventureDatabase database){
         sectionNum = num;
-        stationedCards = new PlayableList(new ArrayList<>());
+        stationedCards = new CardList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
+        cardsAndTokens = database.getCardsAndTokens();
     }
 
-    public Section(int num, AdvLocation l, PlayableDatabase pD)
+    public Section(int num, AdvLocation l, AdventureDatabase database)
     {
         sectionNum = num;
         advLocation = l;
-        stationedCards = new PlayableList(new ArrayList<>());
+        stationedCards = new CardList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
-        cardsAndTokens = pD;
+        cardsAndTokens = database.getCardsAndTokens();
+        cardDatabase = database.getCards();
         revealed = false;
     }
 
     public Section(Section loc) {
         sectionNum = loc.sectionNum;
         advLocation = loc.advLocation;
-        stationedCards = new PlayableList(new ArrayList<>());
+        stationedCards = new CardList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
         cardsAndTokens = loc.cardsAndTokens;
         revealed = loc.revealed;
@@ -63,7 +69,7 @@ public class Section implements Cloneable, Target {
         String[] stringList = decodedString.split(CampaignConstants.SUBCATEGORY_SEPARATOR);
         sectionNum = Integer.parseInt(stringList[0]);
         advLocation = locations.lookup(Integer.parseInt(stringList[1]));
-        stationedCards.fromSaveString(stringList[2], cardsAndTokens);
+        stationedCards.fromSaveString(stringList[2], cardDatabase);
         pickups.fromSaveString(stringList[3], cardsAndTokens);
         revealed = Boolean.parseBoolean(stringList[4]);
         completed = Boolean.parseBoolean(stringList[5]);
@@ -100,23 +106,28 @@ public class Section implements Cloneable, Target {
     }
 
     @Override
+    public boolean hasAttribute(String entry) {
+        return advLocation.hasAttribute(entry);
+    }
+
+    @Override
     public Section clone() {
         return new Section(this);
     }
 
-    public void addStation(Playable p) {
-        stationedCards.add(p);
+    public void addStation(Card c) {
+        stationedCards.add(c);
     }
 
     public AdvLocation getLocation() {
         return advLocation;
     }
 
-    public PlayableList getPickups() {
+    public TargetList<Playable> getPickups() {
         return pickups;
     }
 
-    public PlayableList getStationedCards()
+    public TargetList<Card> getStationedCards()
     {
         return stationedCards;
     }
@@ -153,5 +164,14 @@ public class Section implements Cloneable, Target {
 
     public void addPickup(InfinityStone infinityStone) {
         pickups.add(infinityStone);
+    }
+
+    public boolean hasStationedCards() {
+        return !stationedCards.isEmpty();
+    }
+
+    public boolean hasPickups()
+    {
+        return !getPickups().isEmpty();
     }
 }

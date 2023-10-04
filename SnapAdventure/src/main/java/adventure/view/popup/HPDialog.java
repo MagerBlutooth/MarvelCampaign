@@ -15,7 +15,7 @@ public class HPDialog extends Dialog<Integer> {
     public HPDialog()
     {
         FXMLAdventureGrabber fxmlAdventureGrabber = new FXMLAdventureGrabber();
-        fxmlAdventureGrabber.grabFXML("hPDialog.fxml", this.getDialogPane());
+        fxmlAdventureGrabber.grabFXML("hpDialog.fxml", this.getDialogPane());
         initModality(Modality.APPLICATION_MODAL);
         this.initStyle(StageStyle.UNDECORATED);
         controller = fxmlAdventureGrabber.getController();

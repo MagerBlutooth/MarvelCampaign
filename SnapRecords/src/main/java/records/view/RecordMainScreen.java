@@ -42,8 +42,8 @@ public class RecordMainScreen extends GameStage {
         fadeIn.play();
 
         fadeIn.setOnFinished((e) -> {
-            db.loadDatabase();
             fadeOut.play();
+            db.loadDatabase();
             FXMLRecordGrabber grabber = new FXMLRecordGrabber();
             grabber.grabFXML("hallOfFameManager.fxml", hallOfFameManagerPane);
             HallOfFameManagerController hallOfFameManagerController = grabber.getController();

@@ -6,7 +6,7 @@ import snapMain.view.SplashScreen;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import snapMain.model.database.MasterThingDatabase;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 import static snapMain.view.main.GameApplication.isSplashLoaded;
 
@@ -17,9 +17,9 @@ public class PlayerMainScreen extends GameStage {
 
     public PlayerMainScreen() {
         mainPane = new PlayerMainMenuPane();
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("playerMainMenu.fxml", mainPane, getClass());
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("playerMainMenu.fxml", mainPane, getClass());
+        controller = fxmlMainGrabber.getController();
         if(!isSplashLoaded)
             loadSplashScreen();
         initialize(mainPane);
@@ -45,9 +45,9 @@ public class PlayerMainScreen extends GameStage {
         fadeIn.play();
 
         fadeIn.setOnFinished((e) -> {
-            db.loadDatabase();
             fadeOut.play();
-            FXMLCampaignGrabber grabber = new FXMLCampaignGrabber();
+            db.loadDatabase();
+            FXMLMainGrabber grabber = new FXMLMainGrabber();
             grabber.grabFXML("playerMainMenu.fxml", mainPane);
             PlayerMainMenuController mainMenuController = grabber.getController();
             mainMenuController.initialize(db);

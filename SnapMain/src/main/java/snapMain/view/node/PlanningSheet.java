@@ -6,7 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import snapMain.model.constants.PlanningPurchase;
 import snapMain.model.database.FactionLabel;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class PlanningSheet extends ScrollPane {
 
@@ -14,8 +14,8 @@ public class PlanningSheet extends ScrollPane {
     VBox mainBox;
     public PlanningSheet()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("planningSheet.fxml", this, this);
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("planningSheet.fxml", this, this);
     }
 
     public void initialize(FactionLabel f)

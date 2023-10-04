@@ -37,13 +37,13 @@ public class AdvLocationControlNode extends ControlNode<AdvLocation> {
     }
 
     public void reveal() {
-        imageView.setImage(mainDatabase.grabImage(subject, TargetType.LOCATION));
+        imageView.setImage(mainDatabase.grabImage(subject));
         revealed = true;
     }
 
     public void update(AdvLocation l) {
         subject = l;
-        IconImage i = mainDatabase.grabImage(l, TargetType.LOCATION);
+        IconImage i = mainDatabase.grabImage(l);
         imageView.setImage(i);
     }
 }

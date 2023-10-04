@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
@@ -49,7 +49,7 @@ public class HallOfFameManagerController extends BasePaneController implements G
 
         hallOfFameEntries = thingFactory.loadHallOfFame(db.lookupDatabase(TargetType.CARD));
         mainDatabase = db;
-        ThingList<HallOfFameEntry> entriesList = new HallOfFameEntryList(hallOfFameEntries);
+        TargetList<HallOfFameEntry> entriesList = new HallOfFameEntryList(hallOfFameEntries);
         hallOfFameDisplay.initialize(entriesList, TargetType.HALL_OF_FAME, this, ViewSize.MEDIUM, false);
         topDisplay.initialize(mainDatabase, hallOfFameEntries);
     }

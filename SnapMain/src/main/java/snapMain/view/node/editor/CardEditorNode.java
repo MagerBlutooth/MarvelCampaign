@@ -11,8 +11,8 @@ public class CardEditorNode extends CampaignNode {
 
     public CardEditorNode()
     {
-        fxmlCampaignGrabber.grabFXML("cardEditorNode.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        fxmlMainGrabber.grabFXML("cardEditorNode.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase d, Card c)

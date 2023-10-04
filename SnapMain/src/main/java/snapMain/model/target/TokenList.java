@@ -6,7 +6,7 @@ import snapMain.model.sortFilter.TokenSorter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TokenList extends ThingList<Token> {
+public class TokenList extends TargetList<Token> {
 
     TokenSortMode sortMode;
     TokenSorter tokenSorter;

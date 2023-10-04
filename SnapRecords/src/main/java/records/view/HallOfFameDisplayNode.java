@@ -1,7 +1,7 @@
 package records.view;
 
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
@@ -20,7 +20,7 @@ public class HallOfFameDisplayNode extends GridDisplayNode<HallOfFameEntry> {
     }
 
     @Override
-    public void initialize(ThingList<HallOfFameEntry> things, TargetType tType, GridActionController<HallOfFameEntry> actionController, ViewSize viewSize, boolean blind)
+    public void initialize(TargetList<HallOfFameEntry> things, TargetType tType, GridActionController<HallOfFameEntry> actionController, ViewSize viewSize, boolean blind)
     {
         controller.initialize(things, tType, actionController, viewSize, blind);
     }

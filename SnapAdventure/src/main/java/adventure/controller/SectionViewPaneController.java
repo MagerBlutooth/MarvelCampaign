@@ -6,17 +6,29 @@ import adventure.model.thing.AdvLocation;
 import adventure.model.thing.Section;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.pane.AdventureControlPane;
+import adventure.view.popup.CardChooserDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import snapMain.controller.grid.BaseGridActionController;
+import snapMain.model.target.Card;
+import snapMain.model.target.Playable;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.button.ButtonToolBar;
+import snapMain.view.dialog.CardSearchSelectDialog;
+import snapMain.view.node.GridDisplayNode;
+
+import java.util.Optional;
 
 public class SectionViewPaneController extends AdvPaneController {
 
-
+    @FXML
+    StackPane stationedDisplayBox;
+    @FXML
+    StackPane pickupDisplayBox;
     @FXML
     ButtonToolBar buttonToolBar;
     @FXML
@@ -33,17 +45,45 @@ public class SectionViewPaneController extends AdvPaneController {
     AdventureControlPane controlPane;
     Section section;
     Adventure adventure;
+    GridDisplayNode<Card> stationedDisplay;
+
     public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Section s) {
         database = dB;
         controlPane = cP;
         section = s;
         adventure = cP.getAdventure();
         AdvLocation l = s.getLocation();
-        sectionView.initialize(database, s.getLocation(), database.grabImage(s.getLocation(), TargetType.LOCATION), ViewSize.LARGE, s.isRevealed());
+        sectionView.initialize(database, s.getLocation(), database.grabImage(s.getLocation()),
+                ViewSize.LARGE, s.isRevealed());
         effectText.setText(l.getEffect());
         effectText.setMouseTransparent(true);
         effectText.setFocusTraversable(false);
+        initializePickups(s);
+        initializeStations(s);
         initializeButtonToolBar();
+
+    }
+
+    private void initializeStations(Section s) {
+        if(s.hasStationedCards()) {
+            stationedDisplay = new GridDisplayNode<>();
+            BaseGridActionController<Card> gridActionController = new BaseGridActionController<>();
+            gridActionController.initialize(database);
+             stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD_OR_TOKEN, gridActionController,
+                    ViewSize.TINY, false);
+            stationedDisplayBox.getChildren().add(stationedDisplay);
+        }
+    }
+
+    private void initializePickups(Section s) {
+        if(s.hasPickups()) {
+            GridDisplayNode<Playable> pickupDisplay = new GridDisplayNode<>();
+            BaseGridActionController<Playable> gridActionController = new BaseGridActionController<>();
+            gridActionController.initialize(database);
+            pickupDisplay.initialize(s.getPickups(), TargetType.CARD_OR_TOKEN, gridActionController,
+                    ViewSize.TINY, false);
+            pickupDisplayBox.getChildren().add(pickupDisplay);
+        }
     }
 
     @Override
@@ -75,5 +115,13 @@ public class SectionViewPaneController extends AdvPaneController {
     {
         controlPane.skipSection(section);
         changeScene(controlPane);
+    }
+
+    public void stationCard()
+    {
+        CardChooserDialog chooserDialog = new CardChooserDialog();
+        chooserDialog.initialize(mainDatabase, adventure.getActiveCards(), TargetType.CARD);
+        Optional<Card> cardSelect = chooserDialog.showAndWait();
+        cardSelect.ifPresent(card -> stationedDisplay.addThing(card));
     }
 }

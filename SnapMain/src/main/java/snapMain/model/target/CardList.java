@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class CardList extends ThingList<Card> {
+public class CardList extends TargetList<Card> {
 
     CardSorter cardSorter = new CardSorter();
 

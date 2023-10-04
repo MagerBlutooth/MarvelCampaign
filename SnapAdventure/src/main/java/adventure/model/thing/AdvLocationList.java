@@ -4,13 +4,13 @@ import adventure.model.sorter.SectionSortMode;
 import adventure.model.sorter.SectionSorter;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class AdvLocationList extends ThingList<AdvLocation> {
+public class AdvLocationList extends TargetList<AdvLocation> {
 
     SectionSorter SectionSorter = new SectionSorter();
 

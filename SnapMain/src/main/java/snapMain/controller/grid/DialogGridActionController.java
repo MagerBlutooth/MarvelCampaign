@@ -2,17 +2,17 @@ package snapMain.controller.grid;
 
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.target.BaseObject;
+import snapMain.model.target.SnapTarget;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.dialog.SelectDialog;
+import snapMain.view.dialog.SearchSelectDialog;
 import snapMain.view.node.control.ControlNode;
 
-public class DialogGridActionController<T extends BaseObject> extends BaseGridActionController<T> {
+public class DialogGridActionController<T extends SnapTarget> extends BaseGridActionController<T> {
 
-    SelectDialog<T> dialog;
+    SearchSelectDialog<T> dialog;
 
-    public void intialize(MainDatabase cd, SelectDialog<T> d)
+    public void initialize(MainDatabase cd, SearchSelectDialog<T> d)
     {
         super.initialize(cd);
         dialog = d;

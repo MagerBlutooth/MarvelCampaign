@@ -9,6 +9,7 @@ import snapMain.view.pane.manager.LocationManagerPane;
 import snapMain.view.pane.manager.TokenManagerPane;
 
 public class EditMenuController extends ButtonToolBarPaneController {
+
     @FXML
     Button cardEditorButton;
     @FXML
@@ -47,6 +48,7 @@ public class EditMenuController extends ButtonToolBarPaneController {
         MainMenuPane mainMenuPane = new MainMenuPane();
         mainMenuPane.initialize(mainDatabase);
         buttonToolBar.initialize(mainMenuPane);
+        buttonToolBar.removeBackButton();
     }
 
     @Override

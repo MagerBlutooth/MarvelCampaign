@@ -3,7 +3,6 @@ package snapMain.view.thing;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.view.CardViewController;
 import snapMain.model.target.Card;
-import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 
@@ -13,8 +12,8 @@ public class CardView extends ThingView<Card> {
 
     public CardView()
     {
-        fxmlCampaignGrabber.grabFXML("cardView.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        fxmlMainGrabber.grabFXML("cardView.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase cd, Card c, ViewSize size, boolean editable)
@@ -24,7 +23,7 @@ public class CardView extends ThingView<Card> {
         if(editable)
             addDragAndDrop();
         controller.initialize(c, size);
-        image = cd.grabImage(c, TargetType.CARD);
+        image = cd.grabImage(c);
         setImage(image, size);
     }
 

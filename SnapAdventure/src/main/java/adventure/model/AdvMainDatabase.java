@@ -34,7 +34,7 @@ public class AdvMainDatabase extends MainDatabase {
         advMasterThingDatabase.saveDatabase(targetType);
     }
 
-    public <T extends Target> TargetDatabase<T> lookupDatabase(TargetType type) {
+    public <T extends SnapTarget> TargetDatabase<T> lookupDatabase(TargetType type) {
         return advMasterThingDatabase.lookupDatabase(type);
     }
 

@@ -5,7 +5,7 @@ import snapMain.controller.grid.LocationMapNodeController;
 import javafx.scene.layout.StackPane;
 import snapMain.model.target.Faction;
 import snapMain.model.target.Location;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ public class LocationMapNode extends StackPane {
     LocationMapNodeController controller;
 
     public LocationMapNode() {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("locationMapNode.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("locationMapNode.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase cD, Faction faction, boolean blind) {

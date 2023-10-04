@@ -8,6 +8,17 @@ public class StringHelper {
         return string.replace("-", " ");
     }
 
+    public static String camelCase(String string)
+    {
+        StringBuilder camelCase = new StringBuilder();
+        for( String oneString : string.toLowerCase().split("_") )
+        {
+            camelCase.append( oneString.substring(0,1).toUpperCase() );
+            camelCase.append( oneString.substring(1) );
+        }
+        return camelCase.toString();
+    }
+
     public static String getAttributeSeparator() {
         return "~";
     }

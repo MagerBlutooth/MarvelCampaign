@@ -32,7 +32,7 @@ public class SectionEditorNodeController extends BasicNodeController<AdvMainData
     }
 
     private void setImages() {
-        IconImage i = database.grabImage(location, TargetType.LOCATION);
+        IconImage i = database.grabImage(location);
         imageView.setImage(i, ViewSize.LARGE);
     }
 

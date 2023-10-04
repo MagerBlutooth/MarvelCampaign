@@ -2,7 +2,7 @@ package snapMain.view.pane.manager;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.CardManagerPaneController;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class CardManagerPane extends ManagerPane {
 
@@ -10,7 +10,7 @@ public class CardManagerPane extends ManagerPane {
     public CardManagerPane()
     {
 
-        FXMLCampaignGrabber grabber = new FXMLCampaignGrabber();
+        FXMLMainGrabber grabber = new FXMLMainGrabber();
         grabber.grabFXML("cardManagerPane.fxml", this);
         controller = grabber.getController();
     }

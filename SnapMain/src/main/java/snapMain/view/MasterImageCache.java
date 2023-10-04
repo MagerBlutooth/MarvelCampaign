@@ -67,6 +67,8 @@ public class MasterImageCache {
                 return locationImageCache.get(id);
             case TOKEN:
                 return tokenImageCache.get(id);
+            case CARD_OR_TOKEN:
+
         }
         return null;
     }

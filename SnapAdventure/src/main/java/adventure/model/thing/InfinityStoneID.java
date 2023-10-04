@@ -5,7 +5,7 @@ public enum InfinityStoneID {
     int id;
     InfinityStoneID(int i)
     {
-      id = id;
+      id = i;
     }
 
     public int getID()

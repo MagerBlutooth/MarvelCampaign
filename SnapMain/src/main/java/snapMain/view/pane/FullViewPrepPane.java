@@ -4,7 +4,7 @@ import snapMain.controller.BasePrepPaneController;
 import snapMain.controller.MainDatabase;
 import javafx.scene.Node;
 import snapMain.model.target.Faction;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class FullViewPrepPane extends FullViewPane {
 
@@ -14,9 +14,9 @@ public class FullViewPrepPane extends FullViewPane {
     //Only shows info about your faction, not the enemy's.
     public FullViewPrepPane()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("campaignPrepPane.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("campaignPrepPane.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase db, Faction shield, Faction hydra)

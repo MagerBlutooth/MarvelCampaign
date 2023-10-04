@@ -324,9 +324,9 @@ public class Faction {
         }
     }
 
-    public ThingList<Location> getActiveLocationsAndMedbay() {
-        ThingList<Location> ownedLocationsAndMedbay = getOwnedLocationsAndMedbay();
-        ThingList<Location> activeLocations = new LocationList(new ArrayList<>());
+    public TargetList<Location> getActiveLocationsAndMedbay() {
+        TargetList<Location> ownedLocationsAndMedbay = getOwnedLocationsAndMedbay();
+        TargetList<Location> activeLocations = new LocationList(new ArrayList<>());
         for(Location l: ownedLocationsAndMedbay)
         {
             if(!l.isRuined())

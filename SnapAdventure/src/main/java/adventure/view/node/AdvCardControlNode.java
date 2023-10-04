@@ -37,13 +37,13 @@ public class AdvCardControlNode extends ControlNode<AdvCard> {
     }
 
     public void reveal() {
-        imageView.setImage(mainDatabase.grabImage(subject, TargetType.ADV_CARD));
+        imageView.setImage(mainDatabase.grabImage(subject));
         revealed = true;
     }
 
     public void update(AdvCard c) {
         subject = c;
-        IconImage i = mainDatabase.grabImage(c, TargetType.ADV_CARD);
+        IconImage i = mainDatabase.grabImage(c);
         imageView.setImage(i);
     }
 }

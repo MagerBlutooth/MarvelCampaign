@@ -1,7 +1,6 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.World;
 import adventure.model.adventure.Adventure;
 import adventure.model.AdventureDatabase;
 import adventure.model.thing.Section;
@@ -10,10 +9,15 @@ import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
 import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdventureControlPane;
-import javafx.scene.control.Button;
+import adventure.view.popup.CardChooserDialog;
+import adventure.view.popup.DraftDialog;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.button.ButtonToolBar;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+
+import java.util.Optional;
 
 public class AdventureControlPaneController extends AdvPaneController {
 
@@ -76,5 +80,21 @@ public class AdventureControlPaneController extends AdvPaneController {
     public void completeWorld() {
         adventure.completeCurrentWorld();
         worldDisplayNode.refresh(adventure.getCurrentWorld());
+    }
+
+    @FXML
+    public void draftCard() {
+        DraftDialog draftCardDialog = new DraftDialog();
+        draftCardDialog.initialize(mainDatabase, adventure.draftCards());
+        Optional<Card> card = draftCardDialog.showAndWait();
+        card.ifPresent(value -> adventure.addFreeAgentToTeam(value));
+    }
+
+    public void healCard() {
+        CardChooserDialog chooserDialog = new CardChooserDialog();
+        chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
+        Optional<Card> card = chooserDialog.showAndWait();
+        if(card.isPresent())
+            adventure.healCard(card.get());
     }
 }

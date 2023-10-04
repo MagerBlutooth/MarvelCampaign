@@ -13,7 +13,7 @@ import snapMain.model.database.TargetDatabase;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 
-public class ControlNode<T extends Target> extends StackPane {
+public class ControlNode<T extends SnapTarget> extends StackPane {
 
     protected MainDatabase mainDatabase;
     protected T subject;

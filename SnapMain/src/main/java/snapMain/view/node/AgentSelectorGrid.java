@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.AgentSelectorGridController;
 import snapMain.model.target.Card;
 import snapMain.model.target.Faction;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 import snapMain.view.pane.FullViewPane;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class AgentSelectorGrid extends FullViewPane {
     AgentSelectorGridController controller;
 
     public AgentSelectorGrid() {
-        FXMLCampaignGrabber grabber = new FXMLCampaignGrabber();
+        FXMLMainGrabber grabber = new FXMLMainGrabber();
         grabber.grabFXML("agentSelectorGrid.fxml", this);
         controller = grabber.getController();
     }

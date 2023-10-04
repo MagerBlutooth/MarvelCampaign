@@ -11,8 +11,8 @@ public class TokenEditorNode extends CampaignNode {
     TokenEditorNodeController controller;
     public TokenEditorNode()
     {
-        fxmlCampaignGrabber.grabFXML("tokenEditorNode.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        fxmlMainGrabber.grabFXML("tokenEditorNode.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase d, Card c)
