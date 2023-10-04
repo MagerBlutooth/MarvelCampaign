@@ -45,7 +45,7 @@ public class MasterThingDatabase {
         return dBContext.lookup(TargetType.LOCATION);
     }
 
-    public <T extends Target> TargetDatabase<T> lookupDatabase(TargetType t)
+    public <T extends SnapTarget> TargetDatabase<T> lookupDatabase(TargetType t)
     {
         return dBContext.lookup(t);
     }

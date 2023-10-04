@@ -4,16 +4,16 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.CardEditorPaneController;
 import snapMain.model.target.Card;
 import snapMain.view.ViewSize;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class CardEditorPane extends EditorPane {
 
     CardEditorPaneController controller;
     public CardEditorPane()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("cardEditorPane.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("cardEditorPane.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase database, ViewSize v, Card c)

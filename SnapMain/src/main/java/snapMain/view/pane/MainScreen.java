@@ -1,26 +1,24 @@
 package snapMain.view.pane;
 
-import snapMain.controller.MainMenuController;
+import snapMain.controller.EditMenuController;
+import snapMain.controller.MainDatabase;
 import snapMain.view.SplashScreen;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.view.GameStage;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 import static snapMain.view.main.GameApplication.isSplashLoaded;
 
 public class MainScreen extends GameStage {
 
-    MainMenuController controller;
+    EditMenuController controller;
 
     MainMenuPane mainPane;
 
     public MainScreen() {
         mainPane = new MainMenuPane();
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("mainMenu.fxml", mainPane);
-        controller = fxmlCampaignGrabber.getController();
         if(!isSplashLoaded)
             loadSplashScreen();
         initialize(mainPane);
@@ -29,7 +27,6 @@ public class MainScreen extends GameStage {
 
     public void loadSplashScreen()
     {
-        MasterThingDatabase db = new MasterThingDatabase();
         SplashScreen splash = new SplashScreen();
         mainPane.getChildren().setAll(splash);
 
@@ -46,16 +43,18 @@ public class MainScreen extends GameStage {
         fadeIn.play();
 
         fadeIn.setOnFinished((e) -> {
-            db.loadDatabase();
             fadeOut.play();
-            FXMLCampaignGrabber grabber = new FXMLCampaignGrabber();
-            grabber.grabFXML("mainMenu.fxml", mainPane);
-            MainMenuController mainMenuController = grabber.getController();
-            mainMenuController.initialize(db);
+            MasterThingDatabase db = new MasterThingDatabase();
+            db.loadDatabase();
+            MainDatabase mainDatabase = new MainDatabase(db);
+            FXMLMainGrabber grabber = new FXMLMainGrabber();
+            grabber.grabFXML("editorMenu.fxml", mainPane);
+            controller = grabber.getController();
+            controller.initialize(mainDatabase);
         });
     }
 
-    public MainMenuController getController() {
+    public EditMenuController getController() {
         return controller;
     }
 }

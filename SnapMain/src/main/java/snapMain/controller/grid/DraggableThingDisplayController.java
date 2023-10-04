@@ -7,7 +7,7 @@ import javafx.scene.input.TransferMode;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.logger.MLogger;
 import snapMain.model.target.BaseObject;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
@@ -24,14 +24,14 @@ public class DraggableThingDisplayController<T extends BaseObject> extends GridD
     DraggableThingDisplayNode<T> draggableThingDisplayNode;
 
     @Override
-    public void initialize(ThingList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v, boolean blind)
     {
         super.initialize(things, tType, controller, v, blind);
     }
 
     @Override
     protected void addNewNode(T t, List<ControlNode<T>> listOfObjects) {
-        IconImage i = mainDatabase.grabImage(t, t.getTargetType());
+        IconImage i = mainDatabase.grabImage(t);
         ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, blind);
         addDragDetected(n);
         addDragOver();
@@ -99,18 +99,18 @@ public class DraggableThingDisplayController<T extends BaseObject> extends GridD
     }
 
     public void remove(T t) {
-        thingList.remove(t);
+        targetList.remove(t);
         populateDisplay();
     }
 
     public void add(T t) {
-        if(!thingList.contains(t))
-            thingList.add(t);
+        if(!targetList.contains(t))
+            targetList.add(t);
         populateDisplay();
     }
 
     public List<T> getThings() {
-        return thingList.getThings();
+        return targetList.getThings();
     }
 }
 

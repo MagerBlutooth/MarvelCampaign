@@ -2,7 +2,7 @@ package snapMain.view.pane.manager;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.LocationManagerPaneController;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class LocationManagerPane extends ManagerPane {
 
@@ -10,7 +10,7 @@ public class LocationManagerPane extends ManagerPane {
     public LocationManagerPane()
     {
 
-        FXMLCampaignGrabber grabber = new FXMLCampaignGrabber();
+        FXMLMainGrabber grabber = new FXMLMainGrabber();
         grabber.grabFXML("locationManagerPane.fxml", this);
         controller = grabber.getController();
     }

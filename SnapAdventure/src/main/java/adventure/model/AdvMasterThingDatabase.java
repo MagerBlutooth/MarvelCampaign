@@ -25,6 +25,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         locations = database.getLocations();
         tokens = database.getTokens();
     }
+    @Override
     public void loadDatabase()
     {
         dBContext.register(TargetType.ADV_CARD, vFactory.loadBosses(cards));
@@ -44,7 +45,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         return locs;
     }
 
-    public <T extends Target> TargetDatabase<T> lookupDatabase(TargetType t)
+    public <T extends SnapTarget> TargetDatabase<T> lookupDatabase(TargetType t)
     {
         return dBContext.lookup(t);
     }
@@ -60,6 +61,16 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
     public TargetDatabase<Token> getTokens()
     {
         return dBContext.lookup(TargetType.TOKEN);
+    }
+
+    public Playable getCardOrToken(CardOrToken ct)
+    {
+        if(ct.getTargetType() == TargetType.CARD)
+        {
+            return cards.lookup(ct.getID());
+        }
+        else
+            return tokens.lookup(ct.getID());
     }
 
     public void modifyBoss(AdvCard b) {

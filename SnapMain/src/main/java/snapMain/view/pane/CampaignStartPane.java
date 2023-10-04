@@ -2,7 +2,7 @@ package snapMain.view.pane;
 
 import snapMain.controller.BaseStartPaneController;
 import snapMain.controller.MainDatabase;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class CampaignStartPane extends FullViewPane {
 
@@ -10,9 +10,9 @@ public class CampaignStartPane extends FullViewPane {
 
     public CampaignStartPane()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("campaignStartPane.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("campaignStartPane.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase database)

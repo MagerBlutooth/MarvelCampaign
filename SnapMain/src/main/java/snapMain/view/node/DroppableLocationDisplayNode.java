@@ -4,7 +4,7 @@ import snapMain.controller.grid.DroppableLocationDisplayController;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Faction;
 import snapMain.model.target.Location;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 
@@ -50,7 +50,7 @@ public class DroppableLocationDisplayNode extends GridDisplayNode<Location> {
     }
 
     @Override
-    public void refreshToMatch(ThingList<Location> refreshList)
+    public void refreshToMatch(TargetList<Location> refreshList)
     {
         controller.refresh(refreshList);
     }

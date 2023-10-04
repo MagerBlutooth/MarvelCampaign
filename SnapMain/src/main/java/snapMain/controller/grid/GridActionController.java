@@ -1,12 +1,12 @@
 package snapMain.controller.grid;
 
 import snapMain.controller.MainDatabase;
-import snapMain.model.target.BaseObject;
+import snapMain.model.target.SnapTarget;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 
-public interface GridActionController<T extends BaseObject> {
+public interface GridActionController<T extends SnapTarget> {
 
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind);
     //Blind boolean specifies whether Captain status should be visible

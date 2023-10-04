@@ -1,0 +1,20 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import adventure.view.node.WorldClearSelectNode?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<fx:root type="WorldClearSelectNode"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.WorldClearSelectNodeController">
+    <VBox alignment="CENTER">
+
+        <HBox alignment="CENTER">
+           <Button text="Draft Card" onAction="#draftCard"/>
+            <Button text="Heal Card" onAction="#healCard"/>
+            <Button text="Convert Captive" onAction="#convertCaptive"/>
+        </HBox>
+    </VBox>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

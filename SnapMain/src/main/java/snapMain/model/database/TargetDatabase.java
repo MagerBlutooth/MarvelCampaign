@@ -1,12 +1,12 @@
 package snapMain.model.database;
 
-import snapMain.model.target.Target;
+import snapMain.model.target.SnapTarget;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TargetDatabase<T extends Target> extends ArrayList<T> {
+public class TargetDatabase<T extends SnapTarget> extends ArrayList<T> {
 
 
     //Numbers less than 0 reserved for special hardcoded images

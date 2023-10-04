@@ -2,31 +2,31 @@ package snapMain.view.node;
 
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
+import snapMain.model.target.SnapTarget;
 import snapMain.view.ViewSize;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 import javafx.scene.control.ScrollPane;
 import snapMain.model.logger.MLogger;
-import snapMain.model.target.BaseObject;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
-public class GridDisplayNode<T extends BaseObject> extends ScrollPane {
+public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
 
     MLogger logger = new MLogger(GridDisplayNode.class);
     private final GridDisplayController<T> gridDisplayController;
-    private FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
+    private FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
 
     public GridDisplayNode() {
-        fxmlCampaignGrabber.grabFXML("gridDisplayNode.fxml", this);
-        gridDisplayController = fxmlCampaignGrabber.getController();
+        fxmlMainGrabber.grabFXML("gridDisplayNode.fxml", this);
+        gridDisplayController = fxmlMainGrabber.getController();
     }
 
-    public FXMLCampaignGrabber getFXMLGrabber()
+    public FXMLMainGrabber getFXMLGrabber()
     {
-        return fxmlCampaignGrabber;
+        return fxmlMainGrabber;
     }
 
-    public void initialize(ThingList<T> list, TargetType t, GridActionController<T> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<T> list, TargetType t, GridActionController<T> controller, ViewSize v, boolean blind)
     {
         gridDisplayController.initialize(list, t, controller, v, blind);
     }
@@ -49,7 +49,7 @@ public class GridDisplayNode<T extends BaseObject> extends ScrollPane {
         gridDisplayController.removeThing(t);
     }
 
-    public void refreshToMatch(ThingList<T> things) {
+    public void refreshToMatch(TargetList<T> things) {
         gridDisplayController.refresh(things);
     }
 

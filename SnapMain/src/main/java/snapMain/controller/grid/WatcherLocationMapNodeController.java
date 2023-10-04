@@ -6,11 +6,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
 import snapMain.model.target.Faction;
 import snapMain.model.target.Location;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.dialog.CardSelectDialog;
+import snapMain.view.dialog.CardSearchSelectDialog;
 import snapMain.view.node.control.ControlNode;
 
 import java.util.Optional;
@@ -36,8 +37,8 @@ public class WatcherLocationMapNodeController extends LocationMapNodeController 
         ContextMenu rightClickMenu = new ContextMenu();
         MenuItem addCardItem = new MenuItem("Add Card");
         addCardItem.setOnAction(e -> {
-            CardSelectDialog dialog = new CardSelectDialog();
-            dialog.initialize(mainDatabase);
+            CardSearchSelectDialog dialog = new CardSearchSelectDialog();
+            dialog.initialize(mainDatabase, new CardList(mainDatabase.getCards()));
             Optional<Card> card = dialog.showAndWait();
             Location l = n.getSubject();
             if(card.isPresent() && !l.isFull())

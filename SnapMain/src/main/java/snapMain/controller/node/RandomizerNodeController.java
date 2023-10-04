@@ -147,8 +147,9 @@ public class RandomizerNodeController {
     {
         ControlNode<EffectBaseObject> viewNode = new ControlNode<>();
         viewNode.setMaxWidth(300.0);
-        viewNode.initialize(mainDatabase, e, mainDatabase.grabImage(e, e.getTargetType()), ViewSize.LARGE, true);
-        viewNode.setBorder(new Border(new BorderStroke(campaign.getColor(e), BorderStrokeStyle.SOLID, new CornerRadii(5.0), new BorderWidths(3.0))));
+        viewNode.initialize(mainDatabase, e, mainDatabase.grabImage(e), ViewSize.LARGE, true);
+        viewNode.setBorder(new Border(new BorderStroke(campaign.getColor(e), BorderStrokeStyle.SOLID,
+                new CornerRadii(5.0), new BorderWidths(3.0))));
         return viewNode;
     }
 

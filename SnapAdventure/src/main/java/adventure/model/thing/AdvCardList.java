@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class AdvCardList extends ThingList<AdvCard> {
+public class AdvCardList extends TargetList<AdvCard> {
 
     BossSorter bossSorter = new BossSorter();
 

@@ -10,7 +10,7 @@ public class LocationView extends ThingView {
 
     public LocationView()
     {
-        fxmlCampaignGrabber.grabFXML("locationView.fxml", this);
+        fxmlMainGrabber.grabFXML("locationView.fxml", this);
     }
 
     public void initialize(Location w, ViewSize size, boolean e)

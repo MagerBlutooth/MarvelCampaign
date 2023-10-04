@@ -4,16 +4,16 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.node.FactionDisplayNodeController;
 import javafx.scene.layout.StackPane;
 import snapMain.model.target.Faction;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class FactionDisplayNode extends StackPane {
 
     FactionDisplayNodeController controller;
 
     public FactionDisplayNode() {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("factionDisplayNode.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("factionDisplayNode.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     //Display Node should be "blind" if Captain status should be hidden

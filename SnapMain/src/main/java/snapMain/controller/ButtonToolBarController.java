@@ -7,11 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import snapMain.view.button.ButtonToolBar;
 import snapMain.view.pane.FullViewPane;
 import snapMain.view.pane.BasicStage;
 
 public class ButtonToolBarController {
 
+    @FXML
+    ButtonToolBar buttonToolBar;
     @FXML
     Button backButton;
     @FXML
@@ -24,6 +27,11 @@ public class ButtonToolBarController {
 
         backPane = bP;
         HBox.setHgrow(spacerPane, Priority.ALWAYS);
+    }
+
+    public void removeBackButton()
+    {
+        buttonToolBar.getChildren().remove(backButton);
     }
 
     public void goBack() {

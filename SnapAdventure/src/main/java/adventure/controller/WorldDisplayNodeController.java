@@ -53,13 +53,13 @@ public class WorldDisplayNodeController extends AdvPaneController {
         Section advLocation3 = w.getThirdSection();
         Section advLocation4 = w.getFourthSection();
         Boss boss = w.getBoss();
-        section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+        section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation()),
                 ViewSize.MEDIUM, true);
-        section2Node.initialize(d, advLocation2, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+        section2Node.initialize(d, advLocation2, d.grabImage(advLocation1.getLocation()),
                 ViewSize.MEDIUM, false);
-        section3Node.initialize(d, advLocation3, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+        section3Node.initialize(d, advLocation3, d.grabImage(advLocation1.getLocation()),
                 ViewSize.MEDIUM, false);
-        section4Node.initialize(d, advLocation4, d.grabImage(advLocation1.getLocation(), TargetType.LOCATION),
+        section4Node.initialize(d, advLocation4, d.grabImage(advLocation1.getLocation()),
                 ViewSize.MEDIUM, false);
         sections.add(section1Node);
         sections.add(section2Node);
@@ -70,7 +70,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         setSectionMouseOption(section3Node, aPane);
         setSectionMouseOption(section4Node, aPane);
         setBossMouseOption(bossNode, aPane);
-        bossNode.initialize(d, boss, d.grabImage(boss.getCard(), TargetType.CARD), ViewSize.MEDIUM, false);
+        bossNode.initialize(d, boss, d.grabImage(boss.getCard()), ViewSize.MEDIUM, false);
     }
 
     private void setBossMouseOption(BossControlNode bossNode, AdventureControlPane aPane) {

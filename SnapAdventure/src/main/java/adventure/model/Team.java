@@ -1,11 +1,12 @@
 package adventure.model;
 
 import adventure.model.thing.InfinityStone;
+import adventure.model.thing.Section;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -70,7 +71,7 @@ public class Team {
         eliminatedCards.fromSaveString(teamList[5], db);
     }
 
-    public ThingList<Card> getActiveCards() {
+    public TargetList<Card> getActiveCards() {
         return activeCards;
     }
 
@@ -137,7 +138,7 @@ public class Team {
         }
     }
 
-    public ThingList<Card> getCaptains() {
+    public TargetList<Card> getCaptains() {
         CardList captains = new CardList(new ArrayList<>());
         for(Card c: getActiveCards())
         {
@@ -147,7 +148,7 @@ public class Team {
         return captains;
     }
 
-    public ThingList<Card> getTempCards() {
+    public TargetList<Card> getTempCards() {
         return tempCards;
     }
 
@@ -162,5 +163,30 @@ public class Team {
     public CardList getMIACards()
     {
         return miaCards;
+    }
+
+    public CardList getFreeAgents()
+    {
+        return freeAgentCards;
+    }
+
+    public void healCard(Card card) {
+        activeCards.get(card).setWounded(false);
+    }
+
+    public TargetList<Card> getWoundedCards() {
+        CardList cards = new CardList(new ArrayList<>());
+        for(Card c: activeCards)
+        {
+            if(c.isWounded())
+                cards.add(c);
+        }
+        return cards;
+    }
+
+    public void stationCard(Section s ,Card c)
+    {
+        s.stationCard(c);
+        activeCards.remove(c);
     }
 }

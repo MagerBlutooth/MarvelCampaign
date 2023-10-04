@@ -1,6 +1,7 @@
 package adventure.view;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.AdvMasterThingDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.view.GameStage;
@@ -11,6 +12,7 @@ import adventure.controller.AdvMainMenuController;
 import adventure.view.pane.AdvMainMenuPane;
 
 import static adventure.view.GameMain.isSplashLoaded;
+import static adventure.view.GameMain.main;
 
 public class GameMainScreen extends GameStage {
     AdvMainMenuController controller;
@@ -31,6 +33,7 @@ public class GameMainScreen extends GameStage {
     public void loadSplashScreen()
     {
         MasterThingDatabase db = new MasterThingDatabase();
+
         SplashScreen splash = new SplashScreen();
         mainPane.getChildren().setAll(splash);
 

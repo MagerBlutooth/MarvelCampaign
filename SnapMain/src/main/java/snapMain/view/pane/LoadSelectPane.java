@@ -2,16 +2,16 @@ package snapMain.view.pane;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.LoadSelectPaneController;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class LoadSelectPane extends FullViewPane {
 
     LoadSelectPaneController controller;
     public LoadSelectPane()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("loadSelectPane.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("loadSelectPane.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase mainDatabase) {

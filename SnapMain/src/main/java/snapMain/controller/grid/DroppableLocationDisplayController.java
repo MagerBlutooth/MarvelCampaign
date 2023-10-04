@@ -30,7 +30,7 @@ public class DroppableLocationDisplayController extends GridDisplayController<Lo
     MLogger logger = new MLogger(DroppableLocationDisplayNode.class);
     @Override
     protected void addNewNode(Location l, List<ControlNode<Location>> listOfObjects) {
-        IconImage i = mainDatabase.grabImage(l, TargetType.LOCATION);
+        IconImage i = mainDatabase.grabImage(l);
         ControlNode<Location> n = gridActionController.createControlNode(l,i,viewSize, blind);
         n.setOnDragOver(mouseDragOver(n));
         n.setOnDragDropped(mouseDragDropped(n));
@@ -90,6 +90,6 @@ public class DroppableLocationDisplayController extends GridDisplayController<Lo
     }
 
     public List<Location> getLocations() {
-        return thingList.getThings();
+        return targetList.getThings();
     }
 }

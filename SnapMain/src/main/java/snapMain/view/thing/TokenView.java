@@ -13,8 +13,8 @@ public class TokenView extends ThingView {
 
     public TokenView()
     {
-        fxmlCampaignGrabber.grabFXML("tokenView.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        fxmlMainGrabber.grabFXML("tokenView.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(Token t, ViewSize size, boolean e)

@@ -3,14 +3,11 @@ package adventure.model.adventure;
 import adventure.model.*;
 import adventure.model.thing.*;
 import snapMain.model.constants.CampaignConstants;
-import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
-import snapMain.model.target.Token;
+import snapMain.model.target.CardList;
+import snapMain.model.target.TargetList;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Adventure {
 
@@ -117,15 +114,15 @@ public class Adventure {
         availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
         currentSectionNum = 1;
-        createInfinityStones(database);
+        createInfinityStones();
         placeInfinityStones();
     }
 
-    private void createInfinityStones(AdvMainDatabase database)
+    private void createInfinityStones()
     {
         for(InfinityStoneID id: InfinityStoneID.values())
         {
-            InfinityStone infinityStone = new InfinityStone(database.getTokens().get(id.getID()), id);
+            InfinityStone infinityStone = new InfinityStone(id.getID(), id);
             infinityStones.add(infinityStone);
         }
     }
@@ -185,7 +182,7 @@ public class Adventure {
         World world = getFutureWorld();
         if(world != null)
         {
-            world.getRandomSection().addStation(card);
+            world.getRandomSection().stationCard(card);
         }
     }
 
@@ -231,5 +228,62 @@ public class Adventure {
         if(currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
             currentWorldNum++;
         }
+        currentSectionNum = 1;
+    }
+
+    public TargetList<Card> getActiveCards() {
+        return team.getActiveCards();
+    }
+
+    public CardList reclaimCards() {
+        CardList reclaimedCards = new CardList(new ArrayList<>());
+        for(Section s: getCurrentWorld().getSections())
+        {
+            reclaimedCards.addAll(s.getStationedCards().getThings());
+            s.getStationedCards().clear();
+        }
+        reclaimedCards.addAll(team.getCapturedCards().getCards());
+        team.getCapturedCards().clear();
+        team.getActiveCards().addAll(reclaimedCards.getCards());
+        return reclaimedCards;
+    }
+
+    public CardList getStationedCards()
+    {
+        CardList stationedCards = new CardList(new ArrayList<>());
+        for(Section s: getCurrentWorld().getSections()) {
+            stationedCards.addAll(s.getStationedCards().getThings());
+        }
+        return stationedCards;
+    }
+
+    public TargetList<Card> draftCards() {
+        CardList cards = new CardList(new ArrayList<>());
+        CardList freeAgents = new CardList(team.getFreeAgents());
+        Collections.shuffle(freeAgents.getCards());
+        cards.addAll(freeAgents.subList(0, AdventureConstants.NUM_DRAFT_CARDS));
+        return cards;
+    }
+
+    public void addFreeAgentToTeam(Card card) {
+        team.getActiveCards().add(card);
+        team.getFreeAgents().remove(card);
+    }
+
+    public void healCard(Card card) {
+        team.healCard(card);
+    }
+
+    public TargetList<Card> getWoundedCards() {
+        return team.getWoundedCards();
+    }
+
+    public void stationCard(Section s, Card card) {
+        team.stationCard(s, card);
+    }
+
+    public void addFreeAgentToTemp(Card card) {
+        team.getTempCards().add(card);
+        team.getFreeAgents().remove(card);
     }
 }

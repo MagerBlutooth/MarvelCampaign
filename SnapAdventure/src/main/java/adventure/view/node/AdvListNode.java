@@ -5,7 +5,7 @@ import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
 import snapMain.controller.node.CampaignListNodeController;
 import snapMain.model.target.BaseObject;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
@@ -30,7 +30,7 @@ public abstract class AdvListNode<T extends BaseObject> extends StackPane {
         return list.getController();
     }
 
-    public void initialize(ThingList<T> things, TargetType t, GridActionController<T> c, ViewSize v, boolean blind) {
+    public void initialize(TargetList<T> things, TargetType t, GridActionController<T> c, ViewSize v, boolean blind) {
         list.initialize(things, t, c, v, blind);
     }
 

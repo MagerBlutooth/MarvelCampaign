@@ -10,10 +10,22 @@
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.SectionViewPaneController"
          prefWidth="1200" prefHeight="800">
+
     <VBox alignment="CENTER" spacing="40.0">
         <ButtonToolBar fx:id="buttonToolBar"/>
-        <AdvLocationControlNode fx:id="sectionView"/>
-        <Label fx:id="effectText" alignment="CENTER" maxWidth="1000" wrapText="true" id="info"/>
+        <HBox alignment="CENTER" spacing="40.0">
+            <VBox alignment="CENTER" spacing = "20.0">
+                <Label text="Stationed Cards"/>
+             <StackPane fx:id="stationedDisplayBox"/>
+            </VBox>
+            <AdvLocationControlNode fx:id="sectionView"/>
+            <VBox alignment="CENTER">
+                <Label text="Pickups"/>
+                <StackPane fx:id="pickupDisplayBox"/>
+            </VBox>
+        </HBox>
+
+        <Label fx:id="effectText" alignment="CENTER" maxWidth="800" wrapText="true" id="info"/>
         <HBox alignment="CENTER" spacing="20.0">
             <Button fx:id="randomizeButton" text="Randomize" onAction="#randomize">
             <tooltip>
@@ -27,10 +39,13 @@
             </Button>
             <Button fx:id="skipButton" text="Skip" onAction="#skipSection">
                 <tooltip>
-                    <AdvTooltip text="Skip current section and advance to next. If you already skipped a section this
-                    world, a random card on your team will
-                    be captured." id="info"/>
+                    <AdvTooltip text="Skip current section and advance to next. If you already skipped a section this world, a random card on your team will be captured." id="info"/>
                 </tooltip>
+            </Button>
+            <Button text="Station" onAction="#stationCard">
+            <tooltip>
+                <AdvTooltip text="Station a card from your team here." id="info"/>
+            </tooltip>
             </Button>
         </HBox>
     </VBox>

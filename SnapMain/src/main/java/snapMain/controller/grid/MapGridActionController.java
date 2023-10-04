@@ -3,8 +3,10 @@ package snapMain.controller.grid;
 import snapMain.controller.MainDatabase;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import snapMain.model.target.CardList;
 import snapMain.model.target.Location;
-import snapMain.view.dialog.LocationSelectDialog;
+import snapMain.model.target.LocationList;
+import snapMain.view.dialog.LocationSearchSelectDialog;
 import snapMain.view.node.control.ControlNode;
 
 import java.util.Optional;
@@ -36,8 +38,8 @@ public class MapGridActionController extends ThingActionController<Location> {
         node.setOnContextMenuRequested(e -> contextMenu.show(node, e.getScreenX(), e.getScreenY()));
         MenuItem addOption = new MenuItem("Add Location");
         addOption.setOnAction(e -> {
-            LocationSelectDialog dialog = new LocationSelectDialog();
-            dialog.initialize(mainDatabase);
+            LocationSearchSelectDialog dialog = new LocationSearchSelectDialog();
+            dialog.initialize(mainDatabase, new LocationList(mainDatabase.getLocations()));
             Optional<Location> newLoc = dialog.showAndWait();
             newLoc.ifPresent(value -> displayController.add(newLoc.get()));
         });

@@ -1,7 +1,7 @@
 package records.model;
 
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static snapMain.model.constants.CampaignConstants.STRING_SEPARATOR;
 
-public class HallOfFameEntryList extends ThingList<HallOfFameEntry> {
+public class HallOfFameEntryList extends TargetList<HallOfFameEntry> {
 
     HallOfFameSorter hallOfFameSorter;
 

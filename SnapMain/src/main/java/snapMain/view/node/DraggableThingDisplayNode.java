@@ -3,7 +3,7 @@ package snapMain.view.node;
 import snapMain.controller.grid.DraggableThingDisplayController;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.BaseObject;
-import snapMain.model.target.ThingList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.dragdrop.Draggable;
@@ -20,7 +20,7 @@ public class DraggableThingDisplayNode<T extends BaseObject> extends GridDisplay
     }
 
     @Override
-    public void initialize(ThingList<T> things, TargetType tType, GridActionController<T> actionController, ViewSize viewSize, boolean blind)
+    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> actionController, ViewSize viewSize, boolean blind)
     {
         controller.initialize(things, tType, actionController, viewSize, blind);
     }
@@ -53,7 +53,7 @@ public class DraggableThingDisplayNode<T extends BaseObject> extends GridDisplay
         return controller;
     }
 
-    public void refreshToMatch(ThingList<T> things) {
+    public void refreshToMatch(TargetList<T> things) {
         controller.refresh(things);
     }
 

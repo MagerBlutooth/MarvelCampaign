@@ -8,6 +8,7 @@ import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.target.TargetType;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Random;
@@ -32,10 +33,10 @@ public class World implements Cloneable{
         database = db;
         worldNum = wNum;
         PlayableDatabase pD = db.getCardsAndTokens();
-        section1 = new Section(1, locations.get(0), pD);
-        section2 = new Section(2, locations.get(1), pD);
-        section3 = new Section(3, locations.get(2), pD);
-        section4 = new Section(4, locations.get(3), pD);
+        section1 = new Section(1, locations.get(0), db);
+        section2 = new Section(2, locations.get(1), db);
+        section3 = new Section(3, locations.get(2), db);
+        section4 = new Section(4, locations.get(3), db);
         boss = new Boss(b, 0);
         section1.reveal();
     }
@@ -73,13 +74,13 @@ public class World implements Cloneable{
             return;
         String[] stringList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
         worldNum = Integer.parseInt(stringList[0]);
-        section1 = new Section(1);
+        section1 = new Section(1, database);
         section1.fromSaveString(stringList[1].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section2 = new Section(2);
+        section2 = new Section(2, database);
         section2.fromSaveString(stringList[2].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section3 = new Section(3);
+        section3 = new Section(3, database);
         section3.fromSaveString(stringList[3].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section4 = new Section(4);
+        section4 = new Section(4, database);
         section4.fromSaveString(stringList[4].trim(), dB.lookupDatabase(TargetType.LOCATION));
         boss = new Boss();
         boss.fromSaveString(stringList[5].trim(), dB.lookupDatabase(TargetType.ADV_CARD));
@@ -172,5 +173,14 @@ public class World implements Cloneable{
         if(section4.isCompleted())
             clearedSections++;
         return clearedSections;
+    }
+
+    public List<Section> getSections() {
+        List<Section> sections = new ArrayList<>();
+        sections.add(section1);
+        sections.add(section2);
+        sections.add(section3);
+        sections.add(section4);
+        return sections;
     }
 }

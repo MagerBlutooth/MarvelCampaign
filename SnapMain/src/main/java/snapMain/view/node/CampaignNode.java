@@ -4,16 +4,16 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.editor.BasicNodeController;
 import javafx.scene.layout.StackPane;
 import snapMain.model.target.BaseObject;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 
 //Node object created for JavaFX nodes that have their own dedicated constructor, to have a built-in initialize method.
 public abstract class CampaignNode extends StackPane {
-    protected FXMLCampaignGrabber fxmlCampaignGrabber;
+    protected FXMLMainGrabber fxmlMainGrabber;
 
     public CampaignNode()
     {
-        fxmlCampaignGrabber = new FXMLCampaignGrabber();
+        fxmlMainGrabber = new FXMLMainGrabber();
     }
 
     public void initialize(MainDatabase d, BaseObject t) {
@@ -22,6 +22,6 @@ public abstract class CampaignNode extends StackPane {
 
     public <V extends BasicNodeController<MainDatabase, BaseObject>> V getController()
     {
-        return fxmlCampaignGrabber.getController();
+        return fxmlMainGrabber.getController();
     }
 }

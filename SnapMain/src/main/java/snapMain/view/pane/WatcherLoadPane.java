@@ -2,7 +2,7 @@ package snapMain.view.pane;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.WatcherLoadPaneController;
-import snapMain.view.fxml.FXMLCampaignGrabber;
+import snapMain.view.fxml.FXMLMainGrabber;
 
 public class WatcherLoadPane extends FullViewPane {
 
@@ -10,9 +10,9 @@ public class WatcherLoadPane extends FullViewPane {
 
     public WatcherLoadPane()
     {
-        FXMLCampaignGrabber fxmlCampaignGrabber = new FXMLCampaignGrabber();
-        fxmlCampaignGrabber.grabFXML("watcherLoadPane.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
+        fxmlMainGrabber.grabFXML("watcherLoadPane.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase database)

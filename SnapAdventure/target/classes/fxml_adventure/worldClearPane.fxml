@@ -1,0 +1,25 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import adventure.view.pane.WorldClearPane?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import adventure.view.node.AdvLocationControlNode?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import adventure.view.AdvTooltip?>
+<?import snapMain.view.node.GridDisplayNode?>
+<?import adventure.view.node.WorldClearSelectNode?>
+<fx:root type="WorldClearPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.WorldClearPaneController"
+         prefWidth="1200" prefHeight="800">
+
+    <VBox alignment="CENTER" spacing="40.0">
+        <Label text="WORLD COMPLETE!"/>
+        <GridDisplayNode fx:id="reclaimedCards"/>
+        <WorldClearSelectNode fx:id="worldClearNode"/>
+        <ButtonToolBar fx:id="buttonToolBar"/>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+    </padding>
+</fx:root>

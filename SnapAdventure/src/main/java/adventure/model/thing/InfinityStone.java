@@ -2,19 +2,18 @@ package adventure.model.thing;
 
 import snapMain.model.helper.StringHelper;
 import snapMain.model.target.Playable;
-import snapMain.model.target.Target;
+import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetType;
-import snapMain.model.target.Token;
 
-public class InfinityStone implements Target, Playable {
+public class InfinityStone implements SnapTarget, Playable {
 
-    Token infinityStone;
+    int tokenId;
     InfinityStoneID stoneID;
 
-    public InfinityStone(Token t, InfinityStoneID id)
+    public InfinityStone(int tId, InfinityStoneID sId)
     {
-        infinityStone = t;
-        stoneID = id;
+        tokenId = tId;
+        stoneID = sId;
     }
 
     @Override
@@ -24,13 +23,13 @@ public class InfinityStone implements Target, Playable {
 
     @Override
     public int getID() {
-        return infinityStone.getID();
+        return tokenId;
     }
 
     public String getPrettyString()
     {
         String s = stoneID.name().toLowerCase();
-        return StringHelper.displayFormat(s);
+        return StringHelper.camelCase(s);
     }
 
     @Override
@@ -45,21 +44,27 @@ public class InfinityStone implements Target, Playable {
 
     @Override
     public String getName() {
-        return null;
+        return getPrettyString();
     }
 
     @Override
     public void setID(int id) {
+        tokenId = id;
+    }
 
+    @Override
+    public boolean hasAttribute(String entry) {
+        return false;
     }
 
     @Override
     public String[] toSaveStringArray() {
-        return new String[0];
+        return new String[]{ getID()+"", stoneID+""};
     }
 
     @Override
-    public void fromSaveStringArray(String[] mInfo) {
-
+    public void fromSaveStringArray (String[] mInfo) {
+        setID(Integer.parseInt(mInfo[0]));
+        stoneID = InfinityStoneID.valueOf(mInfo[1]);
     }
 }

@@ -32,7 +32,7 @@ public class BossEditorNodeController extends BasicNodeController<AdvMainDatabas
     }
 
     private void setImages() {
-        IconImage i = database.grabImage(card, TargetType.CARD);
+        IconImage i = database.grabImage(card);
         imageView.setImage(i, ViewSize.LARGE);
     }
 

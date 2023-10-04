@@ -23,7 +23,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     HallOfFameDisplayNode hallOfFameDisplayNode;
 
     @Override
-    public void initialize(ThingList<HallOfFameEntry> entries, TargetType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<HallOfFameEntry> entries, TargetType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean blind)
     {
         super.initialize(entries, tType, controller, v, blind);
     }
@@ -33,8 +33,8 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     {
         groupList.getChildren().clear();
         List<ControlNode<HallOfFameEntry>> listOfObjects = new ArrayList<>();
-        thingList.sort();
-        if(thingList.isEmpty())
+        targetList.sort();
+        if(targetList.isEmpty())
         {
             HallOfFameEntry blankObject = null;
                 HallOfFameEntry h = new HallOfFameEntry(mainDatabase.lookupDatabase(TargetType.CARD));
@@ -47,7 +47,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
             addNewNode(blankObject, listOfObjects);
         }
 
-        for(HallOfFameEntry h: thingList)
+        for(HallOfFameEntry h: targetList)
         {
             addNewNode(h, listOfObjects);
         }
@@ -58,7 +58,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     @Override
     protected void addNewNode(HallOfFameEntry t, List<ControlNode<HallOfFameEntry>> listOfObjects)
     {
-        IconImage i = mainDatabase.grabImage(t.getCaptain(), TargetType.CARD);
+        IconImage i = mainDatabase.grabImage(t.getCaptain());
         ControlNode<HallOfFameEntry> n = getGridActionController().createControlNode(t, i, getViewSize(), isBlind());
         listOfObjects.add(n);
     }

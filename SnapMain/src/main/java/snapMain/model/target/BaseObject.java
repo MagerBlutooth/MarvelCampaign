@@ -2,7 +2,7 @@ package snapMain.model.target;
 
 import snapMain.model.constants.CampaignConstants;
 
-public abstract class BaseObject implements Cloneable, Target {
+public abstract class BaseObject implements Cloneable, SnapTarget {
 
     String name;
     int id;

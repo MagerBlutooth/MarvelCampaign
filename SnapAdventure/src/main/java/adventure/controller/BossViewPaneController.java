@@ -37,7 +37,7 @@ public class BossViewPaneController extends AdvPaneController {
         boss = b;
         adventure = cP.getAdventure();
         AdvCard card = b.getCard();
-        bossView.initialize(database, b, database.grabImage(card, TargetType.CARD), ViewSize.LARGE, b.isRevealed());
+        bossView.initialize(database, b, database.grabImage(card), ViewSize.LARGE, b.isRevealed());
         effectText.setText(b.getEffect());
         effectText.setMouseTransparent(true);
         effectText.setFocusTraversable(false);

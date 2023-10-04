@@ -10,8 +10,8 @@ public class RandomizerNode extends CampaignNode {
 
     public RandomizerNode()
     {
-        fxmlCampaignGrabber.grabFXML("randomizerNode.fxml", this);
-        controller = fxmlCampaignGrabber.getController();
+        fxmlMainGrabber.grabFXML("randomizerNode.fxml", this);
+        controller = fxmlMainGrabber.getController();
     }
 
     public void initialize(MainDatabase cd, Campaign campaign)

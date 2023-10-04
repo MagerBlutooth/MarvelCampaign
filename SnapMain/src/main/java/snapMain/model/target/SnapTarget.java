@@ -1,6 +1,6 @@
 package snapMain.model.target;
 
-public interface Target {
+public interface SnapTarget {
     TargetType getTargetType();
     int getID();
 
@@ -11,4 +11,6 @@ public interface Target {
     String getName();
 
     void setID(int id);
+
+    boolean hasAttribute(String entry);
 }

@@ -59,7 +59,8 @@ public class DraggableMapControlNode extends ControlNode<Location> implements Dr
             if(cardList.size()-1 >= i)
             {
                 Card c = cardList.get(i);
-                DraggableCardImageView cardView = new DraggableCardImageView(mainDatabase.grabImage(c, TargetType.CARD), ViewSize.TINY, this);
+                DraggableCardImageView cardView = new DraggableCardImageView(mainDatabase.grabImage(c),
+                        ViewSize.TINY, this);
                 addDragDetected(cardView, c.getID());
                 cardBox.getChildren().add(cardView);
             }

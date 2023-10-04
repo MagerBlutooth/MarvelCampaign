@@ -4,12 +4,12 @@ import snapMain.controller.MainDatabase;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import snapMain.model.target.BaseObject;
+import snapMain.model.target.SnapTarget;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 
-public class BaseGridActionController<T extends BaseObject> implements GridActionController<T>{
+public class BaseGridActionController<T extends SnapTarget> implements GridActionController<T>{
 
     MainDatabase mainDatabase;
 
@@ -37,14 +37,14 @@ public class BaseGridActionController<T extends BaseObject> implements GridActio
 
     @Override
     public void createTooltip(ControlNode<T> n) {
-        Tooltip tooltip = new Tooltip();
-        ImageView tooltipImage = new ImageView(mainDatabase.grabImage(n.getSubject(), n.getThingType()));
+        /*Tooltip tooltip = new Tooltip();
+        ImageView tooltipImage = new ImageView(mainDatabase.grabImage(n.getSubject()));
         tooltipImage.setFitHeight(ViewSize.MEDIUM.getSizeVal());
         tooltipImage.setFitWidth(ViewSize.MEDIUM.getSizeVal());
         tooltip.setGraphic(tooltipImage);
         tooltip.setText(n.getSubject().getName());
         tooltip.setShowDelay(new Duration(1.0));
-        Tooltip.install(n, tooltip);
+        Tooltip.install(n, tooltip);*/
     }
 
     @Override

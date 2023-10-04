@@ -19,6 +19,8 @@ public class TeamDisplayNodeController {
     public GridDisplayNode<Card> tempCardDisplay;
     @FXML
     public Button eliminateButton;
+    @FXML
+    Button stationedButton;
 
 
     TeamGridActionController cardController;
@@ -64,6 +66,17 @@ public class TeamDisplayNodeController {
     public void showEliminated()
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getEliminatedCards(), eliminateButton.localToScene(0.0,0.0), cardController);
+        popup.show();
+        popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                popup.hide();
+            }
+        });
+    }
+
+    public void showStationed()
+    {
+        CardDisplayPopup popup = new CardDisplayPopup(adventure.getStationedCards(), stationedButton.localToScene(0.0,0.0), cardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {

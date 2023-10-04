@@ -21,9 +21,9 @@ public class MainDatabase {
         imageCache = new MasterImageCache(database);
     }
 
-    public IconImage grabImage(BaseObject t, TargetType tt)
+    public IconImage grabImage(SnapTarget t)
     {
-        return imageCache.getImage(t.getID(), tt);
+        return imageCache.getImage(t.getID(), t.getTargetType());
     }
 
     public IconImage grabBlankImage(TargetType tt)
@@ -56,7 +56,7 @@ public class MainDatabase {
         masterThingDatabase.saveDatabase(targetType);
     }
 
-    public <T extends Target> TargetDatabase<T> lookupDatabase(TargetType type) {
+    public <T extends SnapTarget> TargetDatabase<T> lookupDatabase(TargetType type) {
         return masterThingDatabase.lookupDatabase(type);
     }
 

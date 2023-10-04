@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class PlayableList extends ArrayList<Target> {
+public class PlayableList extends TargetList<Playable> {
 
-    public PlayableList(List<Target> cards)
+    public PlayableList(List<Playable> cards)
     {
-        this.addAll(cards);
+        super(cards);
     }
 
     public String toSaveString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for(Target t: this)
+        for(SnapTarget t: this)
         {
             stringBuilder.append(t.getTargetType());
             stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
@@ -57,4 +57,13 @@ public class PlayableList extends ArrayList<Target> {
         }
     }
 
+    @Override
+    public void sort() {
+
+    }
+
+    @Override
+    public void setSortMode(String m) {
+
+    }
 }

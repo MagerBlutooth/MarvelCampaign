@@ -5,16 +5,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class ThingList<T extends BaseObject> implements Iterable<T> {
+public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
 
     List<T> things;
 
-    protected ThingList(List<T> t) {
+    protected TargetList(List<T> t) {
         things = new ArrayList<>();
         things.addAll(t);
     }
 
-    ThingList(ThingList<T> t)
+    TargetList(TargetList<T> t)
     {
         things = new ArrayList<>();
         things.addAll(t.getThings());
@@ -33,11 +33,11 @@ public abstract class ThingList<T extends BaseObject> implements Iterable<T> {
         things.addAll(toAdd);
     }
 
-    public List<T> subList(int i, int fromIndex) {
-        return things.subList(i, fromIndex);
+    public List<T> subList(int fromIndex, int toIndex) {
+        return things.subList(fromIndex, toIndex);
     }
 
-    protected void clear() {
+    public void clear() {
         things.clear();
     }
 
@@ -51,6 +51,15 @@ public abstract class ThingList<T extends BaseObject> implements Iterable<T> {
 
     public T get(int i) {
         return things.get(i);
+    }
+    public T get(T t)
+    {
+        for(T thing: things)
+        {
+            if(thing.equals(t))
+                return thing;
+        }
+        return null;
     }
 
     public void add(T t) {

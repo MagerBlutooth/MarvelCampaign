@@ -3,12 +3,12 @@ package adventure.model.thing;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
-import snapMain.model.target.Target;
+import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetType;
 
 import java.util.Base64;
 
-public class Boss implements Target {
+public class Boss implements SnapTarget {
     AdvCard card;
     int baseHP;
     int currentHP;
@@ -70,6 +70,11 @@ public class Boss implements Target {
     @Override
     public void setID(int id) {
 
+    }
+
+    @Override
+    public boolean hasAttribute(String entry) {
+        return card.hasAttribute(entry);
     }
 
     @Override

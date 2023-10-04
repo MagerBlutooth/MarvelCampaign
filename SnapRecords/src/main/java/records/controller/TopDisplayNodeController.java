@@ -65,7 +65,7 @@ public class TopDisplayNodeController {
         List<Pair<IconImage, Integer>> iconImages = new ArrayList<>();
         for (Map.Entry<Card,Integer> e : cards)
         {
-            IconImage iconImage = mainDatabase.grabImage(e.getKey(), TargetType.CARD);
+            IconImage iconImage = mainDatabase.grabImage(e.getKey());
             iconImages.add(new Pair<>(iconImage, e.getValue()));
         }
         entry.initialize(cost, iconImages);

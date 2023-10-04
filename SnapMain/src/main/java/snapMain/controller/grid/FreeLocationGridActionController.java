@@ -5,9 +5,10 @@ import snapMain.controller.node.FreeAgentSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.model.target.Location;
+import snapMain.model.target.LocationList;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.dialog.LocationSelectDialog;
+import snapMain.view.dialog.LocationSearchSelectDialog;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 
@@ -60,8 +61,8 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
         ruinItem.setOnAction(e -> freeAgentController.toggleRuinLocation(n.getSubject()));
         MenuItem addLocItem = new MenuItem("Add Location");
         addLocItem.setOnAction(e -> {
-            LocationSelectDialog dialog = new LocationSelectDialog();
-            dialog.initialize(mainDatabase);
+            LocationSearchSelectDialog dialog = new LocationSearchSelectDialog();
+            dialog.initialize(mainDatabase, new LocationList(mainDatabase.getLocations()));
             Optional<Location> newLoc = dialog.showAndWait();
             newLoc.ifPresent(location -> locationGridDisplayNode.addThing(location));
             locationGridDisplayNode.sortBy("Name");

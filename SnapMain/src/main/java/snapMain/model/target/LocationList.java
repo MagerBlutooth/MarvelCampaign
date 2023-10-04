@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class LocationList extends ThingList<Location> {
+public class LocationList extends TargetList<Location> {
 
     LocationSorter locationSorter;
 
