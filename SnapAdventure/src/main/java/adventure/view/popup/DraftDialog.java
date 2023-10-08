@@ -1,6 +1,6 @@
 package adventure.view.popup;
 
-import adventure.controller.DraftCardChooserDialogController;
+import adventure.controller.DraftCardDialogController;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
@@ -11,7 +11,7 @@ import snapMain.model.target.TargetType;
 
 public class DraftDialog extends Dialog<Card> implements Choosable<Card> {
 
-    DraftCardChooserDialogController<Card> controller;
+    DraftCardDialogController<Card> controller;
 
     public DraftDialog()
     {

@@ -1,13 +1,10 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdvMasterThingDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.WorldClearSelectNode;
 import adventure.view.pane.AdventureControlPane;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;

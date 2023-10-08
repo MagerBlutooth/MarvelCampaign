@@ -7,7 +7,10 @@ import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Adventure {
 
@@ -257,9 +260,19 @@ public class Adventure {
         return stationedCards;
     }
 
+    //Normal method for drafting cards
     public TargetList<Card> draftCards() {
         CardList cards = new CardList(new ArrayList<>());
         CardList freeAgents = new CardList(team.getFreeAgents());
+        Collections.shuffle(freeAgents.getCards());
+        cards.addAll(freeAgents.subList(0, AdventureConstants.NUM_DRAFT_CARDS));
+        return cards;
+    }
+
+    //Draft specific cards from a predefined subset
+    public TargetList<Card> draftCards(TargetList<Card> subset) {
+        CardList cards = new CardList(new ArrayList<>());
+        CardList freeAgents = new CardList(subset.getThings());
         Collections.shuffle(freeAgents.getCards());
         cards.addAll(freeAgents.subList(0, AdventureConstants.NUM_DRAFT_CARDS));
         return cards;
@@ -286,4 +299,9 @@ public class Adventure {
         team.getTempCards().add(card);
         team.getFreeAgents().remove(card);
     }
+
+    public TargetList<Card> getFreeAgents() {
+        return team.getFreeAgents();
+    }
+
 }

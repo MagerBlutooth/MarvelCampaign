@@ -5,9 +5,9 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.thing.AdvLocation;
 import adventure.view.node.SectionEditorNode;
 import adventure.view.pane.AdvLocationManagerPane;
+import javafx.fxml.FXML;
 import snapMain.model.target.TargetType;
 import snapMain.view.grabber.ThingImageGrabber;
-import javafx.fxml.FXML;
 
 public class SectionEditorPaneController extends AdvEditorPaneController
 {

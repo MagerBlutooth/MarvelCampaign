@@ -1,13 +1,13 @@
 package adventure.controller;
 
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 
 public class TeamGridActionController implements GridActionController<Card> {
 

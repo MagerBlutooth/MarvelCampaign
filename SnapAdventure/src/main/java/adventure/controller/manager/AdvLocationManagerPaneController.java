@@ -7,18 +7,18 @@ import adventure.view.manager.AdvLocationManager;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.pane.AdvEditorMenuPane;
 import adventure.view.pane.SectionEditorPane;
-import snapMain.controller.grid.GridActionController;
-import snapMain.controller.grid.ManagerPaneController;
-import snapMain.model.target.*;
-import snapMain.view.IconImage;
-import snapMain.view.ViewSize;
-import snapMain.view.node.control.ControlNode;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import snapMain.controller.grid.GridActionController;
+import snapMain.controller.grid.ManagerPaneController;
+import snapMain.model.target.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 
 
 public class AdvLocationManagerPaneController extends ManagerPaneController<AdvLocation, AdvMainDatabase> implements GridActionController<AdvLocation> {

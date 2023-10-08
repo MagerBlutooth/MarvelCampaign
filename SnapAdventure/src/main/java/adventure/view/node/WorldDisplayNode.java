@@ -3,7 +3,6 @@ package adventure.view.node;
 import adventure.controller.WorldDisplayNodeController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.World;
-import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import adventure.view.pane.AdventureControlPane;
 import javafx.scene.layout.StackPane;

@@ -9,12 +9,11 @@ import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.BossViewPane;
 import adventure.view.pane.SectionViewPane;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseButton;
-import snapMain.model.target.TargetType;
-import snapMain.view.ViewSize;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import snapMain.view.ViewSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +28,6 @@ public class WorldDisplayNodeController extends AdvPaneController {
     SectionControlNode section3Node;
     @FXML
     SectionControlNode section4Node;
-    @FXML
-    BossControlNode bossNode;
     @FXML
     Label worldLabel;
 
@@ -69,8 +66,6 @@ public class WorldDisplayNodeController extends AdvPaneController {
         setSectionMouseOption(section2Node, aPane);
         setSectionMouseOption(section3Node, aPane);
         setSectionMouseOption(section4Node, aPane);
-        setBossMouseOption(bossNode, aPane);
-        bossNode.initialize(d, boss, d.grabImage(boss.getCard()), ViewSize.MEDIUM, false);
     }
 
     private void setBossMouseOption(BossControlNode bossNode, AdventureControlPane aPane) {
@@ -106,7 +101,6 @@ public class WorldDisplayNodeController extends AdvPaneController {
         section2Node.refresh(w.getSecondSection());
         section3Node.refresh(w.getThirdSection());
         section4Node.refresh(w.getFourthSection());
-        bossNode.refresh(w.getBoss());
     }
 
     private void setWorldLabel(World w) {
@@ -115,7 +109,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     @Override
     public Scene getCurrentScene() {
-        return bossNode.getScene();
+        return section1Node.getScene();
     }
 
     @Override

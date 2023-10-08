@@ -1,7 +1,7 @@
 package adventure.model.thing;
 
-import snapMain.model.target.Card;
 import snapMain.model.target.BaseObject;
+import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
 
 public class AdvCard extends BaseObject {

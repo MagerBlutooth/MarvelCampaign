@@ -1,11 +1,8 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
 <?import adventure.view.pane.AdvNewProfilePane?>
-<?import adventure.view.node.ProfileNode?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
 <?import snapMain.view.button.ButtonToolBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
 <?import snapMain.view.node.GridDisplayNode?>
 <fx:root type="AdvNewProfilePane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"

@@ -25,7 +25,7 @@ public class AdvMainDatabase extends MainDatabase {
     public List<Card> getCards() {
         return advMasterThingDatabase.getCards();
     }
-    public List<Token> getTokens()
+    public TargetDatabase<Token> getTokens()
     {
         return advMasterThingDatabase.getTokens();
     }

@@ -1,6 +1,7 @@
 package adventure.model;
 
 import adventure.model.thing.InfinityStone;
+import adventure.model.thing.InfinityStoneID;
 import adventure.model.thing.Section;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
@@ -31,6 +32,7 @@ public class Team {
         capturedCards = new CardList(new ArrayList<>());
         miaCards = new CardList(new ArrayList<>());
         eliminatedCards = new CardList(new ArrayList<>());
+        infinityStones = new ArrayList<>();
     }
     public Team(AdventureDatabase database)
     {
@@ -188,5 +190,15 @@ public class Team {
     {
         s.stationCard(c);
         activeCards.remove(c);
+    }
+
+    public boolean hasInfinityStone(InfinityStoneID id)
+    {
+        for(InfinityStone stone: infinityStones)
+        {
+            if(stone.getID() == id.getID())
+                return true;
+        }
+        return false;
     }
 }

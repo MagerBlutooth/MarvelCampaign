@@ -94,4 +94,11 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
     public void shuffle() {
         Collections.shuffle(things);
     }
+
+    public T getRandom() {
+        List<T> randomList = new ArrayList<>();
+        randomList.addAll(this.getThings());
+        Collections.shuffle(randomList);
+        return randomList.get(0);
+    }
 }

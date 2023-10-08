@@ -1,10 +1,8 @@
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DialogPane?>
-<?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import snapMain.view.node.GridDisplayNode?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.Label?>
 <fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
@@ -14,10 +12,6 @@
             <Label text="Choose"/>
             <StackPane fx:id="displayPane" maxWidth="200" maxHeight="200"/>
             <GridDisplayNode fx:id="choiceNodes"/>
-            <HBox alignment="CENTER">
-                <ToggleButton fx:id="toTeamButton" text="To Team"/>
-                <ToggleButton fx:id="toTempButton" text="To Temp"/>
-            </HBox>
             <padding>
                 <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
             </padding>

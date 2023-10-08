@@ -7,7 +7,6 @@ import adventure.model.thing.AdvLocationList;
 import snapMain.model.constants.CampaignConstants;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 

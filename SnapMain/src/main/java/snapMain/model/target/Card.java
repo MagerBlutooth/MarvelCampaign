@@ -3,6 +3,7 @@ package snapMain.model.target;
 import snapMain.model.constants.CampaignConstants;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Card extends EffectBaseObject implements Playable {
@@ -153,5 +154,23 @@ public class Card extends EffectBaseObject implements Playable {
 
     public void setWounded(boolean w) {
         wounded = w;
+    }
+
+    public boolean hasAllAttributes(List<CardAttribute> cardAttributes) {
+        for(CardAttribute c: cardAttributes)
+        {
+            if(!this.hasAttribute(c.toString()))
+               return false;
+        }
+        return true;
+    }
+
+    public boolean hasAnyAttributes(List<CardAttribute> cardAttributes) {
+        for(CardAttribute c: cardAttributes)
+        {
+            if(this.hasAttribute(c.toString()))
+                return true;
+        }
+        return false;
     }
 }

@@ -2,17 +2,20 @@ package adventure.controller;
 
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
+import adventure.view.node.InfinityStoneDisplayNode;
 import adventure.view.popup.CardDisplayPopup;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 public class TeamDisplayNodeController {
 
+    @FXML
+    InfinityStoneDisplayNode infinityStoneDisplay;
     @FXML
     GridDisplayNode<Card> cardDisplay;
     @FXML
@@ -21,7 +24,6 @@ public class TeamDisplayNodeController {
     public Button eliminateButton;
     @FXML
     Button stationedButton;
-
 
     TeamGridActionController cardController;
 
@@ -39,6 +41,7 @@ public class TeamDisplayNodeController {
         cardController.initialize(d, this);
         cardDisplay.initialize(t.getActiveCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
         tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
+        infinityStoneDisplay.initialize(database, t);
     }
 
     public void showCaptured()

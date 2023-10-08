@@ -51,4 +51,8 @@ public class AdventureControlPane extends EditorPane {
     public void healCard() {
         controller.healCard();
     }
+
+    public void generateCard() {
+        controller.generateCard();
+    }
 }

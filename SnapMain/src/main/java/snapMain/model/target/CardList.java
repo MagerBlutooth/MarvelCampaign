@@ -1,7 +1,9 @@
 package snapMain.model.target;
 
+import javafx.scene.control.ChoiceBox;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.sortFilter.CardFilter;
 import snapMain.model.sortFilter.CardSortMode;
 import snapMain.model.sortFilter.CardSorter;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class CardList extends TargetList<Card> {
 
     CardSorter cardSorter = new CardSorter();
+    CardFilter cardFilter = new CardFilter();
 
     public CardList(List<Card> cards)
     {
@@ -22,6 +25,7 @@ public class CardList extends TargetList<Card> {
     {
         super(cards);
         cardSorter = cards.cardSorter;
+        cardFilter = cards.cardFilter;
     }
 
     public void sort()
@@ -126,5 +130,23 @@ public class CardList extends TargetList<Card> {
             clonedCards.add(new Card(c));
         }
         return clonedCards;
+    }
+
+    public CardList filterCost(int minCost, int maxCost) {
+        return cardFilter.filterCost(this, minCost, maxCost);
+    }
+
+    public CardList filterPool(int minPool, int maxPool)
+    {
+        return cardFilter.filterPool(this, minPool, maxPool);
+    }
+    public CardList filterPower(int minPower, int maxPower)
+    {
+        return cardFilter.filterPower(this, minPower, maxPower);
+    }
+
+    public CardList filterAttributes(List<CardAttribute> cardAttributes)
+    {
+        return cardFilter.filterAttributes(this, cardAttributes);
     }
 }

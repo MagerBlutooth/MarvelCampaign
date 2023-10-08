@@ -7,6 +7,7 @@ import snapMain.model.target.*;
 import snapMain.view.MasterImageCache;
 import snapMain.view.IconImage;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class MainDatabase {
         return masterThingDatabase.lookupDatabase(type);
     }
 
-    public List<Token> getTokens() {
+    public TargetDatabase<Token> getTokens() {
         return masterThingDatabase.getTokens();
     }
 

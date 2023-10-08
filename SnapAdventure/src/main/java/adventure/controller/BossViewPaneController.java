@@ -11,7 +11,6 @@ import adventure.view.popup.HPDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.button.ButtonToolBar;
 

@@ -4,8 +4,8 @@ import adventure.controller.TeamDisplayNodeController;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import snapMain.controller.MainDatabase;
 import javafx.scene.layout.StackPane;
+import snapMain.controller.MainDatabase;
 
 public class TeamDisplayNode extends StackPane {
 

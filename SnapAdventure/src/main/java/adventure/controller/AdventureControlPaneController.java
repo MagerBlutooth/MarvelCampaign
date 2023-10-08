@@ -1,8 +1,8 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.adventure.Adventure;
 import adventure.model.AdventureDatabase;
+import adventure.model.adventure.Adventure;
 import adventure.model.thing.Section;
 import adventure.view.node.AdventureActionNode;
 import adventure.view.node.TeamDisplayNode;
@@ -11,12 +11,16 @@ import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardChooserDialog;
 import adventure.view.popup.DraftDialog;
-import snapMain.model.target.Card;
-import snapMain.model.target.TargetType;
-import snapMain.view.button.ButtonToolBar;
+import adventure.view.popup.RandomDisplayDialog;
+import adventure.view.popup.SelectionOptionsDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
+import snapMain.view.button.ButtonToolBar;
 
+import java.lang.annotation.Target;
 import java.util.Optional;
 
 public class AdventureControlPaneController extends AdvPaneController {
@@ -83,19 +87,26 @@ public class AdventureControlPaneController extends AdvPaneController {
         worldDisplayNode.refresh(adventure.getCurrentWorld());
     }
 
+    //TODO: Output a message if there are no valid cards to draft. Add fewer if not enough.
     @FXML
     public void draftCard() {
-        DraftDialog draftCardDialog = new DraftDialog();
-        draftCardDialog.initialize(mainDatabase, adventure.draftCards());
-        Optional<Card> card = draftCardDialog.showAndWait();
-        card.ifPresent(value ->
+        SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
+        optionsDialog.initialize(adventure.getFreeAgents());
+        Optional<TargetList<Card>> filteredSelectables = optionsDialog.showAndWait();
+        if(filteredSelectables.isPresent() && !filteredSelectables.get().isEmpty())
         {
-            if(draftCardDialog.isTeam())
-                adventure.addFreeAgentToTeam(value);
-            else
-                adventure.addFreeAgentToTemp(value);
+            DraftDialog draftCardDialog = new DraftDialog();
+            draftCardDialog.initialize(mainDatabase, adventure.draftCards(filteredSelectables.get()));
+            Optional<Card> card = draftCardDialog.showAndWait();
+            card.ifPresent(value ->
+            {
+                if(draftCardDialog.isTeam())
+                    adventure.addFreeAgentToTeam(value);
+                else
+                    adventure.addFreeAgentToTemp(value);
 
-        });
+            });
+        }
     }
 
     public void healCard() {
@@ -103,5 +114,26 @@ public class AdventureControlPaneController extends AdvPaneController {
         chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
         Optional<Card> card = chooserDialog.showAndWait();
         card.ifPresent(value -> adventure.healCard(value));
+    }
+
+    //TODO: Output a message if there are no valid cards to generate
+    public void generateCard() {
+        SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
+        optionsDialog.initialize(adventure.getFreeAgents());
+        Optional<TargetList<Card>> filteredSelectables = optionsDialog.showAndWait();
+        if(filteredSelectables.isPresent() && !filteredSelectables.get().isEmpty())
+        {
+            RandomDisplayDialog randomDialog = new RandomDisplayDialog();
+            randomDialog.initialize(mainDatabase, filteredSelectables.get().getRandom());
+            Optional<Card> card = randomDialog.showAndWait();
+            card.ifPresent(value ->
+            {
+                if(randomDialog.isTeam())
+                    adventure.addFreeAgentToTeam(value);
+                else
+                    adventure.addFreeAgentToTemp(value);
+
+            });
+        }
     }
 }

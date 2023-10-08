@@ -5,20 +5,20 @@ import adventure.model.thing.AdvCard;
 import adventure.model.thing.AdvCardList;
 import adventure.view.manager.BossManager;
 import adventure.view.node.AdvCardControlNode;
-import adventure.view.pane.BossEditorPane;
 import adventure.view.pane.AdvEditorMenuPane;
-import snapMain.controller.grid.GridActionController;
-import snapMain.controller.grid.ManagerPaneController;
-import snapMain.model.target.TargetType;
-import snapMain.view.IconImage;
-import snapMain.view.ViewSize;
-import snapMain.view.node.control.ControlNode;
+import adventure.view.pane.BossEditorPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import snapMain.controller.grid.GridActionController;
+import snapMain.controller.grid.ManagerPaneController;
+import snapMain.model.target.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 
 
 public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard, AdvMainDatabase> implements GridActionController<AdvCard> {

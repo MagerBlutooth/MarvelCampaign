@@ -1,6 +1,5 @@
 package adventure.controller.manager;
 
-import adventure.model.adventure.Adventure;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

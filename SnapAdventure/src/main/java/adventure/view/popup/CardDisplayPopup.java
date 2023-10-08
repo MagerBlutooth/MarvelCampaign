@@ -1,5 +1,7 @@
 package adventure.view.popup;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Card;
@@ -7,8 +9,6 @@ import snapMain.model.target.CardList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
-import javafx.geometry.Point2D;
-import javafx.scene.Scene;
 
 public class CardDisplayPopup extends AdvPopup {
 

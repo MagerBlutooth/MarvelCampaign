@@ -33,8 +33,8 @@ public class TopDisplayEntry extends StackPane {
         for(Pair<IconImage, Integer> imagePair: images) {
             CardView cardView = new CardView();
             cardView.setImage(imagePair.getKey(), ViewSize.TINY);
-            Label timesUsed = new Label(imagePair.getValue()+"");
-            cardBox.getChildren().add(timesUsed);
+            //Label timesUsed = new Label(imagePair.getValue()+"");
+            //cardBox.getChildren().add(timesUsed);
             cardBox.getChildren().add(cardView);
         }
     }
