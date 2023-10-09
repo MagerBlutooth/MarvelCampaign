@@ -13,6 +13,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.helper.DeckCodeConverter;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
 import snapMain.model.target.TargetType;
@@ -150,6 +151,15 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
             goBack();
         }
     }
+
+    @FXML
+    public void convertDeckCodeToClipboard()
+    {
+        DeckCodeConverter codeConverter = new DeckCodeConverter();
+        codeConverter.encodeDeckToClipboard(nameBar.getText(), hallOfFameEntry.getCards());
+    }
+
+
 
     @Override
     public void createTooltip(ControlNode<Card> n) {

@@ -188,8 +188,10 @@ public class Team {
 
     public void stationCard(Section s ,Card c)
     {
-        s.stationCard(c);
-        activeCards.remove(c);
+        if(s.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
+            s.stationCard(c);
+            activeCards.remove(c);
+        }
     }
 
     public boolean hasInfinityStone(InfinityStoneID id)
@@ -200,5 +202,13 @@ public class Team {
                 return true;
         }
         return false;
+    }
+
+    public void addCardToTeam(Card c) {
+        activeCards.add(c);
+    }
+
+    public void gainInfinityStone(InfinityStone p) {
+        infinityStones.add(p);
     }
 }

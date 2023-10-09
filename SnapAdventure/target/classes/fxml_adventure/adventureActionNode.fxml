@@ -13,8 +13,8 @@
                 <Button text="Generate Card" onAction="#generateCard" id="smallButton"/>
             </HBox>
             <HBox spacing="10.0">
-                <Button text="Generate Boss" onAction="#generateBoss" id="smallButton"/>
                 <Button text="Search Card" onAction="#searchCard" id="smallButton"/>
+                <Button text="Clone Card" onAction="#createClone" id="smallButton"/>
             </HBox>
         </VBox>
     </VBox>

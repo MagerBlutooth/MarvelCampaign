@@ -126,7 +126,7 @@ public class Boss implements SnapTarget {
         currentHP = newHP;
     }
 
-    private void setBaseHP(int h) {
+    public void setBaseHP(int h) {
         if (h <= 0)
             h = 1;
         baseHP = h;

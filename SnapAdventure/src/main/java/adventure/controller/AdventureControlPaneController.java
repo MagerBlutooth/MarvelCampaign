@@ -9,10 +9,7 @@ import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
 import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdventureControlPane;
-import adventure.view.popup.CardChooserDialog;
-import adventure.view.popup.DraftDialog;
-import adventure.view.popup.RandomDisplayDialog;
-import adventure.view.popup.SelectionOptionsDialog;
+import adventure.view.popup.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import snapMain.model.target.Card;
@@ -20,7 +17,6 @@ import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.button.ButtonToolBar;
 
-import java.lang.annotation.Target;
 import java.util.Optional;
 
 public class AdventureControlPaneController extends AdvPaneController {
@@ -70,21 +66,23 @@ public class AdventureControlPaneController extends AdvPaneController {
 
     public void skipSection(Section section) {
         worldDisplayNode.revealNextSection(section.getSectionNum());
+        refreshToMatch();
     }
 
     public void refreshToMatch() {
         teamDisplayNode.refresh();
         worldDisplayNode.refresh(adventure.getCurrentWorld());
+        //adventure.saveAdventure();
     }
 
     public void completeSection() {
         adventure.completeCurrentSection();
-        worldDisplayNode.refresh(adventure.getCurrentWorld());
+        refreshToMatch();
     }
 
     public void completeWorld() {
         adventure.completeCurrentWorld();
-        worldDisplayNode.refresh(adventure.getCurrentWorld());
+        refreshToMatch();
     }
 
     //TODO: Output a message if there are no valid cards to draft. Add fewer if not enough.
@@ -107,6 +105,7 @@ public class AdventureControlPaneController extends AdvPaneController {
 
             });
         }
+        refreshToMatch();
     }
 
     public void healCard() {
@@ -114,6 +113,7 @@ public class AdventureControlPaneController extends AdvPaneController {
         chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
         Optional<Card> card = chooserDialog.showAndWait();
         card.ifPresent(value -> adventure.healCard(value));
+        refreshToMatch();
     }
 
     //TODO: Output a message if there are no valid cards to generate
@@ -135,5 +135,38 @@ public class AdventureControlPaneController extends AdvPaneController {
 
             });
         }
+        refreshToMatch();
+    }
+
+    public void searchFreeAgent() {
+        AdventureCardSearchSelectDialog cardSearchSelectDialog = new AdventureCardSearchSelectDialog();
+        cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
+        Optional<Card> selection = cardSearchSelectDialog.showAndWait();
+        if(selection.isPresent())
+        {
+            Card card = selection.get();
+            if(cardSearchSelectDialog.isTeam())
+                adventure.addFreeAgentToTeam(card);
+            else {
+                adventure.addFreeAgentToTemp(card);
+            }
+        }
+        refreshToMatch();
+    }
+
+    public void createClone() {
+        AdventureCardSearchSelectDialog cardSearchSelectDialog = new AdventureCardSearchSelectDialog();
+        cardSearchSelectDialog.initialize(mainDatabase, adventureDatabase.getCardList());
+        Optional<Card> selection = cardSearchSelectDialog.showAndWait();
+        if(selection.isPresent())
+        {
+            Card card = selection.get();
+            if(cardSearchSelectDialog.isTeam())
+                adventure.addFreeAgentToTeam(card);
+            else {
+                adventure.addFreeAgentToTemp(card);
+            }
+        }
+        refreshToMatch();
     }
 }

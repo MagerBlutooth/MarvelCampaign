@@ -1,5 +1,6 @@
 package adventure.model.thing;
 
+import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.PlayableDatabase;
@@ -45,6 +46,7 @@ public class Section implements Cloneable, SnapTarget {
         cardsAndTokens = loc.cardsAndTokens;
         revealed = loc.revealed;
         completed = loc.completed;
+        cardDatabase = loc.cardDatabase;
     }
 
     public String toSaveString() {
@@ -172,4 +174,5 @@ public class Section implements Cloneable, SnapTarget {
     {
         return !getPickups().isEmpty();
     }
+
 }

@@ -9,7 +9,7 @@
 <fx:root type="AdventureControlPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdventureControlPaneController" prefWidth="1600"
-         prefHeight="900" fx:id="adventureControlPane">
+         prefHeight="1000" fx:id="adventureControlPane">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <TeamDisplayNode fx:id="teamDisplayNode"/>

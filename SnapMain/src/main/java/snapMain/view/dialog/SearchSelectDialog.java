@@ -19,14 +19,15 @@ import snapMain.view.node.control.ControlNode;
 public class SearchSelectDialog<T extends SnapTarget> extends Dialog<T> {
 
     @FXML
-    StackPane displayPane;
+    protected StackPane displayPane;
     @FXML
-    TextField searchBar;
+    protected TextField searchBar;
     @FXML
-    GridDisplayNode<T> choiceNodes;
-    MainDatabase mainDatabase;
-    TargetList<T> choices;
-    T selection;
+    protected GridDisplayNode<T> choiceNodes;
+    protected MainDatabase mainDatabase;
+    @FXML
+    protected TargetList<T> choices;
+    protected T selection;
 
     public SearchSelectDialog()
     {

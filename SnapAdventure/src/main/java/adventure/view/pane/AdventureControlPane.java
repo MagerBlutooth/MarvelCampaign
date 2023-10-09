@@ -55,4 +55,12 @@ public class AdventureControlPane extends EditorPane {
     public void generateCard() {
         controller.generateCard();
     }
+
+    public void searchCard() {
+        controller.searchFreeAgent();
+    }
+
+    public void createClone() {
+        controller.createClone();
+    }
 }

@@ -1,6 +1,7 @@
 package adventure.view.node;
 
 import adventure.model.thing.Boss;
+import javafx.scene.control.Tooltip;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
@@ -19,14 +20,20 @@ public class BossControlNode extends ControlNode<Boss> {
             imageView.setFitHeight(v.getSizeVal());
             if(!revealed)
                 unreveal();
+            createTooltip(b.getEffect());
         }
 
+    private void createTooltip(String effect) {
+        Tooltip tooltip = new Tooltip(effect);
+        Tooltip.install(this, tooltip);
+    }
+
     public void unreveal() {
-        imageView.setImage(mainDatabase.grabBlankImage(TargetType.LOCATION));
+        lowlight();
     }
 
     public void reveal() {
-        imageView.setImage(mainDatabase.grabImage(subject.getCard()));
+        highlight();
     }
 
     public void refresh(Boss boss) {

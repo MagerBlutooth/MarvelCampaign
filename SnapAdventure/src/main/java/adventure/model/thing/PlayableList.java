@@ -1,7 +1,8 @@
-package snapMain.model.target;
+package adventure.model.thing;
 
 import snapMain.model.constants.CampaignConstants;
 import snapMain.model.database.PlayableDatabase;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -52,7 +53,16 @@ public class PlayableList extends TargetList<Playable> {
             else
             {
                 Token t = (Token) db.lookup(Integer.parseInt(playableString[1]), TargetType.TOKEN);
-                this.add(t);
+                InfinityStoneID stoneID = InfinityStoneID.lookupID(t.getID());
+                if(stoneID != null)
+                {
+                    InfinityStone i = new InfinityStone(t.getID(), stoneID);
+                    add(i);
+                }
+                else
+                {
+                    this.add(t);
+                }
             }
         }
     }

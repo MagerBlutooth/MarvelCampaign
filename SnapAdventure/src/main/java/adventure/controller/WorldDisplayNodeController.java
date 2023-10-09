@@ -20,6 +20,7 @@ import java.util.List;
 
 public class WorldDisplayNodeController extends AdvPaneController {
 
+    public BossControlNode bossControlNode;
     @FXML
     SectionControlNode section1Node;
     @FXML
@@ -33,14 +34,12 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     List<SectionControlNode> sections;
 
-    AdvMainDatabase database;
-
     World world;
 
 
     public void initialize(AdvMainDatabase d, World w, int wNum, AdventureControlPane aPane)
     {
-        database = d;
+        mainDatabase = d;
         world = w;
         setWorldLabel(w);
         sections = new ArrayList<>();
@@ -62,17 +61,19 @@ public class WorldDisplayNodeController extends AdvPaneController {
         sections.add(section2Node);
         sections.add(section3Node);
         sections.add(section4Node);
+        bossControlNode.initialize(mainDatabase, boss, d.grabImage(boss.getCard()), ViewSize.MEDIUM, false);
         setSectionMouseOption(section1Node, aPane);
         setSectionMouseOption(section2Node, aPane);
         setSectionMouseOption(section3Node, aPane);
         setSectionMouseOption(section4Node, aPane);
+        setBossMouseOption(bossControlNode, aPane);
     }
 
     private void setBossMouseOption(BossControlNode bossNode, AdventureControlPane aPane) {
         bossNode.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY && bossNode.isRevealed()) {
                 BossViewPane bossViewPane = new BossViewPane();
-                bossViewPane.initialize(database, aPane, bossNode.getSubject());
+                bossViewPane.initialize(mainDatabase, aPane, bossNode.getSubject());
                 changeScene(bossViewPane);
             }
         });
@@ -82,7 +83,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         sectionNode.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY && sectionNode.isRevealed()) {
                 SectionViewPane sectionViewPane = new SectionViewPane();
-                sectionViewPane.initialize(database, aPane, sectionNode.getSubject());
+                sectionViewPane.initialize(mainDatabase, aPane, sectionNode.getSubject());
                 changeScene(sectionViewPane);
             }
         });
@@ -101,6 +102,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         section2Node.refresh(w.getSecondSection());
         section3Node.refresh(w.getThirdSection());
         section4Node.refresh(w.getFourthSection());
+        bossControlNode.refresh((w.getBoss()));
     }
 
     private void setWorldLabel(World w) {

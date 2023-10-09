@@ -3,9 +3,7 @@ package adventure.model.adventure;
 import adventure.model.*;
 import adventure.model.thing.*;
 import snapMain.model.constants.CampaignConstants;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
-import snapMain.model.target.TargetList;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -304,4 +302,32 @@ public class Adventure {
         return team.getFreeAgents();
     }
 
+    public void collectPickups(Section section) {
+        TargetList<Playable> pickups = section.getPickups();
+        for(Playable p: pickups)
+        {
+            if(p instanceof Card) {
+                team.addCardToTeam((Card)p);
+                team.getMIACards().remove((Card)p);
+            }
+            else if(p instanceof InfinityStone)
+            {
+                team.gainInfinityStone((InfinityStone)p);
+            }
+        }
+            pickups.clear();
+    }
+
+    public AdvLocationList getAvailableLocations() {
+        return availableLocations;
+    }
+
+    public void updateSection(AdvLocation newLoc, int sectionNum) {
+        World w = getCurrentWorld();
+        AdvLocation oldLoc = w.getSection(sectionNum).getLocation();
+        w.updateSection(newLoc, sectionNum);
+        if(oldLoc != null)
+            availableLocations.add(oldLoc);
+        availableLocations.remove(newLoc);
+    }
 }

@@ -37,7 +37,7 @@ public class World implements Cloneable{
         section2 = new Section(2, locations.get(1), db);
         section3 = new Section(3, locations.get(2), db);
         section4 = new Section(4, locations.get(3), db);
-        boss = new Boss(b, 0);
+        boss = new Boss(b, getWorldBonus());
         section1.reveal();
     }
 
@@ -182,5 +182,30 @@ public class World implements Cloneable{
         sections.add(section3);
         sections.add(section4);
         return sections;
+    }
+
+    public void updateSection(AdvLocation advLocation, int sectionNum) {
+        Section s = getSection(sectionNum);
+        s.changeLocation(advLocation);
+    }
+
+    private int getWorldBonus() {
+        if(worldNum < 2)
+        {
+            return 0;
+        }
+        if(worldNum < 4)
+        {
+            return 1;
+        }
+        if(worldNum < 6)
+        {
+            return 2;
+        }
+        if(worldNum < 8)
+        {
+            return 3;
+        }
+        return 5;
     }
 }

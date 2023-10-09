@@ -5,7 +5,8 @@ import javafx.scene.paint.Color;
 public class StringHelper {
 
     public static String displayFormat(String string) {
-        return string.replace("-", " ");
+        string = string.replace("-", " ");
+        return string.replace(" ", "");
     }
 
     public static String camelCase(String string)

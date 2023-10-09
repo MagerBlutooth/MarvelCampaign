@@ -5,6 +5,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.button.ButtonToolBar?>
+<?import adventure.view.node.BossControlNode?>
+<?import adventure.view.node.HPDisplayNode?>
 <fx:root type="SectionViewPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.SectionViewPaneController"
@@ -12,6 +14,11 @@
 
     <VBox alignment="CENTER" spacing="40.0">
         <ButtonToolBar fx:id="buttonToolBar"/>
+        <HBox alignment="CENTER">
+            <BossControlNode fx:id="bossView"/>
+            <HPDisplayNode fx:id="hpDisplay"/>
+            <Label fx:id="enemyEffectText" alignment="CENTER" maxWidth="1000" wrapText="true" id="info"/>
+        </HBox>
         <HBox alignment="CENTER" spacing="40.0">
             <VBox alignment="CENTER" spacing = "20.0">
                 <Label text="Stationed Cards"/>
@@ -24,29 +31,38 @@
             </VBox>
         </HBox>
 
-        <Label fx:id="effectText" alignment="CENTER" maxWidth="800" wrapText="true" id="info"/>
+        <Label fx:id="locationEffectText" alignment="CENTER" maxWidth="800" wrapText="true" id="info"/>
+        <VBox alignment="CENTER" spacing="10.0">
+            <HBox alignment="CENTER" spacing="20.0">
+                <Button fx:id="completeButton" text="Complete" onAction="#completeSection">
+                    <tooltip>
+                        <AdvTooltip text="Complete current section. Reveal next section." id="info"/>
+                    </tooltip>
+                </Button>
+                <Button fx:id="skipButton" text="Skip" onAction="#skipSection">
+                    <tooltip>
+                        <AdvTooltip text="Skip current section and advance to next. If you already skipped a section this world, a random card on your team will be captured." id="info"/>
+                    </tooltip>
+                </Button>
+                <Button text="Station" onAction="#stationCard">
+                <tooltip>
+                    <AdvTooltip text="Station a card from your team here." id="info"/>
+                </tooltip>
+                </Button>
+            </HBox>
         <HBox alignment="CENTER" spacing="20.0">
-            <Button fx:id="randomizeButton" text="Randomize" onAction="#randomize">
-            <tooltip>
-                <AdvTooltip text="Randomize the current section." id="info"/>
-            </tooltip>
-            </Button>
-            <Button fx:id="completeButton" text="Complete" onAction="#completeSection">
+            <Button fx:id="changeButton" text="Change Location" onAction="#changeLocation">
                 <tooltip>
-                    <AdvTooltip text="Complete current section. Reveal next section." id="info"/>
+                    <AdvTooltip text="Change the current section's location to a different one." id="info"/>
                 </tooltip>
             </Button>
-            <Button fx:id="skipButton" text="Skip" onAction="#skipSection">
+            <Button fx:id="randomizeButton" text="Randomize Location" onAction="#randomize">
                 <tooltip>
-                    <AdvTooltip text="Skip current section and advance to next. If you already skipped a section this world, a random card on your team will be captured." id="info"/>
+                    <AdvTooltip text="Randomize the current section's location." id="info"/>
                 </tooltip>
-            </Button>
-            <Button text="Station" onAction="#stationCard">
-            <tooltip>
-                <AdvTooltip text="Station a card from your team here." id="info"/>
-            </tooltip>
             </Button>
         </HBox>
+        </VBox>
     </VBox>
     <padding>
         <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>

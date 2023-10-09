@@ -93,6 +93,7 @@ public class TeamDisplayNodeController {
     {
         cardDisplay.refreshToMatch(team.getActiveCards());
         tempCardDisplay.refreshToMatch(team.getTempCards());
+        infinityStoneDisplay.refresh();
     }
 
     public void capture(Card card)
@@ -143,5 +144,10 @@ public class TeamDisplayNodeController {
     public void toggleCaptain(Card card) {
         card.setCaptain(!card.isCaptain());
         update(card);
+    }
+
+    public void makeCardFreeAgent(Card card) {
+        team.makeCardFreeAgent(card);
+        refresh();
     }
 }

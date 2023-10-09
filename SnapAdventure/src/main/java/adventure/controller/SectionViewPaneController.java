@@ -1,11 +1,16 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.AdventureConstants;
 import adventure.model.adventure.Adventure;
 import adventure.model.thing.AdvLocation;
+import adventure.model.thing.AdvLocationList;
 import adventure.model.thing.Section;
 import adventure.view.node.AdvLocationControlNode;
+import adventure.view.node.BossControlNode;
+import adventure.view.node.HPDisplayNode;
 import adventure.view.pane.AdventureControlPane;
+import adventure.view.popup.AdvLocationSearchSelectDialog;
 import adventure.view.popup.CardChooserDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -25,6 +30,8 @@ import java.util.Optional;
 public class SectionViewPaneController extends AdvPaneController {
 
     @FXML
+    HPDisplayNode hpDisplay;
+    @FXML
     StackPane stationedDisplayBox;
     @FXML
     StackPane pickupDisplayBox;
@@ -33,9 +40,11 @@ public class SectionViewPaneController extends AdvPaneController {
     @FXML
     AdvLocationControlNode sectionView;
     @FXML
-    Label effectText;
+    Label locationEffectText;
     @FXML
     Button skipButton;
+    @FXML
+    Button changeButton;
     @FXML
     Button completeButton;
     @FXML
@@ -53,9 +62,9 @@ public class SectionViewPaneController extends AdvPaneController {
         AdvLocation l = s.getLocation();
         sectionView.initialize(mainDatabase, s.getLocation(), mainDatabase.grabImage(s.getLocation()),
                 ViewSize.LARGE, s.isRevealed());
-        effectText.setText(l.getEffect());
-        effectText.setMouseTransparent(true);
-        effectText.setFocusTraversable(false);
+        locationEffectText.setText(l.getEffect());
+        locationEffectText.setMouseTransparent(true);
+        locationEffectText.setFocusTraversable(false);
         initializePickups(s);
         initializeStations(s);
         initializeButtonToolBar();
@@ -94,34 +103,56 @@ public class SectionViewPaneController extends AdvPaneController {
         buttonToolBar.initialize(controlPane);
     }
 
+    @FXML
+    public void changeLocation()
+    {
+        AdvLocationSearchSelectDialog locationSearchSelectDialog = new AdvLocationSearchSelectDialog();
+        locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()));
+        Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
+        if(location.isPresent()) {
+            AdvLocation newLoc = location.get();
+            adventure.updateSection(newLoc, section.getSectionNum());
+            sectionView.update(newLoc);
+            locationEffectText.setText(newLoc.getEffect());
+        }
+        controlPane.refreshToMatch();
+    }
+
+    @FXML
     public void randomize()
     {
         adventure.randomizeSection(section);
         sectionView.update(section.getLocation());
-        effectText.setText(section.getEffect());
+        locationEffectText.setText(section.getEffect());
         controlPane.refreshToMatch();
     }
 
+    @FXML
     public void completeSection()
     {
         section.complete();
+        adventure.collectPickups(section);
         controlPane.completeCurrentSection();
         changeScene(controlPane);
     }
 
+    @FXML
     public void skipSection()
     {
         controlPane.skipSection(section);
         changeScene(controlPane);
     }
 
+    @FXML
     public void stationCard()
     {
-        CardChooserDialog chooserDialog = new CardChooserDialog();
-        chooserDialog.initialize(mainDatabase, adventure.getActiveCards(), TargetType.CARD);
-        Optional<Card> cardSelect = chooserDialog.showAndWait();
-        cardSelect.ifPresent(card -> adventure.stationCard(section, card));
-        initializeStations(section);
-        controlPane.refreshToMatch();
+        if(section.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
+            CardChooserDialog chooserDialog = new CardChooserDialog();
+            chooserDialog.initialize(mainDatabase, adventure.getActiveCards(), TargetType.CARD);
+            Optional<Card> cardSelect = chooserDialog.showAndWait();
+            cardSelect.ifPresent(card -> adventure.stationCard(section, card));
+            initializeStations(section);
+            controlPane.refreshToMatch();
+        }
     }
 }

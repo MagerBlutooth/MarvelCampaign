@@ -21,6 +21,13 @@
     -fx-border-color: white;
 }
 
+#subtitle
+{
+-fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 48px;
+    -fx-text-fill: white;
+}
+
 #title
 {
     -fx-font-family: "Komika Slick";

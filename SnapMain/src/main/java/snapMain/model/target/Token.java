@@ -61,4 +61,5 @@ public class Token extends BaseObject implements Playable {
     public TargetType getTargetType() {
         return TargetType.TOKEN;
     }
+
 }

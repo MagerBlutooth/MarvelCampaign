@@ -4,6 +4,7 @@ import snapMain.model.helper.StringHelper;
 import snapMain.model.target.Playable;
 import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 
 public class InfinityStone implements SnapTarget, Playable {
 
@@ -14,6 +15,15 @@ public class InfinityStone implements SnapTarget, Playable {
     {
         tokenId = tId;
         stoneID = sId;
+    }
+
+    public static boolean checkToken(int id) {
+        for(InfinityStoneID sid: InfinityStoneID.values())
+        {
+           if(sid.getID() == id)
+               return true;
+        }
+        return false;
     }
 
     @Override
@@ -34,12 +44,11 @@ public class InfinityStone implements SnapTarget, Playable {
 
     @Override
     public void setEnabled(boolean enabled) {
-
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override

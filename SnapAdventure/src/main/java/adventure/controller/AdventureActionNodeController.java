@@ -14,26 +14,25 @@ public class AdventureActionNodeController {
     public void draftCard()
     {
         controlPane.draftCard();
-        controlPane.refreshToMatch();
     }
 
     @FXML
     public void generateCard()
     {
         controlPane.generateCard();
-        controlPane.refreshToMatch();
+
     }
 
     @FXML
     public void searchCard()
     {
-
+        controlPane.searchCard();
     }
 
     @FXML
-    public void generateBoss()
+    public void createClone()
     {
-
+        controlPane.createClone();
     }
 
     Adventure adventure;
