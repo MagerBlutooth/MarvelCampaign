@@ -1,6 +1,6 @@
 package snapMain.model.database;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class CampaignLoader {
     String loadFile;
 
     public CampaignLoader() {
-        loadFile = CampaignConstants.CAMPAIGN_FILE;
+        loadFile = SnapMainConstants.CAMPAIGN_FILE;
     }
 
     public List<String> loadCampaign() {

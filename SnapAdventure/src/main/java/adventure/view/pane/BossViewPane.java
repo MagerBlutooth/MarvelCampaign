@@ -2,7 +2,7 @@ package adventure.view.pane;
 
 import adventure.controller.BossViewPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.Boss;
+import adventure.model.thing.Enemy;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.view.pane.FullViewPane;
 
@@ -16,7 +16,7 @@ public class BossViewPane extends FullViewPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Boss b)
+    public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Enemy b)
     {
         controller.initialize(dB, cP, b);
     }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import static snapMain.model.constants.CampaignConstants.*;
+import static snapMain.model.constants.SnapMainConstants.*;
 
 public class Faction {
 

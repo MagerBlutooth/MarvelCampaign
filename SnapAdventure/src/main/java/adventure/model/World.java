@@ -2,9 +2,9 @@ package adventure.model;
 
 import adventure.model.thing.AdvCard;
 import adventure.model.thing.AdvLocation;
-import adventure.model.thing.Boss;
+import adventure.model.thing.Enemy;
 import adventure.model.thing.Section;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.target.TargetType;
 
@@ -19,25 +19,28 @@ public class World implements Cloneable{
     Section section2;
     Section section3;
     Section section4;
-    Boss boss;
+    Enemy boss;
     AdventureDatabase database;
     int worldNum;
+    WorldBonusCalculator bonusCalculator;
+    boolean bossRevealed;
 
     public World(AdventureDatabase db)
     {
         database = db;
+        bonusCalculator = new WorldBonusCalculator();
     }
 
     public World(AdventureDatabase db, List<AdvLocation> locations, AdvCard b, int wNum)
     {
         database = db;
+        bonusCalculator = new WorldBonusCalculator();
         worldNum = wNum;
-        PlayableDatabase pD = db.getCardsAndTokens();
-        section1 = new Section(1, locations.get(0), db);
-        section2 = new Section(2, locations.get(1), db);
-        section3 = new Section(3, locations.get(2), db);
-        section4 = new Section(4, locations.get(3), db);
-        boss = new Boss(b, getWorldBonus());
+        section1 = new Section(1, locations.get(0), db, new Enemy(worldNum));
+        section2 = new Section(2, locations.get(1), db, new Enemy(worldNum));
+        section3 = new Section(3, locations.get(2), db, new Enemy(worldNum));
+        section4 = new Section(4, locations.get(3), db, new Enemy(worldNum));
+        boss = new Enemy(b, getWorldBonus());
         section1.reveal();
     }
 
@@ -48,22 +51,23 @@ public class World implements Cloneable{
         section3 = world.section3;
         section4 = world.section4;
         boss = world.boss;
+        bonusCalculator = new WorldBonusCalculator();
     }
 
     public String toSaveString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(worldNum);
-        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
-        stringBuilder.append(section1.toSaveString());
-        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
-        stringBuilder.append(section2.toSaveString());
-        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
-        stringBuilder.append(section3.toSaveString());
-        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
-        stringBuilder.append(section4.toSaveString());
-        stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
-        stringBuilder.append(boss.toSaveString());
-        String result = stringBuilder.toString();
+        String result = worldNum +
+                SnapMainConstants.CATEGORY_SEPARATOR +
+                section1.toSaveString() +
+                SnapMainConstants.CATEGORY_SEPARATOR +
+                section2.toSaveString() +
+                SnapMainConstants.CATEGORY_SEPARATOR +
+                section3.toSaveString() +
+                SnapMainConstants.CATEGORY_SEPARATOR +
+                section4.toSaveString() +
+                SnapMainConstants.CATEGORY_SEPARATOR +
+                boss.toSaveString() +
+                SnapMainConstants.CATEGORY_SEPARATOR +
+                bossRevealed;
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
@@ -72,18 +76,20 @@ public class World implements Cloneable{
         String decodedString = new String(decodedBytes);
         if(decodedString.isBlank())
             return;
-        String[] stringList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
+        String[] stringList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
         worldNum = Integer.parseInt(stringList[0]);
-        section1 = new Section(1, database);
+        int worldBonus = bonusCalculator.calculateMook(worldNum);
+        section1 = new Section(1, database, new Enemy(worldBonus));
         section1.fromSaveString(stringList[1].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section2 = new Section(2, database);
+        section2 = new Section(2, database, new Enemy(worldBonus));
         section2.fromSaveString(stringList[2].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section3 = new Section(3, database);
+        section3 = new Section(3, database, new Enemy(worldBonus));
         section3.fromSaveString(stringList[3].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section4 = new Section(4, database);
+        section4 = new Section(4, database, new Enemy(worldBonus));
         section4.fromSaveString(stringList[4].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        boss = new Boss();
-        boss.fromSaveString(stringList[5].trim(), dB.lookupDatabase(TargetType.ADV_CARD));
+        boss = new Enemy();
+        boss.fromSaveString(stringList[5].trim(), dB);
+        bossRevealed = Boolean.parseBoolean(stringList[6]);
     }
 
     @Override
@@ -114,7 +120,7 @@ public class World implements Cloneable{
         return section4;
     }
 
-    public Boss getBoss() {
+    public Enemy getBoss() {
         return boss;
     }
 
@@ -142,11 +148,6 @@ public class World implements Cloneable{
     {
         Section s = getSection(sectionNum);
         s.complete();
-    }
-
-    public void revealBoss()
-    {
-        boss.reveal();
     }
 
     public void revealNextSection(int currentNum) {
@@ -207,5 +208,13 @@ public class World implements Cloneable{
             return 3;
         }
         return 5;
+    }
+
+    public void revealBoss() {
+        bossRevealed = true;
+    }
+
+    public boolean isBossRevealed() {
+        return bossRevealed;
     }
 }

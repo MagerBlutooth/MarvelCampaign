@@ -5,17 +5,22 @@ import adventure.model.AdventureConstants;
 import adventure.model.adventure.Adventure;
 import adventure.model.thing.AdvLocation;
 import adventure.model.thing.AdvLocationList;
+import adventure.model.thing.Enemy;
 import adventure.model.thing.Section;
+import adventure.view.AdvTooltip;
 import adventure.view.node.AdvLocationControlNode;
-import adventure.view.node.BossControlNode;
+import adventure.view.node.EnemyControlNode;
 import adventure.view.node.HPDisplayNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.AdvLocationSearchSelectDialog;
 import adventure.view.popup.CardChooserDialog;
+import adventure.view.popup.HPDialog;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.Card;
@@ -30,6 +35,10 @@ import java.util.Optional;
 public class SectionViewPaneController extends AdvPaneController {
 
     @FXML
+    Label enemyEffectText;
+    @FXML
+    EnemyControlNode enemyView;
+    @FXML
     HPDisplayNode hpDisplay;
     @FXML
     StackPane stationedDisplayBox;
@@ -41,6 +50,7 @@ public class SectionViewPaneController extends AdvPaneController {
     AdvLocationControlNode sectionView;
     @FXML
     Label locationEffectText;
+
     @FXML
     Button skipButton;
     @FXML
@@ -49,48 +59,69 @@ public class SectionViewPaneController extends AdvPaneController {
     Button completeButton;
     @FXML
     Button randomizeButton;
+    @FXML
+    Button stationButton;
+
     AdventureControlPane controlPane;
     Section section;
     Adventure adventure;
     GridDisplayNode<Card> stationedDisplay;
+    Enemy enemy;
 
     public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Section s) {
         mainDatabase = dB;
         controlPane = cP;
         section = s;
+        enemy = s.getEnemy();
         adventure = cP.getAdventure();
         AdvLocation l = s.getLocation();
         sectionView.initialize(mainDatabase, s.getLocation(), mainDatabase.grabImage(s.getLocation()),
                 ViewSize.LARGE, s.isRevealed());
         locationEffectText.setText(l.getEffect());
-        locationEffectText.setMouseTransparent(true);
-        locationEffectText.setFocusTraversable(false);
+        enemyEffectText.setText(enemy.getEffect());
+        enemyView.initialize(mainDatabase, enemy, mainDatabase.grabImage(enemy.getSubject()),
+                ViewSize.MEDIUM, false);
+        hpDisplay.initialize(enemy);
+        completeButton.disableProperty().bind(Bindings.lessThan(0,hpDisplay.getHPProperty()));
         initializePickups(s);
         initializeStations(s);
         initializeButtonToolBar();
+        initializeToolTips();
+    }
 
+    private void initializeToolTips() {
+        initializeButtonTooltip(skipButton);
+        initializeButtonTooltip(completeButton);
+        initializeButtonTooltip(changeButton);
+        initializeButtonTooltip(randomizeButton);
+        initializeButtonTooltip(stationButton);
+    }
+
+    private void initializeButtonTooltip(Button b) {
+        AdvTooltip tooltip = (AdvTooltip) b.getTooltip();
+        tooltip.initialize(b);
     }
 
     private void initializeStations(Section s) {
-        if(s.hasStationedCards()) {
-            stationedDisplay = new GridDisplayNode<>();
+        stationedDisplay = new GridDisplayNode<>();
             BaseGridActionController<Card> gridActionController = new BaseGridActionController<>();
             gridActionController.initialize(mainDatabase);
              stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD_OR_TOKEN, gridActionController,
                     ViewSize.TINY, false);
+             stationedDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+             stationedDisplay.setMinHeight(200);
             stationedDisplayBox.getChildren().add(stationedDisplay);
-        }
     }
 
     private void initializePickups(Section s) {
-        if(s.hasPickups()) {
             GridDisplayNode<Playable> pickupDisplay = new GridDisplayNode<>();
             BaseGridActionController<Playable> gridActionController = new BaseGridActionController<>();
             gridActionController.initialize(mainDatabase);
             pickupDisplay.initialize(s.getPickups(), TargetType.CARD_OR_TOKEN, gridActionController,
                     ViewSize.TINY, false);
+            pickupDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            pickupDisplay.setMinHeight(200);
             pickupDisplayBox.getChildren().add(pickupDisplay);
-        }
     }
 
     @Override
@@ -141,6 +172,16 @@ public class SectionViewPaneController extends AdvPaneController {
     {
         controlPane.skipSection(section);
         changeScene(controlPane);
+    }
+
+    @FXML
+    public void changeHP()
+    {
+        HPDialog dialog = new HPDialog();
+        dialog.initialize(enemy.getCurrentHP());
+        Optional<Integer> newHP = dialog.showAndWait();
+        newHP.ifPresent(integer -> enemy.setCurrentHP(integer));
+        hpDisplay.update();
     }
 
     @FXML

@@ -11,7 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.helper.DeckCodeConverter;
 import snapMain.model.target.Card;
@@ -77,7 +77,7 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
 
     private void initializeDateChoice() {
         monthBox.setItems(FXCollections.observableArrayList(SnapMonth.values()));
-        for(int i = CampaignConstants.STARTING_YEAR; i <= Calendar.getInstance().get(Calendar.YEAR); i++)
+        for(int i = SnapMainConstants.STARTING_YEAR; i <= Calendar.getInstance().get(Calendar.YEAR); i++)
             yearBox.getItems().add(i);
         monthBox.setValue(hallOfFameEntry.getMonth());
         yearBox.setValue(hallOfFameEntry.getYear());

@@ -2,7 +2,7 @@ package snapMain.model.constants;
 
 import javafx.scene.paint.Color;
 
-public class CampaignConstants {
+public class SnapMainConstants {
 
     public static final String CARD_FILE = "data/cardList.csv";
     public static final String LOCATION_FILE = "data/locationList.csv";
@@ -34,6 +34,9 @@ public class CampaignConstants {
     public static final int MAX_STATIONED_AGENTS = 4;
     public static final Color WOUND_COLOR = Color.CRIMSON;
     public static final int NO_ICON_ID = 10000;
+
+    public static final int MOOK_ICON_ID = 20000;
+    public static final int RUINS_ICON_ID = 20000;
     public static final int SHIELD_MEDBAY_ID = 100000;
     public static final int HYDRA_MEDBAY_ID = 100001;
     public static final int STARTING_YEAR = 2022;

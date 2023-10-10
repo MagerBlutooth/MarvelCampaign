@@ -15,5 +15,7 @@ public class AdventureConstants {
     public static final String PROFILE_2 = "profiles/adventureProfile2.txt";
     public static final String PROFILE_3 = "profiles/adventureProfile3.txt";
 
+    public static final int MOOK_BASE_HP = 1;
+    public static final int BOSS_BASE_HP = 3;
 
 }

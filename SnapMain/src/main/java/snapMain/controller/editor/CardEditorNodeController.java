@@ -11,7 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.ImageView;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardAttribute;
 import snapMain.view.grabber.ImageGrabber;
@@ -78,7 +78,7 @@ public class CardEditorNodeController extends BasicNodeController {
 
     private void setCostValues() {
         List<Integer> costOptions = new ArrayList<>();
-        for(int i = CampaignConstants.MIN_COST; i <= CampaignConstants.MAX_COST; i++)
+        for(int i = SnapMainConstants.MIN_COST; i <= SnapMainConstants.MAX_COST; i++)
         {
             costOptions.add(i);
         }
@@ -89,7 +89,7 @@ public class CardEditorNodeController extends BasicNodeController {
     private void setPowerValues()
     {
         List<Integer> powerOptions = new ArrayList<>();
-        for(int i = CampaignConstants.MIN_POWER; i <= CampaignConstants.MAX_POWER; i++)
+        for(int i = SnapMainConstants.MIN_POWER; i <= SnapMainConstants.MAX_POWER; i++)
         {
             powerOptions.add(i);
         }
@@ -100,7 +100,7 @@ public class CardEditorNodeController extends BasicNodeController {
     private void setPoolValues()
     {
         List<Integer> poolOptions = new ArrayList<>();
-        for(int i = CampaignConstants.MIN_POOL; i <= CampaignConstants.MAX_POOL; i++)
+        for(int i = SnapMainConstants.MIN_POOL; i <= SnapMainConstants.MAX_POOL; i++)
         {
             poolOptions.add(i);
         }

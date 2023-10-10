@@ -14,8 +14,8 @@ import records.view.fxml.FXMLRecordGrabber;
 
 import java.util.List;
 
-import static snapMain.model.constants.CampaignConstants.BASIC_COST_MAX;
-import static snapMain.model.constants.CampaignConstants.BASIC_COST_MIN;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MAX;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MIN;
 
 public class TopDisplayEntry extends StackPane {
     @FXML

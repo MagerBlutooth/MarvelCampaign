@@ -1,6 +1,6 @@
 package snapMain.model.target;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -55,8 +55,8 @@ public class Card extends EffectBaseObject implements Playable {
         StringBuilder attributeStrings = new StringBuilder();
         for(Map.Entry<CardAttribute, Boolean>entrySet : cardAttributes.entrySet())
         {
-            attributeStrings.append(entrySet.getKey()).append(CampaignConstants.STRING_SEPARATOR).append(entrySet.getValue());
-            attributeStrings.append(CampaignConstants.CATEGORY_SEPARATOR);
+            attributeStrings.append(entrySet.getKey()).append(SnapMainConstants.STRING_SEPARATOR).append(entrySet.getValue());
+            attributeStrings.append(SnapMainConstants.CATEGORY_SEPARATOR);
         }
         attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
         return new String[]{ getID()+"", getName(), getCost()+"", getPower()+"", getPool()+"", getEffect(), String.valueOf(isEnabled()), attributeStrings.toString(), String.valueOf(isWounded()), String.valueOf(isCaptain())};
@@ -72,10 +72,10 @@ public class Card extends EffectBaseObject implements Playable {
         effect = mInfo[5];
         enabled = Boolean.parseBoolean(mInfo[6]);
         initializeCardAttributes();
-        String[] attributeString = mInfo[7].split(CampaignConstants.CATEGORY_SEPARATOR);
+        String[] attributeString = mInfo[7].split(SnapMainConstants.CATEGORY_SEPARATOR);
         for(String attributeEntry: attributeString)
         {
-            String[] attribute = attributeEntry.split(CampaignConstants.STRING_SEPARATOR);
+            String[] attribute = attributeEntry.split(SnapMainConstants.STRING_SEPARATOR);
             cardAttributes.put(CardAttribute.parseString(attribute[0]), Boolean.parseBoolean(attribute[1]));
         }
         if(mInfo.length > 8) {

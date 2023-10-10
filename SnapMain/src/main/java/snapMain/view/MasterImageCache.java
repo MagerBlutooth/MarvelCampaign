@@ -10,7 +10,7 @@ import snapMain.view.grabber.ThingImageGrabber;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static snapMain.model.constants.CampaignConstants.NO_ICON_ID;
+import static snapMain.model.constants.SnapMainConstants.*;
 
 public class MasterImageCache {
 
@@ -40,6 +40,7 @@ public class MasterImageCache {
             tokenImageCache.put(t.getID(), tokenImageGrabber.grabImage(t.getID()));
         }
         tokenImageCache.put(NO_ICON_ID, tokenImageGrabber.grabImage(NO_ICON_ID));
+        tokenImageCache.put(MOOK_ICON_ID, tokenImageGrabber.grabImage(MOOK_ICON_ID));
     }
 
     private void setLocationCache() {
@@ -48,6 +49,8 @@ public class MasterImageCache {
             locationImageCache.put(l.getID(), locationImageGrabber.grabImage(l.getID()));
         }
         locationImageCache.put(NO_ICON_ID, locationImageGrabber.grabImage(NO_ICON_ID));
+        locationImageCache.put(RUINS_ICON_ID, locationImageGrabber.grabImage(RUINS_ICON_ID));
+
     }
 
     private void setCardCache() {

@@ -17,9 +17,9 @@ public class WorldDisplayNode extends StackPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase d, World w, int worldNum, AdventureControlPane aPane)
+    public void initialize(AdvMainDatabase d, World w, AdventureControlPane aPane)
     {
-        controller.initialize(d, w, worldNum, aPane);
+        controller.initialize(d, w, aPane);
     }
 
     public void refresh(World w) {

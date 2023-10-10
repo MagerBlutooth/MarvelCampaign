@@ -43,7 +43,7 @@ public class AdventureControlPaneController extends AdvPaneController {
         adventureDatabase = new AdventureDatabase(database);
         adventure = a;
         teamDisplayNode.initialize(database, a.getTeam(), a);
-        worldDisplayNode.initialize(database,a.getCurrentWorld(), adventure.getCurrentWorldNum(), adventureControlPane);
+        worldDisplayNode.initialize(database,a.getCurrentWorld(), adventureControlPane);
         adventureActionNode.initialize(database, adventure, adventureControlPane);
         adventure.saveAdventure();
     }

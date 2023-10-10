@@ -1,8 +1,7 @@
 package adventure.model.thing;
 
-import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
@@ -19,15 +18,23 @@ public class Section implements Cloneable, SnapTarget {
     boolean revealed;
     boolean completed;
     int sectionNum;
+    Enemy enemy;
 
-    public Section(int num, AdventureDatabase database){
+    public Section(int num, PlayableDatabase ct, Enemy e)
+    {
         sectionNum = num;
         stationedCards = new CardList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
-        cardsAndTokens = database.getCardsAndTokens();
+        cardsAndTokens = ct;
+        enemy = e;
     }
 
-    public Section(int num, AdvLocation l, AdventureDatabase database)
+    public Section(int num, AdventureDatabase database, Enemy e){
+        this(num, database.getCardsAndTokens(), e);
+    }
+
+
+    public Section(int num, AdvLocation l, AdventureDatabase database, Enemy e)
     {
         sectionNum = num;
         advLocation = l;
@@ -47,16 +54,18 @@ public class Section implements Cloneable, SnapTarget {
         revealed = loc.revealed;
         completed = loc.completed;
         cardDatabase = loc.cardDatabase;
+        enemy = loc.enemy;
     }
 
+
     public String toSaveString() {
-        String result = sectionNum + CampaignConstants.SUBCATEGORY_SEPARATOR +
+        String result = sectionNum + SnapMainConstants.SUBCATEGORY_SEPARATOR +
                 advLocation.getID() +
-                CampaignConstants.SUBCATEGORY_SEPARATOR +
+                SnapMainConstants.SUBCATEGORY_SEPARATOR +
                 stationedCards.toSaveString() +
-                CampaignConstants.SUBCATEGORY_SEPARATOR +
-                pickups.toSaveString() + CampaignConstants.SUBCATEGORY_SEPARATOR +
-                revealed + CampaignConstants.SUBCATEGORY_SEPARATOR +
+                SnapMainConstants.SUBCATEGORY_SEPARATOR +
+                pickups.toSaveString() + SnapMainConstants.SUBCATEGORY_SEPARATOR +
+                revealed + SnapMainConstants.SUBCATEGORY_SEPARATOR +
                 completed;
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
@@ -66,7 +75,7 @@ public class Section implements Cloneable, SnapTarget {
         String decodedString = new String(decodedBytes);
         if(decodedString.isBlank())
             return;
-        String[] stringList = decodedString.split(CampaignConstants.SUBCATEGORY_SEPARATOR);
+        String[] stringList = decodedString.split(SnapMainConstants.SUBCATEGORY_SEPARATOR);
         sectionNum = Integer.parseInt(stringList[0]);
         advLocation = locations.lookup(Integer.parseInt(stringList[1]));
         stationedCards.fromSaveString(stringList[2], cardDatabase);
@@ -175,4 +184,7 @@ public class Section implements Cloneable, SnapTarget {
         return !getPickups().isEmpty();
     }
 
+    public Enemy getEnemy() {
+        return enemy;
+    }
 }

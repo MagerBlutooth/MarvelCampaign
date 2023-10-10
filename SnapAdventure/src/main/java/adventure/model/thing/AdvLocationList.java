@@ -2,7 +2,7 @@ package adventure.model.thing;
 
 import adventure.model.sorter.SectionSortMode;
 import adventure.model.sorter.SectionSorter;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.TargetList;
 
@@ -45,7 +45,7 @@ public class AdvLocationList extends TargetList<AdvLocation> {
         for(AdvLocation b: getLocations())
         {
             stringBuilder.append(b.getID());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
@@ -53,7 +53,7 @@ public class AdvLocationList extends TargetList<AdvLocation> {
 
     public void fromCSVSaveString(String SectionString, TargetDatabase<AdvLocation> database)
     {
-        String[] SectionList = SectionString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] SectionList = SectionString.split(SnapMainConstants.STRING_SEPARATOR);
 
         for(String c: SectionList)
         {
@@ -67,7 +67,7 @@ public class AdvLocationList extends TargetList<AdvLocation> {
         for(AdvLocation c: getLocations())
         {
             stringBuilder.append(c.getID());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         String result = stringBuilder.toString();
@@ -78,7 +78,7 @@ public class AdvLocationList extends TargetList<AdvLocation> {
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
-        String[] cardsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] cardsList = decodedString.split(SnapMainConstants.STRING_SEPARATOR);
 
         for(String c: cardsList)
         {

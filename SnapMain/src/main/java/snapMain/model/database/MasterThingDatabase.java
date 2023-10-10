@@ -3,8 +3,8 @@ package snapMain.model.database;
 import snapMain.model.factory.ThingFactory;
 import snapMain.model.target.*;
 
-import static snapMain.model.constants.CampaignConstants.HYDRA_MEDBAY_ID;
-import static snapMain.model.constants.CampaignConstants.SHIELD_MEDBAY_ID;
+import static snapMain.model.constants.SnapMainConstants.HYDRA_MEDBAY_ID;
+import static snapMain.model.constants.SnapMainConstants.SHIELD_MEDBAY_ID;
 
 public class MasterThingDatabase {
 

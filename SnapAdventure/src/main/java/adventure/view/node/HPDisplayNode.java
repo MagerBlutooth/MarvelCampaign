@@ -1,8 +1,9 @@
 package adventure.view.node;
 
 import adventure.controller.HPDisplayNodeController;
-import adventure.model.thing.Boss;
+import adventure.model.thing.Enemy;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.layout.StackPane;
 
 public class HPDisplayNode extends StackPane {
@@ -15,12 +16,17 @@ public class HPDisplayNode extends StackPane {
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(Boss b)
+    public void initialize(Enemy b)
     {
         controller.initialize(b);
     }
 
     public void update() {
         controller.refresh();
+    }
+
+    public IntegerProperty getHPProperty()
+    {
+        return controller.getHPProperty();
     }
 }

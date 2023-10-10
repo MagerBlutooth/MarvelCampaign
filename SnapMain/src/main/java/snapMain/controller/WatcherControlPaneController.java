@@ -15,7 +15,7 @@ import snapMain.view.pane.MainMenuPane;
 
 import java.util.ArrayList;
 
-import static snapMain.model.constants.CampaignConstants.STRING_SEPARATOR;
+import static snapMain.model.constants.SnapMainConstants.STRING_SEPARATOR;
 
 public class WatcherControlPaneController extends ButtonToolBarPaneController {
 

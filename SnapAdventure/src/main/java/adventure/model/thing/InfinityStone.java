@@ -76,4 +76,9 @@ public class InfinityStone implements SnapTarget, Playable {
         setID(Integer.parseInt(mInfo[0]));
         stoneID = InfinityStoneID.valueOf(mInfo[1]);
     }
+
+    @Override
+    public String getEffect() {
+        return stoneID.getEffect();
+    }
 }

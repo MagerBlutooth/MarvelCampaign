@@ -1,13 +1,12 @@
 package snapMain.controller;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 import snapMain.view.MasterImageCache;
 import snapMain.view.IconImage;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +28,12 @@ public class MainDatabase {
 
     public IconImage grabBlankImage(TargetType tt)
     {
-        return imageCache.getImage(CampaignConstants.NO_ICON_ID, tt);
+        return imageCache.getImage(SnapMainConstants.NO_ICON_ID, tt);
     }
 
     public void addToken(Token t, IconImage i) {
         masterThingDatabase.addToken(t);
         imageCache.cacheToken(t, i);
-
     }
 
     public void addCard(Card c, IconImage i) {

@@ -1,10 +1,10 @@
 package snapMain.model.database;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 
 public class LocationLoader extends Loader{
 
     public LocationLoader() {
-        super(CampaignConstants.LOCATION_FILE);
+        super(SnapMainConstants.LOCATION_FILE);
     }
 }

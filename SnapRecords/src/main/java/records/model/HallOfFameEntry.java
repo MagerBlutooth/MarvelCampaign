@@ -1,6 +1,6 @@
 package records.model;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.helper.ListHelper;
 import snapMain.model.target.BaseObject;
@@ -43,7 +43,7 @@ public class HallOfFameEntry extends BaseObject {
         cards = new CardList(c);
         cardDatabase = db;
         month = SnapMonth.JANUARY;
-        year = CampaignConstants.STARTING_YEAR;
+        year = SnapMainConstants.STARTING_YEAR;
         captain = cpt;
     }
 

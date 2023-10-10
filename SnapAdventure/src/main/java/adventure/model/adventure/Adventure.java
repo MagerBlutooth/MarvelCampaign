@@ -2,7 +2,7 @@ package adventure.model.adventure;
 
 import adventure.model.*;
 import adventure.model.thing.*;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.*;
 
 import java.util.ArrayList;
@@ -21,7 +21,6 @@ public class Adventure {
     AdvCardList availableBosses;
     AdvLocationList availableLocations;
     WorldList worlds;
-    String adventureNotes;
     int currentWorldNum;
     int currentSectionNum;
     boolean newProfileCheck;
@@ -32,7 +31,6 @@ public class Adventure {
         profileName = proName;
         profileFile = proFile;
         adventureDatabase = database;
-        adventureNotes = "";
         newProfileCheck = false;
         infinityStones = new ArrayList<>();
         loadAdventure(profileFile, mainDB);
@@ -43,7 +41,6 @@ public class Adventure {
     {
         profileFile = proFile;
         adventureDatabase = database;
-        adventureNotes = "";
         newProfileCheck = false;
         infinityStones = new ArrayList<>();
         loadAdventure(proFile, mainDB);
@@ -59,7 +56,6 @@ public class Adventure {
         adventureString.add(availableBosses.toSaveString());
         adventureString.add(availableLocations.toSaveString());
         adventureString.add(worlds.toSaveString());
-        adventureString.add("\"" +adventureNotes + "\"");
         return adventureString;
     }
 
@@ -67,7 +63,7 @@ public class Adventure {
     {
         if(stringToConvert.isEmpty())
         {
-            generateAdventure(mainDB);
+            generateAdventure();
             return;
         }
         //Initialize base objects
@@ -76,7 +72,7 @@ public class Adventure {
         availableLocations = new AdvLocationList(new ArrayList<>());
         worlds = new WorldList(new ArrayList<>());
 
-        String[] splitString = stringToConvert.get(0).split(CampaignConstants.CSV_SEPARATOR);
+        String[] splitString = stringToConvert.get(0).split(SnapMainConstants.CSV_SEPARATOR);
         profileName = splitString[0];
         currentWorldNum = Integer.parseInt(splitString[1]);
         currentSectionNum = Integer.parseInt(splitString[2]);
@@ -84,7 +80,6 @@ public class Adventure {
         availableBosses.fromSaveString(splitString[4], adventureDatabase.getBosses());
         availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
         worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
-        adventureNotes = splitString[7];
 
     }
 
@@ -101,12 +96,7 @@ public class Adventure {
         convertFromString(db, adventureString);
     }
 
-    public void editNotes(String n)
-    {
-        adventureNotes = n;
-    }
-
-    private void generateAdventure(AdvMainDatabase database) {
+    private void generateAdventure() {
         availableBosses = new AdvCardList(adventureDatabase.getBosses());
         availableLocations = new AdvLocationList(adventureDatabase.getSections());
         team = new Team(adventureDatabase);

@@ -1,6 +1,6 @@
 package snapMain.model.target;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 
 public abstract class BaseObject implements Cloneable, SnapTarget {
 
@@ -11,7 +11,7 @@ public abstract class BaseObject implements Cloneable, SnapTarget {
     public BaseObject()
     {
         enabled = true;
-        id = CampaignConstants.NO_ICON_ID;
+        id = SnapMainConstants.NO_ICON_ID;
     }
 
     public BaseObject(BaseObject t)

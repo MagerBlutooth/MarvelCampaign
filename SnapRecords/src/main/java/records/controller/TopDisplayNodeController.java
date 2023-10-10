@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 import javafx.util.Pair;
 import snapMain.model.target.Card;
-import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import records.model.HallOfFameEntry;
 import records.view.TopDisplayEntry;
@@ -14,8 +13,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import static snapMain.model.constants.CampaignConstants.BASIC_COST_MAX;
-import static snapMain.model.constants.CampaignConstants.BASIC_COST_MIN;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MAX;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MIN;
 
 public class TopDisplayNodeController {
 

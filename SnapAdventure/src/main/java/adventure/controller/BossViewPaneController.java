@@ -3,8 +3,8 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.thing.AdvCard;
-import adventure.model.thing.Boss;
-import adventure.view.node.BossControlNode;
+import adventure.model.thing.Enemy;
+import adventure.view.node.EnemyControlNode;
 import adventure.view.node.HPDisplayNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.HPDialog;
@@ -23,20 +23,19 @@ public class BossViewPaneController extends AdvPaneController {
     @FXML
     ButtonToolBar buttonToolBar;
     @FXML
-    BossControlNode bossView;
+    EnemyControlNode bossView;
     @FXML
     Label effectText;
     AdvMainDatabase database;
     AdventureControlPane controlPane;
-    Boss boss;
+    Enemy boss;
     Adventure adventure;
-    public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Boss b) {
+    public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Enemy b) {
         database = dB;
         controlPane = cP;
         boss = b;
         adventure = cP.getAdventure();
-        AdvCard card = b.getCard();
-        bossView.initialize(database, b, database.grabImage(card), ViewSize.LARGE, b.isRevealed());
+        bossView.initialize(database, b, database.grabImage(boss.getSubject()), ViewSize.LARGE, true);
         effectText.setText(b.getEffect());
         effectText.setMouseTransparent(true);
         effectText.setFocusTraversable(false);

@@ -3,7 +3,7 @@ package snapMain.model.target;
 import snapMain.model.database.FactionLabel;
 import snapMain.model.helper.Randomizer;
 import javafx.scene.paint.Color;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.CampaignDatabase;
 
 import java.util.ArrayList;
@@ -124,14 +124,14 @@ public class Campaign {
     public Color getColor(BaseObject t) {
         if(shield.ownsThing(t))
         {
-            return CampaignConstants.SHIELD_COLOR;
+            return SnapMainConstants.SHIELD_COLOR;
         }
         else if(hydra.ownsThing(t))
         {
-            return CampaignConstants.HYDRA_COLOR;
+            return SnapMainConstants.HYDRA_COLOR;
         }
         else
-            return CampaignConstants.FREE_COLOR;
+            return SnapMainConstants.FREE_COLOR;
     }
 
     public List<Card> randomMercs() {

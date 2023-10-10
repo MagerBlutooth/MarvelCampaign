@@ -1,12 +1,11 @@
 package adventure.controller;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.Callback;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardAttribute;
 import snapMain.model.target.CardList;
@@ -53,13 +52,13 @@ public class SelectionOptionDialogController {
     }
 
     private void initializeCostBox() {
-        for(int i = CampaignConstants.MIN_COST; i <= CampaignConstants.MAX_COST; i++)
+        for(int i = SnapMainConstants.MIN_COST; i <= SnapMainConstants.MAX_COST; i++)
         {
             minCostChoice.getItems().add(i);
             maxCostChoice.getItems().add(i);
         }
-        minCostChoice.setValue(CampaignConstants.MIN_COST);
-        maxCostChoice.setValue(CampaignConstants.MAX_COST);
+        minCostChoice.setValue(SnapMainConstants.MIN_COST);
+        maxCostChoice.setValue(SnapMainConstants.MAX_COST);
         minCostChoice.getSelectionModel().selectedIndexProperty().addListener((observableValue, old_val, new_val) -> {
             if (new_val.intValue() > maxCostChoice.getValue()) {
                 maxCostChoice.getSelectionModel().select((Integer)new_val);
@@ -74,13 +73,13 @@ public class SelectionOptionDialogController {
     }
 
     private void initializePowerBox() {
-        for(int i = CampaignConstants.MIN_POWER; i <= CampaignConstants.MAX_POWER; i++)
+        for(int i = SnapMainConstants.MIN_POWER; i <= SnapMainConstants.MAX_POWER; i++)
         {
             minPowerChoice.getItems().add(i);
             maxPowerChoice.getItems().add(i);
         }
-        minPowerChoice.setValue(CampaignConstants.MIN_POWER);
-        maxPowerChoice.setValue(CampaignConstants.MAX_POWER);
+        minPowerChoice.setValue(SnapMainConstants.MIN_POWER);
+        maxPowerChoice.setValue(SnapMainConstants.MAX_POWER);
         minPowerChoice.getSelectionModel().selectedIndexProperty().addListener((observableValue, old_val, new_val) -> {
             if (new_val.intValue() > maxPowerChoice.getValue()) {
                 maxPowerChoice.getSelectionModel().select((Integer)new_val);
@@ -95,13 +94,13 @@ public class SelectionOptionDialogController {
 
 
     private void initializePoolBox() {
-        for(int i = CampaignConstants.MIN_POOL; i <= CampaignConstants.MAX_POOL; i++)
+        for(int i = SnapMainConstants.MIN_POOL; i <= SnapMainConstants.MAX_POOL; i++)
         {
             minPoolChoice.getItems().add(i);
             maxPoolChoice.getItems().add(i);
         }
-        minPoolChoice.setValue(CampaignConstants.MIN_POOL);
-        maxPoolChoice.setValue(CampaignConstants.MAX_POOL);
+        minPoolChoice.setValue(SnapMainConstants.MIN_POOL);
+        maxPoolChoice.setValue(SnapMainConstants.MAX_POOL);
         minPoolChoice.getSelectionModel().selectedIndexProperty().addListener((observableValue, old_val, new_val) -> {
             if (new_val.intValue() > maxPoolChoice.getValue()) {
                 maxPoolChoice.getSelectionModel().select((Integer)new_val);

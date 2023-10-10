@@ -1,11 +1,11 @@
 package snapMain.model.database;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 
 public class TokenLoader extends Loader{
 
     public TokenLoader()
     {
-        super(CampaignConstants.TOKEN_FILE);
+        super(SnapMainConstants.TOKEN_FILE);
     }
 }

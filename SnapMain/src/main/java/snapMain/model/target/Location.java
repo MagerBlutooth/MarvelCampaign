@@ -1,6 +1,6 @@
 package snapMain.model.target;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 
 import java.util.ArrayList;
 
@@ -64,7 +64,7 @@ public class Location extends EffectBaseObject {
     }
 
     public boolean isFull() {
-        return getStationedAgents().size() >= CampaignConstants.MAX_STATIONED_AGENTS;
+        return getStationedAgents().size() >= SnapMainConstants.MAX_STATIONED_AGENTS;
     }
 
     public void removeStationedAgent(Card c) {

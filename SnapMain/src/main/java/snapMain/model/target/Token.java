@@ -30,6 +30,11 @@ public class Token extends BaseObject implements Playable {
     }
 
     @Override
+    public String getEffect() {
+        return "";
+    }
+
+    @Override
     public boolean hasAttribute(String att) {
         return false;
     }

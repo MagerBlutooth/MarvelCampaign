@@ -29,7 +29,7 @@ public class AdventureDatabase {
         tokens = masterThingDatabase.getEnabledTokens();
     }
 
-    public TargetDatabase<AdvCard> getBosses() {
+    public TargetDatabase<AdvCard>  getBosses() {
         return advCards;
     }
 

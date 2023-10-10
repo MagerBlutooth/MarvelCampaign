@@ -5,8 +5,8 @@ import snapMain.model.database.TargetDatabase;
 import java.util.ArrayList;
 import java.util.Base64;
 
-import static snapMain.model.constants.CampaignConstants.STRING_SEPARATOR;
-import static snapMain.model.constants.CampaignConstants.SUBCATEGORY_SEPARATOR;
+import static snapMain.model.constants.SnapMainConstants.STRING_SEPARATOR;
+import static snapMain.model.constants.SnapMainConstants.SUBCATEGORY_SEPARATOR;
 
 public class PlanningInfo {
 

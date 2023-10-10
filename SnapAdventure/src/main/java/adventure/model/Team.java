@@ -3,7 +3,7 @@ package adventure.model;
 import adventure.model.thing.InfinityStone;
 import adventure.model.thing.InfinityStoneID;
 import adventure.model.thing.Section;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
@@ -52,11 +52,11 @@ public class Team {
     }
 
     public String convertToString() {
-        String teamString =  activeCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                tempCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                freeAgentCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                capturedCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                miaCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
+        String teamString =  activeCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                tempCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                freeAgentCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                capturedCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                miaCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 eliminatedCards.toSaveString();
         return Base64.getEncoder().encodeToString(teamString.getBytes());
     }
@@ -64,7 +64,7 @@ public class Team {
     public void convertFromString(String teamString, TargetDatabase<Card> db) {
         byte[] decodedBytes = Base64.getDecoder().decode(teamString);
         String decodedString = new String(decodedBytes);
-        String[] teamList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
+        String[] teamList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
         activeCards.fromSaveString(teamList[0], db);
         tempCards.fromSaveString(teamList[1], db);
         freeAgentCards.fromSaveString(teamList[2], db);
