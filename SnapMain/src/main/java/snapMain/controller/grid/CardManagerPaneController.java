@@ -27,6 +27,12 @@ public class CardManagerPaneController extends ManagerPaneController<Card, MainD
         return cardManager.getScene();
     }
 
+    public void initialize(MainDatabase m, CardList c)
+    {
+        super.initialize(m);
+
+    }
+
     @Override
     public void initialize(MainDatabase m) {
         super.initialize(m);

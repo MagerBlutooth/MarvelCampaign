@@ -73,7 +73,7 @@ public class Team {
         eliminatedCards.fromSaveString(teamList[5], db);
     }
 
-    public TargetList<Card> getActiveCards() {
+    public CardList getActiveCards() {
         return activeCards;
     }
 
@@ -210,5 +210,14 @@ public class Team {
 
     public void gainInfinityStone(InfinityStone p) {
         infinityStones.add(p);
+    }
+
+    public Card getRandomCard() {
+        if(!activeCards.isEmpty()) {
+            List<Card> allCards = new ArrayList<>(activeCards.getThings());
+            Collections.shuffle(allCards);
+            return allCards.get(0);
+        }
+        return null;
     }
 }

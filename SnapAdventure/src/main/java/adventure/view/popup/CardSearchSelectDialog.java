@@ -1,6 +1,7 @@
 package adventure.view.popup;
 
-import adventure.controller.AdvCardSearchSelectDialogController;
+import adventure.controller.AdvSearchSelectDialogController;
+import adventure.controller.CardSearchSelectDialogController;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
@@ -10,13 +11,13 @@ import snapMain.controller.MainDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 
-public class AdventureCardSearchSelectDialog extends Dialog<Card> implements Choosable<Card>{
+public class CardSearchSelectDialog<T extends Card> extends Dialog<Card> implements Choosable<Card>{
 
-    AdvCardSearchSelectDialogController controller;
-    public AdventureCardSearchSelectDialog()
+    CardSearchSelectDialogController controller;
+    public CardSearchSelectDialog()
     {
         FXMLAdventureGrabber adventureGrabber = new FXMLAdventureGrabber();
-        adventureGrabber.grabFXML("advCardSearchSelectDialog.fxml", this.getDialogPane());
+        adventureGrabber.grabFXML("cardSearchSelectDialog.fxml", this.getDialogPane());
         controller = adventureGrabber.getController();
         initStyle(StageStyle.UNDECORATED);
         initModality(Modality.APPLICATION_MODAL);

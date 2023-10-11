@@ -20,7 +20,10 @@ import java.util.List;
 
 public class WorldDisplayNodeController extends AdvPaneController {
 
-    public EnemyControlNode enemyControlNode;
+    @FXML
+    EnemyControlNode enemyControlNode;
+    @FXML
+    Label bossEffectText;
     @FXML
     SectionControlNode section1Node;
     @FXML
@@ -48,6 +51,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         Section advLocation3 = w.getThirdSection();
         Section advLocation4 = w.getFourthSection();
         Enemy boss = w.getBoss();
+        bossEffectText.setText(boss.getEffect());
         section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation()),
                 ViewSize.MEDIUM, true);
         section2Node.initialize(d, advLocation2, d.grabImage(advLocation1.getLocation()),

@@ -35,6 +35,13 @@
     -fx-text-fill: white;
 }
 
+#info {
+    -fx-font-family: "Ubuntu";
+    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-font-size: 16px;
+}
+
 #smallButton
 {
     -fx-font-family: "Avengeance Heroic Avenger";

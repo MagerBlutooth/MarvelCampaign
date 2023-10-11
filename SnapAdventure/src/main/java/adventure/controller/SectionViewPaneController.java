@@ -14,6 +14,7 @@ import adventure.view.node.HPDisplayNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.AdvLocationSearchSelectDialog;
 import adventure.view.popup.CardChooserDialog;
+import adventure.view.popup.DeckConstructorDialog;
 import adventure.view.popup.HPDialog;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -86,20 +87,6 @@ public class SectionViewPaneController extends AdvPaneController {
         initializePickups(s);
         initializeStations(s);
         initializeButtonToolBar();
-        initializeToolTips();
-    }
-
-    private void initializeToolTips() {
-        initializeButtonTooltip(skipButton);
-        initializeButtonTooltip(completeButton);
-        initializeButtonTooltip(changeButton);
-        initializeButtonTooltip(randomizeButton);
-        initializeButtonTooltip(stationButton);
-    }
-
-    private void initializeButtonTooltip(Button b) {
-        AdvTooltip tooltip = (AdvTooltip) b.getTooltip();
-        tooltip.initialize(b);
     }
 
     private void initializeStations(Section s) {
@@ -195,5 +182,12 @@ public class SectionViewPaneController extends AdvPaneController {
             initializeStations(section);
             controlPane.refreshToMatch();
         }
+    }
+
+    @FXML
+    public void createDeck()
+    {
+        DeckConstructorDialog deckConstructorDialog = new DeckConstructorDialog();
+        deckConstructorDialog.initialize(mainDatabase, adventure.getTeam().getActiveCards());
     }
 }

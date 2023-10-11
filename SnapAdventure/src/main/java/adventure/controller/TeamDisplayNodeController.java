@@ -24,7 +24,8 @@ public class TeamDisplayNodeController {
     public Button eliminateButton;
     @FXML
     Button stationedButton;
-
+    @FXML
+    Button randomButton;
     TeamGridActionController cardController;
 
     Team team;
@@ -149,5 +150,17 @@ public class TeamDisplayNodeController {
     public void makeCardFreeAgent(Card card) {
         team.makeCardFreeAgent(card);
         refresh();
+    }
+
+    @FXML
+    public void showRandomCard()
+    {
+        CardDisplayPopup popup = new CardDisplayPopup(database, team.getRandomCard(), randomButton.localToScene(0.0,0.0));
+        popup.show();
+        popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                popup.hide();
+            }
+        });
     }
 }

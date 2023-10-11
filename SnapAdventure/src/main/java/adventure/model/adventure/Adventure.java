@@ -1,6 +1,7 @@
 package adventure.model.adventure;
 
 import adventure.model.*;
+import adventure.model.stats.CardStatMap;
 import adventure.model.thing.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.*;
@@ -24,6 +25,7 @@ public class Adventure {
     int currentWorldNum;
     int currentSectionNum;
     boolean newProfileCheck;
+    CardStatMap cardStatMap;
     List<InfinityStone> infinityStones;
     //Constructor for loading old profiles
     public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile, String proName)
@@ -34,6 +36,7 @@ public class Adventure {
         newProfileCheck = false;
         infinityStones = new ArrayList<>();
         loadAdventure(profileFile, mainDB);
+        cardStatMap = new CardStatMap(mainDB, team.getActiveCards());
     }
 
     //Constructor for creating new profiles
@@ -44,6 +47,7 @@ public class Adventure {
         newProfileCheck = false;
         infinityStones = new ArrayList<>();
         loadAdventure(proFile, mainDB);
+        cardStatMap = new CardStatMap(mainDB, team.getActiveCards());
     }
 
     public List<String> convertToString()
@@ -56,6 +60,7 @@ public class Adventure {
         adventureString.add(availableBosses.toSaveString());
         adventureString.add(availableLocations.toSaveString());
         adventureString.add(worlds.toSaveString());
+        adventureString.add(cardStatMap.toSaveString());
         return adventureString;
     }
 
@@ -72,14 +77,17 @@ public class Adventure {
         availableLocations = new AdvLocationList(new ArrayList<>());
         worlds = new WorldList(new ArrayList<>());
 
+
         String[] splitString = stringToConvert.get(0).split(SnapMainConstants.CSV_SEPARATOR);
         profileName = splitString[0];
         currentWorldNum = Integer.parseInt(splitString[1]);
         currentSectionNum = Integer.parseInt(splitString[2]);
         team.convertFromString(splitString[3], adventureDatabase.getCards());
+        cardStatMap = new CardStatMap(mainDB, adventureDatabase.getCardList());
         availableBosses.fromSaveString(splitString[4], adventureDatabase.getBosses());
         availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
         worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
+        cardStatMap.fromSaveString(splitString[7]);
 
     }
 

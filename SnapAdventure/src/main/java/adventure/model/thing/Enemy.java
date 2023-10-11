@@ -139,8 +139,4 @@ public class Enemy implements SnapTarget {
     public int getBaseHP() {
         return baseHP;
     }
-
-    public boolean hpDepleted() {
-        return currentHP <= 0;
-    }
 }

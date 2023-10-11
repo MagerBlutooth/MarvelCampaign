@@ -101,4 +101,15 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
         Collections.shuffle(randomList);
         return randomList.get(0);
     }
+
+    public TargetList<T> cloneNewCopy() {
+        try {
+            return (TargetList<T>) this.clone();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

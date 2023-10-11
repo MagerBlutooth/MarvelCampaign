@@ -43,6 +43,7 @@ public class Section implements Cloneable, SnapTarget {
         cardsAndTokens = database.getCardsAndTokens();
         cardDatabase = database.getCards();
         revealed = false;
+        enemy = e;
     }
 
     public Section(Section loc) {

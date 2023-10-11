@@ -25,7 +25,6 @@ public class EnemyControlNode extends ControlNode<Enemy> {
     public void createTooltip(String effect) {
         AdvTooltip myToolTip = new AdvTooltip();
         myToolTip.setText(effect);
-        myToolTip.initialize(this);
         Tooltip.install(this, myToolTip);
     }
 

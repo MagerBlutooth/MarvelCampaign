@@ -139,7 +139,7 @@ public class AdventureControlPaneController extends AdvPaneController {
     }
 
     public void searchFreeAgent() {
-        AdventureCardSearchSelectDialog cardSearchSelectDialog = new AdventureCardSearchSelectDialog();
+        CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
         Optional<Card> selection = cardSearchSelectDialog.showAndWait();
         if(selection.isPresent())
@@ -155,7 +155,7 @@ public class AdventureControlPaneController extends AdvPaneController {
     }
 
     public void createClone() {
-        AdventureCardSearchSelectDialog cardSearchSelectDialog = new AdventureCardSearchSelectDialog();
+        CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, adventureDatabase.getCardList());
         Optional<Card> selection = cardSearchSelectDialog.showAndWait();
         if(selection.isPresent())

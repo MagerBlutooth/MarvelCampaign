@@ -2,6 +2,7 @@ package snapMain.view.pane.manager;
 
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.CardManagerPaneController;
+import snapMain.model.target.CardList;
 import snapMain.view.fxml.FXMLMainGrabber;
 
 public class CardManagerPane extends ManagerPane {
@@ -18,6 +19,11 @@ public class CardManagerPane extends ManagerPane {
     public void initialize(MainDatabase database)
     {
         controller.initialize(database);
+    }
+
+    public void initialize(MainDatabase db, CardList cardlist)
+    {
+        controller.initialize(db, cardlist);
     }
 
 }

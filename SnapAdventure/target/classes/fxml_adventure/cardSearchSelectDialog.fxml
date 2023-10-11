@@ -8,7 +8,7 @@
 <fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
-         fx:controller="adventure.controller.AdvCardSearchSelectDialogController">
+         fx:controller="adventure.controller.CardSearchSelectDialogController">
     <content>
         <VBox alignment="CENTER">
             <StackPane fx:id="displayPane"/>

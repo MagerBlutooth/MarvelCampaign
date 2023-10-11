@@ -25,8 +25,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AdvTooltip extends Tooltip {
 
-    private final BooleanProperty isHoveringPrimary = new SimpleBooleanProperty(false);
-
     public AdvTooltip()
     {
         setShowDelay(Duration.seconds(1));
@@ -35,31 +33,5 @@ public class AdvTooltip extends Tooltip {
         setFont(Font.font("Ubuntu", 15));
         setStyle("-fx-text-fill: white;");
         setId("info");
-    }
-
-    public void initialize(Node node) {
-        isHoveringTargetPrimary(node);
-    }
-
-    public BooleanProperty isHoveringPrimaryProperty()
-    {
-        return isHoveringPrimary;
-    }
-
-    public void isHoveringTargetPrimary(Node node){
-        node.setOnMouseEntered(e -> isHoveringPrimary.set(true));
-        node.setOnMouseExited(e -> isHoveringPrimary.set(false));
-    }
-
-    @Override
-    public void hide() {
-        if(isHoveringPrimaryProperty().get())
-        {
-            AdvTooltip.super.show();
-        }
-        else
-        {
-            AdvTooltip.super.hide();
-        }
     }
 }

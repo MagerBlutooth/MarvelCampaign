@@ -37,35 +37,36 @@
             </VBox>
         </HBox>
         <VBox alignment="CENTER" spacing="10.0">
+            <Button text="Create Deck" onAction="#createDeck"/>
             <HBox alignment="CENTER" spacing="20.0">
-                <Button fx:id="completeButton" text="Complete" onAction="#completeSection">
+                <Button fx:id="completeButton" text="Complete" onAction="#completeSection" id="smallButton">
                     <tooltip>
                         <AdvTooltip text="Complete current section. Reveal next section." id="info"/>
                     </tooltip>
                 </Button>
-                <Button fx:id="skipButton" text="Skip" onAction="#skipSection">
+                <Button fx:id="skipButton" text="Skip" onAction="#skipSection" id="smallButton">
                     <tooltip>
                         <AdvTooltip text="Skip current section and advance to next. If you already skipped a section this world, a random card on your team will be captured." id="info"/>
                     </tooltip>
                 </Button>
-                <Button text="Change HP" onAction="#changeHP">
+                <Button text="Change HP" onAction="#changeHP" id="smallButton">
                     <tooltip>
                         <AdvTooltip text="Change the enemy's HP." id="info"/>
                     </tooltip>
                 </Button>
             </HBox>
         <HBox alignment="CENTER" spacing="20.0">
-            <Button fx:id="stationButton" text="Station" onAction="#stationCard">
+            <Button fx:id="stationButton" text="Station" onAction="#stationCard" id="smallButton">
                 <tooltip>
                     <AdvTooltip text="Station a card from your team here." id="info"/>
                 </tooltip>
             </Button>
-            <Button fx:id="changeButton" text="Change Location" onAction="#changeLocation">
+            <Button fx:id="changeButton" text="Change Location" onAction="#changeLocation" id="smallButton">
                 <tooltip>
                     <AdvTooltip text="Change the current section's location to a different one." id="info"/>
                 </tooltip>
             </Button>
-            <Button fx:id="randomizeButton" text="Randomize Location" onAction="#randomize">
+            <Button fx:id="randomizeButton" text="Randomize Location" onAction="#randomize" id="smallButton">
                 <tooltip>
                     <AdvTooltip text="Randomize the current section's location." id="info"/>
                 </tooltip>
