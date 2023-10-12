@@ -14,7 +14,6 @@ import java.util.List;
 
 public class HallOfFameEntry extends BaseObject {
 
-    private static final int MAX_SIZE = 12;
     private static final int MAX_SHARED_CARDS = 3;
     Card captain;
     CardList cards;
@@ -103,7 +102,7 @@ public class HallOfFameEntry extends BaseObject {
 
     public boolean addCard(Card c, List<HallOfFameEntry> otherEntries)
     {
-        if(cards.size() < MAX_SIZE && deckValidWithNewCard(c, otherEntries)) {
+        if(cards.size() < SnapMainConstants.MAX_DECK_SIZE && deckValidWithNewCard(c, otherEntries)) {
             cards.add(c);
             cards.sort();
             return true;
@@ -152,7 +151,7 @@ public class HallOfFameEntry extends BaseObject {
 
 
     public boolean isValid() {
-        return captain!=null && cards.size()==MAX_SIZE;
+        return captain!=null && cards.size()==SnapMainConstants.MAX_DECK_SIZE;
     }
 
     public SnapMonth getMonth() {

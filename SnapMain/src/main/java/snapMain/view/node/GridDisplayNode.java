@@ -2,6 +2,7 @@ package snapMain.view.node;
 
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
+import snapMain.model.target.CardList;
 import snapMain.model.target.SnapTarget;
 import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLMainGrabber;
@@ -12,7 +13,6 @@ import snapMain.model.target.TargetType;
 
 public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
 
-    MLogger logger = new MLogger(GridDisplayNode.class);
     private final GridDisplayController<T> gridDisplayController;
     private FXMLMainGrabber fxmlMainGrabber = new FXMLMainGrabber();
 
@@ -59,5 +59,17 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
 
     public void update(T subject) {
         gridDisplayController.update(subject);
+    }
+
+    public void toggleNodeLight(T t) {
+        gridDisplayController.toggleNodeLight(t);
+    }
+
+    public void highlightAll() {
+        gridDisplayController.highlightAll();
+    }
+
+    public void clear() {
+        gridDisplayController.clear();
     }
 }

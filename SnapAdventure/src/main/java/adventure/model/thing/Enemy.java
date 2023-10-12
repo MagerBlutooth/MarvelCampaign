@@ -18,15 +18,6 @@ public class Enemy implements SnapTarget {
         subject = new Card();
     }
 
-    public Enemy(int worldBonus)
-    {
-        Token t = new Token();
-        t.setID(SnapMainConstants.MOOK_ICON_ID);
-        subject = t;
-        baseHP = worldBonus;
-        currentHP = baseHP;
-    }
-
     public Enemy(Playable p)
     {
         subject = p;
@@ -37,7 +28,7 @@ public class Enemy implements SnapTarget {
     public Enemy(Playable p, int worldBonus)
     {
         subject = p;
-        setBaseHP(5 + worldBonus);
+        setBaseHP(worldBonus);
         currentHP = baseHP;
     }
 
@@ -108,6 +99,8 @@ public class Enemy implements SnapTarget {
         TargetDatabase<SnapTarget> targetDatabase = new TargetDatabase<>();
         if(targetType == TargetType.CARD)
             targetDatabase = database.lookupDatabase(TargetType.ADV_CARD);
+        else if(targetType == TargetType.TOKEN)
+            targetDatabase = database.lookupDatabase(TargetType.TOKEN);
         subject = (Playable)targetDatabase.lookup(id);
         baseHP = Integer.parseInt(stringList[2]);
         currentHP = Integer.parseInt(stringList[3]);

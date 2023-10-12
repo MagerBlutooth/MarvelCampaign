@@ -11,7 +11,7 @@ public class Location extends EffectBaseObject {
     public Location()
     {
         super();
-        name = "New Location";
+        name = "Ruins";
         stationedAgents = new CardList(new ArrayList<>());
     }
 

@@ -3,7 +3,9 @@ package adventure.view.node;
 import adventure.model.thing.Enemy;
 import adventure.view.AdvTooltip;
 import javafx.scene.control.Tooltip;
-import javafx.util.Duration;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
@@ -34,4 +36,20 @@ public class EnemyControlNode extends ControlNode<Enemy> {
         imageView.setImage(i);
     }
 
+    public void unreveal()
+    {
+        this.setEffect(null);
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(-1);
+        this.setEffect(colorAdjust);
+    }
+
+    public void reveal() {
+        this.setEffect(null);
+        DropShadow borderGlow = new DropShadow();
+        borderGlow.setColor(Color.RED);
+        borderGlow.setOffsetX(0f);
+        borderGlow.setOffsetY(0f);
+        this.setEffect(borderGlow);
+    }
 }

@@ -16,9 +16,7 @@ public class WorldList extends ArrayList<World> {
     public WorldList(AdventureDatabase database)
     {
         super(new ArrayList<>());
-        AdvCardList bosses = new AdvCardList(database.getBosses());
         AdvLocationList sections = new AdvLocationList(database.getSections());
-        bosses.shuffle();
         sections.shuffle();
         for(int i = 0; i < NUMBER_OF_WORLDS; i++)
         {
@@ -31,8 +29,7 @@ public class WorldList extends ArrayList<World> {
             locations.add(s2);
             locations.add(s3);
             locations.add(s4);
-            AdvCard b = bosses.get(i);
-            World world = new World(database, locations, b, i);
+            World world = new World(database, locations, i);
             add(world);
         }
 

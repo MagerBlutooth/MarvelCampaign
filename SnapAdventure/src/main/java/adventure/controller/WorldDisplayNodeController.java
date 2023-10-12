@@ -8,6 +8,7 @@ import adventure.model.thing.Section;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
+import adventure.view.pane.BossViewPane;
 import adventure.view.pane.SectionViewPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ import java.util.List;
 public class WorldDisplayNodeController extends AdvPaneController {
 
     @FXML
-    EnemyControlNode enemyControlNode;
+    EnemyControlNode bossControlNode;
     @FXML
     Label bossEffectText;
     @FXML
@@ -64,22 +65,22 @@ public class WorldDisplayNodeController extends AdvPaneController {
         sections.add(section2Node);
         sections.add(section3Node);
         sections.add(section4Node);
-        enemyControlNode.initialize(mainDatabase, boss, d.grabImage(boss.getSubject()), ViewSize.MEDIUM, false);
-        enemyControlNode.createTooltip(boss.getEffect());
+        bossControlNode.initialize(mainDatabase, boss, d.grabImage(boss.getSubject()), ViewSize.MEDIUM, false);
+        bossControlNode.unreveal();
         setSectionMouseOption(section1Node, aPane);
         setSectionMouseOption(section2Node, aPane);
         setSectionMouseOption(section3Node, aPane);
         setSectionMouseOption(section4Node, aPane);
-        setBossMouseOption(enemyControlNode, aPane);
+        setBossMouseOption(bossControlNode, aPane);
     }
 
     private void setBossMouseOption(EnemyControlNode bossNode, AdventureControlPane aPane) {
         bossNode.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY && world.isBossRevealed()) {
-                SectionViewPane sectionViewPane = new SectionViewPane();
-                sectionViewPane.initialize(mainDatabase, aPane, new BossSection(bossNode.getSubject(),
-                        mainDatabase.getCardsAndTokens()));
-                changeScene(sectionViewPane);
+                BossViewPane bossViewPane = new BossViewPane();
+                bossViewPane.initialize(mainDatabase, aPane, new BossSection(aPane.getAdventureDatabase(),
+                        bossNode.getSubject()));
+                changeScene(bossViewPane);
             }
         });
     }
@@ -107,7 +108,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         section2Node.refresh(w.getSecondSection());
         section3Node.refresh(w.getThirdSection());
         section4Node.refresh(w.getFourthSection());
-        enemyControlNode.refresh((w.getBoss()));
+        bossControlNode.refresh((w.getBoss()));
     }
 
     private void setWorldLabel(World w) {
@@ -121,5 +122,10 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     @Override
     public void initializeButtonToolBar() {
+    }
+
+    public void revealBossCheck() {
+        if(world.isBossRevealed())
+            bossControlNode.reveal();
     }
 }

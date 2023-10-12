@@ -28,13 +28,6 @@ public class AdventureActionNodeController {
     {
         controlPane.searchCard();
     }
-
-    @FXML
-    public void createClone()
-    {
-        controlPane.createClone();
-    }
-
     Adventure adventure;
 
     public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane cPane) {

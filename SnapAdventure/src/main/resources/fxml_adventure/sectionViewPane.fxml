@@ -14,14 +14,14 @@
 
     <VBox alignment="CENTER" spacing="40.0">
         <ButtonToolBar fx:id="buttonToolBar"/>
-        <HBox alignment="CENTER">
+        <HBox alignment="CENTER_LEFT">
             <VBox alignment="CENTER">
                 <EnemyControlNode fx:id="enemyView"/>
                 <HPDisplayNode fx:id="hpDisplay"/>
                 <Label fx:id="enemyEffectText" alignment="CENTER" maxWidth="800" wrapText="true" id="info"
                        mouseTransparent="true"/>
             </VBox>
-            <VBox>
+            <VBox alignment="CENTER">
                 <AdvLocationControlNode fx:id="sectionView"/>
                 <Label fx:id="locationEffectText" alignment="CENTER" maxWidth="800" wrapText="true" id="info"/>
             </VBox>

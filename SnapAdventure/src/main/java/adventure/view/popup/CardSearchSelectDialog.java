@@ -11,7 +11,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 
-public class CardSearchSelectDialog<T extends Card> extends Dialog<Card> implements Choosable<Card>{
+public class CardSearchSelectDialog extends Dialog<Card> implements Choosable<Card>{
 
     CardSearchSelectDialogController controller;
     public CardSearchSelectDialog()

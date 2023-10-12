@@ -19,6 +19,12 @@
     -fx-font-size: 16px;
 }
 
+#smallButton
+{
+    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 24px;
+}
+
 .text-field {
     -fx-font-family: "Ubuntu";
     -fx-text-fill: white;

@@ -25,7 +25,7 @@ import snapMain.view.node.control.ControlNode;
 
 import java.util.ArrayList;
 
-public class AdvLocationSearchSelectDialog<T extends AdvLocation> extends Dialog<AdvLocation>
+public class AdvLocationSearchSelectDialog extends Dialog<AdvLocation>
         implements Choosable<AdvLocation> {
 
 

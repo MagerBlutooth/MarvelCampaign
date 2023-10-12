@@ -10,7 +10,7 @@
         <VBox alignment="CENTER">
             <Label fx:id="worldLabel" alignment="CENTER" id="subtitle"/>
             <HBox alignment="CENTER">
-                <EnemyControlNode fx:id="enemyControlNode"/>
+                <EnemyControlNode fx:id="bossControlNode"/>
                 <Label fx:id="bossEffectText" wrapText="true" maxWidth="300.0" id="info"/>
             </HBox>
             <HBox spacing="20.0" alignment="CENTER">

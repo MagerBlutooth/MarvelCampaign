@@ -5,6 +5,7 @@ import adventure.model.adventure.Adventure;
 import adventure.view.node.WorldClearSelectNode;
 import adventure.view.pane.AdventureControlPane;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
@@ -12,7 +13,7 @@ import snapMain.view.ViewSize;
 import snapMain.view.button.ButtonToolBar;
 import snapMain.view.node.GridDisplayNode;
 
-public class WorldClearSelectNodeController {
+public class WorldClearSelectNodeController extends AdvPaneController  {
 
     @FXML
     WorldClearSelectNode worldClearNode;
@@ -47,4 +48,20 @@ public class WorldClearSelectNodeController {
         adventureControlPane.healCard();
     }
 
+    @FXML
+    public void clearWorld()
+    {
+        adventure.completeCurrentWorld();
+        changeScene(adventureControlPane);
+    }
+
+    @Override
+    public Scene getCurrentScene() {
+        return worldClearNode.getScene();
+    }
+
+    @Override
+    public void initializeButtonToolBar() {
+
+    }
 }

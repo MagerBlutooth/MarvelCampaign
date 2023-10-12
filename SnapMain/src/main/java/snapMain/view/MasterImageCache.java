@@ -40,7 +40,6 @@ public class MasterImageCache {
             tokenImageCache.put(t.getID(), tokenImageGrabber.grabImage(t.getID()));
         }
         tokenImageCache.put(NO_ICON_ID, tokenImageGrabber.grabImage(NO_ICON_ID));
-        tokenImageCache.put(MOOK_ICON_ID, tokenImageGrabber.grabImage(MOOK_ICON_ID));
     }
 
     private void setLocationCache() {
@@ -59,6 +58,7 @@ public class MasterImageCache {
             cardImageCache.put(c.getID(), cardImageGrabber.grabImage(c.getID()));
         }
         cardImageCache.put(NO_ICON_ID, cardImageGrabber.grabImage(NO_ICON_ID));
+        cardImageCache.put(MOOK_ICON_ID, cardImageGrabber.grabImage(MOOK_ICON_ID));
     }
 
     public IconImage getImage(int id, TargetType tt) {

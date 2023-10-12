@@ -17,14 +17,18 @@ import adventure.view.popup.CardChooserDialog;
 import adventure.view.popup.DeckConstructorDialog;
 import adventure.view.popup.HPDialog;
 import javafx.beans.binding.Bindings;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Window;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
 import snapMain.model.target.Playable;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
@@ -189,5 +193,7 @@ public class SectionViewPaneController extends AdvPaneController {
     {
         DeckConstructorDialog deckConstructorDialog = new DeckConstructorDialog();
         deckConstructorDialog.initialize(mainDatabase, adventure.getTeam().getActiveCards());
+        Optional<CardList> deck = deckConstructorDialog.showAndWait();
+        deck.ifPresent(cards -> controlPane.updateStats(cards, deckConstructorDialog.getMatchResult()));
     }
 }

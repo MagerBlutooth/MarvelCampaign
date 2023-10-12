@@ -1,17 +1,14 @@
 package adventure.model;
 
-import adventure.model.thing.AdvCard;
-import adventure.model.thing.AdvLocation;
-import adventure.model.thing.Enemy;
-import adventure.model.thing.Section;
+import adventure.model.thing.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
 import snapMain.model.target.TargetType;
 
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class World implements Cloneable{
 
@@ -19,7 +16,7 @@ public class World implements Cloneable{
     Section section2;
     Section section3;
     Section section4;
-    Enemy boss;
+    BossSection bossSection;
     AdventureDatabase database;
     int worldNum;
     WorldBonusCalculator bonusCalculator;
@@ -31,16 +28,16 @@ public class World implements Cloneable{
         bonusCalculator = new WorldBonusCalculator();
     }
 
-    public World(AdventureDatabase db, List<AdvLocation> locations, AdvCard b, int wNum)
+    public World(AdventureDatabase db, List<AdvLocation> locations, int wNum)
     {
         database = db;
         bonusCalculator = new WorldBonusCalculator();
         worldNum = wNum;
-        section1 = new Section(1, locations.get(0), db, new Enemy(worldNum));
-        section2 = new Section(2, locations.get(1), db, new Enemy(worldNum));
-        section3 = new Section(3, locations.get(2), db, new Enemy(worldNum));
-        section4 = new Section(4, locations.get(3), db, new Enemy(worldNum));
-        boss = new Enemy(b, getWorldBonus());
+        section1 = new Section(db, 1, locations.get(0) , new Enemy(new Mook(), bonusCalculator.calculateMook(worldNum)));
+        section2 = new Section(db, 2, locations.get(1), new Enemy(new Mook(), bonusCalculator.calculateMook(worldNum)));
+        section3 = new Section(db,3, locations.get(2), new Enemy(new Mook(), bonusCalculator.calculateMook(worldNum)));
+        section4 = new Section(db,4, locations.get(3), new Enemy(new Mook(), bonusCalculator.calculateMook(worldNum)));
+        bossSection = new BossSection( db, new Enemy(new Mook(), bonusCalculator.calculateBoss(worldNum)));
         section1.reveal();
     }
 
@@ -50,8 +47,10 @@ public class World implements Cloneable{
         section2 = world.section2;
         section3 = world.section3;
         section4 = world.section4;
-        boss = world.boss;
+        bossSection = world.bossSection;
         bonusCalculator = new WorldBonusCalculator();
+        worldNum = world.worldNum;
+        bossRevealed = world.bossRevealed;
     }
 
     public String toSaveString() {
@@ -65,10 +64,24 @@ public class World implements Cloneable{
                 SnapMainConstants.CATEGORY_SEPARATOR +
                 section4.toSaveString() +
                 SnapMainConstants.CATEGORY_SEPARATOR +
-                boss.toSaveString() +
+                bossSection.toSaveString() +
                 SnapMainConstants.CATEGORY_SEPARATOR +
                 bossRevealed;
         return Base64.getEncoder().encodeToString(result.getBytes());
+    }
+
+    //Initialize boss to be a card that the player doesn't currently own
+    //Postpone initializing boss of future worlds so that boss is always a current free agent.
+    public void initializeBoss(CardList freeAgents) {
+        CardList agentsCopy = new CardList(new ArrayList<>());
+        agentsCopy = agentsCopy.cloneNewList(freeAgents.getThings());
+        Collections.shuffle(agentsCopy.getThings());
+        TargetDatabase<AdvCard> bosses = database.getBosses();
+        Card card = agentsCopy.get(0);
+        AdvCard boss = bosses.lookup(card.getID());
+        Enemy enemy = new Enemy(boss, worldNum);
+        bossSection.setEnemy(enemy);
+        freeAgents.remove(card);
     }
 
     public void fromSaveString(String saveString, AdvMainDatabase dB) {
@@ -78,17 +91,16 @@ public class World implements Cloneable{
             return;
         String[] stringList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
         worldNum = Integer.parseInt(stringList[0]);
-        int worldBonus = bonusCalculator.calculateMook(worldNum);
-        section1 = new Section(1, database, new Enemy(worldBonus));
-        section1.fromSaveString(stringList[1].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section2 = new Section(2, database, new Enemy(worldBonus));
-        section2.fromSaveString(stringList[2].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section3 = new Section(3, database, new Enemy(worldBonus));
-        section3.fromSaveString(stringList[3].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        section4 = new Section(4, database, new Enemy(worldBonus));
-        section4.fromSaveString(stringList[4].trim(), dB.lookupDatabase(TargetType.LOCATION));
-        boss = new Enemy();
-        boss.fromSaveString(stringList[5].trim(), dB);
+        section1 = new Section(database, 1, new Ruins(), new Enemy());
+        section1.fromSaveString(stringList[1].trim(), dB);
+        section2 = new Section(database, 2,  new Ruins(), new Enemy());
+        section2.fromSaveString(stringList[2].trim(), dB);
+        section3 = new Section( database, 3, new Ruins(), new Enemy());
+        section3.fromSaveString(stringList[3].trim(), dB);
+        section4 = new Section(database, 4, new Ruins(), new Enemy());
+        section4.fromSaveString(stringList[4].trim(), dB);
+        bossSection = new BossSection(database, new Enemy(new Card()));
+        bossSection.fromSaveString(stringList[5].trim(), dB);
         bossRevealed = Boolean.parseBoolean(stringList[6]);
     }
 
@@ -121,7 +133,7 @@ public class World implements Cloneable{
     }
 
     public Enemy getBoss() {
-        return boss;
+        return bossSection.getEnemy();
     }
 
     public Section getRandomSection() {
@@ -190,26 +202,6 @@ public class World implements Cloneable{
         s.changeLocation(advLocation);
     }
 
-    private int getWorldBonus() {
-        if(worldNum < 2)
-        {
-            return 0;
-        }
-        if(worldNum < 4)
-        {
-            return 1;
-        }
-        if(worldNum < 6)
-        {
-            return 2;
-        }
-        if(worldNum < 8)
-        {
-            return 3;
-        }
-        return 5;
-    }
-
     public void revealBoss() {
         bossRevealed = true;
     }
@@ -217,4 +209,5 @@ public class World implements Cloneable{
     public boolean isBossRevealed() {
         return bossRevealed;
     }
+
 }

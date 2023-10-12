@@ -1,18 +1,23 @@
 package adventure.model.thing;
 
+import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
+import adventure.model.AdventureDatabase;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
 
 public class BossSection extends Section {
 
-    public BossSection(Enemy e, PlayableDatabase ct){
-        super(0, ct, e);
-        advLocation.setID(SnapMainConstants.RUINS_ICON_ID);
+    public BossSection(AdventureDatabase db, Enemy e){
+        super(db, 0, new Ruins(), e);
     }
 
     public BossSection(BossSection b)
     {
         super(b);
+    }
+
+    public void setEnemy(Enemy e) {
+        enemy = e;
     }
 }

@@ -3,6 +3,7 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
+import adventure.model.stats.MatchResult;
 import adventure.model.thing.Section;
 import adventure.view.node.AdventureActionNode;
 import adventure.view.node.TeamDisplayNode;
@@ -13,6 +14,7 @@ import adventure.view.popup.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.button.ButtonToolBar;
@@ -77,6 +79,7 @@ public class AdventureControlPaneController extends AdvPaneController {
 
     public void completeSection() {
         adventure.completeCurrentSection();
+        worldDisplayNode.revealBossCheck();
         refreshToMatch();
     }
 
@@ -168,5 +171,13 @@ public class AdventureControlPaneController extends AdvPaneController {
             }
         }
         refreshToMatch();
+    }
+
+    public void updateStats(CardList deck, MatchResult result) {
+        adventure.updateStats(deck, result);
+    }
+
+    public AdventureDatabase getAdventureDatabase() {
+        return adventureDatabase;
     }
 }

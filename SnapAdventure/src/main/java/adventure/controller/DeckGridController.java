@@ -5,16 +5,15 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
-import snapMain.view.thing.CardView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DeckGridController implements GridActionController<Card> {
 
@@ -22,14 +21,16 @@ public class DeckGridController implements GridActionController<Card> {
     CardList chosenCards;
     GridDisplayNode<Card> deckDisplay;
 
-    public void initialize(MainDatabase db, GridDisplayNode<Card> dDisplay)
+    DeckConstructorDialogController deckConstructorController;
+
+    public void initialize(MainDatabase db, GridDisplayNode<Card> dDisplay, DeckConstructorDialogController cController)
     {
         mainDatabase = db;
         chosenCards = new CardList(new ArrayList<>());
         deckDisplay = dDisplay;
         deckDisplay.setPrefColumns(6);
-        deckDisplay.setMaxHeight(250.0);
         deckDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        deckConstructorController = cController;
     }
 
     @Override
@@ -65,24 +66,31 @@ public class DeckGridController implements GridActionController<Card> {
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 chosenCards.remove(controlNode.getSubject());
+                deckConstructorController.toggleNodeLight(controlNode.getSubject());
                 deckDisplay.refreshToMatch(chosenCards);
             }
             e.consume();
         });
     }
 
-    public void toggleEntry(Card card) {
-        boolean success;
+    public boolean toggleEntry(Card card) {
+        boolean toggled = false;
         if(chosenCards.contains(card)) {
-            chosenCards.remove(card);
+            toggled = chosenCards.remove(card);
         }
-        else {
-            chosenCards.add(card);
+        else if(chosenCards.size() < SnapMainConstants.MAX_DECK_SIZE){
+            toggled = chosenCards.add(card);
+
         }
         deckDisplay.refreshToMatch(chosenCards);
+        return toggled;
     }
 
     public CardList getDeck() {
         return chosenCards;
+    }
+
+    public void clear() {
+        chosenCards.clear();
     }
 }

@@ -29,4 +29,8 @@ public class WorldDisplayNode extends StackPane {
     public void revealNextSection(int nextSection) {
         controller.revealNextSection(nextSection);
     }
+
+    public void revealBossCheck() {
+        controller.revealBossCheck();
+    }
 }

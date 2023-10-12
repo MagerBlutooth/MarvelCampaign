@@ -220,4 +220,13 @@ public class Team {
         }
         return null;
     }
+
+    public void retrieveCapturedCards() {
+        activeCards.addAll(capturedCards.getCards());
+        capturedCards.clear();
+    }
+
+    public void loseTempCards() {
+        tempCards.clear();
+    }
 }

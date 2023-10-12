@@ -54,4 +54,8 @@ public class AdventureDatabase {
         playableDatabase.addAll(tokens);
         return playableDatabase;
     }
+
+    public TargetDatabase<AdvLocation> getLocations() {
+        return advLocations;
+    }
 }

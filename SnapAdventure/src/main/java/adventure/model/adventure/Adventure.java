@@ -2,6 +2,7 @@ package adventure.model.adventure;
 
 import adventure.model.*;
 import adventure.model.stats.CardStatMap;
+import adventure.model.stats.MatchResult;
 import adventure.model.thing.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.*;
@@ -27,6 +28,7 @@ public class Adventure {
     boolean newProfileCheck;
     CardStatMap cardStatMap;
     List<InfinityStone> infinityStones;
+
     //Constructor for loading old profiles
     public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile, String proName)
     {
@@ -113,6 +115,8 @@ public class Adventure {
         availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
         currentSectionNum = 1;
+        World w = worlds.get(currentWorldNum);
+        w.initializeBoss(getFreeAgents());
         createInfinityStones();
         placeInfinityStones();
     }
@@ -226,8 +230,18 @@ public class Adventure {
     public void completeCurrentWorld() {
         if(currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
             currentWorldNum++;
+            currentSectionNum = 1;
+            team.retrieveCapturedCards();
+            team.loseTempCards();
+            getCurrentWorld().initializeBoss(team.getFreeAgents());
         }
-        currentSectionNum = 1;
+        else if(infinityStones.size()==6)
+        {
+            currentWorldNum++;
+            worlds.add(new World(adventureDatabase));
+        }
+
+
     }
 
     public TargetList<Card> getActiveCards() {
@@ -296,7 +310,7 @@ public class Adventure {
         team.getFreeAgents().remove(card);
     }
 
-    public TargetList<Card> getFreeAgents() {
+    public CardList getFreeAgents() {
         return team.getFreeAgents();
     }
 
@@ -327,5 +341,13 @@ public class Adventure {
         if(oldLoc != null)
             availableLocations.add(oldLoc);
         availableLocations.remove(newLoc);
+    }
+
+    public void updateStats(CardList deck, MatchResult result) {
+        cardStatMap.updateCardStats(deck, result);
+    }
+
+    public CardList getCapturedCards() {
+        return team.getCapturedCards();
     }
 }

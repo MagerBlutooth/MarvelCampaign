@@ -29,7 +29,7 @@ public class DeckCodeConverter {
         return cards;
     }
 
-    public void encodeDeckToClipboard(String deckName, CardList deck)
+    public void encodeDeckToClipboard(CardList deck)
     {
         StringBuilder stringBuilder = new StringBuilder();
         for(Card card: deck)
@@ -37,7 +37,7 @@ public class DeckCodeConverter {
             stringBuilder.append("# (").append(card.getCost()).append(") ").append(card.getName()).append("\n");
         }
         stringBuilder.append("# \n");
-        stringBuilder.append(createEncodedString(deckName, deck)).append("\n");
+        stringBuilder.append(createEncodedString(deck)).append("\n");
         stringBuilder.append("#\n");
         stringBuilder.append("# To use this deck, copy it to your clipboard and paste it from the deck editing menu in Snap.");
         String copiedCode = stringBuilder.toString();
@@ -46,9 +46,9 @@ public class DeckCodeConverter {
         Clipboard.getSystemClipboard().setContent(content);
     }
 
-    private String createEncodedString(String deckName, CardList deck) {
+    private String createEncodedString(CardList deck) {
         StringBuilder encodedString = new StringBuilder();
-        encodedString.append("{\"Name\":" + "\"").append(deckName).append("\",\"Cards\":[");
+        encodedString.append("{\"Cards\":[");
         for(Card card: deck)
         {
             String cardSimpleName = StringHelper.displayFormat(card.getName());
