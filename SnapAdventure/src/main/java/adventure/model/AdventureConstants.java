@@ -8,11 +8,13 @@ public class AdventureConstants {
     public static final int SECTIONS_PER_WORLD = 4;
     public static final int SECTION_CLEAR_GOAL = 3;
     public static final int NUM_DRAFT_CARDS = 3;
+    public static final int MAX_STATIONS = 4;
     public static final String BOSS_FILE = "data/bossList.csv";
     public static final String SECTION_FILE = "data/sectionsList.csv";
     public static final String PROFILE_1 = "profiles/adventureProfile1.txt";
     public static final String PROFILE_2 = "profiles/adventureProfile2.txt";
     public static final String PROFILE_3 = "profiles/adventureProfile3.txt";
 
+    public static final int MOOK_BASE_HP = 1;
 
 }

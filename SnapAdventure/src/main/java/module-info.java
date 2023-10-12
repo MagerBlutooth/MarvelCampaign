@@ -32,5 +32,7 @@ module SnapAdventure {
     opens adventure.model.sorter;
     opens adventure.view.pane;
     opens fxml_adventure;
+    exports adventure.model.stats;
+    opens adventure.model.stats;
 
 }

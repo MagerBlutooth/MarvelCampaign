@@ -14,7 +14,7 @@ import snapMain.view.pane.MainMenuPane;
 
 import java.util.Collections;
 
-import static snapMain.model.constants.CampaignConstants.*;
+import static snapMain.model.constants.SnapMainConstants.*;
 
 public class BaseStartPaneController extends ButtonToolBarPaneController {
 

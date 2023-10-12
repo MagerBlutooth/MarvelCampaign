@@ -30,6 +30,11 @@ public class Token extends BaseObject implements Playable {
     }
 
     @Override
+    public String getEffect() {
+        return "";
+    }
+
+    @Override
     public boolean hasAttribute(String att) {
         return false;
     }
@@ -61,4 +66,5 @@ public class Token extends BaseObject implements Playable {
     public TargetType getTargetType() {
         return TargetType.TOKEN;
     }
+
 }

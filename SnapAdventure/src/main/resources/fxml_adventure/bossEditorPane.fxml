@@ -1,9 +1,8 @@
+<?import adventure.view.node.BossEditorNode?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
-<?import snapMain.view.baseObject.CardView?>
 <?import snapMain.view.button.ButtonToolBar?>
-<?import adventure.view.node.BossEditorNode?>
 <fx:root type="javafx.scene.layout.StackPane" fx:id="mainPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.BossEditorPaneController"

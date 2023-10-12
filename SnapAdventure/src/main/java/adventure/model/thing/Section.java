@@ -1,11 +1,13 @@
 package adventure.model.thing;
 
+import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -18,15 +20,9 @@ public class Section implements Cloneable, SnapTarget {
     boolean revealed;
     boolean completed;
     int sectionNum;
+    Enemy enemy;
 
-    public Section(int num, AdventureDatabase database){
-        sectionNum = num;
-        stationedCards = new CardList(new ArrayList<>());
-        pickups = new PlayableList(new ArrayList<>());
-        cardsAndTokens = database.getCardsAndTokens();
-    }
-
-    public Section(int num, AdvLocation l, AdventureDatabase database)
+    public Section(AdventureDatabase database, int num, AdvLocation l, Enemy e)
     {
         sectionNum = num;
         advLocation = l;
@@ -35,6 +31,7 @@ public class Section implements Cloneable, SnapTarget {
         cardsAndTokens = database.getCardsAndTokens();
         cardDatabase = database.getCards();
         revealed = false;
+        enemy = e;
     }
 
     public Section(Section loc) {
@@ -45,32 +42,40 @@ public class Section implements Cloneable, SnapTarget {
         cardsAndTokens = loc.cardsAndTokens;
         revealed = loc.revealed;
         completed = loc.completed;
+        cardDatabase = loc.cardDatabase;
+        enemy = loc.enemy;
     }
 
+
     public String toSaveString() {
-        String result = sectionNum + CampaignConstants.SUBCATEGORY_SEPARATOR +
+        String result = sectionNum + SnapMainConstants.SUBCATEGORY_SEPARATOR +
                 advLocation.getID() +
-                CampaignConstants.SUBCATEGORY_SEPARATOR +
+                SnapMainConstants.SUBCATEGORY_SEPARATOR +
+                enemy.toSaveString() +
+                SnapMainConstants.SUBCATEGORY_SEPARATOR +
                 stationedCards.toSaveString() +
-                CampaignConstants.SUBCATEGORY_SEPARATOR +
-                pickups.toSaveString() + CampaignConstants.SUBCATEGORY_SEPARATOR +
-                revealed + CampaignConstants.SUBCATEGORY_SEPARATOR +
+                SnapMainConstants.SUBCATEGORY_SEPARATOR +
+                pickups.toSaveString() + SnapMainConstants.SUBCATEGORY_SEPARATOR +
+                revealed + SnapMainConstants.SUBCATEGORY_SEPARATOR +
                 completed;
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
-    public void fromSaveString(String saveString, TargetDatabase<AdvLocation> locations) {
+    public void fromSaveString(String saveString, AdvMainDatabase database) {
         byte[] decodedBytes = Base64.getDecoder().decode(saveString);
         String decodedString = new String(decodedBytes);
         if(decodedString.isBlank())
             return;
-        String[] stringList = decodedString.split(CampaignConstants.SUBCATEGORY_SEPARATOR);
+        String[] stringList = decodedString.split(SnapMainConstants.SUBCATEGORY_SEPARATOR);
         sectionNum = Integer.parseInt(stringList[0]);
-        advLocation = locations.lookup(Integer.parseInt(stringList[1]));
-        stationedCards.fromSaveString(stringList[2], cardDatabase);
-        pickups.fromSaveString(stringList[3], cardsAndTokens);
-        revealed = Boolean.parseBoolean(stringList[4]);
-        completed = Boolean.parseBoolean(stringList[5]);
+        TargetDatabase<AdvLocation> locDatabase = database.lookupDatabase(TargetType.LOCATION);
+        advLocation = locDatabase.lookup(Integer.parseInt(stringList[1]));
+        enemy = new Enemy();
+        enemy.fromSaveString(stringList[2], database);
+        stationedCards.fromSaveString(stringList[3], cardDatabase);
+        pickups.fromSaveString(stringList[4], cardsAndTokens);
+        revealed = Boolean.parseBoolean(stringList[5]);
+        completed = Boolean.parseBoolean(stringList[6]);
     }
 
     @Override
@@ -171,5 +176,13 @@ public class Section implements Cloneable, SnapTarget {
     public boolean hasPickups()
     {
         return !getPickups().isEmpty();
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Enemy e) {
+        enemy = e;
     }
 }

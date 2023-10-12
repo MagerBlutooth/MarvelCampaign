@@ -1,8 +1,8 @@
 package adventure.model;
 
-import snapMain.model.target.BaseObject;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import snapMain.model.target.BaseObject;
 
 import java.io.File;
 import java.io.FileReader;

@@ -22,7 +22,7 @@ import snapMain.view.node.PlanningDisplayNode;
 import snapMain.view.pane.MainMenuPane;
 import snapMain.view.pane.PlayerControlPane;
 
-import static snapMain.model.constants.CampaignConstants.STRING_SEPARATOR;
+import static snapMain.model.constants.SnapMainConstants.STRING_SEPARATOR;
 
 public class PlayerControlPaneController extends ButtonToolBarPaneController {
 

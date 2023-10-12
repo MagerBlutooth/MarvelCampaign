@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import static snapMain.model.constants.CampaignConstants.STRING_SEPARATOR;
+import static snapMain.model.constants.SnapMainConstants.STRING_SEPARATOR;
 
 public class HallOfFameEntryList extends TargetList<HallOfFameEntry> {
 

@@ -1,7 +1,7 @@
-<?import javafx.geometry.Insets?>
 <?import adventure.view.node.HPDisplayNode?>
-<?import javafx.scene.control.ProgressBar?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.HBox?>
 <fx:root type="HPDisplayNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"

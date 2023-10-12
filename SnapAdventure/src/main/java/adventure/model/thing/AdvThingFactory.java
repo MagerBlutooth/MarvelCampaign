@@ -24,6 +24,9 @@ public class AdvThingFactory {
             c.setEnabled(b.isEnabled());
             advCards.add(b);
         }
+        Mook m = new Mook();
+        if(!advCards.contains(m))
+            advCards.add(m);
         return advCards;
     }
 
@@ -44,6 +47,9 @@ public class AdvThingFactory {
             l.setEnabled(s.isEnabled());
             advLocations.add(s);
         }
+        Ruins r = new Ruins();
+        if(!advLocations.contains(r))
+            advLocations.add(r);
         return advLocations;
     }
 }

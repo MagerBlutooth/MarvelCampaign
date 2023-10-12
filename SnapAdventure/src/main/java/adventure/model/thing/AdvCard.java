@@ -1,10 +1,11 @@
 package adventure.model.thing;
 
-import snapMain.model.target.Card;
 import snapMain.model.target.BaseObject;
+import snapMain.model.target.Card;
+import snapMain.model.target.Playable;
 import snapMain.model.target.TargetType;
 
-public class AdvCard extends BaseObject {
+public class AdvCard extends BaseObject implements Playable {
     Card card;
     String effect;
 

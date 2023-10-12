@@ -1,14 +1,7 @@
 package adventure.controller;
 
-import adventure.model.thing.Boss;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import snapMain.controller.MainDatabase;
-
-import java.util.List;
 
 public class HPDialogController {
 

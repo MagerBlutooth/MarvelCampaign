@@ -2,15 +2,14 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.thing.AdvCard;
-import snapMain.controller.editor.BasicNodeController;
-import snapMain.model.target.Card;
-import snapMain.model.target.TargetType;
-import snapMain.view.IconImage;
-import snapMain.view.ViewSize;
-import snapMain.view.thing.CardView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import snapMain.controller.editor.BasicNodeController;
+import snapMain.model.target.Card;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.thing.CardView;
 
 public class BossEditorNodeController extends BasicNodeController<AdvMainDatabase, Card> {
 

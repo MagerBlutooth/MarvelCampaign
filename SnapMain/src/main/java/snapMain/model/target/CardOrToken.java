@@ -18,6 +18,11 @@ public class CardOrToken implements Playable {
     }
 
     @Override
+    public String getEffect() {
+        return "";
+    }
+
+    @Override
     public TargetType getTargetType() {
         return p.getTargetType();
     }

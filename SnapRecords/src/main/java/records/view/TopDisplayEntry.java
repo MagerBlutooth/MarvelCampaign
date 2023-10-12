@@ -14,8 +14,8 @@ import records.view.fxml.FXMLRecordGrabber;
 
 import java.util.List;
 
-import static snapMain.model.constants.CampaignConstants.BASIC_COST_MAX;
-import static snapMain.model.constants.CampaignConstants.BASIC_COST_MIN;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MAX;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MIN;
 
 public class TopDisplayEntry extends StackPane {
     @FXML
@@ -33,8 +33,8 @@ public class TopDisplayEntry extends StackPane {
         for(Pair<IconImage, Integer> imagePair: images) {
             CardView cardView = new CardView();
             cardView.setImage(imagePair.getKey(), ViewSize.TINY);
-            Label timesUsed = new Label(imagePair.getValue()+"");
-            cardBox.getChildren().add(timesUsed);
+            //Label timesUsed = new Label(imagePair.getValue()+"");
+            //cardBox.getChildren().add(timesUsed);
             cardBox.getChildren().add(cardView);
         }
     }

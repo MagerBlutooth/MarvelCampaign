@@ -1,8 +1,7 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import snapMain.view.button.ButtonToolBar?>
 <?import adventure.view.manager.BossManager?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import snapMain.view.button.ButtonToolBar?>
 <fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvCardManagerPaneController"
          prefWidth="1200" prefHeight="800">

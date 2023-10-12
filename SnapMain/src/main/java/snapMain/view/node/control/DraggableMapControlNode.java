@@ -13,7 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.logger.MLogger;
 import snapMain.view.dragdrop.Draggable;
 
@@ -53,7 +53,7 @@ public class DraggableMapControlNode extends ControlNode<Location> implements Dr
 
     public void drawCardBox() {
         cardBox.getChildren().clear();
-        for(int i = 0; i < CampaignConstants.MAX_STATIONED_AGENTS; i++)
+        for(int i = 0; i < SnapMainConstants.MAX_STATIONED_AGENTS; i++)
         {
             CardList cardList = getSubject().getStationedAgents();
             if(cardList.size()-1 >= i)

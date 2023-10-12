@@ -62,8 +62,8 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
         return null;
     }
 
-    public void add(T t) {
-        things.add(t);
+    public boolean add(T t) {
+        return things.add(t);
     }
 
     public boolean contains(T t) {
@@ -77,8 +77,8 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
         return things.isEmpty();
     }
 
-    public void remove(T t) {
-        things.remove(t);
+    public boolean remove(T t) {
+        return things.remove(t);
     }
 
     public void replace(T thing) {
@@ -93,5 +93,23 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
 
     public void shuffle() {
         Collections.shuffle(things);
+    }
+
+    public T getRandom() {
+        List<T> randomList = new ArrayList<>();
+        randomList.addAll(this.getThings());
+        Collections.shuffle(randomList);
+        return randomList.get(0);
+    }
+
+    public TargetList<T> cloneNewCopy() {
+        try {
+            return (TargetList<T>) this.clone();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

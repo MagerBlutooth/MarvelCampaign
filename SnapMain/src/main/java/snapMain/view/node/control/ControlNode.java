@@ -19,6 +19,7 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
     protected T subject;
 
     private boolean enabled;
+    protected boolean highlighted;
 
     protected ImageView imageView;
 
@@ -48,6 +49,7 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());
         setEnabled(t.isEnabled());
+        highlighted = true;
 
         if(subject instanceof Card)
         {
@@ -160,5 +162,18 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
         else {
             starPane.setVisible(false);
         }
+    }
+
+    public void toggleNodeLight() {
+        setHighlighted(!highlighted);
+    }
+
+    public void setHighlighted(boolean h)
+    {
+        highlighted = h;
+        if(h)
+            highlight();
+        else
+            lowlight();
     }
 }

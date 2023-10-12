@@ -1,9 +1,9 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
-<?import adventure.view.pane.AdvStartPane?>
 <?import adventure.view.node.ProfileNode?>
-<?import snapMain.view.button.ButtonToolBar?>
+<?import adventure.view.pane.AdvStartPane?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import snapMain.view.button.ButtonToolBar?>
 <fx:root type="AdvStartPane" fx:id="advStartPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvStartPaneController" prefWidth="1600" prefHeight="800">

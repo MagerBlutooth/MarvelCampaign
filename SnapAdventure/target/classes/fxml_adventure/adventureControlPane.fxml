@@ -1,17 +1,15 @@
-<?import javafx.geometry.Insets?>
-
+<?import adventure.view.node.AdventureActionNode?>
+<?import adventure.view.node.DiceNode?>
 <?import adventure.view.node.TeamDisplayNode?>
 <?import adventure.view.node.WorldDisplayNode?>
 <?import adventure.view.pane.AdventureControlPane?>
-<?import snapMain.view.button.ButtonToolBar?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import adventure.view.node.DiceNode?>
-<?import adventure.view.node.AdventureActionNode?>
+<?import javafx.scene.layout.VBox?>
+<?import snapMain.view.button.ButtonToolBar?>
 <fx:root type="AdventureControlPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdventureControlPaneController" prefWidth="1600"
-         prefHeight="900" fx:id="adventureControlPane">
+         prefHeight="1000" fx:id="adventureControlPane">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <TeamDisplayNode fx:id="teamDisplayNode"/>

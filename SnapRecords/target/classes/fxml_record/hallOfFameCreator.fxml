@@ -40,6 +40,7 @@
                 <HBox alignment="CENTER" spacing="10.0">
                     <Button text="Back" onAction="#goBack"/>
                     <Button fx:id="saveButton" text="Save" onAction="#saveEntry"/>
+                    <Button text="Copy Code" onAction="#convertDeckCodeToClipboard"/>
                 </HBox>
             </VBox>
         </HBox>

@@ -1,8 +1,5 @@
 package adventure.model.adventure;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

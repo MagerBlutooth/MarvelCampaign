@@ -1,7 +1,8 @@
 package snapMain.model.target;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.sortFilter.CardFilter;
 import snapMain.model.sortFilter.CardSortMode;
 import snapMain.model.sortFilter.CardSorter;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class CardList extends TargetList<Card> {
 
     CardSorter cardSorter = new CardSorter();
+    CardFilter cardFilter = new CardFilter();
 
     public CardList(List<Card> cards)
     {
@@ -22,6 +24,7 @@ public class CardList extends TargetList<Card> {
     {
         super(cards);
         cardSorter = cards.cardSorter;
+        cardFilter = cards.cardFilter;
     }
 
     public void sort()
@@ -44,7 +47,7 @@ public class CardList extends TargetList<Card> {
         for(Card c: getCards())
         {
             stringBuilder.append(c.getID());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
@@ -52,7 +55,7 @@ public class CardList extends TargetList<Card> {
 
     public void fromCSVSaveString(String cardString, TargetDatabase<Card> database)
     {
-        String[] cardsList = cardString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] cardsList = cardString.split(SnapMainConstants.STRING_SEPARATOR);
 
         for(String c: cardsList)
         {
@@ -66,11 +69,11 @@ public class CardList extends TargetList<Card> {
         for(Card c: getCards())
         {
             stringBuilder.append(c.getID());
-            stringBuilder.append(CampaignConstants.CSV_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.CSV_SEPARATOR);
             stringBuilder.append(c.isCaptain());
-            stringBuilder.append(CampaignConstants.CSV_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.CSV_SEPARATOR);
             stringBuilder.append(c.isWounded());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         if(!getCards().isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -86,11 +89,11 @@ public class CardList extends TargetList<Card> {
         String decodedString = new String(decodedBytes);
         if(decodedString.isBlank())
             return;
-        String[] cardsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] cardsList = decodedString.split(SnapMainConstants.STRING_SEPARATOR);
 
         for(String cString: cardsList)
         {
-            String[] cOptions = cString.split(CampaignConstants.CSV_SEPARATOR);
+            String[] cOptions = cString.split(SnapMainConstants.CSV_SEPARATOR);
             Card card = new Card(database.lookup(Integer.parseInt(cOptions[0])));
             card.setCaptain(Boolean.parseBoolean(cOptions[1]));
             card.setWounded(Boolean.parseBoolean(cOptions[2]));
@@ -126,5 +129,23 @@ public class CardList extends TargetList<Card> {
             clonedCards.add(new Card(c));
         }
         return clonedCards;
+    }
+
+    public CardList filterCost(int minCost, int maxCost) {
+        return cardFilter.filterCost(this, minCost, maxCost);
+    }
+
+    public CardList filterPool(int minPool, int maxPool)
+    {
+        return cardFilter.filterPool(this, minPool, maxPool);
+    }
+    public CardList filterPower(int minPower, int maxPower)
+    {
+        return cardFilter.filterPower(this, minPower, maxPower);
+    }
+
+    public CardList filterAttributes(List<CardAttribute> cardAttributes)
+    {
+        return cardFilter.filterAttributes(this, cardAttributes);
     }
 }

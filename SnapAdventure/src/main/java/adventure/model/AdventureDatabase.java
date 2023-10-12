@@ -6,6 +6,7 @@ import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
+import snapMain.model.target.TargetList;
 import snapMain.model.target.Token;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class AdventureDatabase {
         tokens = masterThingDatabase.getEnabledTokens();
     }
 
-    public TargetDatabase<AdvCard> getBosses() {
+    public TargetDatabase<AdvCard>  getBosses() {
         return advCards;
     }
 
@@ -40,10 +41,21 @@ public class AdventureDatabase {
         return cards;
     }
 
+    public CardList getCardList()
+    {
+        CardList cardsCopy = new CardList(new ArrayList<>());
+        cardsCopy.addAll(cards);
+        return cardsCopy;
+    }
+
     public PlayableDatabase getCardsAndTokens() {
         PlayableDatabase playableDatabase = new PlayableDatabase();
         playableDatabase.addAll(cards);
         playableDatabase.addAll(tokens);
         return playableDatabase;
+    }
+
+    public TargetDatabase<AdvLocation> getLocations() {
+        return advLocations;
     }
 }

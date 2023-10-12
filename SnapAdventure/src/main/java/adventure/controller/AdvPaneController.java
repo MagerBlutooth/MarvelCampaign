@@ -1,10 +1,10 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import snapMain.controller.BasePaneController;
-import snapMain.view.pane.FullViewPane;
-import snapMain.view.pane.BasicStage;
 import javafx.scene.Scene;
+import snapMain.controller.BasePaneController;
+import snapMain.view.pane.BasicStage;
+import snapMain.view.pane.FullViewPane;
 
 public abstract class AdvPaneController extends BasePaneController<AdvMainDatabase> {
     protected AdvMainDatabase mainDatabase;

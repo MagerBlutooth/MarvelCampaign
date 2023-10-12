@@ -2,10 +2,15 @@ package adventure.view.pane;
 
 import adventure.controller.AdventureControlPaneController;
 import adventure.model.AdvMainDatabase;
+import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
+import adventure.model.stats.MatchResult;
 import adventure.model.thing.Section;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import snapMain.model.target.CardList;
 import snapMain.view.pane.editor.EditorPane;
+
+import java.util.Optional;
 
 public class AdventureControlPane extends EditorPane {
 
@@ -50,5 +55,25 @@ public class AdventureControlPane extends EditorPane {
 
     public void healCard() {
         controller.healCard();
+    }
+
+    public void generateCard() {
+        controller.generateCard();
+    }
+
+    public void searchCard() {
+        controller.searchFreeAgent();
+    }
+
+    public void createClone() {
+        controller.createClone();
+    }
+
+    public void updateStats(CardList deck, MatchResult result) {
+        controller.updateStats(deck, result);
+    }
+
+    public AdventureDatabase getAdventureDatabase() {
+        return controller.getAdventureDatabase();
     }
 }

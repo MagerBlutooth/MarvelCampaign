@@ -2,9 +2,8 @@ package adventure.view.popup;
 
 import adventure.controller.HPDialogController;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 

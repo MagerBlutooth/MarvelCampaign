@@ -5,9 +5,9 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.thing.AdvCard;
 import adventure.view.node.BossEditorNode;
 import adventure.view.pane.AdvBossManagerPane;
+import javafx.fxml.FXML;
 import snapMain.model.target.TargetType;
 import snapMain.view.grabber.ThingImageGrabber;
-import javafx.fxml.FXML;
 
 public class BossEditorPaneController extends AdvEditorPaneController
 {

@@ -1,18 +1,16 @@
 package adventure.view;
 
+import adventure.controller.AdvMainMenuController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdvMasterThingDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import adventure.view.pane.AdvMainMenuPane;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.view.GameStage;
 import snapMain.view.SplashScreen;
-import javafx.animation.FadeTransition;
-import javafx.util.Duration;
-import adventure.controller.AdvMainMenuController;
-import adventure.view.pane.AdvMainMenuPane;
 
 import static adventure.view.GameMain.isSplashLoaded;
-import static adventure.view.GameMain.main;
 
 public class GameMainScreen extends GameStage {
     AdvMainMenuController controller;

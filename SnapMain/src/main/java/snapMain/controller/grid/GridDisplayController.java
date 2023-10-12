@@ -1,5 +1,6 @@
 package snapMain.controller.grid;
 
+import javafx.scene.Node;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.*;
 import javafx.collections.FXCollections;
@@ -32,7 +33,8 @@ public class GridDisplayController<T extends SnapTarget>  {
 
     boolean blind;
 
-    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v, boolean bl)
+    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v,
+                           boolean bl)
     {
         mainDatabase = controller.getDatabase();
         targetType = tType;
@@ -201,5 +203,38 @@ public class GridDisplayController<T extends SnapTarget>  {
     public ViewSize getViewSize()
     {
         return viewSize;
+    }
+
+    private ControlNode<T> getNode(T t) {
+        for(Node node: groupList.getChildren())
+        {
+            if(node instanceof ControlNode)
+            {
+                ControlNode<T> cNode = (ControlNode<T>)node;
+                if(cNode.getSubject().equals(t))
+                    return cNode;
+            }
+        }
+        return null;
+    }
+
+    public void toggleNodeLight(T t) {
+        getNode(t).toggleNodeLight();
+    }
+
+    public void highlightAll() {
+        for(Node n: groupList.getChildren())
+        {
+            if(n instanceof ControlNode)
+            {
+                ControlNode<T> cNode = (ControlNode<T>)n;
+                cNode.setHighlighted(true);
+            }
+        }
+    }
+
+    public void clear() {
+        groupList.getChildren().clear();
+        populateDisplay();
     }
 }

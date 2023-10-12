@@ -1,6 +1,6 @@
 package snapMain.model.target;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.sortFilter.LocationSortMode;
@@ -45,10 +45,10 @@ public class LocationList extends TargetList<Location> {
         {
             stringBuilder.append(l.getID());
                 for (Card c : l.getStationedAgents()) {
-                    stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+                    stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
                     stringBuilder.append(c.getID());
                 }
-            stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.CATEGORY_SEPARATOR);
         }
         String result = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
@@ -58,12 +58,12 @@ public class LocationList extends TargetList<Location> {
     {
         byte[] decodedBytes = Base64.getDecoder().decode(locationString);
         String decodedString = new String(decodedBytes);
-        String[] locList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
+        String[] locList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
         TargetDatabase<Location> locDatabase = database.getLocationsAndMedbay();
         TargetDatabase<Card> cardDatabase = database.getCards();
         for(String c: locList)
         {
-            String[] stationedAgents = c.split(CampaignConstants.STRING_SEPARATOR);
+            String[] stationedAgents = c.split(SnapMainConstants.STRING_SEPARATOR);
             Location l = new Location(locDatabase.lookup(Integer.parseInt(stationedAgents[0])));
             l.removeStationedAgents();
             for(int i = 1; i < stationedAgents.length; i++)

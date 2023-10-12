@@ -1,8 +1,8 @@
 package adventure.view.pane;
 
+import adventure.controller.AdvMainMenuController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import adventure.controller.AdvMainMenuController;
 import snapMain.view.pane.FullViewPane;
 
 public class AdvMainMenuPane extends FullViewPane {

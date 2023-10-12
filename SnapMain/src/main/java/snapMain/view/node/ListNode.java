@@ -6,6 +6,7 @@ import snapMain.controller.node.CampaignListNodeController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import snapMain.model.target.BaseObject;
+import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
@@ -44,5 +45,18 @@ public abstract class ListNode<T extends BaseObject> extends StackPane {
     public GridDisplayNode<T> getList()
     {
         return list;
+    }
+
+    public void setPrefColumns(int c)
+    {
+        list.setPrefColumns(c);
+    }
+
+    public void toggleNodeLight(T t) {
+        list.toggleNodeLight(t);
+    }
+
+    public void highlightAll() {
+        list.highlightAll();
     }
 }

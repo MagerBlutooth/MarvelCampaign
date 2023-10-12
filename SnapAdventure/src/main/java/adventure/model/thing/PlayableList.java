@@ -1,9 +1,9 @@
-package snapMain.model.target;
+package adventure.model.thing;
 
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
+import snapMain.model.target.*;
 
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -20,9 +20,9 @@ public class PlayableList extends TargetList<Playable> {
         for(SnapTarget t: this)
         {
             stringBuilder.append(t.getTargetType());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
             stringBuilder.append(t.getID());
-            stringBuilder.append(CampaignConstants.CATEGORY_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.CATEGORY_SEPARATOR);
         }
         if(!this.isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -38,11 +38,11 @@ public class PlayableList extends TargetList<Playable> {
         String decodedString = new String(decodedBytes);
         if(decodedString.isBlank())
             return;
-        String[] cardsList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
+        String[] cardsList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
 
         for(String cString: cardsList)
         {
-            String[] playableString = cString.split(CampaignConstants.STRING_SEPARATOR);
+            String[] playableString = cString.split(SnapMainConstants.STRING_SEPARATOR);
             TargetType tType = TargetType.valueOf(playableString[0]);
             if(tType == TargetType.CARD)
             {
@@ -52,7 +52,16 @@ public class PlayableList extends TargetList<Playable> {
             else
             {
                 Token t = (Token) db.lookup(Integer.parseInt(playableString[1]), TargetType.TOKEN);
-                this.add(t);
+                InfinityStoneID stoneID = InfinityStoneID.lookupID(t.getID());
+                if(stoneID != null)
+                {
+                    InfinityStone i = new InfinityStone(t.getID(), stoneID);
+                    add(i);
+                }
+                else
+                {
+                    this.add(t);
+                }
             }
         }
     }

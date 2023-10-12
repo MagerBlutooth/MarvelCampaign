@@ -1,10 +1,10 @@
 package adventure.model.thing;
 
-import snapMain.model.sortFilter.BossSortMode;
 import adventure.model.sorter.BossSorter;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.*;
+import snapMain.model.sortFilter.BossSortMode;
+import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -45,7 +45,7 @@ public class AdvCardList extends TargetList<AdvCard> {
         for(AdvCard b: getBosses())
         {
             stringBuilder.append(b.getID());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
@@ -53,7 +53,7 @@ public class AdvCardList extends TargetList<AdvCard> {
 
     public void fromCSVSaveString(String bossString, TargetDatabase<AdvCard> database)
     {
-        String[] bossList = bossString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] bossList = bossString.split(SnapMainConstants.STRING_SEPARATOR);
 
         for(String c: bossList)
         {
@@ -67,7 +67,7 @@ public class AdvCardList extends TargetList<AdvCard> {
         for(AdvCard c: getBosses())
         {
             stringBuilder.append(c.getID());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         String result = stringBuilder.toString();
@@ -78,7 +78,7 @@ public class AdvCardList extends TargetList<AdvCard> {
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
-        String[] cardsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] cardsList = decodedString.split(SnapMainConstants.STRING_SEPARATOR);
 
         for(String c: cardsList)
         {

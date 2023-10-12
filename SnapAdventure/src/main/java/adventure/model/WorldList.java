@@ -1,13 +1,11 @@
 package adventure.model;
 
-import adventure.model.thing.AdvCard;
-import adventure.model.thing.AdvCardList;
-import adventure.model.thing.AdvLocation;
-import adventure.model.thing.AdvLocationList;
-import snapMain.model.constants.CampaignConstants;
+import adventure.model.thing.*;
+import snapMain.model.constants.SnapMainConstants;
+import snapMain.model.target.Playable;
+import snapMain.model.target.SnapTarget;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -18,9 +16,7 @@ public class WorldList extends ArrayList<World> {
     public WorldList(AdventureDatabase database)
     {
         super(new ArrayList<>());
-        AdvCardList bosses = new AdvCardList(database.getBosses());
         AdvLocationList sections = new AdvLocationList(database.getSections());
-        bosses.shuffle();
         sections.shuffle();
         for(int i = 0; i < NUMBER_OF_WORLDS; i++)
         {
@@ -33,8 +29,7 @@ public class WorldList extends ArrayList<World> {
             locations.add(s2);
             locations.add(s3);
             locations.add(s4);
-            AdvCard b = bosses.get(i);
-            World world = new World(database, locations, b, i);
+            World world = new World(database, locations, i);
             add(world);
         }
 
@@ -50,7 +45,7 @@ public class WorldList extends ArrayList<World> {
         for(World w: this)
         {
             stringBuilder.append(w.toSaveString());
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         if(!stringBuilder.isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -62,7 +57,7 @@ public class WorldList extends ArrayList<World> {
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
-        String[] worldsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
+        String[] worldsList = decodedString.split(SnapMainConstants.STRING_SEPARATOR);
         for (String s : worldsList) {
             World w = new World(db);
             w.fromSaveString(s, mainDB);
@@ -86,7 +81,8 @@ public class WorldList extends ArrayList<World> {
         List<AdvCard> allBosses = new ArrayList<>();
         for(World w: this)
         {
-            allBosses.add(w.getBoss().getCard());
+            if(w.getBoss().getSubject() instanceof AdvCard)
+                allBosses.add((AdvCard) w.getBoss().getSubject());
         }
         return allBosses;
     }

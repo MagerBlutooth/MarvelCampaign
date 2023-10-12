@@ -1,13 +1,13 @@
 package adventure.controller;
 
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 
 public class TeamGridActionController implements GridActionController<Card> {
 
@@ -44,16 +44,19 @@ public class TeamGridActionController implements GridActionController<Card> {
         MenuItem eliminateItem = new MenuItem("Eliminate");
         MenuItem captureItem = new MenuItem("Capture");
         MenuItem miaItem = new MenuItem("Send Away");
+        MenuItem freeItem = new MenuItem("Defect");
         MenuItem captainItem = new MenuItem("Toggle Captain");
         eliminateItem.setOnAction(actionEvent -> teamDisplayNodeController.eliminate(n.getSubject()));
         captureItem.setOnAction(actionEvent -> teamDisplayNodeController.capture(n.getSubject()));
         miaItem.setOnAction(actionEvent -> teamDisplayNodeController.sendAway(n.getSubject()));
         captainItem.setOnAction(actionEvent -> teamDisplayNodeController.toggleCaptain(n.getSubject()));
+        freeItem.setOnAction(actionEvent -> teamDisplayNodeController.makeCardFreeAgent(n.getSubject()));
         contextMenu.getItems().add(woundItem);
         contextMenu.getItems().add(eliminateItem);
         contextMenu.getItems().add(captureItem);
         contextMenu.getItems().add(miaItem);
         contextMenu.getItems().add(captainItem);
+        contextMenu.getItems().add(freeItem);
         n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
 

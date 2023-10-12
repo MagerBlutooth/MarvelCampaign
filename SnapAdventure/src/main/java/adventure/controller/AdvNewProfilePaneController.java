@@ -5,6 +5,10 @@ import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.view.pane.AdvStartPane;
 import adventure.view.pane.AdventureControlPane;
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
@@ -13,10 +17,6 @@ import snapMain.view.ViewSize;
 import snapMain.view.button.ButtonToolBar;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 
 public class AdvNewProfilePaneController extends AdvPaneController implements GridActionController<Card> {
 

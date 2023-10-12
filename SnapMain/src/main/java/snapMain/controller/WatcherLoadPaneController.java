@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.CampaignDatabase;
 import snapMain.model.database.CampaignLoader;
 import snapMain.model.target.Campaign;
@@ -38,7 +38,7 @@ public class WatcherLoadPaneController extends ButtonToolBarPaneController {
     }
 
     private void configureLoadRecentButton() {
-        File f = new File(CampaignConstants.CAMPAIGN_FILE);
+        File f = new File(SnapMainConstants.CAMPAIGN_FILE);
         if(f.exists())
             loadRecentButton.setDisable(false);
         else

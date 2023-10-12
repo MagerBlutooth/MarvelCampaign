@@ -1,8 +1,9 @@
 package adventure.model;
 
 import adventure.model.thing.InfinityStone;
+import adventure.model.thing.InfinityStoneID;
 import adventure.model.thing.Section;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
@@ -31,6 +32,7 @@ public class Team {
         capturedCards = new CardList(new ArrayList<>());
         miaCards = new CardList(new ArrayList<>());
         eliminatedCards = new CardList(new ArrayList<>());
+        infinityStones = new ArrayList<>();
     }
     public Team(AdventureDatabase database)
     {
@@ -50,11 +52,11 @@ public class Team {
     }
 
     public String convertToString() {
-        String teamString =  activeCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                tempCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                freeAgentCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                capturedCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
-                miaCards.toSaveString() + CampaignConstants.CATEGORY_SEPARATOR +
+        String teamString =  activeCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                tempCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                freeAgentCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                capturedCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                miaCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 eliminatedCards.toSaveString();
         return Base64.getEncoder().encodeToString(teamString.getBytes());
     }
@@ -62,7 +64,7 @@ public class Team {
     public void convertFromString(String teamString, TargetDatabase<Card> db) {
         byte[] decodedBytes = Base64.getDecoder().decode(teamString);
         String decodedString = new String(decodedBytes);
-        String[] teamList = decodedString.split(CampaignConstants.CATEGORY_SEPARATOR);
+        String[] teamList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
         activeCards.fromSaveString(teamList[0], db);
         tempCards.fromSaveString(teamList[1], db);
         freeAgentCards.fromSaveString(teamList[2], db);
@@ -71,7 +73,7 @@ public class Team {
         eliminatedCards.fromSaveString(teamList[5], db);
     }
 
-    public TargetList<Card> getActiveCards() {
+    public CardList getActiveCards() {
         return activeCards;
     }
 
@@ -186,7 +188,45 @@ public class Team {
 
     public void stationCard(Section s ,Card c)
     {
-        s.stationCard(c);
-        activeCards.remove(c);
+        if(s.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
+            s.stationCard(c);
+            activeCards.remove(c);
+        }
+    }
+
+    public boolean hasInfinityStone(InfinityStoneID id)
+    {
+        for(InfinityStone stone: infinityStones)
+        {
+            if(stone.getID() == id.getID())
+                return true;
+        }
+        return false;
+    }
+
+    public void addCardToTeam(Card c) {
+        activeCards.add(c);
+    }
+
+    public void gainInfinityStone(InfinityStone p) {
+        infinityStones.add(p);
+    }
+
+    public Card getRandomCard() {
+        if(!activeCards.isEmpty()) {
+            List<Card> allCards = new ArrayList<>(activeCards.getThings());
+            Collections.shuffle(allCards);
+            return allCards.get(0);
+        }
+        return null;
+    }
+
+    public void retrieveCapturedCards() {
+        activeCards.addAll(capturedCards.getCards());
+        capturedCards.clear();
+    }
+
+    public void loseTempCards() {
+        tempCards.clear();
     }
 }

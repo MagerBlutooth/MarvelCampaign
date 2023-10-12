@@ -2,9 +2,9 @@ package adventure.view.node;
 
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.scene.layout.StackPane;
 import snapMain.controller.editor.BasicNodeController;
 import snapMain.model.target.BaseObject;
-import javafx.scene.layout.StackPane;
 
 
 public abstract class AdvNode extends StackPane {

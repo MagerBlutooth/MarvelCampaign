@@ -2,15 +2,14 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.thing.AdvLocation;
-import snapMain.controller.editor.BasicNodeController;
-import snapMain.model.target.Location;
-import snapMain.model.target.TargetType;
-import snapMain.view.IconImage;
-import snapMain.view.ViewSize;
-import snapMain.view.thing.LocationView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import snapMain.controller.editor.BasicNodeController;
+import snapMain.model.target.Location;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.thing.LocationView;
 
 public class SectionEditorNodeController extends BasicNodeController<AdvMainDatabase, Location> {
 

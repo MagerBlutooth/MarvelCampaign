@@ -1,8 +1,7 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.*?>
 <?import adventure.view.node.DiceNode?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <fx:root fx:id="mainPane" type="adventure.view.node.DiceNode"
          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.DiceNodeController">

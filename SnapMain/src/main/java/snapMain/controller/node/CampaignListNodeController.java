@@ -10,4 +10,5 @@ public abstract class CampaignListNodeController<T extends BaseObject>{
     public void initialize(MasterThingDatabase d) {
         database = d;
     }
+
 }

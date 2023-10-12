@@ -1,9 +1,6 @@
 package adventure.model;
 
-import adventure.model.thing.AdvCard;
-import adventure.model.thing.AdvLocation;
-import adventure.model.thing.AdvThingFactory;
-import adventure.model.thing.AdvThingSaver;
+import adventure.model.thing.*;
 import snapMain.model.database.DatabaseContext;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.TargetDatabase;
@@ -61,16 +58,6 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
     public TargetDatabase<Token> getTokens()
     {
         return dBContext.lookup(TargetType.TOKEN);
-    }
-
-    public Playable getCardOrToken(CardOrToken ct)
-    {
-        if(ct.getTargetType() == TargetType.CARD)
-        {
-            return cards.lookup(ct.getID());
-        }
-        else
-            return tokens.lookup(ct.getID());
     }
 
     public void modifyBoss(AdvCard b) {

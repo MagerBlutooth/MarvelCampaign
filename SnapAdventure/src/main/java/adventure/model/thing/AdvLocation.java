@@ -1,6 +1,8 @@
 package adventure.model.thing;
 
-import snapMain.model.target.*;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.Location;
+import snapMain.model.target.TargetType;
 
 public class AdvLocation extends BaseObject {
     Location location;

@@ -1,11 +1,11 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
+import javafx.fxml.FXML;
+import javafx.scene.shape.Rectangle;
 import snapMain.controller.ButtonToolBarPaneController;
 import snapMain.model.target.BaseObject;
 import snapMain.view.pane.editor.EditorPane;
-import javafx.fxml.FXML;
-import javafx.scene.shape.Rectangle;
 
 
 public abstract class AdvEditorPaneController extends ButtonToolBarPaneController<AdvMainDatabase> {

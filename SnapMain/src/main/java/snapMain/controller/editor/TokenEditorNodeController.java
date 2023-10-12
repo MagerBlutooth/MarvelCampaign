@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import snapMain.model.constants.CampaignConstants;
+import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Token;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class TokenEditorNodeController extends BasicNodeController<MainDatabase,
 
     private void setCostValues() {
         List<Integer> costOptions = new ArrayList<>();
-        for(int i = CampaignConstants.MIN_COST; i < CampaignConstants.MAX_COST; i++)
+        for(int i = SnapMainConstants.MIN_COST; i < SnapMainConstants.MAX_COST; i++)
         {
             costOptions.add(i);
         }
@@ -43,7 +43,7 @@ public class TokenEditorNodeController extends BasicNodeController<MainDatabase,
     private void setPowerValues()
     {
         List<Integer> powerOptions = new ArrayList<>();
-        for(int i = CampaignConstants.MIN_POWER; i < CampaignConstants.MAX_POWER; i++)
+        for(int i = SnapMainConstants.MIN_POWER; i < SnapMainConstants.MAX_POWER; i++)
         {
             powerOptions.add(i);
         }

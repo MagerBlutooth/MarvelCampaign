@@ -21,11 +21,25 @@
     -fx-border-color: white;
 }
 
+#subtitle
+{
+-fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 48px;
+    -fx-text-fill: white;
+}
+
 #title
 {
     -fx-font-family: "Komika Slick";
     -fx-font-size: 48px;
     -fx-text-fill: white;
+}
+
+#info {
+    -fx-font-family: "Ubuntu";
+    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-font-size: 16px;
 }
 
 #smallButton
@@ -78,10 +92,17 @@
 .list-cell{
     -fx-background-color: black;
     -fx-text-fill: white;
+    -fx-font-size: 12.0;
+    -fx-font-family: "Ubuntu";
 }
 
 .list-cell:even {
     -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: dodgerblue;
     -fx-text-fill: white;
 }
 

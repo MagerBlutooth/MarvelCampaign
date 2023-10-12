@@ -1,17 +1,19 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
 <?import adventure.view.node.WorldClearSelectNode?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
 <fx:root type="WorldClearSelectNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.WorldClearSelectNodeController">
     <VBox alignment="CENTER">
 
+        <Label text="Rewards"/>
         <HBox alignment="CENTER">
+            <Button text="Gain Boss" onAction="#gainBoss"/>
            <Button text="Draft Card" onAction="#draftCard"/>
             <Button text="Heal Card" onAction="#healCard"/>
-            <Button text="Convert Captive" onAction="#convertCaptive"/>
         </HBox>
     </VBox>
     <padding>

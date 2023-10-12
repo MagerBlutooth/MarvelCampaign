@@ -1,17 +1,17 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.adventure.Adventure;
 import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
+import adventure.model.adventure.Adventure;
 import adventure.view.node.ProfileNode;
 import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdvNewProfilePane;
 import adventure.view.pane.AdvStartPane;
 import adventure.view.pane.AdventureControlPane;
-import snapMain.view.button.ButtonToolBar;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import snapMain.view.button.ButtonToolBar;
 
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -2,17 +2,20 @@ package adventure.controller;
 
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
+import adventure.view.node.InfinityStoneDisplayNode;
 import adventure.view.popup.CardDisplayPopup;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 public class TeamDisplayNodeController {
 
+    @FXML
+    InfinityStoneDisplayNode infinityStoneDisplay;
     @FXML
     GridDisplayNode<Card> cardDisplay;
     @FXML
@@ -21,8 +24,8 @@ public class TeamDisplayNodeController {
     public Button eliminateButton;
     @FXML
     Button stationedButton;
-
-
+    @FXML
+    Button randomButton;
     TeamGridActionController cardController;
 
     Team team;
@@ -39,6 +42,7 @@ public class TeamDisplayNodeController {
         cardController.initialize(d, this);
         cardDisplay.initialize(t.getActiveCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
         tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
+        infinityStoneDisplay.initialize(database, t);
     }
 
     public void showCaptured()
@@ -90,6 +94,7 @@ public class TeamDisplayNodeController {
     {
         cardDisplay.refreshToMatch(team.getActiveCards());
         tempCardDisplay.refreshToMatch(team.getTempCards());
+        infinityStoneDisplay.refresh();
     }
 
     public void capture(Card card)
@@ -140,5 +145,22 @@ public class TeamDisplayNodeController {
     public void toggleCaptain(Card card) {
         card.setCaptain(!card.isCaptain());
         update(card);
+    }
+
+    public void makeCardFreeAgent(Card card) {
+        team.makeCardFreeAgent(card);
+        refresh();
+    }
+
+    @FXML
+    public void showRandomCard()
+    {
+        CardDisplayPopup popup = new CardDisplayPopup(database, team.getRandomCard(), randomButton.localToScene(0.0,0.0));
+        popup.show();
+        popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                popup.hide();
+            }
+        });
     }
 }
