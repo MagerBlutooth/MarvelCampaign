@@ -219,7 +219,9 @@ public class GridDisplayController<T extends SnapTarget>  {
     }
 
     public void toggleNodeLight(T t) {
-        getNode(t).toggleNodeLight();
+        ControlNode<T> node = getNode(t);
+        if(node != null)
+            Objects.requireNonNull(node).toggleNodeLight();
     }
 
     public void highlightAll() {

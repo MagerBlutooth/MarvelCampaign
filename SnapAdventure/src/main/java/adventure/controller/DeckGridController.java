@@ -27,15 +27,17 @@ public class DeckGridController implements GridActionController<Card> {
 
     DeckConstructorPaneController deckConstructorController;
 
-    public void initialize(MainDatabase db, GridDisplayNode<Card> dDisplay, DeckConstructorPaneController cController)
+    public void initialize(MainDatabase db, GridDisplayNode<Card> dDisplay, CardList recentDeck,
+                           DeckConstructorPaneController cController)
     {
         mainDatabase = db;
-        chosenCards = new CardList(new ArrayList<>());
+        chosenCards = recentDeck;
         deckDisplay = dDisplay;
         deckDisplay.setPrefColumns(6);
         deckDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         deckConstructorController = cController;
         deckSizeProperty = new SimpleIntegerProperty();
+        deckSizeProperty.set(chosenCards.size());
     }
 
     @Override
@@ -108,5 +110,12 @@ public class DeckGridController implements GridActionController<Card> {
 
     public IntegerProperty getDeckSizeProperty() {
         return deckSizeProperty;
+    }
+
+    public void toggleNodeLights() {
+        for(Card c: chosenCards)
+        {
+            deckConstructorController.toggleNodeLight(c);
+        }
     }
 }

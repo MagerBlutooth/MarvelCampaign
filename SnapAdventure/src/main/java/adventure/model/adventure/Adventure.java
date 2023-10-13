@@ -27,29 +27,23 @@ public class Adventure {
     int currentSectionNum;
     boolean newProfileCheck;
     CardStatTracker cardStatTracker;
+    CardList mostRecentDeck;
     List<InfinityStone> infinityStones;
 
-    //Constructor for loading old profiles
-    public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile, String proName)
-    {
-        profileName = proName;
-        profileFile = proFile;
-        adventureDatabase = database;
-        newProfileCheck = false;
-        infinityStones = new ArrayList<>();
-        loadAdventure(profileFile, mainDB);
-        cardStatTracker = new CardStatTracker(mainDB, team.getTeamCards());
-    }
-
-    //Constructor for creating new profiles
     public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile)
     {
+        //Initialize base objects
+        team = new Team();
+        availableBosses = new AdvCardList(new ArrayList<>());
+        availableLocations = new AdvLocationList(new ArrayList<>());
+        worlds = new WorldList(new ArrayList<>());
         profileFile = proFile;
         adventureDatabase = database;
         newProfileCheck = false;
         infinityStones = new ArrayList<>();
-        loadAdventure(proFile, mainDB);
         cardStatTracker = new CardStatTracker(mainDB, team.getTeamCards());
+        mostRecentDeck = new CardList(new ArrayList<>());
+        loadAdventure(proFile, mainDB);
     }
 
     public List<String> convertToString()
@@ -63,6 +57,7 @@ public class Adventure {
         adventureString.add(availableLocations.toSaveString());
         adventureString.add(worlds.toSaveString());
         adventureString.add(cardStatTracker.toSaveString());
+        adventureString.add(mostRecentDeck.toSaveString());
         return adventureString;
     }
 
@@ -73,12 +68,6 @@ public class Adventure {
             generateAdventure();
             return;
         }
-        //Initialize base objects
-        team = new Team();
-        availableBosses = new AdvCardList(new ArrayList<>());
-        availableLocations = new AdvLocationList(new ArrayList<>());
-        worlds = new WorldList(new ArrayList<>());
-
 
         String[] splitString = stringToConvert.get(0).split(SnapMainConstants.CSV_SEPARATOR);
         profileName = splitString[0];
@@ -90,6 +79,7 @@ public class Adventure {
         availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
         worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
         cardStatTracker.fromSaveString(splitString[7]);
+        mostRecentDeck.fromSaveString(splitString[8], mainDB.lookupDatabase(TargetType.CARD));
 
     }
 
@@ -386,5 +376,13 @@ public class Adventure {
 
     public int getWorldMatchCount() {
         return getCurrentWorld().getMatchCount();
+    }
+
+    public CardList getMostRecentDeck() {
+        return mostRecentDeck;
+    }
+
+    public void setMostRecentDeck(CardList deck) {
+        mostRecentDeck = deck;
     }
 }

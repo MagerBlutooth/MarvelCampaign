@@ -4,6 +4,8 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.stats.MatchResult;
 import adventure.view.node.DeckItemControlNode;
+import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
+import adventure.view.sortFilter.DeckLinkedSortMenuButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -35,11 +37,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
 
     @FXML
+    ButtonToolBar buttonToolBar;
+    @FXML
     Button confirmButton;
     @FXML
     CardManager cardChoices;
-    @FXML
-    ButtonToolBar buttonToolBar;
     @FXML
     GridDisplayNode<Card> deckDisplay;
     DeckGridController deckGridController;
@@ -54,9 +56,9 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     ToggleButton forceRetreatButton;
     @FXML
-    SortMenuButton<Card> sortButton;
+    DeckLinkedSortMenuButton sortButton;
     @FXML
-    FilterMenuButton<Card> filterButton;
+    DeckLinkedFilterMenuButton filterButton;
     Adventure adventure;
     FullViewPane backPane;
 
@@ -75,17 +77,18 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         CardList selectableCards = a.getActiveCards();
         winButton.setSelected(true);
         setWin();
+        CardList verifiedRecentDeck = verifyCardList(adventure.getMostRecentDeck());
         deckGridController = new DeckGridController();
-        deckGridController.initialize(db, deckDisplay, this);
+        deckGridController.initialize(db, deckDisplay, verifiedRecentDeck, this);
         cardChoices.initialize(selectableCards, TargetType.CARD, this, ViewSize.TINY, false);
         cardChoices.setPrefColumns(8);
         deckDisplay.setMaxWidth(700);
-        deckDisplay.initialize(new CardList(new ArrayList<>()), TargetType.CARD, deckGridController, ViewSize.SMALL,
+        deckDisplay.initialize(verifiedRecentDeck, TargetType.CARD, deckGridController, ViewSize.SMALL,
                 false);
         deckDisplay.setBorder((new Border(new BorderStroke(Color.WHITE,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
-        sortButton.initialize(cardChoices.getListNodeController());
-        filterButton.initialize(cardChoices.getListNodeController());
+        sortButton.initialize(cardChoices.getListNodeController(), deckGridController);
+        filterButton.initialize(cardChoices.getListNodeController(), deckGridController);
         confirmButton.disableProperty().bind(Bindings.notEqual(SnapMainConstants.MAX_DECK_SIZE,
                 deckGridController.getDeckSizeProperty()));
     }
@@ -138,6 +141,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     public void confirmDeck()
     {
+        adventure.setMostRecentDeck(deckGridController.getDeck());
         adventure.updateStats(deckGridController.getDeck(), result);
         changeScene(backPane);
     }
@@ -166,7 +170,14 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         String data = (String) Clipboard.getSystemClipboard().getContent(DataFormat.PLAIN_TEXT);
-        codeConverter.convertDeckCodeToDeck(mainDatabase.lookupDatabase(TargetType.CARD), data);
+        CardList pastedDeck = codeConverter.convertDeckCodeToDeck(mainDatabase.lookupDatabase(TargetType.CARD), data);
+        CardList verifiedCards = verifyCardList(pastedDeck);
+        if(!verifiedCards.isEmpty()) {
+            clearDeck();
+            for(Card c: pastedDeck) {
+                deckGridController.toggleEntry(c);
+            }
+        }
     }
 
     public void clearDeck()
@@ -189,4 +200,14 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     public void initializeButtonToolBar() {
         buttonToolBar.initialize(backPane);
     }
+    private CardList verifyCardList(CardList candidateCards) {
+        CardList validCards = new CardList(new ArrayList<>());
+        for(Card c: candidateCards)
+        {
+            if(adventure.getActiveCards().contains(c))
+                validCards.add(c);
+        }
+        return validCards;
+    }
+
 }

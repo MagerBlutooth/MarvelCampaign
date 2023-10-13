@@ -8,6 +8,8 @@
 <?import snapMain.view.button.ButtonToolBar?>
 <?import snapMain.view.menu.SortMenuButton?>
 <?import snapMain.view.menu.FilterMenuButton?>
+<?import adventure.view.sortFilter.DeckLinkedSortMenuButton?>
+<?import adventure.view.sortFilter.DeckLinkedFilterMenuButton?>
 <fx:root type="DeckConstructorPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
@@ -17,8 +19,8 @@
                 <GridDisplayNode fx:id="deckDisplay" minHeight="200"/>
                 <CardManager fx:id="cardChoices" minHeight="400"/>
                 <HBox spacing="50.0" alignment="CENTER">
-                    <SortMenuButton text="Sort" fx:id="sortButton"/>
-                    <FilterMenuButton text="Filter" fx:id="filterButton"/>
+                    <DeckLinkedSortMenuButton text="Sort" fx:id="sortButton"/>
+                    <DeckLinkedFilterMenuButton text="Filter" fx:id="filterButton"/>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10.0">
                     <Button text="Paste Code from Clipboard" onAction="#pasteFromClipboard" id="smallButton"/>
