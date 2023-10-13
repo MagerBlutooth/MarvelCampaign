@@ -15,9 +15,9 @@ import snapMain.view.node.GridDisplayNode;
 public class TeamDisplayNodeController {
 
     @FXML
-    InfinityStoneDisplayNode infinityStoneDisplay;
+    GridDisplayNode<Card> teamCardDisplay;
     @FXML
-    GridDisplayNode<Card> cardDisplay;
+    InfinityStoneDisplayNode infinityStoneDisplay;
     @FXML
     public GridDisplayNode<Card> tempCardDisplay;
     @FXML
@@ -40,7 +40,7 @@ public class TeamDisplayNodeController {
         adventure = a;
         cardController = new TeamGridActionController();
         cardController.initialize(d, this);
-        cardDisplay.initialize(t.getActiveCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
+        teamCardDisplay.initialize(t.getTeamCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
         tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
         infinityStoneDisplay.initialize(database, t);
     }
@@ -92,7 +92,7 @@ public class TeamDisplayNodeController {
 
     public void refresh()
     {
-        cardDisplay.refreshToMatch(team.getActiveCards());
+        teamCardDisplay.refreshToMatch(team.getTeamCards());
         tempCardDisplay.refreshToMatch(team.getTempCards());
         infinityStoneDisplay.refresh();
     }
@@ -133,7 +133,7 @@ public class TeamDisplayNodeController {
     }
 
     public void update(Card subject) {
-        cardDisplay.update(subject);
+        teamCardDisplay.update(subject);
         tempCardDisplay.update(subject);
     }
 

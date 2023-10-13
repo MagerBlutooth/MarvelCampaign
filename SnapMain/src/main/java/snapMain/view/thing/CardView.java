@@ -39,9 +39,4 @@ public class CardView extends ThingView<Card> {
     public Card getCard() {
         return controller.getCard();
     }
-
-    public void disableTooltip()
-    {
-        controller.disableTooltip();
-    }
 }

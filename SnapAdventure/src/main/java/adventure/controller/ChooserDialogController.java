@@ -6,19 +6,27 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.MainDatabase;
+import snapMain.model.helper.FileHelper;
+import snapMain.model.target.Card;
 import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
+import snapMain.view.menu.FilterMenuButton;
+import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 
 public class ChooserDialogController<T extends SnapTarget> {
 
     @FXML
-    public ButtonType okButton;
+    ButtonType okButton;
     @FXML
-    public ButtonType cancelButton;
+    ButtonType cancelButton;
+    @FXML
+    SortMenuButton<T> sortButton;
+    @FXML
+    FilterMenuButton<T> filterButton;
     @FXML
     StackPane displayPane;
     @FXML
@@ -34,6 +42,8 @@ public class ChooserDialogController<T extends SnapTarget> {
         ChooserDialogGridActionController<T> gridActionController = new ChooserDialogGridActionController<>();
         gridActionController.initialize(mainDatabase, dialog);
         choiceNodes.initialize(selectables, targetType, gridActionController, ViewSize.SMALL, false);
+        sortButton.initialize(choiceNodes.getController());
+        filterButton.initialize(choiceNodes.getController());
     }
 
 

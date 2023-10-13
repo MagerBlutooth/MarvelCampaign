@@ -8,8 +8,8 @@ import snapMain.model.target.CardList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.manager.CardManager;
-import snapMain.view.menu.CardFilterMenuButton;
-import snapMain.view.menu.CardSortMenuButton;
+import snapMain.view.menu.FilterMenuButton;
+import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.pane.editor.CardEditorPane;
 
@@ -18,9 +18,9 @@ public class CardManagerPaneController extends ManagerPaneController<Card, MainD
     @FXML
     CardManager cardManager;
     @FXML
-    CardSortMenuButton sortButton;
+    SortMenuButton sortButton;
     @FXML
-    CardFilterMenuButton filterButton;
+    FilterMenuButton filterButton;
 
     @Override
     public Scene getCurrentScene() {

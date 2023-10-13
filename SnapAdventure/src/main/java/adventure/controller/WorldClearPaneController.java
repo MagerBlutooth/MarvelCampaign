@@ -9,6 +9,7 @@ import adventure.view.pane.AdventureControlPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Card;
 import snapMain.model.target.SnapTarget;
@@ -22,27 +23,24 @@ import snapMain.view.node.control.ControlNode;
 public class WorldClearPaneController extends AdvPaneController implements GridActionController<Card> {
 
     @FXML
+    Label matchCount;
+    @FXML
     ButtonToolBar buttonToolBar;
     @FXML
     WorldClearSelectNode worldClearNode;
-    @FXML
-    GridDisplayNode<Card> reclaimedCards;
-    @FXML
-    GridDisplayNode<Card> eliminatedCards;
-    @FXML
-    Button healChoice;
 
     AdventureControlPane controlPane;
 
     public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane cPane)
     {
-        World w= a.getCurrentWorld();
-        reclaimedCards.initialize(a.getCapturedCards(), TargetType.CARD, this, ViewSize.TINY, false);
+        mainDatabase = database;
+        worldClearNode.initialize(database, a, cPane);
+        matchCount.setText(a.getWorldMatchCount()+"");
     }
 
     @Override
     public Scene getCurrentScene() {
-        return null;
+        return worldClearNode.getScene();
     }
 
     @Override
@@ -53,7 +51,9 @@ public class WorldClearPaneController extends AdvPaneController implements GridA
 
     @Override
     public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
-        return null;
+        ControlNode<Card> controlNode = new ControlNode<>();
+        controlNode.initialize(mainDatabase, card, i, v, blind);
+        return controlNode;
     }
 
     @Override

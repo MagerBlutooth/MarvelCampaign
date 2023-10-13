@@ -201,10 +201,12 @@
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
     -fx-border-color: white;
+    -fx-background-color: black;
 }
 
 .dialog-pane > .content.label {
     -fx-text-fill: white;
+    -fx-font-family: "Ubuntu";
 }
 
 .context-menu {
@@ -250,7 +252,7 @@
 .check-menu-item .label {
 {
     -fx-font-family: "Ubuntu";
-    -fx-font-size: 12px;
+    -fx-font-size: 18px;
 }
 
 .check-menu-item:focused

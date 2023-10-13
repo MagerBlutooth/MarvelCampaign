@@ -20,7 +20,7 @@
                 <HBox alignment="CENTER">
                     <VBox alignment="CENTER">
                         <Label text="Main Cards"/>
-                        <GridDisplayNode fx:id="cardDisplay" prefWidth="900"/>
+                        <GridDisplayNode fx:id="teamCardDisplay" prefWidth="900"/>
                     </VBox>
                     <VBox alignment="CENTER">
                         <Label text="Temp Cards"/>

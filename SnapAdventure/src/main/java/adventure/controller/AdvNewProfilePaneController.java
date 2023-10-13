@@ -41,7 +41,7 @@ public class AdvNewProfilePaneController extends AdvPaneController implements Gr
         startButton.setDisable(true);
         initializeButtonToolBar();
         Team t = adventure.getTeam();
-        teamIntro.initialize(t.getActiveCards(), TargetType.CARD, this, ViewSize.SMALL, false);
+        teamIntro.initialize(t.getTeamCards(), TargetType.CARD, this, ViewSize.SMALL, false);
         teamIntro.setFitToHeight(true);
         captainIntro.initialize(t.getCaptains(), TargetType.CARD, this, ViewSize.SMALL, false);
         initializeStartButton();

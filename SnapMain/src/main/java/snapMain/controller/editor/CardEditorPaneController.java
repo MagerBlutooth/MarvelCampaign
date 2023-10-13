@@ -28,7 +28,6 @@ public class CardEditorPaneController extends EditorPaneController {
         super.initialize(database);
         cardEditorNode.initialize(database, card);
         imagePane.initialize(mainDatabase, card, viewSize, true);
-        imagePane.disableTooltip();
     }
 
     @FXML

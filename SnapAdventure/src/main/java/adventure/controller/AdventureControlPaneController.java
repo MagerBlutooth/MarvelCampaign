@@ -74,7 +74,7 @@ public class AdventureControlPaneController extends AdvPaneController {
     public void refreshToMatch() {
         teamDisplayNode.refresh();
         worldDisplayNode.refresh(adventure.getCurrentWorld());
-        //adventure.saveAdventure();
+        adventure.saveAdventure();
     }
 
     public void completeSection() {

@@ -29,17 +29,6 @@ public class CardViewController extends CampaignViewController<Card> {
         viewSize = v;
         setCard(c);
         cardView.setViewSize(v);
-        setTooltip();
-    }
-
-    private void setTooltip() {
-        Tooltip cardToolTip = new Tooltip(card.getName() + "\n" + card.getEffect());
-        cardToolTip.setFont(new Font("Ubuntu", 20));
-        cardView.setOnMouseEntered(e -> {
-            Node node = (Node) e.getSource();
-            cardToolTip.show(node, e.getScreenX() + 50, e.getScreenY());
-        });
-        cardView.setOnMouseExited(e -> cardToolTip.hide());
     }
 
     @Override
@@ -58,9 +47,5 @@ public class CardViewController extends CampaignViewController<Card> {
 
         card = c;
         setMainImage(imageGrabber.grabImage(card.getID()), viewSize);
-    }
-
-    public void disableTooltip() {
-        cardView.setOnMouseEntered(null);
     }
 }

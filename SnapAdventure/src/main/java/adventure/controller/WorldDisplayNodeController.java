@@ -8,7 +8,6 @@ import adventure.model.thing.Section;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
-import adventure.view.pane.BossViewPane;
 import adventure.view.pane.SectionViewPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -55,18 +54,18 @@ public class WorldDisplayNodeController extends AdvPaneController {
         bossEffectText.setText(boss.getEffect());
         section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation()),
                 ViewSize.MEDIUM, true);
-        section2Node.initialize(d, advLocation2, d.grabImage(advLocation1.getLocation()),
+        section2Node.initialize(d, advLocation2, d.grabImage(advLocation2.getLocation()),
                 ViewSize.MEDIUM, false);
-        section3Node.initialize(d, advLocation3, d.grabImage(advLocation1.getLocation()),
+        section3Node.initialize(d, advLocation3, d.grabImage(advLocation3.getLocation()),
                 ViewSize.MEDIUM, false);
-        section4Node.initialize(d, advLocation4, d.grabImage(advLocation1.getLocation()),
+        section4Node.initialize(d, advLocation4, d.grabImage(advLocation4.getLocation()),
                 ViewSize.MEDIUM, false);
         sections.add(section1Node);
         sections.add(section2Node);
         sections.add(section3Node);
         sections.add(section4Node);
         bossControlNode.initialize(mainDatabase, boss, d.grabImage(boss.getSubject()), ViewSize.MEDIUM, false);
-        bossControlNode.unreveal();
+        bossControlNode.setRevealed(w.isBossRevealed());
         setSectionMouseOption(section1Node, aPane);
         setSectionMouseOption(section2Node, aPane);
         setSectionMouseOption(section3Node, aPane);
@@ -77,7 +76,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
     private void setBossMouseOption(EnemyControlNode bossNode, AdventureControlPane aPane) {
         bossNode.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY && world.isBossRevealed()) {
-                BossViewPane bossViewPane = new BossViewPane();
+                SectionViewPane bossViewPane = new SectionViewPane();
                 bossViewPane.initialize(mainDatabase, aPane, new BossSection(aPane.getAdventureDatabase(),
                         bossNode.getSubject()));
                 changeScene(bossViewPane);

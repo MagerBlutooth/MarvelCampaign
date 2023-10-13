@@ -1,5 +1,6 @@
 package adventure.model;
 
+import adventure.model.stats.WorldStatTracker;
 import adventure.model.thing.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
@@ -20,18 +21,19 @@ public class World implements Cloneable{
     AdventureDatabase database;
     int worldNum;
     WorldBonusCalculator bonusCalculator;
+    WorldStatTracker worldStatTracker;
     boolean bossRevealed;
 
     public World(AdventureDatabase db)
     {
         database = db;
         bonusCalculator = new WorldBonusCalculator();
+        worldStatTracker = new WorldStatTracker();
     }
 
     public World(AdventureDatabase db, List<AdvLocation> locations, int wNum)
     {
-        database = db;
-        bonusCalculator = new WorldBonusCalculator();
+        this(db);
         worldNum = wNum;
         section1 = new Section(db, 1, locations.get(0) , new Enemy(new Mook(), bonusCalculator.calculateMook(worldNum)));
         section2 = new Section(db, 2, locations.get(1), new Enemy(new Mook(), bonusCalculator.calculateMook(worldNum)));
@@ -48,9 +50,10 @@ public class World implements Cloneable{
         section3 = world.section3;
         section4 = world.section4;
         bossSection = world.bossSection;
-        bonusCalculator = new WorldBonusCalculator();
+        bonusCalculator = world.bonusCalculator;
         worldNum = world.worldNum;
         bossRevealed = world.bossRevealed;
+        worldStatTracker = world.worldStatTracker;
     }
 
     public String toSaveString() {
@@ -66,7 +69,8 @@ public class World implements Cloneable{
                 SnapMainConstants.CATEGORY_SEPARATOR +
                 bossSection.toSaveString() +
                 SnapMainConstants.CATEGORY_SEPARATOR +
-                bossRevealed;
+                bossRevealed + SnapMainConstants.CATEGORY_SEPARATOR +
+                worldStatTracker.toSaveString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
@@ -79,7 +83,7 @@ public class World implements Cloneable{
         TargetDatabase<AdvCard> bosses = database.getBosses();
         Card card = agentsCopy.get(0);
         AdvCard boss = bosses.lookup(card.getID());
-        Enemy enemy = new Enemy(boss, worldNum);
+        Enemy enemy = new Enemy(boss, bonusCalculator.calculateBoss(worldNum));
         bossSection.setEnemy(enemy);
         freeAgents.remove(card);
     }
@@ -102,6 +106,8 @@ public class World implements Cloneable{
         bossSection = new BossSection(database, new Enemy(new Card()));
         bossSection.fromSaveString(stringList[5].trim(), dB);
         bossRevealed = Boolean.parseBoolean(stringList[6]);
+        worldStatTracker = new WorldStatTracker();
+        worldStatTracker.fromSaveString(stringList[7]);
     }
 
     @Override
@@ -210,4 +216,12 @@ public class World implements Cloneable{
         return bossRevealed;
     }
 
+    public int getMatchCount()
+    {
+        return worldStatTracker.getNumMatches();
+    }
+
+    public void updateWorldStats() {
+        worldStatTracker.incrementNumMatches();
+    }
 }

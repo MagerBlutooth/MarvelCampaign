@@ -1,0 +1,41 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import snapMain.view.node.GridDisplayNode?>
+<?import snapMain.view.manager.CardManager?>
+<?import adventure.view.pane.DeckConstructorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import snapMain.view.menu.SortMenuButton?>
+<?import snapMain.view.menu.FilterMenuButton?>
+<fx:root type="DeckConstructorPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
+         fx:controller="adventure.controller.DeckConstructorPaneController">
+            <VBox alignment="CENTER" spacing="10.0">
+                <ButtonToolBar fx:id="buttonToolBar"/>
+                <GridDisplayNode fx:id="deckDisplay" minHeight="200"/>
+                <CardManager fx:id="cardChoices" minHeight="400"/>
+                <HBox spacing="50.0" alignment="CENTER">
+                    <SortMenuButton text="Sort" fx:id="sortButton"/>
+                    <FilterMenuButton text="Filter" fx:id="filterButton"/>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Button text="Paste Code from Clipboard" onAction="#pasteFromClipboard" id="smallButton"/>
+                    <Button text="Copy Deck Code" onAction="#copyToCode" id="smallButton"/>
+                    <Button text="Clear Deck" onAction="#clearDeck" id="smallButton"/>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <ToggleButton fx:id="winButton" text="Win" onAction="#setWin" id="smallButton"/>
+                    <ToggleButton fx:id="loseButton" text="Lose" onAction="#setLose" id="smallButton"/>
+                    <ToggleButton fx:id="escapeButton" text="Escape" onAction="#setEscape" id="smallButton"/>
+                    <ToggleButton fx:id="forceRetreatButton" text="Force Retreat" onAction="#setForceRetreat" id="smallButton"/>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Button fx:id="confirmButton" text="Confirm" id="smallButton" onAction="#confirmDeck"/>
+                </HBox>
+            </VBox>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

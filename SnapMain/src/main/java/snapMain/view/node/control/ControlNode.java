@@ -41,10 +41,7 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
 
         mainDatabase = db;
         targetType = t.getTargetType();
-        TargetDatabase<T> targetDatabase = mainDatabase.lookupDatabase(targetType);
-        subject = targetDatabase.lookup(t.getID());
-        if(subject == null)
-            subject = t;
+        subject = t;
         imageView.setImage(i);
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());

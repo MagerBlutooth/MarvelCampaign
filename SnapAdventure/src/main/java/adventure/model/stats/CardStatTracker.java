@@ -1,8 +1,5 @@
 package adventure.model.stats;
 
-import adventure.model.AdvMainDatabase;
-import adventure.model.AdventureDatabase;
-import javafx.css.Match;
 import snapMain.controller.MainDatabase;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Card;
@@ -12,12 +9,12 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class CardStatMap {
+public class CardStatTracker {
     ConcurrentHashMap<Integer,CardStats> cardStatMap;
 
     MainDatabase mainDatabase;
 
-    public CardStatMap(MainDatabase md, CardList enabledCards)
+    public CardStatTracker(MainDatabase md, CardList enabledCards)
     {
         mainDatabase = md;
         cardStatMap = new ConcurrentHashMap<>();
@@ -31,7 +28,9 @@ public class CardStatMap {
     {
         for(Card c: deck)
         {
-            cardStatMap.get(c.getID()).updateCardStat(result);
+            int id = c.getID();
+            CardStats cardStats = cardStatMap.get(id);
+            cardStats.updateCardStat(result);
         }
     }
 

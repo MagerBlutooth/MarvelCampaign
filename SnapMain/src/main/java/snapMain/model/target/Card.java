@@ -59,7 +59,9 @@ public class Card extends EffectBaseObject implements Playable {
             attributeStrings.append(SnapMainConstants.CATEGORY_SEPARATOR);
         }
         attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
-        return new String[]{ getID()+"", getName(), getCost()+"", getPower()+"", getPool()+"", getEffect(), String.valueOf(isEnabled()), attributeStrings.toString(), String.valueOf(isWounded()), String.valueOf(isCaptain())};
+        return new String[]{ getID()+"", getName(), getCost()+"", getPower()+"", getPool()+"", getEffect(),
+                String.valueOf(isEnabled()), attributeStrings.toString(), String.valueOf(isWounded()),
+                String.valueOf(isCaptain())};
     }
 
     @Override

@@ -52,4 +52,11 @@ public class EnemyControlNode extends ControlNode<Enemy> {
         borderGlow.setOffsetY(0f);
         this.setEffect(borderGlow);
     }
+
+    public void setRevealed(boolean r) {
+        if(r)
+            reveal();
+        else
+            unreveal();
+    }
 }

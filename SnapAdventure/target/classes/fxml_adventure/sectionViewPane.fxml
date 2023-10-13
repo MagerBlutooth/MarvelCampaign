@@ -1,13 +1,13 @@
 <?import adventure.view.AdvTooltip?>
 <?import adventure.view.node.AdvLocationControlNode?>
-<?import adventure.view.pane.SectionViewPane?>
+<?import snapMain.view.pane.FullViewPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.button.ButtonToolBar?>
 <?import adventure.view.node.EnemyControlNode?>
 <?import adventure.view.node.HPDisplayNode?>
-<fx:root type="SectionViewPane"
+<fx:root type="FullViewPane" fx:id="sectionViewPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.SectionViewPaneController"
          prefWidth="1200" prefHeight="800">
@@ -15,13 +15,13 @@
     <VBox alignment="CENTER" spacing="40.0">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <HBox alignment="CENTER_LEFT">
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" spacing="10.0">
                 <EnemyControlNode fx:id="enemyView"/>
                 <HPDisplayNode fx:id="hpDisplay"/>
                 <Label fx:id="enemyEffectText" alignment="CENTER" maxWidth="800" wrapText="true" id="info"
                        mouseTransparent="true"/>
             </VBox>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" spacing="10.0">
                 <AdvLocationControlNode fx:id="sectionView"/>
                 <Label fx:id="locationEffectText" alignment="CENTER" maxWidth="800" wrapText="true" id="info"/>
             </VBox>

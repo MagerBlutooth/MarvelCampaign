@@ -51,9 +51,15 @@ public class CardStats {
 
     }
 
-    public void fromSaveString(String s)
+    public void fromSaveString(String saveString)
     {
-
+        byte[] decodedBytes = Base64.getDecoder().decode(saveString);
+        String decodedString = new String(decodedBytes);
+        String[] splitString = decodedString.split(SnapMainConstants.STRING_SEPARATOR);
+        wins = Integer.parseInt(splitString[0]);
+        losses = Integer.parseInt(splitString[1]);
+        escapes = Integer.parseInt(splitString[2]);
+        forceRetreats = Integer.parseInt(splitString[3]);
     }
 
     public int lookupStat(MatchResult result) {

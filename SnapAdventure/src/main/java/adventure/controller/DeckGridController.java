@@ -1,5 +1,8 @@
 package adventure.controller;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableNumberValue;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -20,10 +23,11 @@ public class DeckGridController implements GridActionController<Card> {
     MainDatabase mainDatabase;
     CardList chosenCards;
     GridDisplayNode<Card> deckDisplay;
+    IntegerProperty deckSizeProperty;
 
-    DeckConstructorDialogController deckConstructorController;
+    DeckConstructorPaneController deckConstructorController;
 
-    public void initialize(MainDatabase db, GridDisplayNode<Card> dDisplay, DeckConstructorDialogController cController)
+    public void initialize(MainDatabase db, GridDisplayNode<Card> dDisplay, DeckConstructorPaneController cController)
     {
         mainDatabase = db;
         chosenCards = new CardList(new ArrayList<>());
@@ -31,6 +35,7 @@ public class DeckGridController implements GridActionController<Card> {
         deckDisplay.setPrefColumns(6);
         deckDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         deckConstructorController = cController;
+        deckSizeProperty = new SimpleIntegerProperty();
     }
 
     @Override
@@ -68,6 +73,7 @@ public class DeckGridController implements GridActionController<Card> {
                 chosenCards.remove(controlNode.getSubject());
                 deckConstructorController.toggleNodeLight(controlNode.getSubject());
                 deckDisplay.refreshToMatch(chosenCards);
+                setDeckSizeProperty();
             }
             e.consume();
         });
@@ -77,13 +83,19 @@ public class DeckGridController implements GridActionController<Card> {
         boolean toggled = false;
         if(chosenCards.contains(card)) {
             toggled = chosenCards.remove(card);
+            setDeckSizeProperty();
         }
         else if(chosenCards.size() < SnapMainConstants.MAX_DECK_SIZE){
             toggled = chosenCards.add(card);
+            setDeckSizeProperty();
 
         }
         deckDisplay.refreshToMatch(chosenCards);
         return toggled;
+    }
+
+    private void setDeckSizeProperty() {
+        deckSizeProperty.set(chosenCards.size());
     }
 
     public CardList getDeck() {
@@ -92,5 +104,9 @@ public class DeckGridController implements GridActionController<Card> {
 
     public void clear() {
         chosenCards.clear();
+    }
+
+    public IntegerProperty getDeckSizeProperty() {
+        return deckSizeProperty;
     }
 }

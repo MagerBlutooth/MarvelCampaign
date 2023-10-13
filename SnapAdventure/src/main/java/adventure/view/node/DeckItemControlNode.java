@@ -11,19 +11,17 @@ import snapMain.view.node.control.ControlNode;
 
 public class DeckItemControlNode extends ControlNode<Card> {
 
-    public void initialize(MainDatabase db, Card c, CardList deck, ViewSize v) {
+    public void initialize(MainDatabase db, Card c, ViewSize v) {
 
         mainDatabase = db;
-        TargetDatabase<Card> targetDatabase = mainDatabase.lookupDatabase(TargetType.CARD);
-        subject = targetDatabase.lookup(c.getID());
-        if(subject == null)
-            subject = c;
+        subject = c;
         imageView.setImage(mainDatabase.grabImage(c));
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());
         createCaptainView(v);
-        setHighlighted(true);
         setDamage(c.isWounded());
         setCaptain(c.isCaptain());
+        setHighlighted(true);
+
     }
 }

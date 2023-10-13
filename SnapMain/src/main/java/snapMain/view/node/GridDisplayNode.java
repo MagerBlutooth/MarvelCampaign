@@ -1,5 +1,6 @@
 package snapMain.view.node;
 
+import javafx.beans.value.ObservableNumberValue;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
 import snapMain.model.target.CardList;
@@ -72,4 +73,5 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
     public void clear() {
         gridDisplayController.clear();
     }
+
 }
