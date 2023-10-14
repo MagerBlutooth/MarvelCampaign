@@ -77,7 +77,7 @@ public class AdvNewProfileOptionsPaneController extends AdvPaneController {
         {
             teamCaptainOptions.getItems().add(i);
         }
-        teamCaptainOptions.setValue(teamCaptainOptions.getItems().get(3));
+        teamCaptainOptions.setValue(teamCaptainOptions.getItems().get(2));
     }
 
     public void showNewProfile()

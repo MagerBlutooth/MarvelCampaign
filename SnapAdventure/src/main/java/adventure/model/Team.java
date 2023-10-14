@@ -37,14 +37,15 @@ public class Team {
     public Team(AdventureDatabase database, int numTeamMembers, int numCaptains)
     {
         this();
-        List<Card> cards = new ArrayList<>(database.getCards());
-        Collections.shuffle(cards);
+        CardList cards = new CardList(new ArrayList<>());
+        cards = cards.cloneNewList(database.getCards());
+        Collections.shuffle(cards.getThings());
         for(int i = 0; i < numTeamMembers; i++)
         {
             teamCards.add(cards.get(i));
         }
         cards.removeAll(teamCards.getCards());
-        freeAgentCards.addAll(cards);
+        freeAgentCards.addAll(cards.getCards());
         for(int i = 0; i < numCaptains; i++)
         {
             teamCards.get(i).setCaptain(true);

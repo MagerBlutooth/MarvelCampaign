@@ -10,23 +10,30 @@ import java.util.Base64;
 
 public class Enemy implements SnapTarget {
     Playable subject;
+    Playable secondarySubject;
     int baseHP;
     int currentHP;
 
     public Enemy()
     {
         subject = new Card();
+        secondarySubject = new Card();
+        subject.setID(SnapMainConstants.MOOK_ICON_ID);
+        secondarySubject.setID(SnapMainConstants.MOOK_ICON_ID);
     }
 
     public Enemy(Playable p)
     {
+        this();
         subject = p;
+        secondarySubject = new Card();
         setBaseHP(AdventureConstants.MOOK_BASE_HP);
         currentHP = baseHP;
     }
 
     public Enemy(Playable p, int worldBonus)
     {
+        this();
         subject = p;
         setBaseHP(worldBonus);
         currentHP = baseHP;
@@ -34,8 +41,21 @@ public class Enemy implements SnapTarget {
 
     public Enemy(Enemy nme) {
         subject = nme.subject;
+        secondarySubject = nme.secondarySubject;
         setBaseHP(nme.baseHP);
         currentHP = nme.currentHP;
+    }
+
+    public void swapPrimaryAndSecondary()
+    {
+        Playable tempEnemy = subject;
+        subject = secondarySubject;
+        secondarySubject = tempEnemy;
+    }
+
+    public void setSecondarySubject(Playable p)
+    {
+        secondarySubject = p;
     }
     @Override
     public TargetType getTargetType() {
@@ -130,5 +150,9 @@ public class Enemy implements SnapTarget {
 
     public int getBaseHP() {
         return baseHP;
+    }
+
+    public Playable getSecondarySubject() {
+        return secondarySubject;
     }
 }

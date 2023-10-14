@@ -28,7 +28,6 @@
                     </VBox>
                 </HBox>
                 <HBox alignment="CENTER" spacing="30.0">
-                    <Button fx:id="randomButton" text="Random Card" alignment="CENTER" onAction="#showRandomCard"/>
                     <VBox alignment="CENTER_RIGHT">
                         <Label text="Infinity Stones" alignment="CENTER"/>
                         <InfinityStoneDisplayNode fx:id="infinityStoneDisplay" spacing="5.0" alignment="CENTER_RIGHT"/>

@@ -1,7 +1,9 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.AdventureDatabase;
 import adventure.model.World;
+import adventure.model.thing.AdvCard;
 import adventure.model.thing.Enemy;
 import adventure.model.thing.BossSection;
 import adventure.model.thing.Section;
@@ -9,14 +11,18 @@ import adventure.view.node.EnemyControlNode;
 import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.SectionViewPane;
+import adventure.view.popup.AdvCardChooserDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import snapMain.view.ViewSize;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class WorldDisplayNodeController extends AdvPaneController {
 
@@ -38,6 +44,9 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     World world;
 
+    AdventureControlPane adventurePane;
+    ContextMenu bossContextMenu;
+
 
     public void initialize(AdvMainDatabase d, World w, AdventureControlPane aPane)
     {
@@ -45,6 +54,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         world = w;
         setWorldLabel(w);
         sections = new ArrayList<>();
+        adventurePane = aPane;
 
         Section advLocation1 = w.getFirstSection();
         Section advLocation2 = w.getSecondSection();
@@ -71,6 +81,41 @@ public class WorldDisplayNodeController extends AdvPaneController {
         setSectionMouseOption(section3Node, aPane);
         setSectionMouseOption(section4Node, aPane);
         setBossMouseOption(bossControlNode, aPane);
+        setBossContextMenu();
+    }
+
+    private void setBossContextMenu() {
+        bossContextMenu = new ContextMenu();
+        MenuItem secondaryItem = getSecondaryMenuItem();
+        bossContextMenu.getItems().add(secondaryItem);
+        bossControlNode.setOnContextMenuRequested(e -> bossContextMenu.show(bossControlNode, e.getScreenX(),
+                e.getScreenY()));
+    }
+
+    private MenuItem getSecondaryMenuItem() {
+        MenuItem secondaryItem = new MenuItem("Add Secondary");
+        secondaryItem.setOnAction(actionEvent -> {
+            AdvCardChooserDialog chooserDialog = new AdvCardChooserDialog();
+            AdventureDatabase aDatabase = adventurePane.getAdventureDatabase();
+            chooserDialog.initialize(mainDatabase, aDatabase.getBossList());
+            Optional<AdvCard> boss = chooserDialog.showAndWait();
+            if(boss.isPresent())
+            {
+                if(bossControlNode.noSecondaryDefined()) {
+                    MenuItem swapItem = new MenuItem("Swap Secondary");
+                    swapItem.setOnAction(e ->
+                    {
+                        bossControlNode.swapPrimaryAndSecondary();
+                        bossEffectText.setText(bossControlNode.getSubject().getEffect());
+                    });
+                    bossContextMenu.getItems().add(swapItem);
+                }
+                AdvCard bossCard = boss.get();
+                bossControlNode.setSecondary(bossCard);
+            }
+
+        });
+        return secondaryItem;
     }
 
     private void setBossMouseOption(EnemyControlNode bossNode, AdventureControlPane aPane) {

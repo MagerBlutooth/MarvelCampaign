@@ -1,6 +1,7 @@
 package adventure.model;
 
 import adventure.model.thing.AdvCard;
+import adventure.model.thing.AdvCardList;
 import adventure.model.thing.AdvLocation;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
@@ -41,13 +42,6 @@ public class AdventureDatabase {
         return cards;
     }
 
-    public CardList getCardList()
-    {
-        CardList cardsCopy = new CardList(new ArrayList<>());
-        cardsCopy.addAll(cards);
-        return cardsCopy;
-    }
-
     public PlayableDatabase getCardsAndTokens() {
         PlayableDatabase playableDatabase = new PlayableDatabase();
         playableDatabase.addAll(cards);
@@ -55,7 +49,15 @@ public class AdventureDatabase {
         return playableDatabase;
     }
 
-    public TargetDatabase<AdvLocation> getLocations() {
-        return advLocations;
+    public TargetList<AdvCard> getBossList() {
+        AdvCardList bossCopy = new AdvCardList(new ArrayList<>());
+        bossCopy.addAll(advCards);
+        return bossCopy;
+    }
+
+    public TargetList<Card> getCardList() {
+        CardList c = new CardList(new ArrayList<>());
+        c.addAll(cards);
+        return c;
     }
 }

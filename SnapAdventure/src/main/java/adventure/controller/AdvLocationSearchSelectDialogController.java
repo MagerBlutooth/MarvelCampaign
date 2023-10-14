@@ -3,8 +3,10 @@ package adventure.controller;
 import adventure.model.thing.AdvLocation;
 import adventure.model.thing.AdvLocationList;
 import adventure.view.popup.Choosable;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import snapMain.controller.MainDatabase;
+import snapMain.model.target.CardList;
 import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
@@ -46,6 +48,15 @@ public class AdvLocationSearchSelectDialogController
         ChooserDialogGridActionController<AdvLocation> gridController = new ChooserDialogGridActionController<>();
         gridController.initialize(mainDatabase, searchSelectDialog);
         choiceNodes.initialize(filteredChoices, TargetType.LOCATION, gridController, ViewSize.SMALL, true);
+    }
+
+    @FXML
+    public void selectRandom()
+    {
+        AdvLocationList locs = new AdvLocationList(new ArrayList<>());
+        locs = locs.cloneNewList(choices.getThings());
+        locs.shuffle();
+        setChoice(locs.get(0));
     }
 
 }

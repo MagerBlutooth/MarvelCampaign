@@ -4,6 +4,8 @@ import adventure.model.sorter.SectionSortMode;
 import adventure.model.sorter.SectionSorter;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
@@ -51,16 +53,6 @@ public class AdvLocationList extends TargetList<AdvLocation> {
         return stringBuilder.toString();
     }
 
-    public void fromCSVSaveString(String SectionString, TargetDatabase<AdvLocation> database)
-    {
-        String[] SectionList = SectionString.split(SnapMainConstants.STRING_SEPARATOR);
-
-        for(String c: SectionList)
-        {
-            this.add(database.lookup(Integer.parseInt(c)));
-        }
-    }
-
     public String toSaveString()
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -92,29 +84,12 @@ public class AdvLocationList extends TargetList<AdvLocation> {
         getThings().clear();
     }
 
-    public String toCardListString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        sort();
-        for(AdvLocation c: getLocations())
+    public AdvLocationList cloneNewList(List<AdvLocation> existingList) {
+        AdvLocationList clonedLocs = new AdvLocationList(new ArrayList<>());
+        for(AdvLocation l: existingList)
         {
-            stringBuilder.append(c.getName());
-            stringBuilder.append("\n");
+            clonedLocs.add(new AdvLocation(l));
         }
-        return stringBuilder.toString();
-    }
-
-    public AdvLocationList fromSectionList(String SectionList, TargetDatabase<AdvLocation> database)
-    {
-        String[] SectionesList = SectionList.split("\n");
-        AdvLocationList Sectiones = new AdvLocationList(new ArrayList<>());
-        for(String c: SectionesList)
-        {
-            Sectiones.add(database.lookup(c));
-        }
-        return Sectiones;
-    }
-
-    public int getSectionIndex(AdvLocation b) {
-        return this.indexOf(b);
+        return clonedLocs;
     }
 }

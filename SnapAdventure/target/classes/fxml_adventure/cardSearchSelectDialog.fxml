@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.TextField?>
 <?import snapMain.view.node.GridDisplayNode?>
+<?import javafx.scene.control.Button?>
 <fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
@@ -16,6 +17,7 @@
             <padding>
                 <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
             </padding>
+            <Button text="Random" onAction="#selectRandom"/>
         </VBox>
     </content>
     <padding>

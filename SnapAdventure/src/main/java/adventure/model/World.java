@@ -1,5 +1,6 @@
 package adventure.model;
 
+import adventure.model.stats.MatchResult;
 import adventure.model.stats.WorldStatTracker;
 import adventure.model.thing.*;
 import snapMain.model.constants.SnapMainConstants;
@@ -221,8 +222,8 @@ public class World implements Cloneable{
         return worldStatTracker.getNumMatches();
     }
 
-    public void updateWorldStats() {
-        worldStatTracker.incrementNumMatches();
+    public void updateWorldStats(MatchResult r) {
+        worldStatTracker.incrementNumMatches(r);
     }
 
     public int calculateMookBonus() {

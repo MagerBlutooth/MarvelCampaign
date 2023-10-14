@@ -12,6 +12,7 @@ import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CardSearchSelectDialogController extends AdvSearchSelectDialogController<Card> {
 
@@ -45,6 +46,15 @@ public class CardSearchSelectDialogController extends AdvSearchSelectDialogContr
         ChooserDialogGridActionController<Card> gridController = new ChooserDialogGridActionController<>();
         gridController.initialize(mainDatabase, searchSelectDialog);
         choiceNodes.initialize(filteredChoices, TargetType.CARD, gridController, ViewSize.TINY, true);
+    }
+
+    @FXML
+    public void selectRandom()
+    {
+        CardList cards = new CardList(new ArrayList<>());
+        cards = cards.cloneNewList(choices.getThings());
+        cards.shuffle();
+        setChoice(cards.get(0));
     }
 
 }

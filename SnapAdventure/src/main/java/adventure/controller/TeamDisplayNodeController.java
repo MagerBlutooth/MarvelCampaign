@@ -47,7 +47,8 @@ public class TeamDisplayNodeController {
 
     public void showCaptured()
     {
-        CardDisplayPopup popup = new CardDisplayPopup(team.getCapturedCards(), eliminateButton.localToScene(0.0,0.0), cardController);
+        CardDisplayPopup popup = new CardDisplayPopup(team.getCapturedCards(),
+                eliminateButton.localToScene(0.0,0.0), cardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
@@ -58,7 +59,8 @@ public class TeamDisplayNodeController {
 
     public void showMIA()
     {
-        CardDisplayPopup popup = new CardDisplayPopup(team.getMIACards(), eliminateButton.localToScene(0.0,0.0), cardController);
+        CardDisplayPopup popup = new CardDisplayPopup(team.getMIACards(),
+                eliminateButton.localToScene(0.0,0.0), cardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
@@ -80,7 +82,8 @@ public class TeamDisplayNodeController {
 
     public void showStationed()
     {
-        CardDisplayPopup popup = new CardDisplayPopup(adventure.getStationedCards(), stationedButton.localToScene(0.0,0.0), cardController);
+        CardDisplayPopup popup = new CardDisplayPopup(adventure.getStationedCards(),
+                stationedButton.localToScene(0.0,0.0), cardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
@@ -150,17 +153,5 @@ public class TeamDisplayNodeController {
     public void makeCardFreeAgent(Card card) {
         team.makeCardFreeAgent(card);
         refresh();
-    }
-
-    @FXML
-    public void showRandomCard()
-    {
-        CardDisplayPopup popup = new CardDisplayPopup(database, team.getRandomCard(), randomButton.localToScene(0.0,0.0));
-        popup.show();
-        popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (! isNowFocused) {
-                popup.hide();
-            }
-        });
     }
 }

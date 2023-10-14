@@ -44,6 +44,7 @@ public class Adventure {
         infinityStones = new ArrayList<>();
         cardStatTracker = new CardStatTracker();
         mostRecentDeck = new CardList(new ArrayList<>());
+        createInfinityStones();
         loadAdventure(proFile, mainDB);
     }
 
@@ -115,7 +116,6 @@ public class Adventure {
         cardStatTracker.initialize(adventureDatabase.getCards());
         World w = worlds.get(currentWorldNum);
         w.initializeBoss(getFreeAgents());
-        createInfinityStones();
         placeInfinityStones();
     }
 
@@ -139,7 +139,7 @@ public class Adventure {
         for(int i = 0; i < infinityStones.size(); i++)
         {
             int choice = possibleSections.get(i);
-            int worldNum = (int) Math.floor((double) choice /AdventureConstants.SECTIONS_PER_WORLD);
+            int worldNum = (int) Math.floor((double) choice/AdventureConstants.SECTIONS_PER_WORLD);
             int secNum = choice % AdventureConstants.SECTIONS_PER_WORLD + 1;
             World w = worlds.get(worldNum);
             Section s = w.getSection(secNum);
@@ -341,19 +341,7 @@ public class Adventure {
 
     public void updateStats(CardList deck, MatchResult result) {
         cardStatTracker.updateCardStats(deck, result);
-        getCurrentWorld().updateWorldStats();
-    }
-
-    public CardList getCapturedCards() {
-        return team.getCapturedCards();
-    }
-
-    public void addCardsToTeam(CardList cards)
-    {
-        if(cards!=null) {
-            team.getFreeAgents().removeAll(cards.getCards());
-            team.getTeamCards().addAll(cards.getCards());
-        }
+        getCurrentWorld().updateWorldStats(result);
     }
 
     public void addCardToTeam(Card card) {
@@ -361,10 +349,6 @@ public class Adventure {
             team.getFreeAgents().remove(card);
             team.getTeamCards().add(card);
         }
-    }
-
-    public TargetList<Card> getEliminatedCards() {
-        return team.getEliminatedCards();
     }
 
     public Card getBossCard() {
@@ -419,5 +403,9 @@ public class Adventure {
 
     public int getCurrentWorldNum() {
         return getCurrentWorld().getWorldNum();
+    }
+
+    public AdventureDatabase getAdventureDatabase() {
+        return adventureDatabase;
     }
 }

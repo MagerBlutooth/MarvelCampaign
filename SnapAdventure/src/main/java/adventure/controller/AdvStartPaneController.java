@@ -12,6 +12,8 @@ import snapMain.view.button.ButtonToolBar;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import static adventure.model.AdventureConstants.EMPTY_PROFILE;
+
 public class AdvStartPaneController extends AdvPaneController {
 
     @FXML
@@ -24,7 +26,6 @@ public class AdvStartPaneController extends AdvPaneController {
     ProfileNode profile2;
     @FXML
     ProfileNode profile3;
-
 
     ConcurrentHashMap<String, Adventure> adventureStorageMap;
 
@@ -57,17 +58,17 @@ public class AdvStartPaneController extends AdvPaneController {
         checkProfile(AdventureConstants.PROFILE_3, profile3, 3);
     }
 
-    private void checkProfile(String profile, ProfileNode proNode, int num) {
+    public void checkProfile(String profile, ProfileNode proNode, int num) {
         AdventureDatabase adventureDatabase = new AdventureDatabase(mainDatabase);
         Adventure adventure = new Adventure(mainDatabase, adventureDatabase, profile);
         adventureStorageMap.put(profile, adventure);
         String name = adventure.getProfileName();
         if(name == null) {
             adventure.setNewProfile(true);
-            proNode.initialize("Empty",num+"");
+            proNode.initialize(EMPTY_PROFILE,num+"", profile);
         }
         else {
-            proNode.initialize(mainDatabase, adventure, num+"");
+            proNode.initialize(mainDatabase, adventure, num+"", profile, this);
         }
     }
 

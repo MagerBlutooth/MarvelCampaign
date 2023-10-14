@@ -2,6 +2,7 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
+import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.thing.*;
 import adventure.view.node.AdvLocationControlNode;
@@ -17,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.grid.BaseGridActionController;
-import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
@@ -60,6 +60,7 @@ public class SectionViewPaneController extends AdvPaneController {
     Adventure adventure;
     GridDisplayNode<Card> stationedDisplay;
     Enemy enemy;
+    ContextMenu enemyMenu;
 
     public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Section s) {
         mainDatabase = dB;
@@ -84,15 +85,12 @@ public class SectionViewPaneController extends AdvPaneController {
 
     private void initializeContextMenus() {
         ContextMenu sectionMenu = new ContextMenu();
-        MenuItem randomItem = new MenuItem("Randomize");
-        randomItem.setOnAction(e -> randomizeLocation());
         MenuItem changeItem = new MenuItem("Change");
         changeItem.setOnAction(e -> changeLocation());
-        sectionMenu.getItems().add(randomItem);
         sectionMenu.getItems().add(changeItem);
         locationView.setOnContextMenuRequested(e -> sectionMenu.show(locationView, e.getScreenX(), e.getScreenY()));
 
-        ContextMenu enemyMenu = new ContextMenu();
+        enemyMenu = new ContextMenu();
         MenuItem changeHPItem = new MenuItem("Change HP");
         changeHPItem.setOnAction(e -> changeHP());
         MenuItem changeEnemy = new MenuItem("Change Enemy");
@@ -102,7 +100,9 @@ public class SectionViewPaneController extends AdvPaneController {
         MenuItem changeEnemyClone = new MenuItem("Change Enemy to Clone");
         changeEnemyClone.setOnAction(e -> changeEnemyClone());
         enemyMenu.getItems().add(changeEnemyClone);
-
+        MenuItem addSecondaryEffectIem = new MenuItem("Add Secondary Effect");
+        addSecondaryEffectIem.setOnAction(e -> addSecondaryEffect());
+        enemyMenu.getItems().add(addSecondaryEffectIem);
         enemyView.setOnContextMenuRequested(e -> enemyMenu.show(enemyView, e.getScreenX(), e.getScreenY()));
 
         ContextMenu stationMenu = new ContextMenu();
@@ -111,6 +111,26 @@ public class SectionViewPaneController extends AdvPaneController {
         stationMenu.getItems().add(stationCardItem);
         stationedDisplayBox.setOnContextMenuRequested(e -> stationMenu.show(stationedDisplayBox, e.getScreenX(),
                 e.getScreenY()));
+    }
+
+    private void addSecondaryEffect() {
+        AdvCardChooserDialog chooserDialog = new AdvCardChooserDialog();
+        AdventureDatabase aDatabase = adventure.getAdventureDatabase();
+        chooserDialog.initialize(mainDatabase, aDatabase.getBossList());
+        Optional<AdvCard> boss = chooserDialog.showAndWait();
+        if(boss.isPresent())
+        {
+            AdvCard bossCard = boss.get();
+            enemyView.setSecondary(bossCard);
+
+        }
+        MenuItem swapPrimarySecondaryItem = new MenuItem("Swap Primary and Secondary");
+        swapPrimarySecondaryItem.setOnAction(e -> {
+            enemyView.swapPrimaryAndSecondary();
+            enemyEffectText.setText(enemyView.getSubject().getEffect());
+        });
+        if(!enemyMenu.getItems().contains(swapPrimarySecondaryItem))
+            enemyMenu.getItems().add(swapPrimarySecondaryItem);
     }
 
     private void changeEnemyClone() {
@@ -154,14 +174,6 @@ public class SectionViewPaneController extends AdvPaneController {
             locationView.update(newLoc);
             locationEffectText.setText(newLoc.getEffect());
         }
-        controlPane.refreshToMatch();
-    }
-
-    private void randomizeLocation()
-    {
-        adventure.randomizeSection(section);
-        locationView.update(section.getLocation());
-        locationEffectText.setText(section.getEffect());
         controlPane.refreshToMatch();
     }
 
