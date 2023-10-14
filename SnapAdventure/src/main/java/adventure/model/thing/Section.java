@@ -185,4 +185,10 @@ public class Section implements Cloneable, SnapTarget {
     public void setEnemy(Enemy e) {
         enemy = e;
     }
+
+    public SnapTarget replaceEnemy(Enemy e) {
+        SnapTarget oldEnemy = enemy.getSubject();
+        enemy = e;
+        return oldEnemy;
+    }
 }

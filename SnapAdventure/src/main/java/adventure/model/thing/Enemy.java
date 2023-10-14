@@ -37,7 +37,6 @@ public class Enemy implements SnapTarget {
         setBaseHP(nme.baseHP);
         currentHP = nme.currentHP;
     }
-
     @Override
     public TargetType getTargetType() {
         return getSubject().getTargetType();

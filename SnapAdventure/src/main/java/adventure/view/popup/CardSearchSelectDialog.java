@@ -1,6 +1,5 @@
 package adventure.view.popup;
 
-import adventure.controller.AdvSearchSelectDialogController;
 import adventure.controller.CardSearchSelectDialogController;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
@@ -33,10 +32,6 @@ public class CardSearchSelectDialog extends Dialog<Card> implements Choosable<Ca
             }
             return null;
         });
-    }
-
-    public boolean isTeam() {
-        return controller.isTeam();
     }
 
     @Override

@@ -69,17 +69,6 @@ public class AdvMainDatabase extends MainDatabase {
         }
         return enabledCards;
     }
-
-    public List<AdvLocation> getEnabledSections() {
-        List<AdvLocation> enabledLocs = new ArrayList<>();
-        for(AdvLocation s: getSections())
-        {
-            if(s.isEnabled())
-                enabledLocs.add(s);
-        }
-        return enabledLocs;
-    }
-
     public void modifyBoss(AdvCard b) {
         advMasterThingDatabase.modifyBoss(b);
     }

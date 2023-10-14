@@ -10,6 +10,7 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.*;
@@ -25,8 +26,6 @@ import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.button.ButtonToolBar;
 import snapMain.view.manager.CardManager;
-import snapMain.view.menu.FilterMenuButton;
-import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.pane.FullViewPane;
@@ -36,6 +35,8 @@ import java.util.ArrayList;
 public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<Card>  {
 
 
+    @FXML
+    Label deckButtonConfirmText;
     @FXML
     ButtonToolBar buttonToolBar;
     @FXML
@@ -106,6 +107,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         codeConverter.encodeDeckToClipboard(deckGridController.getDeck());
+        deckButtonConfirmText.setText("Deck Code Pasted to Clipboard");
     }
 
     @Override
@@ -177,6 +179,10 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
             for(Card c: pastedDeck) {
                 deckGridController.toggleEntry(c);
             }
+            deckButtonConfirmText.setText("Deck Pasted from Clipboard");
+        }
+        else{
+            deckButtonConfirmText.setText("No valid cards found to paste");
         }
     }
 
@@ -185,6 +191,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         deckGridController.clear();
         deckDisplay.clear();
         highlightAll();
+        deckButtonConfirmText.setText("Deck Cleared");
     }
 
     private void highlightAll() {

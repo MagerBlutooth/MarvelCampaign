@@ -45,16 +45,8 @@ public class AdventureControlPane extends EditorPane {
         controller.completeSection();
     }
 
-    public void completeCurrentWorld() {
-        controller.completeWorld();
-    }
-
     public void draftCard() {
         controller.draftCard();
-    }
-
-    public void healCard() {
-        controller.healCard();
     }
 
     public void generateCard() {
@@ -63,14 +55,6 @@ public class AdventureControlPane extends EditorPane {
 
     public void searchCard() {
         controller.searchFreeAgent();
-    }
-
-    public void createClone() {
-        controller.createClone();
-    }
-
-    public void updateStats(CardList deck, MatchResult result) {
-        controller.updateStats(deck, result);
     }
 
     public AdventureDatabase getAdventureDatabase() {

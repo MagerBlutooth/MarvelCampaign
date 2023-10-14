@@ -29,6 +29,7 @@ public class Adventure {
     CardStatTracker cardStatTracker;
     CardList mostRecentDeck;
     List<InfinityStone> infinityStones;
+    Difficulty difficulty;
 
     public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile)
     {
@@ -41,9 +42,14 @@ public class Adventure {
         adventureDatabase = database;
         newProfileCheck = false;
         infinityStones = new ArrayList<>();
-        cardStatTracker = new CardStatTracker(mainDB, team.getTeamCards());
+        cardStatTracker = new CardStatTracker();
         mostRecentDeck = new CardList(new ArrayList<>());
         loadAdventure(proFile, mainDB);
+    }
+
+    public void initialize(int numTeamMembers, int numTeamCaptains, Difficulty d) {
+        difficulty = d;
+        generateAdventure(numTeamMembers, numTeamCaptains);
     }
 
     public List<String> convertToString()
@@ -58,6 +64,7 @@ public class Adventure {
         adventureString.add(worlds.toSaveString());
         adventureString.add(cardStatTracker.toSaveString());
         adventureString.add(mostRecentDeck.toSaveString());
+        adventureString.add(difficulty.toString());
         return adventureString;
     }
 
@@ -65,7 +72,6 @@ public class Adventure {
     {
         if(stringToConvert.isEmpty())
         {
-            generateAdventure();
             return;
         }
 
@@ -74,12 +80,13 @@ public class Adventure {
         currentWorldNum = Integer.parseInt(splitString[1]);
         currentSectionNum = Integer.parseInt(splitString[2]);
         team.convertFromString(splitString[3], adventureDatabase.getCards());
-        cardStatTracker = new CardStatTracker(mainDB, adventureDatabase.getCardList());
+        cardStatTracker = new CardStatTracker();
         availableBosses.fromSaveString(splitString[4], adventureDatabase.getBosses());
         availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
         worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
         cardStatTracker.fromSaveString(splitString[7]);
         mostRecentDeck.fromSaveString(splitString[8], mainDB.lookupDatabase(TargetType.CARD));
+        difficulty = Difficulty.valueOf(splitString[9]);
 
     }
 
@@ -96,15 +103,16 @@ public class Adventure {
         convertFromString(db, adventureString);
     }
 
-    private void generateAdventure() {
+    private void generateAdventure(int numTeamMembers, int numCaptains) {
         availableBosses = new AdvCardList(adventureDatabase.getBosses());
         availableLocations = new AdvLocationList(adventureDatabase.getSections());
-        team = new Team(adventureDatabase);
+        team = new Team(adventureDatabase, numTeamMembers, numCaptains);
         worlds = new WorldList(adventureDatabase);
         availableBosses.removeAll(worlds.getAllBosses());
         availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
         currentSectionNum = 1;
+        cardStatTracker.initialize(adventureDatabase.getCards());
         World w = worlds.get(currentWorldNum);
         w.initializeBoss(getFreeAgents());
         createInfinityStones();
@@ -194,7 +202,7 @@ public class Adventure {
     public void completeCurrentSection()
     {
         getCurrentWorld().clearSection(getCurrentSectionNum());
-        if(getCurrentWorld().numClearedSections() >= AdventureConstants.SECTION_CLEAR_GOAL)
+        if(getCurrentWorld().numClearedSections() >= difficulty.getSectionsRequiredToClear())
         {
             getCurrentWorld().revealBoss();
         }
@@ -384,5 +392,32 @@ public class Adventure {
 
     public void setMostRecentDeck(CardList deck) {
         mostRecentDeck = deck;
+    }
+
+    public Enemy replaceEnemy(Playable p, int sectionNum, boolean clone) {
+        Section s = getCurrentWorld().getSection(sectionNum);
+        Enemy enemy;
+        if(s instanceof BossSection)
+            enemy = new Enemy(p, getCurrentWorld().calculateBossBonus());
+        else
+            enemy = new Enemy(p, getCurrentWorld().calculateMookBonus());
+        SnapTarget oldEnemy = s.replaceEnemy(enemy);
+
+        if(oldEnemy instanceof AdvCard)
+        {
+            Card oldEnemyCard = ((AdvCard) oldEnemy).getCard();
+            if(oldEnemyCard.getID() != SnapMainConstants.NO_ICON_ID && !clone)
+                team.addCardToFreeAgents(oldEnemyCard);
+        }
+        if(p instanceof AdvCard && !clone) {
+            Card enemyCard = ((AdvCard)p).getCard();
+            team.removeFromFreeAgents(enemyCard);
+        }
+        return enemy;
+
+    }
+
+    public int getCurrentWorldNum() {
+        return getCurrentWorld().getWorldNum();
     }
 }

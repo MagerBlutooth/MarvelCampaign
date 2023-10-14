@@ -5,10 +5,7 @@ import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.ProfileNode;
-import adventure.view.pane.AdvMainMenuPane;
-import adventure.view.pane.AdvNewProfilePane;
-import adventure.view.pane.AdvStartPane;
-import adventure.view.pane.AdventureControlPane;
+import adventure.view.pane.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import snapMain.view.button.ButtonToolBar;
@@ -66,10 +63,12 @@ public class AdvStartPaneController extends AdvPaneController {
         adventureStorageMap.put(profile, adventure);
         String name = adventure.getProfileName();
         if(name == null) {
-            name = "Empty";
             adventure.setNewProfile(true);
+            proNode.initialize("Empty",num+"");
         }
-            proNode.initialize(name, num+"");
+        else {
+            proNode.initialize(mainDatabase, adventure, num+"");
+        }
     }
 
     private Adventure selectAdventure(String profile)
@@ -82,9 +81,9 @@ public class AdvStartPaneController extends AdvPaneController {
 
         if(adventure.isNewProfile())
         {
-            AdvNewProfilePane advNewProfilePane = new AdvNewProfilePane();
-            advNewProfilePane.initialize(mainDatabase, adventure, advStartPane);
-            changeScene(advNewProfilePane);
+            AdvNewProfileOptionsPane profileOptionsPane = new AdvNewProfileOptionsPane();
+            profileOptionsPane.initialize(mainDatabase, adventure, advStartPane);
+            changeScene(profileOptionsPane);
         }
         else
         {

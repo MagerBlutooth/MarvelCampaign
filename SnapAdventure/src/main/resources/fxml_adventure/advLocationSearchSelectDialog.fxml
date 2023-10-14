@@ -9,7 +9,7 @@
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
          fx:controller="adventure.controller.AdvLocationSearchSelectDialogController">
     <content>
-        <VBox>
+        <VBox spacing="10.0">
             <StackPane fx:id="displayPane"/>
             <TextField fx:id="searchBar"/>
             <GridDisplayNode fx:id="choiceNodes"/>

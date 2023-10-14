@@ -142,24 +142,8 @@ public class AdventureControlPaneController extends AdvPaneController {
     }
 
     public void searchFreeAgent() {
-        CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
+        CardGainSearchSelectDialog cardSearchSelectDialog = new CardGainSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
-        Optional<Card> selection = cardSearchSelectDialog.showAndWait();
-        if(selection.isPresent())
-        {
-            Card card = selection.get();
-            if(cardSearchSelectDialog.isTeam())
-                adventure.addFreeAgentToTeam(card);
-            else {
-                adventure.addFreeAgentToTemp(card);
-            }
-        }
-        refreshToMatch();
-    }
-
-    public void createClone() {
-        CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, adventureDatabase.getCardList());
         Optional<Card> selection = cardSearchSelectDialog.showAndWait();
         if(selection.isPresent())
         {

@@ -30,7 +30,6 @@ public class HallOfFameGridController implements GridActionController<Card> {
         deckDisplay = deck;
         otherEntries = other;
         captainDisplay = cDisplay;
-        captainDisplay.disableTooltip();
         deckDisplay.setMaxHeight(250.0);
         deckDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }

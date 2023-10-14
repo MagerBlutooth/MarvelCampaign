@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
+public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, Cloneable {
 
     List<T> things;
 

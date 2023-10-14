@@ -9,19 +9,18 @@ import adventure.view.node.EnemyControlNode;
 import adventure.view.node.HPDisplayNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.WorldClearPane;
-import adventure.view.popup.AdvLocationSearchSelectDialog;
-import adventure.view.popup.CardChooserDialog;
+import adventure.view.popup.*;
 import adventure.view.pane.DeckConstructorPane;
-import adventure.view.popup.HPDialog;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.grid.BaseGridActionController;
+import snapMain.model.database.PlayableDatabase;
+import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
 import snapMain.model.target.Playable;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
@@ -48,21 +47,14 @@ public class SectionViewPaneController extends AdvPaneController {
     @FXML
     ButtonToolBar buttonToolBar;
     @FXML
-    AdvLocationControlNode sectionView;
+    AdvLocationControlNode locationView;
     @FXML
     Label locationEffectText;
 
     @FXML
     Button skipButton;
     @FXML
-    Button changeButton;
-    @FXML
     Button completeButton;
-    @FXML
-    Button randomizeButton;
-    @FXML
-    Button stationButton;
-
     AdventureControlPane controlPane;
     Section section;
     Adventure adventure;
@@ -76,7 +68,7 @@ public class SectionViewPaneController extends AdvPaneController {
         enemy = s.getEnemy();
         adventure = cP.getAdventure();
         AdvLocation l = s.getLocation();
-        sectionView.initialize(mainDatabase, s.getLocation(), mainDatabase.grabImage(s.getLocation()),
+        locationView.initialize(mainDatabase, s.getLocation(), mainDatabase.grabImage(s.getLocation()),
                 ViewSize.LARGE, s.isRevealed());
         locationEffectText.setText(l.getEffect());
         enemyEffectText.setText(enemy.getEffect());
@@ -87,6 +79,90 @@ public class SectionViewPaneController extends AdvPaneController {
         initializePickups(s);
         initializeStations(s);
         initializeButtonToolBar();
+        initializeContextMenus();
+    }
+
+    private void initializeContextMenus() {
+        ContextMenu sectionMenu = new ContextMenu();
+        MenuItem randomItem = new MenuItem("Randomize");
+        randomItem.setOnAction(e -> randomizeLocation());
+        MenuItem changeItem = new MenuItem("Change");
+        changeItem.setOnAction(e -> changeLocation());
+        sectionMenu.getItems().add(randomItem);
+        sectionMenu.getItems().add(changeItem);
+        locationView.setOnContextMenuRequested(e -> sectionMenu.show(locationView, e.getScreenX(), e.getScreenY()));
+
+        ContextMenu enemyMenu = new ContextMenu();
+        MenuItem changeHPItem = new MenuItem("Change HP");
+        changeHPItem.setOnAction(e -> changeHP());
+        MenuItem changeEnemy = new MenuItem("Change Enemy");
+        changeEnemy.setOnAction(e -> changeEnemy());
+        enemyMenu.getItems().add(changeHPItem);
+        enemyMenu.getItems().add(changeEnemy);
+        MenuItem changeEnemyClone = new MenuItem("Change Enemy to Clone");
+        changeEnemyClone.setOnAction(e -> changeEnemyClone());
+        enemyMenu.getItems().add(changeEnemyClone);
+
+        enemyView.setOnContextMenuRequested(e -> enemyMenu.show(enemyView, e.getScreenX(), e.getScreenY()));
+
+        ContextMenu stationMenu = new ContextMenu();
+        MenuItem stationCardItem = new MenuItem("Station");
+        stationCardItem.setOnAction(e -> stationCard());
+        stationMenu.getItems().add(stationCardItem);
+        stationedDisplayBox.setOnContextMenuRequested(e -> stationMenu.show(stationedDisplayBox, e.getScreenX(),
+                e.getScreenY()));
+    }
+
+    private void changeEnemyClone() {
+        CardOrTokenSearchSelectDialog cardSearchSelectDialog = new CardOrTokenSearchSelectDialog();
+        cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(mainDatabase.getCardsAndTokens()));
+        Optional<Playable> playable = cardSearchSelectDialog.showAndWait();
+        if(playable.isPresent())
+        {
+            Playable p = playable.get();
+            Enemy enemy = adventure.replaceEnemy(p, section.getSectionNum(), true);
+            enemyView.refresh(enemy);
+            enemyEffectText.setText(p.getEffect());
+        }
+        controlPane.refreshToMatch();
+    }
+
+    private void changeEnemy() {
+        CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
+        cardSearchSelectDialog.initialize(mainDatabase, new CardList(adventure.getFreeAgents()));
+        Optional<Card> card = cardSearchSelectDialog.showAndWait();
+        if(card.isPresent())
+        {
+            Card c = card.get();
+            TargetDatabase<AdvCard> bosses = mainDatabase.lookupDatabase(TargetType.ADV_CARD);
+            AdvCard boss = bosses.lookup(c.getID());
+            Enemy enemy = adventure.replaceEnemy(boss, section.getSectionNum(), false);
+            enemyView.refresh(enemy);
+            enemyEffectText.setText(boss.getEffect());
+        }
+        controlPane.refreshToMatch();
+    }
+
+    private void changeLocation()
+    {
+        AdvLocationSearchSelectDialog locationSearchSelectDialog = new AdvLocationSearchSelectDialog();
+        locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()));
+        Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
+        if(location.isPresent()) {
+            AdvLocation newLoc = location.get();
+            adventure.updateSection(newLoc, section.getSectionNum());
+            locationView.update(newLoc);
+            locationEffectText.setText(newLoc.getEffect());
+        }
+        controlPane.refreshToMatch();
+    }
+
+    private void randomizeLocation()
+    {
+        adventure.randomizeSection(section);
+        locationView.update(section.getLocation());
+        locationEffectText.setText(section.getEffect());
+        controlPane.refreshToMatch();
     }
 
     private void initializeStations(Section s) {
@@ -113,36 +189,12 @@ public class SectionViewPaneController extends AdvPaneController {
 
     @Override
     public Scene getCurrentScene() {
-        return sectionView.getScene();
+        return locationView.getScene();
     }
 
     @Override
     public void initializeButtonToolBar() {
         buttonToolBar.initialize(controlPane);
-    }
-
-    @FXML
-    public void changeLocation()
-    {
-        AdvLocationSearchSelectDialog locationSearchSelectDialog = new AdvLocationSearchSelectDialog();
-        locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()));
-        Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
-        if(location.isPresent()) {
-            AdvLocation newLoc = location.get();
-            adventure.updateSection(newLoc, section.getSectionNum());
-            sectionView.update(newLoc);
-            locationEffectText.setText(newLoc.getEffect());
-        }
-        controlPane.refreshToMatch();
-    }
-
-    @FXML
-    public void randomize()
-    {
-        adventure.randomizeSection(section);
-        sectionView.update(section.getLocation());
-        locationEffectText.setText(section.getEffect());
-        controlPane.refreshToMatch();
     }
 
     @FXML

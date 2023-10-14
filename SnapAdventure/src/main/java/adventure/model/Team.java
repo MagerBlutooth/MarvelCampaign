@@ -34,18 +34,18 @@ public class Team {
         eliminatedCards = new CardList(new ArrayList<>());
         infinityStones = new ArrayList<>();
     }
-    public Team(AdventureDatabase database)
+    public Team(AdventureDatabase database, int numTeamMembers, int numCaptains)
     {
         this();
         List<Card> cards = new ArrayList<>(database.getCards());
         Collections.shuffle(cards);
-        for(int i = 0; i < AdventureConstants.STARTING_CARDS; i++)
+        for(int i = 0; i < numTeamMembers; i++)
         {
             teamCards.add(cards.get(i));
         }
         cards.removeAll(teamCards.getCards());
         freeAgentCards.addAll(cards);
-        for(int i = 0; i < AdventureConstants.STARTING_CAPTAINS; i++)
+        for(int i = 0; i < numCaptains; i++)
         {
             teamCards.get(i).setCaptain(true);
         }
@@ -231,5 +231,13 @@ public class Team {
 
     public void loseTempCards() {
         tempCards.clear();
+    }
+
+    public void addCardToFreeAgents(Card card) {
+        freeAgentCards.add(card);
+    }
+
+    public void removeFromFreeAgents(Card card) {
+        freeAgentCards.remove(card);
     }
 }

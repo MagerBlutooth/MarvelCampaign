@@ -2,6 +2,7 @@ package adventure.model.stats;
 
 import snapMain.controller.MainDatabase;
 import snapMain.model.constants.SnapMainConstants;
+import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
 
@@ -12,13 +13,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CardStatTracker {
     ConcurrentHashMap<Integer,CardStats> cardStatMap;
 
-    MainDatabase mainDatabase;
-
-    public CardStatTracker(MainDatabase md, CardList enabledCards)
+    public CardStatTracker()
     {
-        mainDatabase = md;
         cardStatMap = new ConcurrentHashMap<>();
-        for(Card card: enabledCards)
+    }
+
+    public void initialize(TargetDatabase<Card> cards) {
+        for(Card card: cards)
         {
             cardStatMap.put(card.getID(), new CardStats());
         }
@@ -50,8 +51,6 @@ public class CardStatTracker {
         }
         if(!cardStatMap.isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        else
-            stringBuilder.append(" ");
         String saveString = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(saveString.getBytes());
     }
@@ -67,7 +66,7 @@ public class CardStatTracker {
             CardStats cardStats = new CardStats();
             cardStats.fromSaveString(entryString[1]);
             cardStatMap.put(Integer.parseInt(entryString[0]), cardStats);
-        }
 
+        }
     }
 }

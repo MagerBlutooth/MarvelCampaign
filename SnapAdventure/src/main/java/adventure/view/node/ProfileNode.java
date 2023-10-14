@@ -1,6 +1,8 @@
 package adventure.view.node;
 
 import adventure.controller.manager.ProfileNodeController;
+import adventure.model.AdvMainDatabase;
+import adventure.model.adventure.Adventure;
 
 public class ProfileNode extends AdvNode {
 
@@ -15,6 +17,11 @@ public class ProfileNode extends AdvNode {
     public void initialize(String profileString, String profileNum)
     {
         controller.initialize(profileString, profileNum);
+    }
+
+    public void initialize(AdvMainDatabase mainDB, Adventure adventure, String profileNum)
+    {
+        controller.initialize(mainDB, adventure, profileNum);
     }
 
     public void setText(String profileName) {

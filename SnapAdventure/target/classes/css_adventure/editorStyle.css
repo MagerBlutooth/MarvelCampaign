@@ -89,6 +89,11 @@
  -fx-border-width: 3 3 3 3 ;
  }
 
+ .context-menu {
+     -fx-background-color: black;
+     -fx-border-color: lightslategray;
+ }
+
 .choice-box .context-menu
  {
   -fx-background-color: black;

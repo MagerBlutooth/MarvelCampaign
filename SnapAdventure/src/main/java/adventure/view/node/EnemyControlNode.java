@@ -1,5 +1,6 @@
 package adventure.view.node;
 
+import adventure.model.thing.AdvCard;
 import adventure.model.thing.Enemy;
 import adventure.view.AdvTooltip;
 import javafx.scene.control.Tooltip;
@@ -59,4 +60,5 @@ public class EnemyControlNode extends ControlNode<Enemy> {
         else
             unreveal();
     }
+
 }

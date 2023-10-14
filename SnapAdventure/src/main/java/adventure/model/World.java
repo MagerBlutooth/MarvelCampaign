@@ -224,4 +224,13 @@ public class World implements Cloneable{
     public void updateWorldStats() {
         worldStatTracker.incrementNumMatches();
     }
+
+    public int calculateMookBonus() {
+        return bonusCalculator.calculateMook(worldNum);
+    }
+
+    public int calculateBossBonus()
+    {
+        return bonusCalculator.calculateBoss(worldNum);
+    }
 }
