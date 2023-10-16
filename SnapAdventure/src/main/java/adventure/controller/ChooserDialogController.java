@@ -42,8 +42,10 @@ public class ChooserDialogController<T extends SnapTarget> {
         ChooserDialogGridActionController<T> gridActionController = new ChooserDialogGridActionController<>();
         gridActionController.initialize(mainDatabase, dialog);
         choiceNodes.initialize(selectables, targetType, gridActionController, ViewSize.SMALL, false);
-        sortButton.initialize(choiceNodes.getController());
-        filterButton.initialize(choiceNodes.getController());
+        if(sortButton != null && filterButton != null) {
+            sortButton.initialize(choiceNodes.getController());
+            filterButton.initialize(choiceNodes.getController());
+        }
     }
 
 

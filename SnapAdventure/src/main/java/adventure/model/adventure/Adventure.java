@@ -244,19 +244,6 @@ public class Adventure {
         return team.getTeamCards();
     }
 
-    public CardList reclaimCards() {
-        CardList reclaimedCards = new CardList(new ArrayList<>());
-        for(Section s: getCurrentWorld().getSections())
-        {
-            reclaimedCards.addAll(s.getStationedCards().getThings());
-            s.getStationedCards().clear();
-        }
-        reclaimedCards.addAll(team.getCapturedCards().getCards());
-        team.getCapturedCards().clear();
-        team.getTeamCards().addAll(reclaimedCards.getCards());
-        return reclaimedCards;
-    }
-
     public CardList getStationedCards()
     {
         CardList stationedCards = new CardList(new ArrayList<>());
@@ -407,5 +394,19 @@ public class Adventure {
 
     public AdventureDatabase getAdventureDatabase() {
         return adventureDatabase;
+    }
+
+    public boolean reclaimCard(Card card) {
+        boolean reclaimed = false;
+        for(Section s: getCurrentWorld().getSections())
+        {
+            if(s.getStationedCards().contains(card))
+            {
+                reclaimed = s.removeStationedCard(card, team);
+            }
+        }
+        if(!reclaimed)
+            reclaimed = team.returnCard(card);
+        return reclaimed;
     }
 }

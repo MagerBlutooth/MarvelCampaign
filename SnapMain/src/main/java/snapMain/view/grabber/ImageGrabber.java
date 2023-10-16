@@ -1,5 +1,6 @@
 package snapMain.view.grabber;
 
+import javafx.scene.image.Image;
 import snapMain.view.IconImage;
 
 import java.net.URL;
@@ -61,6 +62,20 @@ public class ImageGrabber extends FileGrabber {
     public IconImage grabStarImage()
     {
         String starImageFile = "/captainStar.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabHealImage() {
+        String starImageFile = "/healSign.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabDefectImage() {
+        String starImageFile = "/defectSign.png";
         URL url = getClass().getResource(starImageFile);
         assert url != null;
         return new IconImage(url.toExternalForm());

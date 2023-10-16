@@ -126,11 +126,15 @@ public class Team {
         }
     }
 
-    public void returnCard(Card card) {
-        if(miaCards.contains(card)) {
+    public boolean returnCard(Card card) {
+        if(miaCards.contains(card) || capturedCards.contains(card) || eliminatedCards.contains(card)) {
             teamCards.add(card);
             miaCards.remove(card);
+            capturedCards.remove(card);
+            eliminatedCards.remove(card);
+            return true;
         }
+        return false;
     }
 
 
@@ -240,5 +244,18 @@ public class Team {
 
     public void removeFromFreeAgents(Card card) {
         freeAgentCards.remove(card);
+    }
+
+    public void fromTempToTeam(Card c) {
+        boolean removed = tempCards.remove(c);
+        if(removed)
+            teamCards.add(c);
+    }
+
+    public void fromTeamToTemp(Card c)
+    {
+        boolean removed = teamCards.remove(c);
+        if(removed)
+            tempCards.add(c);
     }
 }

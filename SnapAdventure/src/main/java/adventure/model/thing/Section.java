@@ -2,6 +2,7 @@ package adventure.model.thing;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
+import adventure.model.Team;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
@@ -190,5 +191,12 @@ public class Section implements Cloneable, SnapTarget {
         SnapTarget oldEnemy = enemy.getSubject();
         enemy = e;
         return oldEnemy;
+    }
+
+    public boolean removeStationedCard(Card card, Team t) {
+        boolean removed = stationedCards.remove(card);
+        if(removed)
+            t.addCardToTeam(card);
+        return removed;
     }
 }

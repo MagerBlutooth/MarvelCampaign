@@ -224,7 +224,6 @@ public class SectionViewPaneController extends AdvPaneController {
     }
 
     private void defeatBoss() {
-        adventure.reclaimCards();
         WorldClearPane worldClearPane = new WorldClearPane();
         worldClearPane.initialize(mainDatabase, adventure, controlPane);
         changeScene(worldClearPane);

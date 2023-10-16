@@ -3,6 +3,7 @@ package adventure.controller;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.InfinityStoneDisplayNode;
+import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardDisplayPopup;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,31 +25,43 @@ public class TeamDisplayNodeController {
     public Button eliminateButton;
     @FXML
     Button stationedButton;
-    @FXML
-    Button randomButton;
     TeamGridActionController cardController;
+    TempGridActionController tempController;
+    @FXML
+    LostCardGridActionController lostCardController;
 
     Team team;
     Adventure adventure;
 
     MainDatabase database;
+    AdventureControlPane adventureControlPane;
 
-    public void initialize(MainDatabase d, Team t, Adventure a)
+    public void initialize(MainDatabase d, Team t, AdventureControlPane aPane)
     {
         database = d;
         team = t;
-        adventure = a;
-        cardController = new TeamGridActionController();
-        cardController.initialize(d, this);
-        teamCardDisplay.initialize(t.getTeamCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
-        tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
+        adventureControlPane = aPane;
+        adventure = aPane.getAdventure();
+        initControllers(d, t);
         infinityStoneDisplay.initialize(database, t);
+    }
+
+    private void initControllers(MainDatabase d, Team t) {
+        cardController = new TeamGridActionController();
+        tempController = new TempGridActionController();
+        lostCardController = new LostCardGridActionController();
+        cardController.initialize(d, this);
+        tempController.initialize(d, this);
+        teamCardDisplay.initialize(t.getTeamCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
+        tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, tempController, ViewSize.SMALL, false);
     }
 
     public void showCaptured()
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getCapturedCards(),
-                eliminateButton.localToScene(0.0,0.0), cardController);
+                eliminateButton.localToScene(0.0,0.0));
+        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
@@ -60,7 +73,9 @@ public class TeamDisplayNodeController {
     public void showMIA()
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getMIACards(),
-                eliminateButton.localToScene(0.0,0.0), cardController);
+                eliminateButton.localToScene(0.0,0.0));
+        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
@@ -71,7 +86,10 @@ public class TeamDisplayNodeController {
 
     public void showEliminated()
     {
-        CardDisplayPopup popup = new CardDisplayPopup(team.getEliminatedCards(), eliminateButton.localToScene(0.0,0.0), cardController);
+        CardDisplayPopup popup = new CardDisplayPopup(team.getEliminatedCards(),
+                eliminateButton.localToScene(0.0,0.0));
+        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
@@ -83,7 +101,9 @@ public class TeamDisplayNodeController {
     public void showStationed()
     {
         CardDisplayPopup popup = new CardDisplayPopup(adventure.getStationedCards(),
-                stationedButton.localToScene(0.0,0.0), cardController);
+                stationedButton.localToScene(0.0,0.0));
+        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
@@ -103,36 +123,36 @@ public class TeamDisplayNodeController {
     public void capture(Card card)
     {
         team.captureCard(card);
-        refresh();
+        adventureControlPane.refreshToMatch();
     }
 
     public void eliminate(Card card) {
         team.eliminateCard(card);
-        refresh();
+        adventureControlPane.refreshToMatch();
     }
 
     public void revive(Card card)
     {
         team.reviveCard(card);
-        refresh();
+        adventureControlPane.refreshToMatch();
     }
 
     public void free(Card card)
     {
         team.freeCapturedCard(card);
-        refresh();
+        adventureControlPane.refreshToMatch();
     }
 
     public void sendAway(Card card)
     {
         team.sendAway(card);
         adventure.sendAway(card);
-        refresh();
+        adventureControlPane.refreshToMatch();
     }
     public void returnCard(Card card)
     {
-        team.returnCard(card);
-        refresh();
+        adventure.reclaimCard(card);
+        adventureControlPane.refreshToMatch();
     }
 
     public void update(Card subject) {
@@ -152,6 +172,20 @@ public class TeamDisplayNodeController {
 
     public void makeCardFreeAgent(Card card) {
         team.makeCardFreeAgent(card);
-        refresh();
+        adventureControlPane.refreshToMatch();
+    }
+
+    public void focusTeamNode() {
+        teamCardDisplay.setFocusTraversable(true);
+    }
+
+    public void fromTempToTeam(Card subject) {
+        team.fromTempToTeam(subject);
+        adventureControlPane.refreshToMatch();
+    }
+
+    public void teamToTemp(Card subject) {
+        team.fromTeamToTemp(subject);
+        adventureControlPane.refreshToMatch();
     }
 }
