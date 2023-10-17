@@ -175,8 +175,4 @@ public class Card extends EffectBaseObject implements Playable {
         }
         return false;
     }
-
-    public boolean notActualCard() {
-        return id >= 10000;
-    }
 }

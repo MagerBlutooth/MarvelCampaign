@@ -22,6 +22,12 @@ public class AdvLocation extends BaseObject {
         setID(advLocation.getID());
         setEnabled(advLocation.isEnabled());
     }
+    @Override
+    public void setID(int i)
+    {
+        location.setID(i);
+        super.setID(i);
+    }
 
     @Override
     public String[] toSaveStringArray() {

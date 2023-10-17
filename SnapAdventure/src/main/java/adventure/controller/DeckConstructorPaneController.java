@@ -34,7 +34,6 @@ import java.util.ArrayList;
 
 public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<Card>  {
 
-
     @FXML
     Label deckButtonConfirmText;
     @FXML
@@ -92,6 +91,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         filterButton.initialize(cardChoices.getListNodeController(), deckGridController);
         confirmButton.disableProperty().bind(Bindings.notEqual(SnapMainConstants.MAX_DECK_SIZE,
                 deckGridController.getDeckSizeProperty()));
+        deckGridController.toggleNodeLights();
     }
 
     @Override

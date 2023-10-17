@@ -53,6 +53,7 @@ public class TeamDisplayNodeController {
         cardController.initialize(d, this);
         tempController.initialize(d, this);
         teamCardDisplay.initialize(t.getTeamCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
+        teamCardDisplay.setPrefColumns(6);
         tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, tempController, ViewSize.SMALL, false);
     }
 

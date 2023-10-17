@@ -1,11 +1,8 @@
 package adventure.view.node;
 
-import adventure.model.thing.AdvCard;
 import adventure.model.thing.Enemy;
-import adventure.view.AdvTooltip;
-import javafx.scene.control.Tooltip;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -15,13 +12,18 @@ import snapMain.model.target.Playable;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
+import snapMain.view.grabber.ImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 import snapMain.view.node.control.ControlNode;
+
+import java.lang.annotation.Target;
 
 public class EnemyControlNode extends ControlNode<Enemy> {
 
     protected AnchorPane secondaryPane;
     ImageView secondaryView;
     boolean secondaryDefined;
+    boolean isRevealed;
     @Override
         public void initialize(MainDatabase db, Enemy e, IconImage i, ViewSize v, boolean revealed) {
             mainDatabase = db;
@@ -33,24 +35,33 @@ public class EnemyControlNode extends ControlNode<Enemy> {
             secondaryPane = new AnchorPane();
             createSecondaryView(v);
             secondaryDefined = subject.getSecondarySubject().getID() == SnapMainConstants.MOOK_ICON_ID;
+            isRevealed = revealed;
         }
 
     public void refresh(Enemy e) {
-        IconImage i = mainDatabase.grabImage(e.getSubject());
         subject = e;
-        imageView.setImage(i);
+        setRevealed(isRevealed);
         setSecondaryImage();
     }
 
     public void unreveal()
     {
+        isRevealed = false;
         this.setEffect(null);
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setSaturation(-1);
-        this.setEffect(colorAdjust);
+        ImageGrabber imageGrabber = new ImageGrabber();
+        IconImage image = imageGrabber.grabBossImage();
+        imageView.setImage(image);
+        DropShadow borderGlow = new DropShadow();
+        borderGlow.setColor(Color.WHITE);
+        borderGlow.setOffsetX(0f);
+        borderGlow.setOffsetY(0f);
+        imageView.setEffect(borderGlow);
     }
 
     public void reveal() {
+        isRevealed = true;
+        IconImage i = mainDatabase.grabImage(subject.getSubject());
+        imageView.setImage(i);
         this.setEffect(null);
         DropShadow borderGlow = new DropShadow();
         borderGlow.setColor(Color.RED);
@@ -72,12 +83,6 @@ public class EnemyControlNode extends ControlNode<Enemy> {
         setSecondaryImage();
         secondaryPane.setVisible(true);
         secondaryDefined = true;
-    }
-
-    public void swapPrimaryAndSecondary()
-    {
-        subject.swapPrimaryAndSecondary();
-        refresh(subject);
     }
 
     private void createSecondaryView(ViewSize v) {
@@ -104,5 +109,9 @@ public class EnemyControlNode extends ControlNode<Enemy> {
 
     public boolean noSecondaryDefined() {
         return secondaryDefined;
+    }
+
+    public Playable getSecondarySubject() {
+        return subject.getSecondarySubject();
     }
 }

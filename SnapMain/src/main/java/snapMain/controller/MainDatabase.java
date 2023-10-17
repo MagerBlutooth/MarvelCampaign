@@ -6,6 +6,7 @@ import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 import snapMain.view.MasterImageCache;
 import snapMain.view.IconImage;
+import snapMain.view.grabber.IconConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,38 +14,43 @@ import java.util.List;
 public class MainDatabase {
 
     MasterThingDatabase masterThingDatabase;
-    MasterImageCache imageCache;
+    MasterImageCache masterImageCache;
 
     public MainDatabase(MasterThingDatabase database)
     {
         masterThingDatabase = database;
-        imageCache = new MasterImageCache(database);
+        masterImageCache = new MasterImageCache(database);
     }
 
     public IconImage grabImage(SnapTarget t)
     {
-        return imageCache.getImage(t.getID(), t.getTargetType());
+        return masterImageCache.getImage(t.getID(), t.getTargetType());
+    }
+    
+    public IconImage grabIcon(IconConstant i)
+    {
+        return masterImageCache.getIcon(i);
     }
 
     public IconImage grabBlankImage(TargetType tt)
     {
-        return imageCache.getImage(SnapMainConstants.NO_ICON_ID, tt);
+        return masterImageCache.getImage(SnapMainConstants.NO_ICON_ID, tt);
     }
 
     public void addToken(Token t, IconImage i) {
         masterThingDatabase.addToken(t);
-        imageCache.cacheToken(t, i);
+        masterImageCache.cacheToken(t, i);
     }
 
     public void addCard(Card c, IconImage i) {
         masterThingDatabase.addCard(c);
-        imageCache.cacheCard(c, i);
+        masterImageCache.cacheCard(c, i);
     }
 
     public void addLocation(Location l, IconImage i)
     {
         masterThingDatabase.addLocation(l);
-        imageCache.cacheLocation(l, i);
+        masterImageCache.cacheLocation(l, i);
     }
 
     public List<Card> getCards() {

@@ -12,11 +12,6 @@ public class BossSection extends Section {
         super(db, 0, new Ruins(), e);
     }
 
-    public BossSection(BossSection b)
-    {
-        super(b);
-    }
-
     public void setEnemy(Enemy e) {
         enemy = e;
     }

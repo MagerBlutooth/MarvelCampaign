@@ -9,7 +9,7 @@ import snapMain.model.target.TargetType;
 import snapMain.model.target.Token;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 import snapMain.view.thing.TokenView;
 
 
@@ -24,7 +24,7 @@ public class TokenViewController extends CampaignViewController<Token> {
 
     @Override
     public void initialize(Token t, ViewSize v) {
-        ThingImageGrabber imageGrabber = new ThingImageGrabber(TargetType.CARD);
+        TargetImageGrabber imageGrabber = new TargetImageGrabber(TargetType.CARD);
         token = t;
         tokenView.setViewSize(v);
         setTooltip();

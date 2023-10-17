@@ -189,22 +189,13 @@ public class Adventure {
         return worlds.get(worldChosen);
     }
 
-    public void randomizeSection(Section section) {
-        List<AdvLocation> advLocations = new ArrayList<>(availableLocations.getLocations());
-        Collections.shuffle(advLocations);
-        AdvLocation chosenLoc = advLocations.get(0);
-        AdvLocation previousLoc = section.getLocation();
-        availableLocations.add(previousLoc);
-        availableLocations.remove(chosenLoc);
-        section.changeLocation(chosenLoc);
-    }
 
     public void completeCurrentSection()
     {
         getCurrentWorld().clearSection(getCurrentSectionNum());
         if(getCurrentWorld().numClearedSections() >= difficulty.getSectionsRequiredToClear())
         {
-            getCurrentWorld().revealBoss();
+            getCurrentWorld().setBossRevealed(true);
         }
         getCurrentWorld().revealNextSection(currentSectionNum);
         incrementCurrentSectionNum();
@@ -321,9 +312,15 @@ public class Adventure {
         World w = getCurrentWorld();
         AdvLocation oldLoc = w.getSection(sectionNum).getLocation();
         w.updateSection(newLoc, sectionNum);
-        if(oldLoc != null)
+        if(oldLoc.isActualThing())
             availableLocations.add(oldLoc);
-        availableLocations.remove(newLoc);
+        if(newLoc.isActualThing())
+            availableLocations.remove(newLoc);
+    }
+    public void destroySection(int sectionNum) {
+        World w = getCurrentWorld();
+        AdvLocation oldLoc = w.getSection(sectionNum).getLocation();
+        w.updateSection(new AdvLocation(new Location()), sectionNum);
     }
 
     public void updateStats(CardList deck, MatchResult result) {
@@ -409,4 +406,6 @@ public class Adventure {
             reclaimed = team.returnCard(card);
         return reclaimed;
     }
+
+
 }

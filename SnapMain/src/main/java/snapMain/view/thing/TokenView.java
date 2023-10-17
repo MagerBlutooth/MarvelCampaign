@@ -3,7 +3,7 @@ package snapMain.view.thing;
 import snapMain.controller.view.TokenViewController;
 import snapMain.model.target.TargetType;
 import snapMain.model.target.Token;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 
@@ -24,7 +24,7 @@ public class TokenView extends ThingView {
         if(editable)
             addDragAndDrop();
         controller.initialize(t, size);
-        ThingImageGrabber imageGrabber = new ThingImageGrabber(TargetType.TOKEN);
+        TargetImageGrabber imageGrabber = new TargetImageGrabber(TargetType.TOKEN);
 
         image = imageGrabber.grabImage(t.getID());
         setImage(image, size);

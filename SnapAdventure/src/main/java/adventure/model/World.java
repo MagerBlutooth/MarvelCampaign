@@ -4,11 +4,9 @@ import adventure.model.stats.MatchResult;
 import adventure.model.stats.WorldStatTracker;
 import adventure.model.thing.*;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
-import snapMain.model.target.TargetType;
 
 import java.util.*;
 
@@ -87,6 +85,7 @@ public class World implements Cloneable{
         Enemy enemy = new Enemy(boss, bonusCalculator.calculateBoss(worldNum));
         bossSection.setEnemy(enemy);
         freeAgents.remove(card);
+        bossRevealed = false;
     }
 
     public void fromSaveString(String saveString, AdvMainDatabase dB) {
@@ -208,11 +207,6 @@ public class World implements Cloneable{
         Section s = getSection(sectionNum);
         s.changeLocation(advLocation);
     }
-
-    public void revealBoss() {
-        bossRevealed = true;
-    }
-
     public boolean isBossRevealed() {
         return bossRevealed;
     }
@@ -233,5 +227,10 @@ public class World implements Cloneable{
     public int calculateBossBonus()
     {
         return bonusCalculator.calculateBoss(worldNum);
+    }
+
+
+    public void setBossRevealed(boolean b) {
+        bossRevealed = b;
     }
 }

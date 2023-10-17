@@ -8,9 +8,7 @@ import adventure.model.thing.AdvLocationList;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
@@ -29,6 +27,7 @@ public class AdvLocationSearchSelectDialog extends Dialog<AdvLocation>
         implements Choosable<AdvLocation> {
 
 
+    Button okButton;
     AdvLocationSearchSelectDialogController controller;
     public AdvLocationSearchSelectDialog()
     {
@@ -41,7 +40,8 @@ public class AdvLocationSearchSelectDialog extends Dialog<AdvLocation>
     public void initialize(MainDatabase cd, TargetList<AdvLocation> selectableLocs)
     {
         controller.initialize(cd, this, selectableLocs);
-
+        okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setDisable(true);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return controller.getChoice();
@@ -52,6 +52,7 @@ public class AdvLocationSearchSelectDialog extends Dialog<AdvLocation>
 
     public void setChoice(AdvLocation loc) {
         controller.setChoice(loc);
+        okButton.setDisable(false);
     }
 
 }

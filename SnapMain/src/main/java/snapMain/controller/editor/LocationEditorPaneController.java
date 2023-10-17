@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import snapMain.model.target.Location;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 import snapMain.view.node.editor.LocationEditorNode;
 import snapMain.view.pane.manager.LocationManagerPane;
 import snapMain.view.thing.LocationView;
@@ -19,7 +19,7 @@ public class LocationEditorPaneController extends EditorPaneController {
     @FXML
     LocationView imagePane;
 
-    ThingImageGrabber imageGrabber = new ThingImageGrabber(TargetType.LOCATION);
+    TargetImageGrabber imageGrabber = new TargetImageGrabber(TargetType.LOCATION);
 
     public void initialize(MainDatabase database, Location l)
     {

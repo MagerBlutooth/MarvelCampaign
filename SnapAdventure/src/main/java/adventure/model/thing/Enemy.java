@@ -46,13 +46,6 @@ public class Enemy implements SnapTarget {
         currentHP = nme.currentHP;
     }
 
-    public void swapPrimaryAndSecondary()
-    {
-        Playable tempEnemy = subject;
-        subject = secondarySubject;
-        secondarySubject = tempEnemy;
-    }
-
     public void setSecondarySubject(Playable p)
     {
         secondarySubject = p;

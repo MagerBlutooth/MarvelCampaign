@@ -8,6 +8,8 @@ import adventure.view.node.ProfileNode;
 import adventure.view.pane.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import snapMain.view.button.ButtonToolBar;
 
 import java.util.concurrent.ConcurrentHashMap;

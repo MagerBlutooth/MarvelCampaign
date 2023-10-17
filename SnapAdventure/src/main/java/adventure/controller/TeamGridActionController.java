@@ -9,6 +9,7 @@ import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
+import snapMain.view.grabber.IconConstant;
 import snapMain.view.grabber.ImageGrabber;
 import snapMain.view.node.control.ControlNode;
 
@@ -49,7 +50,6 @@ public class TeamGridActionController implements GridActionController<Card> {
 
     @Override
     public void createContextMenu(ControlNode<Card> n) {
-        ImageGrabber imageGrabber = new ImageGrabber();
         ContextMenu contextMenu = new ContextMenu();
         MenuItem woundItem = setWoundItem(n.getSubject());
         MenuItem eliminateItem = new MenuItem("Eliminate");
@@ -58,8 +58,12 @@ public class TeamGridActionController implements GridActionController<Card> {
         MenuItem tempItem = new MenuItem("To Temp");
         MenuItem defectItem = new MenuItem("Defect");
         MenuItem captainItem = new MenuItem("Toggle Captain");
-        setGraphic(captainItem, new ImageView(imageGrabber.grabStarImage()));
-        setGraphic(defectItem, new ImageView(imageGrabber.grabDefectImage()));
+        setGraphic(captureItem, new ImageView(mainDatabase.grabIcon(IconConstant.CAPTURE)));
+        setGraphic(eliminateItem, new ImageView(mainDatabase.grabIcon(IconConstant.ELIMINATE)));
+        setGraphic(captainItem, new ImageView(mainDatabase.grabIcon(IconConstant.STAR)));
+        setGraphic(defectItem, new ImageView(mainDatabase.grabIcon(IconConstant.DEFECT)));
+        setGraphic(miaItem, new ImageView(mainDatabase.grabIcon(IconConstant.SEND_AWAY)));
+        setGraphic(tempItem, new ImageView(mainDatabase.grabIcon(IconConstant.TEMP)));
         eliminateItem.setOnAction(actionEvent -> teamDisplayNodeController.eliminate(n.getSubject()));
         captureItem.setOnAction(actionEvent -> teamDisplayNodeController.capture(n.getSubject()));
         miaItem.setOnAction(actionEvent -> teamDisplayNodeController.sendAway(n.getSubject()));
@@ -83,15 +87,14 @@ public class TeamGridActionController implements GridActionController<Card> {
             woundItem.setText("Heal");
             setGraphic(woundItem, new ImageView(imageGrabber.grabHealImage()));
         }
-        else
+        else {
             woundItem.setText("Wound");
+            setGraphic(woundItem, new ImageView(imageGrabber.grabWoundImage()));
+        }
 
         woundItem.setOnAction(actionEvent -> {
             teamDisplayNodeController.toggleWound(c);
-            if (c.isWounded()) {
-                woundItem.setText("Heal");
-            } else
-                woundItem.setText("Wound");
+            setWoundItem(c);
         });
         return woundItem;
     }

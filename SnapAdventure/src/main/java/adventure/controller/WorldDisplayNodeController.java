@@ -29,8 +29,6 @@ public class WorldDisplayNodeController extends AdvPaneController {
     @FXML
     EnemyControlNode bossControlNode;
     @FXML
-    Label bossEffectText;
-    @FXML
     SectionControlNode section1Node;
     @FXML
     SectionControlNode section2Node;
@@ -61,15 +59,14 @@ public class WorldDisplayNodeController extends AdvPaneController {
         Section advLocation3 = w.getThirdSection();
         Section advLocation4 = w.getFourthSection();
         Enemy boss = w.getBoss();
-        bossEffectText.setText(boss.getEffect());
         section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation()),
-                ViewSize.MEDIUM, true);
+                ViewSize.MEDIUM, advLocation1.isRevealed());
         section2Node.initialize(d, advLocation2, d.grabImage(advLocation2.getLocation()),
-                ViewSize.MEDIUM, false);
+                ViewSize.MEDIUM, advLocation1.isRevealed());
         section3Node.initialize(d, advLocation3, d.grabImage(advLocation3.getLocation()),
-                ViewSize.MEDIUM, false);
+                ViewSize.MEDIUM, advLocation1.isRevealed());
         section4Node.initialize(d, advLocation4, d.grabImage(advLocation4.getLocation()),
-                ViewSize.MEDIUM, false);
+                ViewSize.MEDIUM, advLocation1.isRevealed());
         sections.add(section1Node);
         sections.add(section2Node);
         sections.add(section3Node);
@@ -86,36 +83,31 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     private void setBossContextMenu() {
         bossContextMenu = new ContextMenu();
-        MenuItem secondaryItem = getSecondaryMenuItem();
-        bossContextMenu.getItems().add(secondaryItem);
+        MenuItem revealItem = setRevealOption();
+        bossContextMenu.getItems().add(revealItem);
         bossControlNode.setOnContextMenuRequested(e -> bossContextMenu.show(bossControlNode, e.getScreenX(),
                 e.getScreenY()));
     }
 
-    private MenuItem getSecondaryMenuItem() {
-        MenuItem secondaryItem = new MenuItem("Add Secondary");
-        secondaryItem.setOnAction(actionEvent -> {
-            AdvCardChooserDialog chooserDialog = new AdvCardChooserDialog();
-            AdventureDatabase aDatabase = adventurePane.getAdventureDatabase();
-            chooserDialog.initialize(mainDatabase, aDatabase.getBossList());
-            Optional<AdvCard> boss = chooserDialog.showAndWait();
-            if(boss.isPresent())
-            {
-                if(bossControlNode.noSecondaryDefined()) {
-                    MenuItem swapItem = new MenuItem("Swap Secondary");
-                    swapItem.setOnAction(e ->
-                    {
-                        bossControlNode.swapPrimaryAndSecondary();
-                        bossEffectText.setText(bossControlNode.getSubject().getEffect());
-                    });
-                    bossContextMenu.getItems().add(swapItem);
-                }
-                AdvCard bossCard = boss.get();
-                bossControlNode.setSecondary(bossCard);
-            }
-
-        });
-        return secondaryItem;
+    private MenuItem setRevealOption() {
+        MenuItem menuItem;
+        if(world.isBossRevealed())
+        {
+            menuItem = new MenuItem("Unreveal");
+            menuItem.setOnAction(e -> {
+                unrevealBoss();
+                setBossContextMenu();
+            });
+        }
+        else
+        {
+            menuItem = new MenuItem("Reveal");
+            menuItem.setOnAction(e -> {
+                revealBoss();
+                setBossContextMenu();
+            });
+        }
+        return menuItem;
     }
 
     private void setBossMouseOption(EnemyControlNode bossNode, AdventureControlPane aPane) {
@@ -142,6 +134,20 @@ public class WorldDisplayNodeController extends AdvPaneController {
     public void revealNextSection(int currentSectionNum)
     {
         world.revealNextSection(currentSectionNum);
+        refresh(world);
+    }
+
+    public void revealBoss()
+    {
+        world.setBossRevealed(true);
+        bossControlNode.setRevealed(true);
+        refresh(world);
+    }
+
+    public void unrevealBoss()
+    {
+        world.setBossRevealed(false);
+        bossControlNode.setRevealed(false);
         refresh(world);
     }
 

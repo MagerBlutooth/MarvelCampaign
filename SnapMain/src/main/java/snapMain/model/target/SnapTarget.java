@@ -13,4 +13,9 @@ public interface SnapTarget {
     void setID(int id);
 
     boolean hasAttribute(String entry);
+
+   default boolean isActualThing()
+   {
+       return getID() < 10000;
+   }
 }

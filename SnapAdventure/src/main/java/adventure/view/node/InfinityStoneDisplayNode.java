@@ -3,6 +3,7 @@ package adventure.view.node;
 import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
 import adventure.model.thing.InfinityStoneID;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.HBox;
 import snapMain.controller.MainDatabase;
 import snapMain.model.database.TargetDatabase;
@@ -38,8 +39,12 @@ public class InfinityStoneDisplayNode extends HBox {
             InfinityStoneID stoneID = entry.getKey();
             if (team.hasInfinityStone(stoneID)) {
                 entry.getValue().highlight();
+                entry.getValue().setEffect(null);
             } else {
                 entry.getValue().lowlight();
+                ColorAdjust disableColor = new ColorAdjust();
+                disableColor.setSaturation(-1);
+                entry.getValue().setEffect(disableColor);
             }
         }
     }

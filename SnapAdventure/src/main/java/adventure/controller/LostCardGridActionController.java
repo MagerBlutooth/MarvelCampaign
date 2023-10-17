@@ -21,7 +21,7 @@ public class LostCardGridActionController implements GridActionController<Card> 
     public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
         ControlNode<Card> node = new ControlNode<>();
         node.initialize(getDatabase(), card, i, v, blind);
-        if(!card.notActualCard())
+        if(card.isActualThing())
             createContextMenu(node);
         return node;
     }

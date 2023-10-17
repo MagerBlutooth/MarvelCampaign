@@ -23,7 +23,8 @@ public class ChooserDialogGridActionController<T extends SnapTarget> extends Bas
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind) {
         ControlNode<T> node = new ControlNode<>();
         node.initialize(getDatabase(), t, i, v, blind);
-        node.setOnMouseClicked(e -> dialog.setChoice(node.getSubject()));
+        if(node.getSubject().isActualThing())
+            node.setOnMouseClicked(e -> dialog.setChoice(node.getSubject()));
         createTooltip(node);
         return node;
     }

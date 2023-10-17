@@ -3,6 +3,7 @@ package adventure.controller.manager;
 import adventure.controller.AdvStartPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
+import adventure.model.World;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.InfinityStoneDisplayNode;
 import adventure.view.node.ProfileNode;
@@ -46,7 +47,11 @@ public class ProfileNodeController {
         profileFile = pFile;
         Label worldLabel = new Label();
         worldLabel.setOpacity(0.6);
-        worldLabel.setText("World " + adventure.getCurrentWorldNum() + "-" +adventure.getCurrentSectionNum());
+        World w = adventure.getCurrentWorld();
+        if(!w.isBossRevealed())
+            worldLabel.setText("World " + w.getWorldNum() + "-" +adventure.getCurrentSectionNum());
+        else
+            worldLabel.setText("World " + w.getWorldNum() + " Boss: " + w.getBoss().getName());
         contentBox.getChildren().add(worldLabel);
         InfinityStoneDisplayNode infinityStoneDisplayNode = new InfinityStoneDisplayNode();
         infinityStoneDisplayNode.initialize(mainDatabase, adventure.getTeam());

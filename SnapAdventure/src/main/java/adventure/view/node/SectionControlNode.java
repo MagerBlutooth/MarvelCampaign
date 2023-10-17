@@ -19,6 +19,10 @@ public class SectionControlNode extends ControlNode<Section> {
             imageView.setFitHeight(v.getSizeVal());
             if(!s.isRevealed())
                 unreveal();
+            if(s.isCompleted())
+                complete();
+            else
+                incomplete();
         }
 
     public void unreveal() {

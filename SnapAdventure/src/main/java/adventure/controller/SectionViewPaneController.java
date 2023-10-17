@@ -17,14 +17,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
-import snapMain.model.target.Playable;
-import snapMain.model.target.TargetType;
+import snapMain.model.target.*;
 import snapMain.view.ViewSize;
-import snapMain.view.button.ButtonToolBar;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.pane.FullViewPane;
 
@@ -35,7 +32,7 @@ public class SectionViewPaneController extends AdvPaneController {
     @FXML
     FullViewPane sectionViewPane;
     @FXML
-    Label enemyEffectText;
+    TextArea enemyEffectText;
     @FXML
     EnemyControlNode enemyView;
     @FXML
@@ -45,17 +42,15 @@ public class SectionViewPaneController extends AdvPaneController {
     @FXML
     StackPane pickupDisplayBox;
     @FXML
-    ButtonToolBar buttonToolBar;
-    @FXML
     AdvLocationControlNode locationView;
     @FXML
-    Label locationEffectText;
+    TextArea locationEffectText;
 
     @FXML
     Button skipButton;
     @FXML
     Button completeButton;
-    AdventureControlPane controlPane;
+    AdventureControlPane adventureControlPane;
     Section section;
     Adventure adventure;
     GridDisplayNode<Card> stationedDisplay;
@@ -64,7 +59,7 @@ public class SectionViewPaneController extends AdvPaneController {
 
     public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Section s) {
         mainDatabase = dB;
-        controlPane = cP;
+        adventureControlPane = cP;
         section = s;
         enemy = s.getEnemy();
         adventure = cP.getAdventure();
@@ -79,7 +74,6 @@ public class SectionViewPaneController extends AdvPaneController {
         completeButton.disableProperty().bind(Bindings.lessThan(0,hpDisplay.getHPProperty()));
         initializePickups(s);
         initializeStations(s);
-        initializeButtonToolBar();
         initializeContextMenus();
     }
 
@@ -87,8 +81,11 @@ public class SectionViewPaneController extends AdvPaneController {
         ContextMenu sectionMenu = new ContextMenu();
         MenuItem changeItem = new MenuItem("Change");
         changeItem.setOnAction(e -> changeLocation());
+        MenuItem destroyItem = new MenuItem("Destroy");
+        destroyItem.setOnAction(e -> destroyLocation());
         sectionMenu.getItems().add(changeItem);
-        locationView.setOnContextMenuRequested(e -> sectionMenu.show(locationView, e.getScreenX(), e.getScreenY()));
+        sectionMenu.getItems().add(destroyItem);
+        locationView.setOnMouseClicked(e -> sectionMenu.show(locationView, e.getScreenX(), e.getScreenY()));
 
         enemyMenu = new ContextMenu();
         MenuItem changeHPItem = new MenuItem("Change HP");
@@ -103,13 +100,13 @@ public class SectionViewPaneController extends AdvPaneController {
         MenuItem addSecondaryEffectIem = new MenuItem("Add Secondary Effect");
         addSecondaryEffectIem.setOnAction(e -> addSecondaryEffect());
         enemyMenu.getItems().add(addSecondaryEffectIem);
-        enemyView.setOnContextMenuRequested(e -> enemyMenu.show(enemyView, e.getScreenX(), e.getScreenY()));
+        enemyView.setOnMouseClicked(e -> enemyMenu.show(enemyView, e.getScreenX(), e.getScreenY()));
 
         ContextMenu stationMenu = new ContextMenu();
         MenuItem stationCardItem = new MenuItem("Station");
         stationCardItem.setOnAction(e -> stationCard());
         stationMenu.getItems().add(stationCardItem);
-        stationedDisplayBox.setOnContextMenuRequested(e -> stationMenu.show(stationedDisplayBox, e.getScreenX(),
+        stationedDisplayBox.setOnMouseClicked(e -> stationMenu.show(stationedDisplayBox, e.getScreenX(),
                 e.getScreenY()));
     }
 
@@ -122,15 +119,8 @@ public class SectionViewPaneController extends AdvPaneController {
         {
             AdvCard bossCard = boss.get();
             enemyView.setSecondary(bossCard);
-
+            enemyEffectText.setText(enemyView.getSecondarySubject().getEffect());
         }
-        MenuItem swapPrimarySecondaryItem = new MenuItem("Swap Primary and Secondary");
-        swapPrimarySecondaryItem.setOnAction(e -> {
-            enemyView.swapPrimaryAndSecondary();
-            enemyEffectText.setText(enemyView.getSubject().getEffect());
-        });
-        if(!enemyMenu.getItems().contains(swapPrimarySecondaryItem))
-            enemyMenu.getItems().add(swapPrimarySecondaryItem);
     }
 
     private void changeEnemyClone() {
@@ -144,7 +134,7 @@ public class SectionViewPaneController extends AdvPaneController {
             enemyView.refresh(enemy);
             enemyEffectText.setText(p.getEffect());
         }
-        controlPane.refreshToMatch();
+        adventureControlPane.refreshToMatch();
     }
 
     private void changeEnemy() {
@@ -160,7 +150,12 @@ public class SectionViewPaneController extends AdvPaneController {
             enemyView.refresh(enemy);
             enemyEffectText.setText(boss.getEffect());
         }
-        controlPane.refreshToMatch();
+        adventureControlPane.refreshToMatch();
+    }
+
+    public void goBack()
+    {
+        changeScene(adventureControlPane);
     }
 
     private void changeLocation()
@@ -168,13 +163,21 @@ public class SectionViewPaneController extends AdvPaneController {
         AdvLocationSearchSelectDialog locationSearchSelectDialog = new AdvLocationSearchSelectDialog();
         locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()));
         Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
-        if(location.isPresent()) {
+        if(location.isPresent() && location.get().isActualThing()) {
             AdvLocation newLoc = location.get();
             adventure.updateSection(newLoc, section.getSectionNum());
             locationView.update(newLoc);
             locationEffectText.setText(newLoc.getEffect());
         }
-        controlPane.refreshToMatch();
+        adventureControlPane.refreshToMatch();
+    }
+
+    private void destroyLocation()
+    {
+        AdvLocation destroyedLoc = new Ruins();
+        adventure.destroySection(section.getSectionNum());
+        locationView.update(destroyedLoc);
+        locationEffectText.setText(destroyedLoc.getEffect());
     }
 
     private void initializeStations(Section s) {
@@ -184,7 +187,7 @@ public class SectionViewPaneController extends AdvPaneController {
              stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD_OR_TOKEN, gridActionController,
                     ViewSize.TINY, false);
              stationedDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-             stationedDisplay.setMinHeight(200);
+             stationedDisplay.setMinHeight(120);
             stationedDisplayBox.getChildren().add(stationedDisplay);
     }
 
@@ -195,18 +198,18 @@ public class SectionViewPaneController extends AdvPaneController {
             pickupDisplay.initialize(s.getPickups(), TargetType.CARD_OR_TOKEN, gridActionController,
                     ViewSize.TINY, false);
             pickupDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            pickupDisplay.setMinHeight(200);
+            pickupDisplay.setMinHeight(120);
             pickupDisplayBox.getChildren().add(pickupDisplay);
     }
 
     @Override
     public Scene getCurrentScene() {
-        return locationView.getScene();
+        return enemyView.getScene();
     }
 
     @Override
     public void initializeButtonToolBar() {
-        buttonToolBar.initialize(controlPane);
+
     }
 
     @FXML
@@ -215,8 +218,8 @@ public class SectionViewPaneController extends AdvPaneController {
         section.complete();
         adventure.collectPickups(section);
         if(!(section instanceof BossSection)) {
-            controlPane.completeCurrentSection();
-            changeScene(controlPane);
+            adventureControlPane.completeCurrentSection();
+            changeScene(adventureControlPane);
         }
         else {
             defeatBoss();
@@ -225,15 +228,15 @@ public class SectionViewPaneController extends AdvPaneController {
 
     private void defeatBoss() {
         WorldClearPane worldClearPane = new WorldClearPane();
-        worldClearPane.initialize(mainDatabase, adventure, controlPane);
+        worldClearPane.initialize(mainDatabase, adventure, adventureControlPane);
         changeScene(worldClearPane);
     }
 
     @FXML
     public void skipSection()
     {
-        controlPane.skipSection(section);
-        changeScene(controlPane);
+        adventureControlPane.skipSection(section);
+        changeScene(adventureControlPane);
     }
 
     @FXML
@@ -256,7 +259,7 @@ public class SectionViewPaneController extends AdvPaneController {
             Optional<Card> cardSelect = chooserDialog.showAndWait();
             cardSelect.ifPresent(card -> adventure.stationCard(section, card));
             initializeStations(section);
-            controlPane.refreshToMatch();
+            adventureControlPane.refreshToMatch();
         }
     }
 

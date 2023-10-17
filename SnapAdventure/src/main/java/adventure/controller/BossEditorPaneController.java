@@ -7,17 +7,17 @@ import adventure.view.node.BossEditorNode;
 import adventure.view.pane.AdvBossManagerPane;
 import javafx.fxml.FXML;
 import snapMain.model.target.TargetType;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 
 public class BossEditorPaneController extends AdvEditorPaneController
 {
-    ThingImageGrabber imageGrabber;
+    TargetImageGrabber imageGrabber;
     @FXML
     BossEditorNode bossEditorNode;
 
     public BossEditorPaneController()
     {
-        imageGrabber = new ThingImageGrabber(TargetType.CARD);
+        imageGrabber = new TargetImageGrabber(TargetType.CARD);
     }
 
     public void initialize(AdvMainDatabase database, AdvCard b)

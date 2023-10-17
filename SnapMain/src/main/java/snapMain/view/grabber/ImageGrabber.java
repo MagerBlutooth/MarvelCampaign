@@ -28,37 +28,6 @@ public class ImageGrabber extends FileGrabber {
         return new IconImage(url.toExternalForm());
     }
 
-    public IconImage grabHPImage()
-    {
-        String hpLabelFile = "/heartIcon.png";
-        URL url = getClass().getResource(hpLabelFile);
-        assert url != null;
-        return new IconImage(url.toExternalForm());
-    }
-
-    public IconImage grabCoinImage()
-    {
-        String coinImageFile = "/coinIcon.png";
-        URL url = getClass().getResource(coinImageFile);
-        assert url != null;
-        return new IconImage(url.toExternalForm());
-    }
-
-    public IconImage grabDeckImage()
-    {
-        String deckImageFile = "/deckIcon.png";
-        URL url = getClass().getResource(deckImageFile);
-        assert url != null;
-        return new IconImage(url.toExternalForm());
-    }
-    public IconImage grabGraveImage()
-    {
-        String graveImageFile = "/graveIcon.png";
-        URL url = getClass().getResource(graveImageFile);
-        assert url != null;
-        return new IconImage(url.toExternalForm());
-    }
-
     public IconImage grabStarImage()
     {
         String starImageFile = "/captainStar.png";
@@ -76,6 +45,55 @@ public class ImageGrabber extends FileGrabber {
 
     public IconImage grabDefectImage() {
         String starImageFile = "/defectSign.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabBossImage() {
+        String bossImageFile = "/bossImage.png";
+        URL url = getClass().getResource(bossImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabWoundImage() {
+        String starImageFile = "/woundSign.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabEliminateImage() {
+        String starImageFile = "/eliminateSign.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabMIAImage() {
+        String starImageFile = "/sendAwayIcon.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabCaptureImage() {
+        String starImageFile = "/captureIcon.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabToTempImage() {
+        String starImageFile = "/toTempIcon.png";
+        URL url = getClass().getResource(starImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+    }
+
+    public IconImage grabToTeamImage() {
+        String starImageFile = "/toTeamIcon.png";
         URL url = getClass().getResource(starImageFile);
         assert url != null;
         return new IconImage(url.toExternalForm());

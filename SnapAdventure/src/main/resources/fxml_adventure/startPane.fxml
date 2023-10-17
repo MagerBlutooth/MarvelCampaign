@@ -6,7 +6,8 @@
 <?import snapMain.view.button.ButtonToolBar?>
 <fx:root type="AdvStartPane" fx:id="advStartPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvStartPaneController" prefWidth="1600" prefHeight="800">
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvStartPaneController"
+         prefWidth="1600" prefHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <VBox alignment="CENTER">

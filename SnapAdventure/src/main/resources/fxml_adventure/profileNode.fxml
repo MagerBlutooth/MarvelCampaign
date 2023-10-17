@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Button?>
 <fx:root type="ProfileNode" fx:id="profileNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css"
@@ -17,6 +16,9 @@
             </HBox>
             <VBox fx:id="contentBox"/>
             <VBox fx:id="deleteButtonBar" alignment="CENTER_RIGHT"/>
+            <padding>
+                <Insets top="20.0" left="20.0" bottom="20.0" right="20.0"/>
+            </padding>
         </VBox>
     </StackPane>
     <padding>

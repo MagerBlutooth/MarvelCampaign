@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import snapMain.model.target.TargetType;
 import snapMain.model.target.Token;
 import snapMain.view.ViewSize;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 import snapMain.view.node.editor.TokenEditorNode;
 import snapMain.view.pane.manager.TokenManagerPane;
 import snapMain.view.thing.TokenView;
@@ -18,11 +18,11 @@ public class TokenEditorPaneController extends EditorPaneController {
     @FXML
     TokenEditorNode tokenEditorNode;
 
-    ThingImageGrabber imageGrabber;
+    TargetImageGrabber imageGrabber;
 
     public TokenEditorPaneController()
     {
-        imageGrabber = new ThingImageGrabber(TargetType.TOKEN);
+        imageGrabber = new TargetImageGrabber(TargetType.TOKEN);
     }
 
     @Override

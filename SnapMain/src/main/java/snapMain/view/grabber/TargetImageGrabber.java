@@ -14,9 +14,9 @@ import java.nio.file.StandardCopyOption;
 
 import static java.nio.file.Files.copy;
 
-public class ThingImageGrabber extends ImageGrabber {
+public class TargetImageGrabber extends ImageGrabber {
 
-    public ThingImageGrabber(TargetType t) {
+    public TargetImageGrabber(TargetType t) {
         super();
         File folderLoc = new File(getImageFolder());
         if (!folderLoc.exists())
