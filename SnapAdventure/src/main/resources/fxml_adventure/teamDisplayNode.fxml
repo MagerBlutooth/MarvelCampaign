@@ -10,9 +10,9 @@
     <VBox alignment="CENTER">
 
         <HBox alignment="CENTER">
-            <VBox spacing = "10.0">
-                <Button text="Captured" onAction="#showCaptured" id="smallButton"/>
-                <Button text="MIA" onAction="#showMIA" id="smallButton"/>
+            <VBox spacing="10.0">
+                <Button fx:id="captureButton" text="Captured" onAction="#showCaptured" id="smallButton"/>
+                <Button fx:id="miaButton" text="MIA" onAction="#showMIA" id="smallButton"/>
                 <Button fx:id="eliminateButton" text="Eliminated" onAction="#showEliminated" id="smallButton"/>
                 <Button fx:id="stationedButton" text="Stationed" onAction="#showStationed" id="smallButton"/>
             </VBox>

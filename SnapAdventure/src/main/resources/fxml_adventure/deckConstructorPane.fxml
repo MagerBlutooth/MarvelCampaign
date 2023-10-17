@@ -5,26 +5,30 @@
 <?import snapMain.view.manager.CardManager?>
 <?import adventure.view.pane.DeckConstructorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import snapMain.view.button.ButtonToolBar?>
 <?import adventure.view.sortFilter.DeckLinkedSortMenuButton?>
 <?import adventure.view.sortFilter.DeckLinkedFilterMenuButton?>
 <fx:root type="DeckConstructorPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
+         stylesheets="@../css_adventure/mainStyle.css" prefHeight="900"
          fx:controller="adventure.controller.DeckConstructorPaneController">
             <VBox alignment="CENTER" spacing="10.0">
-                <ButtonToolBar fx:id="buttonToolBar"/>
-                <GridDisplayNode fx:id="deckDisplay" minHeight="200"/>
-                <CardManager fx:id="cardChoices" minHeight="400"/>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <GridDisplayNode fx:id="deckDisplay" minHeight="200"/>
+                    <VBox alignment="CENTER" spacing="10.0">
+                        <Button fx:id="randomCardFromDeckButton" text="Random" onAction="#randomCardFromDeck"
+                        id="smallButton"/>
+                        <Button text="Clear Deck" onAction="#clearDeck" id="smallButton"/>
+                        <Button text="Copy Deck Code" onAction="#copyToCode" id="smallButton"/>
+                        <Button text="Paste Code from Clipboard" onAction="#pasteFromClipboard" id="smallButton"/>
+                    </VBox>
+                </HBox>
                 <Label fx:id="deckButtonConfirmText" minHeight="40" minWidth="400" alignment="CENTER"/>
-                <HBox spacing="50.0" alignment="CENTER">
+                <CardManager fx:id="cardChoices" minHeight="400" maxHeight="400"/>
+                <HBox spacing="20.0" alignment="CENTER">
                     <DeckLinkedSortMenuButton text="Sort" fx:id="sortButton"/>
                     <DeckLinkedFilterMenuButton text="Filter" fx:id="filterButton"/>
-                </HBox>
-                <HBox alignment="CENTER" spacing="10.0">
-                    <Button text="Paste Code from Clipboard" onAction="#pasteFromClipboard" id="smallButton"/>
-                    <Button text="Copy Deck Code" onAction="#copyToCode" id="smallButton"/>
-                    <Button text="Clear Deck" onAction="#clearDeck" id="smallButton"/>
+                    <Button fx:id="randomCardFromTeamButton" text="Random" onAction="#randomCardFromTeam"
+                            id="smallButton"/>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10.0">
                     <ToggleButton fx:id="winButton" text="Win" onAction="#setWin" id="smallButton"/>
@@ -32,7 +36,8 @@
                     <ToggleButton fx:id="escapeButton" text="Escape" onAction="#setEscape" id="smallButton"/>
                     <ToggleButton fx:id="forceRetreatButton" text="Force Retreat" onAction="#setForceRetreat" id="smallButton"/>
                 </HBox>
-                <HBox alignment="CENTER">
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Button text="Back" id="smallButton" onAction="#goBack"/>
                     <Button fx:id="confirmButton" text="Confirm" id="smallButton" onAction="#confirmDeck"/>
                 </HBox>
             </VBox>

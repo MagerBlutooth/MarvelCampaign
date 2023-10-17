@@ -45,7 +45,7 @@ public class AdventureActionNodeController {
         AdventureDatabase database = adventure.getAdventureDatabase();
         Card card = database.getCards().getRandom();
         CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, card,
-                    randomCard.localToScene(0.0,0.0));
+                    randomCard.localToScreen(0.0,0.0));
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (!isNowFocused) {

@@ -11,6 +11,8 @@ import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
+import snapMain.model.target.SnapTarget;
+import snapMain.model.target.TargetList;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
@@ -117,5 +119,9 @@ public class DeckGridController implements GridActionController<Card> {
         {
             deckConstructorController.toggleNodeLight(c);
         }
+    }
+
+    public CardList getChosenCards() {
+        return chosenCards;
     }
 }

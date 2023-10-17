@@ -4,10 +4,13 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.stats.MatchResult;
 import adventure.view.node.DeckItemControlNode;
+import adventure.view.popup.CardChooserDialog;
+import adventure.view.popup.CardDisplayPopup;
 import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
 import adventure.view.sortFilter.DeckLinkedSortMenuButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +19,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.helper.DeckCodeConverter;
@@ -37,8 +41,6 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     Label deckButtonConfirmText;
     @FXML
-    ButtonToolBar buttonToolBar;
-    @FXML
     Button confirmButton;
     @FXML
     CardManager cardChoices;
@@ -46,6 +48,10 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     GridDisplayNode<Card> deckDisplay;
     DeckGridController deckGridController;
     MatchResult result;
+    @FXML
+    Button randomCardFromTeamButton;
+    @FXML
+    Button randomCardFromDeckButton;
     ToggleGroup toggleGroup;
     @FXML
     ToggleButton winButton;
@@ -61,13 +67,13 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     DeckLinkedFilterMenuButton filterButton;
     Adventure adventure;
     FullViewPane backPane;
+    Point2D buttonPosition;
 
     public void initialize(AdvMainDatabase db, FullViewPane pane, Adventure a)
     {
         mainDatabase = db;
         adventure = a;
         backPane = pane;
-        initializeButtonToolBar();
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(winButton, loseButton, escapeButton, forceRetreatButton);
         toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
@@ -110,6 +116,36 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         deckButtonConfirmText.setText("Deck Code Pasted to Clipboard");
     }
 
+    @FXML
+    public void randomCardFromTeam()
+    {
+        Card randomCard = adventure.getActiveCards().getRandom();
+        CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, randomCard,
+                randomCardFromTeamButton.localToScreen(100.0,0.0));
+        popup.show();
+        popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                popup.hide();
+            }
+        });
+    }
+
+    @FXML
+    public void randomCardFromDeck()
+    {
+        CardList cards = deckGridController.getChosenCards();
+        if(!cards.isEmpty()) {
+            Card randomCard = deckGridController.getChosenCards().getRandom();
+            CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, randomCard,
+                    randomCardFromDeckButton.localToScreen(100.0, 0.0));
+            popup.show();
+            popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                if (!isNowFocused) {
+                    popup.hide();
+                }
+            });
+        }
+    }
     @Override
     public void saveGridNode(ControlNode<Card> node) {
 
@@ -178,6 +214,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
             clearDeck();
             for(Card c: pastedDeck) {
                 deckGridController.toggleEntry(c);
+                toggleNodeLight(c);
             }
             deckButtonConfirmText.setText("Deck Pasted from Clipboard");
         }
@@ -205,7 +242,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     @Override
     public void initializeButtonToolBar() {
-        buttonToolBar.initialize(backPane);
+
     }
     private CardList verifyCardList(CardList candidateCards) {
         CardList validCards = new CardList(new ArrayList<>());
@@ -215,6 +252,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
                 validCards.add(c);
         }
         return validCards;
+    }
+
+    public void goBack()
+    {
+        changeScene(backPane);
     }
 
 }

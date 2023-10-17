@@ -16,6 +16,10 @@ import snapMain.view.node.GridDisplayNode;
 public class TeamDisplayNodeController {
 
     @FXML
+    Button captureButton;
+    @FXML
+    Button miaButton;
+    @FXML
     GridDisplayNode<Card> teamCardDisplay;
     @FXML
     InfinityStoneDisplayNode infinityStoneDisplay;
@@ -60,7 +64,7 @@ public class TeamDisplayNodeController {
     public void showCaptured()
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getCapturedCards(),
-                eliminateButton.localToScene(0.0,0.0));
+                captureButton.localToScreen(0.0,0.0));
         lostCardController.initialize(database, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
@@ -74,7 +78,7 @@ public class TeamDisplayNodeController {
     public void showMIA()
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getMIACards(),
-                eliminateButton.localToScene(0.0,0.0));
+                miaButton.localToScreen(0.0,0.0));
         lostCardController.initialize(database, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
@@ -88,7 +92,7 @@ public class TeamDisplayNodeController {
     public void showEliminated()
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getEliminatedCards(),
-                eliminateButton.localToScene(0.0,0.0));
+                eliminateButton.localToScreen(0.0,0.0));
         lostCardController.initialize(database, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
@@ -102,7 +106,7 @@ public class TeamDisplayNodeController {
     public void showStationed()
     {
         CardDisplayPopup popup = new CardDisplayPopup(adventure.getStationedCards(),
-                stationedButton.localToScene(0.0,0.0));
+                stationedButton.localToScreen(0.0,0.0));
         lostCardController.initialize(database, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
