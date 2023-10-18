@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import adventure.view.sortFilter.DeckLinkedSortMenuButton?>
 <?import adventure.view.sortFilter.DeckLinkedFilterMenuButton?>
+<?import adventure.view.AdvTooltip?>
 <fx:root type="DeckConstructorPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefHeight="900"
@@ -15,20 +16,42 @@
                 <HBox alignment="CENTER" spacing="20.0">
                     <GridDisplayNode fx:id="deckDisplay" minHeight="200"/>
                     <VBox alignment="CENTER" spacing="10.0">
-                        <Button fx:id="randomCardFromDeckButton" text="Random" onAction="#randomCardFromDeck"
-                        id="smallButton"/>
-                        <Button text="Clear Deck" onAction="#clearDeck" id="smallButton"/>
-                        <Button text="Copy Deck Code" onAction="#copyToCode" id="smallButton"/>
-                        <Button text="Paste Code from Clipboard" onAction="#pasteFromClipboard" id="smallButton"/>
+                        <Button fx:id="randomCardFromDeckButton" onAction="#randomCardFromDeck"
+                        id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Get Random Card in Deck"/>
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="clearButton" onAction="#clearDeck" id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Clear Deck"/>
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="copyButton" onAction="#copyToCode" id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Copy Deck to Clipboard"/>
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="pasteButton" onAction="#pasteFromClipboard" id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Paste Deck from Clipboard"/>
+                            </tooltip>
+                        </Button>
                     </VBox>
+                    <Label fx:id="deckButtonConfirmText" minHeight="40" minWidth="200" maxWidth="200" wrapText="true"
+                           alignment="CENTER"/>
                 </HBox>
-                <Label fx:id="deckButtonConfirmText" minHeight="40" minWidth="400" alignment="CENTER"/>
+
                 <CardManager fx:id="cardChoices" minHeight="400" maxHeight="400"/>
                 <HBox spacing="20.0" alignment="CENTER">
                     <DeckLinkedSortMenuButton text="Sort" fx:id="sortButton"/>
                     <DeckLinkedFilterMenuButton text="Filter" fx:id="filterButton"/>
-                    <Button fx:id="randomCardFromTeamButton" text="Random" onAction="#randomCardFromTeam"
-                            id="smallButton"/>
+                    <Button fx:id="randomCardFromTeamButton" onAction="#randomCardFromTeam"
+                            id="imageButton">
+                        <tooltip>
+                            <AdvTooltip text="Get Random Card from Team"/>
+                        </tooltip>
+                    </Button>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10.0">
                     <ToggleButton fx:id="winButton" text="Win" onAction="#setWin" id="smallButton"/>

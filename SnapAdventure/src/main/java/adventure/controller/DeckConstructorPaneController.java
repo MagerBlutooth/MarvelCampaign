@@ -11,11 +11,14 @@ import adventure.view.sortFilter.DeckLinkedSortMenuButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -29,6 +32,7 @@ import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.button.ButtonToolBar;
+import snapMain.view.grabber.IconConstant;
 import snapMain.view.manager.CardManager;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
@@ -38,6 +42,12 @@ import java.util.ArrayList;
 
 public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<Card>  {
 
+    @FXML
+    Button copyButton;
+    @FXML
+    Button pasteButton;
+    @FXML
+    Button clearButton;
     @FXML
     Label deckButtonConfirmText;
     @FXML
@@ -67,7 +77,6 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     DeckLinkedFilterMenuButton filterButton;
     Adventure adventure;
     FullViewPane backPane;
-    Point2D buttonPosition;
 
     public void initialize(AdvMainDatabase db, FullViewPane pane, Adventure a)
     {
@@ -80,6 +89,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
             if (newVal == null)
                 oldVal.setSelected(true);
         });
+        setButtonImages();
         CardList selectableCards = a.getActiveCards();
         winButton.setSelected(true);
         setWin();
@@ -98,6 +108,31 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         confirmButton.disableProperty().bind(Bindings.notEqual(SnapMainConstants.MAX_DECK_SIZE,
                 deckGridController.getDeckSizeProperty()));
         deckGridController.toggleNodeLights();
+    }
+
+    private void setButtonImages() {
+        setGraphic(copyButton, new ImageView(mainDatabase.grabIcon(IconConstant.COPY)), false);
+        setGraphic(pasteButton, new ImageView(mainDatabase.grabIcon(IconConstant.PASTE)), false);
+        setGraphic(clearButton, new ImageView(mainDatabase.grabIcon(IconConstant.CLEAR)), false);
+        setGraphic(randomCardFromDeckButton, new ImageView(mainDatabase.grabIcon(IconConstant.DICE)), true);
+        setGraphic(randomCardFromTeamButton, new ImageView(mainDatabase.grabIcon(IconConstant.DICE)), true);
+    }
+
+    private void setGraphic(Button b, ImageView image, boolean flat)
+    {
+        image.setFitWidth(30);
+        if(flat)
+            image.setFitHeight(30);
+       else
+           image.setFitHeight(40);
+       b.setOnMouseEntered(e -> {
+           ColorAdjust lightUp = new ColorAdjust();
+           lightUp.setSaturation(-1.0);
+           lightUp.setHue(1.0);
+           image.setEffect(lightUp);
+       });
+       b.setOnMouseExited(e -> image.setEffect(null));
+        b.setGraphic(image);
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.nio.file.StandardCopyOption;
 
 import static java.nio.file.Files.copy;
 
-public class TargetImageGrabber extends ImageGrabber {
+public class TargetImageGrabber extends FileGrabber {
 
     public TargetImageGrabber(TargetType t) {
         super();

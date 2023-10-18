@@ -1,8 +1,7 @@
 package adventure.view.node;
 
-import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
-import adventure.model.thing.InfinityStoneID;
+import adventure.model.target.InfinityStoneID;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.HBox;
 import snapMain.controller.MainDatabase;

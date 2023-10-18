@@ -3,9 +3,9 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
-import adventure.model.stats.MatchResult;
-import adventure.model.thing.Section;
+import adventure.model.target.Section;
 import adventure.view.node.AdventureActionNode;
+import adventure.view.node.DiceNode;
 import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
 import adventure.view.pane.AdvMainMenuPane;
@@ -14,15 +14,15 @@ import adventure.view.popup.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
-import snapMain.model.target.TargetType;
 import snapMain.view.button.ButtonToolBar;
 
 import java.util.Optional;
 
 public class AdventureControlPaneController extends AdvPaneController {
 
+    @FXML
+    DiceNode diceNode;
     @FXML
     ButtonToolBar buttonToolBar;
     @FXML
@@ -47,6 +47,7 @@ public class AdventureControlPaneController extends AdvPaneController {
         teamDisplayNode.initialize(database, a.getTeam(), adventureControlPane);
         worldDisplayNode.initialize(database,a.getCurrentWorld(), adventureControlPane);
         adventureActionNode.initialize(database, adventure, adventureControlPane);
+        diceNode.initialize(database);
         adventure.saveAdventure();
     }
 
@@ -83,11 +84,6 @@ public class AdventureControlPaneController extends AdvPaneController {
         refreshToMatch();
     }
 
-    public void completeWorld() {
-        adventure.completeCurrentWorld();
-        refreshToMatch();
-    }
-
     //TODO: Output a message if there are no valid cards to draft. Add fewer if not enough.
     @FXML
     public void draftCard() {
@@ -108,14 +104,6 @@ public class AdventureControlPaneController extends AdvPaneController {
 
             });
         }
-        refreshToMatch();
-    }
-
-    public void healCard() {
-        CardChooserDialog chooserDialog = new CardChooserDialog();
-        chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
-        Optional<Card> card = chooserDialog.showAndWait();
-        card.ifPresent(value -> adventure.healCard(value));
         refreshToMatch();
     }
 
@@ -155,10 +143,6 @@ public class AdventureControlPaneController extends AdvPaneController {
             }
         }
         refreshToMatch();
-    }
-
-    public void updateStats(CardList deck, MatchResult result) {
-        adventure.updateStats(deck, result);
     }
 
     public AdventureDatabase getAdventureDatabase() {

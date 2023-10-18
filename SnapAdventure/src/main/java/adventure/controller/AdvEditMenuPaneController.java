@@ -1,9 +1,10 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.view.pane.AdvBossManagerPane;
+import adventure.view.pane.AdvCardManagerPane;
 import adventure.view.pane.AdvLocationManagerPane;
 import adventure.view.pane.AdvMainMenuPane;
+import adventure.view.pane.AdvTokenManagerPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,9 +17,12 @@ public class AdvEditMenuPaneController extends ButtonToolBarPaneController<AdvMa
     Button locationEditorButton;
 
     @FXML
+    Button tokenEditorButton;
+
+    @FXML
     public void cardEditor()
     {
-        AdvBossManagerPane cardManagerPane = new AdvBossManagerPane();
+        AdvCardManagerPane cardManagerPane = new AdvCardManagerPane();
         cardManagerPane.initialize(mainDatabase);
         changeScene(cardManagerPane);
     }
@@ -27,6 +31,12 @@ public class AdvEditMenuPaneController extends ButtonToolBarPaneController<AdvMa
         AdvLocationManagerPane locationManagerPane = new AdvLocationManagerPane();
         locationManagerPane.initialize(mainDatabase);
         changeScene(locationManagerPane);}
+
+    @FXML
+    public void tokenEditor() {
+        AdvTokenManagerPane tokenManagerPane = new AdvTokenManagerPane();
+        tokenManagerPane.initialize(mainDatabase);
+        changeScene(tokenManagerPane);}
 
     @Override
     public Scene getCurrentScene() {

@@ -3,6 +3,7 @@ package adventure.view.pane;
 import adventure.controller.AdvStartPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.stage.Stage;
 import snapMain.view.pane.FullViewPane;
 
 public class AdvStartPane extends FullViewPane {

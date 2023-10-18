@@ -1,6 +1,6 @@
 package adventure.model.sorter;
 
-import adventure.model.thing.AdvCard;
+import adventure.model.target.AdvCard;
 import snapMain.model.sortFilter.BossSortMode;
 
 import java.util.ArrayList;

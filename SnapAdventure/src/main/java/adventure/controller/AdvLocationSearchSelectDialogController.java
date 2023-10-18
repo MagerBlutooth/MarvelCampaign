@@ -1,17 +1,13 @@
 package adventure.controller;
 
-import adventure.model.thing.AdvLocation;
-import adventure.model.thing.AdvLocationList;
+import adventure.model.target.AdvLocation;
+import adventure.model.target.AdvLocationList;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import snapMain.controller.MainDatabase;
-import snapMain.model.target.CardList;
-import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
-import snapMain.view.node.control.ControlNode;
 
 import java.util.ArrayList;
 

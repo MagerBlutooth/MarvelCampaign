@@ -14,13 +14,8 @@
             </Text>
             <VBox alignment="CENTER" spacing="20.0">
                 <Button fx:id="cardEditorButton" text="Cards" onAction="#cardEditor"/>
-                <padding>
-                    <Insets left="5.0" right="5.0"/>
-                </padding>
                 <Button fx:id="locationEditorButton" text="Locations" onAction="#locationEditor"/>
-                <padding>
-                    <Insets left="5.0" right="5.0"/>
-                </padding>
+                <Button fx:id="tokenEditorButton" text="Tokens" onAction="#tokenEditor"/>
             </VBox>
         </VBox>
         <ButtonToolBar fx:id="buttonToolBar" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>

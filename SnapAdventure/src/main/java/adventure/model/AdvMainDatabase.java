@@ -1,7 +1,6 @@
 package adventure.model;
 
-import adventure.model.thing.AdvCard;
-import adventure.model.thing.AdvLocation;
+import adventure.model.target.*;
 import snapMain.controller.MainDatabase;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.PlayableDatabase;
@@ -41,8 +40,45 @@ public class AdvMainDatabase extends MainDatabase {
     public List<AdvCard> getBosses() {
         return advMasterThingDatabase.getBosses();
     }
+    public List<AdvCard> getActualAdvCards() {
+        List<AdvCard> bosses = advMasterThingDatabase.getBosses();
+        List<AdvCard> actualBosses = new ArrayList<>();
+        for(AdvCard a: bosses)
+        {
+            if(a.isActualThing())
+                actualBosses.add(a);
+        }
+        return actualBosses;
+    }
+
+    public List<AdvLocation> getActualAdvLocations() {
+        List<AdvLocation> locations = advMasterThingDatabase.getAdvLocations();
+        List<AdvLocation> actualLocations = new ArrayList<>();
+        for(AdvLocation a: locations)
+        {
+            if(a.isActualThing())
+                actualLocations.add(a);
+        }
+        return actualLocations;
+    }
+
+    public List<AdvToken> getActualAdvTokens() {
+        List<AdvToken> tokens = advMasterThingDatabase.getAdvTokens();
+        List<AdvToken> actualTokens = new ArrayList<>();
+        for(AdvToken a: tokens)
+        {
+            if(a.isActualThing())
+                actualTokens.add(a);
+        }
+        return actualTokens;
+    }
+
     public List<AdvLocation> getSections() {
         return advMasterThingDatabase.getSections();
+    }
+
+    public List<AdvToken> getAdvTokens() {
+        return advMasterThingDatabase.getAdvTokens();
     }
 
     public AdvMasterThingDatabase getAdvMasterThingDatabase() {
@@ -75,20 +111,20 @@ public class AdvMainDatabase extends MainDatabase {
     public void modifySection(AdvLocation s) {
         advMasterThingDatabase.modifySection(s);
     }
-
-    public void toggleBoss(Card c) {
-        advMasterThingDatabase.toggleBoss(c);
+    public void modifyAdvToken(AdvToken a) {
+        advMasterThingDatabase.modifyAdvToken(a);
     }
 
-    public AdvCard getBoss(Card card) {
-        return advMasterThingDatabase.getBoss(card);
+    public void toggleAdvCard(Card c) {
+        advMasterThingDatabase.toggleAdvCard(c);
     }
 
-    public AdvLocation getSection(Location location) {
-        return advMasterThingDatabase.getSection(location);
-    }
     public void toggleSection(Location loc) {
         advMasterThingDatabase.toggleSection(loc);
+    }
+    public void toggleAdvToken(AdvToken token)
+    {
+        advMasterThingDatabase.toggleAdvToken(token);
     }
 
     public PlayableDatabase getCardsAndTokens() {

@@ -1,12 +1,12 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.AdvCard;
-import adventure.model.thing.AdvCardList;
+import adventure.model.target.AdvCard;
+import adventure.model.target.AdvCardList;
 import adventure.view.manager.BossManager;
 import adventure.view.node.AdvCardControlNode;
 import adventure.view.pane.AdvEditorMenuPane;
-import adventure.view.pane.BossEditorPane;
+import adventure.view.pane.AdvCardEditorPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -41,18 +41,16 @@ public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard,
     @Override
     public void initialize(AdvMainDatabase m) {
         super.initialize(m);
-        AdvCardList cards = new AdvCardList(m.getBosses());
-        /*When creating the card manager, automatically set all cards to not be captains to avoid the issue
-        //of cards getting set as such from the most recent campaign*/
+        AdvCardList cards = new AdvCardList(m.getActualAdvCards());
         bossManager.initialize(cards, TargetType.CARD, this, ViewSize.MEDIUM, true);
     }
 
     @Override
     public void editSubject(ControlNode<AdvCard> node) {
-        BossEditorPane bossEditorPane = new BossEditorPane();
+        AdvCardEditorPane advCardEditorPane = new AdvCardEditorPane();
         AdvCard b = node.getSubject();
-        bossEditorPane.initialize(mainDatabase, b);
-        changeScene(bossEditorPane);
+        advCardEditorPane.initialize(mainDatabase, b);
+        changeScene(advCardEditorPane);
     }
 
     @Override
@@ -87,7 +85,7 @@ public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard,
         AdvCard advCard = controlNode.getSubject();
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
-                mainDatabase.toggleBoss(advCard.getCard());
+                mainDatabase.toggleAdvCard(advCard.getCard());
                 mainDatabase.saveDatabase(TargetType.CARD);
                 controlNode.toggle();
             }});

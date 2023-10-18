@@ -4,24 +4,28 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <fx:root type="ProfileNode" fx:id="profileNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css"
          fx:controller="adventure.controller.manager.ProfileNodeController">
     <StackPane id="profilePane" prefWidth="800" prefHeight="300">
-        <VBox spacing="10.0">
-            <HBox spacing="10.0">
-                <Label fx:id="profileNumberLabel" textFill="ghostwhite" opacity="0.5"/>
-                <Label fx:id="profileText" textFill="white"/>
-            </HBox>
-            <VBox fx:id="contentBox"/>
+        <HBox spacing="20.0">
+            <VBox alignment="CENTER_LEFT">
+                <HBox spacing="20.0">
+                    <Label fx:id="profileNumberLabel" textFill="ghostwhite" opacity="0.5"/>
+                    <Label fx:id="profileText" textFill="white"/>
+                </HBox>
+                <VBox>
+                    <Label fx:id="worldLabel"/>
+                    <VBox fx:id="contentBox"/>
+                </VBox>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
             <VBox fx:id="deleteButtonBar" alignment="CENTER_RIGHT"/>
             <padding>
                 <Insets top="20.0" left="20.0" bottom="20.0" right="20.0"/>
             </padding>
-        </VBox>
+        </HBox>
     </StackPane>
-    <padding>
-        <Insets left="20.0"/>
-    </padding>
 </fx:root>

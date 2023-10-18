@@ -1,6 +1,6 @@
 package adventure.model;
 
-import adventure.model.thing.*;
+import adventure.model.target.*;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;

@@ -50,6 +50,7 @@ public class MasterImageCache {
             tokenImageCache.put(t.getID(), tokenImageGrabber.grabImage(t.getID()));
         }
         tokenImageCache.put(NO_ICON_ID, tokenImageGrabber.grabImage(NO_ICON_ID));
+        cardImageCache.put(BLANK_ICON_ID, tokenImageGrabber.grabImage(BLANK_ICON_ID));
     }
 
     private void setLocationCache() {

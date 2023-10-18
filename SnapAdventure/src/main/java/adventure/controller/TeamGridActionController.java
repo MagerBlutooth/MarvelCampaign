@@ -2,7 +2,6 @@ package adventure.controller;
 
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
@@ -10,7 +9,6 @@ import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.grabber.IconConstant;
-import snapMain.view.grabber.ImageGrabber;
 import snapMain.view.node.control.ControlNode;
 
 public class TeamGridActionController implements GridActionController<Card> {
@@ -81,15 +79,14 @@ public class TeamGridActionController implements GridActionController<Card> {
     }
 
     private MenuItem setWoundItem(Card c) {
-        ImageGrabber imageGrabber = new ImageGrabber();
         MenuItem woundItem = new MenuItem();
         if(c.isWounded()) {
             woundItem.setText("Heal");
-            setGraphic(woundItem, new ImageView(imageGrabber.grabHealImage()));
+            setGraphic(woundItem, new ImageView(mainDatabase.grabIcon(IconConstant.HEAL)));
         }
         else {
             woundItem.setText("Wound");
-            setGraphic(woundItem, new ImageView(imageGrabber.grabWoundImage()));
+            setGraphic(woundItem, new ImageView(mainDatabase.grabIcon(IconConstant.WOUND)));
         }
 
         woundItem.setOnAction(actionEvent -> {

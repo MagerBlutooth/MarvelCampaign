@@ -1,8 +1,8 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.AdvLocation;
-import adventure.model.thing.AdvLocationList;
+import adventure.model.target.AdvLocation;
+import adventure.model.target.AdvLocationList;
 import adventure.view.manager.AdvLocationManager;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.pane.AdvEditorMenuPane;
@@ -41,7 +41,7 @@ public class AdvLocationManagerPaneController extends ManagerPaneController<AdvL
     @Override
     public void initialize(AdvMainDatabase m) {
         super.initialize(m);
-        AdvLocationList sections = new AdvLocationList(m.getSections());
+        AdvLocationList sections = new AdvLocationList(m.getActualAdvLocations());
         advLocationManager.initialize(sections, TargetType.LOCATION, this, ViewSize.MEDIUM, true);
     }
 

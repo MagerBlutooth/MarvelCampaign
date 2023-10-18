@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardAttribute;
-import snapMain.view.grabber.ImageGrabber;
+import snapMain.view.grabber.IconConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +53,12 @@ public class CardEditorNodeController extends BasicNodeController {
     }
 
     private void setImages() {
-        ImageGrabber imageGrabber = new ImageGrabber();
-        costImage.setImage(imageGrabber.grabCostImage());
+        costImage.setImage(database.grabIcon(IconConstant.COST));
         costImage.setFitHeight(50);
         costImage.setFitWidth(50);
         powerImage.setFitHeight(50);
         powerImage.setFitWidth(50);
-        powerImage.setImage(imageGrabber.grabPowerImage());
+        powerImage.setImage(database.grabIcon(IconConstant.POWER));
     }
 
     private void setCardCheckList() {

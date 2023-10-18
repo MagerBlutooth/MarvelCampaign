@@ -12,8 +12,8 @@ module SnapAdventure {
     exports adventure.model;
     exports adventure.model.adventure;
     exports adventure.model.sorter;
-    exports adventure.model.thing;
-    opens adventure.model.thing;
+    exports adventure.model.target;
+    opens adventure.model.target;
     exports adventure.controller.manager;
     exports adventure.view.fxml;
     exports adventure.view.node;

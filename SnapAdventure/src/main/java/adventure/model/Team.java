@@ -1,8 +1,8 @@
 package adventure.model;
 
-import adventure.model.thing.InfinityStone;
-import adventure.model.thing.InfinityStoneID;
-import adventure.model.thing.Section;
+import adventure.model.target.InfinityStone;
+import adventure.model.target.InfinityStoneID;
+import adventure.model.target.Section;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;

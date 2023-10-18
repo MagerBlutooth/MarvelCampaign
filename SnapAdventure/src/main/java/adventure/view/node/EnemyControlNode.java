@@ -1,8 +1,7 @@
 package adventure.view.node;
 
-import adventure.model.thing.Enemy;
+import adventure.model.target.Enemy;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -12,11 +11,8 @@ import snapMain.model.target.Playable;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.grabber.ImageGrabber;
-import snapMain.view.grabber.TargetImageGrabber;
+import snapMain.view.grabber.IconConstant;
 import snapMain.view.node.control.ControlNode;
-
-import java.lang.annotation.Target;
 
 public class EnemyControlNode extends ControlNode<Enemy> {
 
@@ -48,8 +44,7 @@ public class EnemyControlNode extends ControlNode<Enemy> {
     {
         isRevealed = false;
         this.setEffect(null);
-        ImageGrabber imageGrabber = new ImageGrabber();
-        IconImage image = imageGrabber.grabBossImage();
+        IconImage image = mainDatabase.grabIcon(IconConstant.BOSS);
         imageView.setImage(image);
         DropShadow borderGlow = new DropShadow();
         borderGlow.setColor(Color.WHITE);

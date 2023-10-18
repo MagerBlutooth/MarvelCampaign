@@ -1,7 +1,7 @@
 package adventure.view.node;
 
 import adventure.controller.HPDisplayNodeController;
-import adventure.model.thing.Enemy;
+import adventure.model.target.Enemy;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.layout.StackPane;

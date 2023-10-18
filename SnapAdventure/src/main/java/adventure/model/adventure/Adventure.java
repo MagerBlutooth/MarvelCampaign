@@ -3,7 +3,7 @@ package adventure.model.adventure;
 import adventure.model.*;
 import adventure.model.stats.CardStatTracker;
 import adventure.model.stats.MatchResult;
-import adventure.model.thing.*;
+import adventure.model.target.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.*;
 

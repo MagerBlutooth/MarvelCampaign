@@ -1,9 +1,7 @@
 package adventure.model;
 
-import adventure.model.thing.*;
+import adventure.model.target.*;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.Playable;
-import snapMain.model.target.SnapTarget;
 
 import java.util.ArrayList;
 import java.util.Base64;

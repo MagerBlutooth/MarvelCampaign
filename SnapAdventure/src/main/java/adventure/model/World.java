@@ -2,7 +2,7 @@ package adventure.model;
 
 import adventure.model.stats.MatchResult;
 import adventure.model.stats.WorldStatTracker;
-import adventure.model.thing.*;
+import adventure.model.target.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;

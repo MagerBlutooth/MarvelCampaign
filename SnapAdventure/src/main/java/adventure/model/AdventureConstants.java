@@ -12,6 +12,7 @@ public class AdventureConstants {
     public static final int MAX_STATIONS = 4;
     public static final String BOSS_FILE = "data/bossList.csv";
     public static final String SECTION_FILE = "data/sectionsList.csv";
+    public static final String ADV_TOKEN_FILE = "data/advTokensList.csv";
     public static final String PROFILE_1 = "profiles/adventureProfile1.txt";
     public static final String PROFILE_2 = "profiles/adventureProfile2.txt";
     public static final String PROFILE_3 = "profiles/adventureProfile3.txt";

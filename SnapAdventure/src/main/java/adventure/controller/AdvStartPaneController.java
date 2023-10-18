@@ -6,11 +6,20 @@ import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.ProfileNode;
 import adventure.view.pane.*;
+import javafx.beans.binding.Bindings;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import snapMain.view.button.ButtonToolBar;
+import snapMain.view.pane.FullViewPane;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -79,21 +88,37 @@ public class AdvStartPaneController extends AdvPaneController {
         return adventureStorageMap.get(profile);
     }
 
+
+
     private void startAdventure(String profile) {
         Adventure adventure = selectAdventure(profile);
 
-        if(adventure.isNewProfile())
-        {
-            AdvNewProfileOptionsPane profileOptionsPane = new AdvNewProfileOptionsPane();
-            profileOptionsPane.initialize(mainDatabase, adventure, advStartPane);
-            changeScene(profileOptionsPane);
-        }
-        else
-        {
-            AdventureControlPane adventureControlPane = new AdventureControlPane();
-            adventureControlPane.initialize(mainDatabase, adventure);
-            changeScene(adventureControlPane);
-        }
+        final FullViewPane[] newPane = new FullViewPane[1];
+        Task<FullViewPane> task = new Task<>() {
+            @Override
+            public FullViewPane call() {
+                if(adventure.isNewProfile())
+                {
+                    AdvNewProfileOptionsPane profileOptionsPane = new AdvNewProfileOptionsPane();
+                    profileOptionsPane.initialize(mainDatabase, adventure, advStartPane);
+                    newPane[0] = profileOptionsPane;
+                }
+                else
+                {
+                    AdventureControlPane adventureControlPane = new AdventureControlPane();
+                    adventureControlPane.initialize(mainDatabase, adventure);
+                    newPane[0] = adventureControlPane;
+                }
+                return newPane[0];
+            }
+        };
+        getCurrentScene().setCursor(Cursor.WAIT);
+        task.setOnSucceeded(t -> {
+            newPane[0] = task.getValue();
+            changeScene(newPane[0]);
+            newPane[0].setCursor(Cursor.DEFAULT);
+        });
+        new Thread(task).start();
     }
 
     @Override

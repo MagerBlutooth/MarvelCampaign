@@ -1,6 +1,6 @@
 package adventure.view.node;
 
-import adventure.model.thing.Section;
+import adventure.model.target.Section;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;

@@ -1,8 +1,8 @@
 package adventure.model;
 
-import adventure.model.thing.AdvCard;
-import adventure.model.thing.AdvCardList;
-import adventure.model.thing.AdvLocation;
+import adventure.model.target.AdvCard;
+import adventure.model.target.AdvCardList;
+import adventure.model.target.AdvLocation;
 import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;

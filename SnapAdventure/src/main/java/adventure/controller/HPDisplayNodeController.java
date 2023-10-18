@@ -1,6 +1,6 @@
 package adventure.controller;
 
-import adventure.model.thing.Enemy;
+import adventure.model.target.Enemy;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;

@@ -4,13 +4,9 @@ import adventure.controller.AdventureControlPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
-import adventure.model.stats.MatchResult;
-import adventure.model.thing.Section;
+import adventure.model.target.Section;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import snapMain.model.target.CardList;
 import snapMain.view.pane.editor.EditorPane;
-
-import java.util.Optional;
 
 public class AdventureControlPane extends EditorPane {
 

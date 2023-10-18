@@ -2,14 +2,13 @@ package snapMain.view.node.control;
 
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.*;
-import snapMain.view.grabber.ImageGrabber;
+import snapMain.view.grabber.IconConstant;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import snapMain.model.database.TargetDatabase;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 
@@ -77,9 +76,8 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
         starPane.setVisible(false);
     }
 
-    private Image grabStarIcon() {
-        ImageGrabber imageGrabber = new ImageGrabber();
-        return imageGrabber.grabStarImage();
+    private IconImage grabStarIcon() {
+        return mainDatabase.grabIcon(IconConstant.STAR);
     }
 
     public T getSubject() {

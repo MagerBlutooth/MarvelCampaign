@@ -1,6 +1,6 @@
 package adventure.view.manager;
 
-import adventure.model.thing.AdvCard;
+import adventure.model.target.AdvCard;
 
 public class BossManager extends AdvManager<AdvCard> {
 }

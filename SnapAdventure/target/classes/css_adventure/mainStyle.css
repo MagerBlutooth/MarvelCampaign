@@ -70,6 +70,24 @@
 -fx-fill:white;
  }
 
+#imageButton
+ {
+   -fx-border-width: 3 3 3 3;
+   -fx-border-color:black;
+ }
+
+ #imageButton:hover {
+   -fx-background-color: black;
+ }
+
+.button:hover {
+ -fx-background-color: -fx-faction-color;
+  }
+
+.button:hover .text{
+  -fx-fill:black;
+}
+
 .text-area {
     -fx-text-fill: white;
     -fx-font-family: "Ubuntu";
@@ -114,14 +132,6 @@
  -fx-background-color:black;
  -fx-alignment: center;
   }
-
-.button:hover {
--fx-background-color: -fx-faction-color;
- }
-
-.button:hover .text{
- -fx-fill:black;
- }
  .choice-box {
  -fx-border-color:white;
  -fx-border-width: 3 3 3 3 ;
@@ -306,5 +316,5 @@
     -fx-text-fill: black;
     -fx-background-color: white;
     -fx-border-color: white;
-     -fx-border-width: 4;
+    -fx-border-width: 4;
 }

@@ -32,10 +32,10 @@ public class SnapMainConstants {
 
     public static final Color FREE_COLOR = Color.WHITESMOKE;
     public static final int MAX_STATIONED_AGENTS = 4;
-    public static final Color WOUND_COLOR = Color.CRIMSON;
     public static final int NO_ICON_ID = 10000;
 
     public static final int MOOK_ICON_ID = 20000;
+    public static final int BLANK_ICON_ID = 20000;
     public static final int RUINS_ICON_ID = 30000;
     public static final int SHIELD_MEDBAY_ID = 100000;
     public static final int HYDRA_MEDBAY_ID = 100001;

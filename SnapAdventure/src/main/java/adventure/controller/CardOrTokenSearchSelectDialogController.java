@@ -1,6 +1,6 @@
 package adventure.controller;
 
-import adventure.model.thing.PlayableList;
+import adventure.model.target.PlayableList;
 import adventure.view.popup.Choosable;
 import javafx.scene.control.ToggleGroup;
 import snapMain.controller.MainDatabase;

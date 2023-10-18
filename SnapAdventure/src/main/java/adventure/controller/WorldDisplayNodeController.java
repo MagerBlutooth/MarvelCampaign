@@ -1,17 +1,14 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdventureDatabase;
 import adventure.model.World;
-import adventure.model.thing.AdvCard;
-import adventure.model.thing.Enemy;
-import adventure.model.thing.BossSection;
-import adventure.model.thing.Section;
+import adventure.model.target.Enemy;
+import adventure.model.target.BossSection;
+import adventure.model.target.Section;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.SectionViewPane;
-import adventure.view.popup.AdvCardChooserDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -22,7 +19,6 @@ import snapMain.view.ViewSize;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class WorldDisplayNodeController extends AdvPaneController {
 

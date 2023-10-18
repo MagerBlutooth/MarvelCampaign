@@ -9,7 +9,6 @@ import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.grabber.IconConstant;
-import snapMain.view.grabber.ImageGrabber;
 import snapMain.view.node.control.ControlNode;
 
 public class TempGridActionController implements GridActionController<Card> {

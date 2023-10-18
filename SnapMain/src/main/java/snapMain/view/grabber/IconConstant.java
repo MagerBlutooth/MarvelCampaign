@@ -1,65 +1,145 @@
 package snapMain.view.grabber;
 
 import snapMain.view.IconImage;
-import snapMain.view.grabber.ImageGrabber;
+
+import java.net.URL;
 
 public enum IconConstant {
+    POWER {
+        @Override
+        String getImageName() {
+            return "/powerIcon.png";
+        }
+    },
+    COST {
+        @Override
+        String getImageName() {
+            return "/costIcon.png";
+        }
+    },
     STAR {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabStarImage();
+        String getImageName() {
+            return "/captainStar.png";
         }
-    }, WOUND {
+    }, HEAL {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabWoundImage();
+        String getImageName() {
+            return "/healSign.png";
+        }
+    },
+    WOUND {
+        @Override
+        String getImageName() {
+            return "/woundSign.png";
         }
     }, ELIMINATE {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabEliminateImage();
+        String getImageName() {
+            return "/eliminateSign.png";
         }
     }, CAPTURE {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabCaptureImage();
+        String getImageName() {
+            return "/captureIcon.png";
         }
     }, SEND_AWAY {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabMIAImage();
+        String getImageName() {
+            return "/sendAwayIcon.png";
         }
     }, TEAM {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabToTeamImage();
+        String getImageName() {
+            return "/toTeamIcon.png";
         }
     },TEMP {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabToTempImage();
+        String getImageName() {
+            return "/toTempIcon.png";
         }
     },  DEFECT {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabDefectImage();
+        String getImageName() {
+            return "/defectSign.png";
         }
     }, BOSS {
         @Override
-        public IconImage grabImage() {
-            ImageGrabber imageGrabber = new ImageGrabber();
-            return imageGrabber.grabBossImage();
+        String getImageName() {
+            return "/bossImage.png";
+        }
+    }, PASTE {
+        @Override
+        String getImageName() {
+            return "/pasteIcon.png";
+        }
+    },COPY {
+        @Override
+        String getImageName() {
+            return "/copyIcon.png";
+        }
+    },DICE {
+        @Override
+        String getImageName() {
+            return "/diceIcon.png";
+        }
+    },CLEAR {
+        @Override
+        String getImageName() {
+            return "/clearIcon.png";
+        }
+    },D2 {
+        @Override
+        String getImageName() {
+            return "/d2Icon.png";
+        }
+    },D4 {
+        @Override
+        String getImageName() {
+            return "/d4Icon.png";
+        }
+    },
+    D6 {
+        @Override
+        String getImageName() {
+            return "/d6Icon.png";
+        }
+    },D8 {
+        @Override
+        String getImageName() {
+            return "/d8Icon.png";
+        }
+    },D10 {
+        @Override
+        String getImageName() {
+            return "/d10Icon.png";
+        }
+    },D12 {
+        @Override
+        String getImageName() {
+            return "/d12Icon.png";
+        }
+    },D20 {
+        @Override
+        String getImageName() {
+            return "/d20Icon.png";
+        }
+    },D100 {
+        @Override
+        String getImageName() {
+            return "/d100Icon.png";
         }
     };
 
-    public abstract IconImage grabImage();
+    public IconImage grabImage()
+    {
+        String bossImageFile = getImageName();
+        URL url = getClass().getResource(bossImageFile);
+        assert url != null;
+        return new IconImage(url.toExternalForm());
+
+    }
+
+    abstract String getImageName();
 }
 

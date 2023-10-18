@@ -2,7 +2,7 @@ package adventure.view.pane;
 
 import adventure.controller.SectionEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.AdvLocation;
+import adventure.model.target.AdvLocation;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.view.pane.editor.EditorPane;
 

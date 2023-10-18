@@ -2,7 +2,7 @@ package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.AdvLocation;
+import adventure.model.target.AdvLocation;
 import adventure.view.node.SectionEditorNode;
 import adventure.view.pane.AdvLocationManagerPane;
 import javafx.fxml.FXML;

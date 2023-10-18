@@ -7,14 +7,23 @@ import adventure.model.World;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.InfinityStoneDisplayNode;
 import adventure.view.node.ProfileNode;
+import adventure.view.popup.ConfirmationDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import snapMain.controller.MainDatabase;
+import snapMain.view.IconImage;
+import snapMain.view.grabber.IconConstant;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 public class ProfileNodeController {
 
@@ -28,8 +37,9 @@ public class ProfileNodeController {
     Label profileNumberLabel;
     @FXML
     Label profileText;
+    @FXML
+    Label worldLabel;
     String profileFile;
-
     AdvStartPaneController advStartPaneController;
 
 
@@ -45,7 +55,6 @@ public class ProfileNodeController {
         profileNumberLabel.setText(profileNum);
         profileText.setText(adventure.getProfileName());
         profileFile = pFile;
-        Label worldLabel = new Label();
         worldLabel.setOpacity(0.6);
         World w = adventure.getCurrentWorld();
         if(!w.isBossRevealed())
@@ -56,10 +65,25 @@ public class ProfileNodeController {
         InfinityStoneDisplayNode infinityStoneDisplayNode = new InfinityStoneDisplayNode();
         infinityStoneDisplayNode.initialize(mainDatabase, adventure.getTeam());
         contentBox.getChildren().add(infinityStoneDisplayNode);
-        Button deleteButton = new Button("Delete");
-        deleteButton.setOnAction(e -> deleteProfile());
+        Button deleteButton = createDeleteButton(new ImageView(mainDatabase.grabIcon(IconConstant.CLEAR)));
         deleteButtonBar.getChildren().add(deleteButton);
         advStartPaneController = sController;
+    }
+
+    private Button createDeleteButton(ImageView image) {
+        Button deleteButton = new Button();
+        image.setFitHeight(40);
+        image.setFitWidth(30);
+        deleteButton.setGraphic(image);
+        deleteButton.setOnAction(e -> deleteProfile());
+        deleteButton.setId("imageButton");
+        deleteButton.setOnMouseEntered(e -> {
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setSaturation(-1.0);
+            deleteButton.setEffect(colorAdjust);
+        });
+        deleteButton.setOnMouseExited(e -> deleteButton.setEffect(null));
+        return deleteButton;
     }
 
     private void initializeNewProfileNode(String profileName, String profileNum) {
@@ -73,17 +97,20 @@ public class ProfileNodeController {
         profileText.setText(text);
     }
     public void deleteProfile() {
-        File file = new File(profileFile);
-        try {
-            PrintWriter printWriter = new PrintWriter(file);
-            printWriter.write("");
-            printWriter.close();
-            initializeNewProfileNode(AdventureConstants.EMPTY_PROFILE, profileNumberLabel.getText());
+        ConfirmationDialog dialog = new ConfirmationDialog("Are you sure you want to delete Profile " +
+                profileNumberLabel.getText()+"?");
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES) {
+            File file = new File(profileFile);
+            try {
+                PrintWriter printWriter = new PrintWriter(file);
+                printWriter.write("");
+                printWriter.close();
+                initializeNewProfileNode(AdventureConstants.EMPTY_PROFILE, profileNumberLabel.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            advStartPaneController.checkProfile(profileFile, profileNode, Integer.parseInt(profileNumberLabel.getText()));
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        advStartPaneController.checkProfile(profileFile, profileNode, Integer.parseInt(profileNumberLabel.getText()));
     }
 }
