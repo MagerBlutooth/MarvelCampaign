@@ -1,6 +1,7 @@
 package adventure.view.node;
 
 import adventure.controller.TeamDisplayNodeController;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
@@ -18,7 +19,7 @@ public class TeamDisplayNode extends StackPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase d, Team t, AdventureControlPane a)
+    public void initialize(AdvMainDatabase d, Team t, AdventureControlPane a)
     {
         controller.initialize(d, t, a);
     }

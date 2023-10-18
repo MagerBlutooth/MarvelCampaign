@@ -23,9 +23,9 @@ public class SelectionOptionsDialog extends Dialog<TargetList<Card>> {
         initStyle(StageStyle.UNDECORATED);
     }
 
-    public void initialize(TargetList<Card> freeAgents)
+    public void initialize(TargetList<Card> freeAgents, boolean multiSelect)
     {
-        controller.initialize(freeAgents);
+        controller.initialize(freeAgents, multiSelect);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return controller.getSelectables();
@@ -34,4 +34,12 @@ public class SelectionOptionsDialog extends Dialog<TargetList<Card>> {
         });
     }
 
+    public boolean isMutiple() {
+        return controller.isMultiple();
+    }
+
+    public int getNumber()
+    {
+        return controller.getSelectionCount();
+    }
 }

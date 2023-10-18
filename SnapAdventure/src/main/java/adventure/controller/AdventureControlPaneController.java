@@ -14,9 +14,12 @@ import adventure.view.popup.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import snapMain.model.target.Card;
+import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
 import snapMain.view.button.ButtonToolBar;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class AdventureControlPaneController extends AdvPaneController {
@@ -42,8 +45,8 @@ public class AdventureControlPaneController extends AdvPaneController {
         super.initialize(database);
         initializeButtonToolBar();
         mainDatabase = database;
-        adventureDatabase = new AdventureDatabase(database);
         adventure = a;
+        adventureDatabase = adventure.getAdventureDatabase();
         teamDisplayNode.initialize(database, a.getTeam(), adventureControlPane);
         worldDisplayNode.initialize(database,a.getCurrentWorld(), adventureControlPane);
         adventureActionNode.initialize(database, adventure, adventureControlPane);
@@ -88,7 +91,7 @@ public class AdventureControlPaneController extends AdvPaneController {
     @FXML
     public void draftCard() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
-        optionsDialog.initialize(adventure.getFreeAgents());
+        optionsDialog.initialize(adventure.getFreeAgents(), false);
         Optional<TargetList<Card>> filteredSelectables = optionsDialog.showAndWait();
         if(filteredSelectables.isPresent() && !filteredSelectables.get().isEmpty())
         {
@@ -101,18 +104,18 @@ public class AdventureControlPaneController extends AdvPaneController {
                     adventure.addFreeAgentToTeam(value);
                 else
                     adventure.addFreeAgentToTemp(value);
-
+                refreshToMatch();
             });
         }
-        refreshToMatch();
+
     }
 
     //TODO: Output a message if there are no valid cards to generate
-    public void generateCard() {
+    public void generateCards() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
-        optionsDialog.initialize(adventure.getFreeAgents());
+        optionsDialog.initialize(adventure.getFreeAgents(), true);
         Optional<TargetList<Card>> filteredSelectables = optionsDialog.showAndWait();
-        if(filteredSelectables.isPresent() && !filteredSelectables.get().isEmpty())
+        if(filteredSelectables.isPresent() && !optionsDialog.isMutiple())
         {
             RandomDisplayDialog randomDialog = new RandomDisplayDialog();
             randomDialog.initialize(mainDatabase, filteredSelectables.get().getRandom());
@@ -126,7 +129,24 @@ public class AdventureControlPaneController extends AdvPaneController {
 
             });
         }
-        refreshToMatch();
+        else if(filteredSelectables.isPresent())
+        {
+            CardGeneratorDialog chooseDialog = new CardGeneratorDialog();
+            CardList freeAgents = new CardList(adventure.getFreeAgents());
+            Collections.shuffle(freeAgents.getCards());
+            CardList randomCards = new CardList(freeAgents.getRandom(optionsDialog.getNumber()));
+            chooseDialog.initialize(mainDatabase, randomCards);
+            Optional<CardList> chosenCards = chooseDialog.showAndWait();
+            if(chosenCards.isPresent() && !chosenCards.get().isEmpty())
+            {
+                if(chooseDialog.isTeam())
+                    adventure.addFreeAgentsToTeam(chosenCards.get());
+                else
+                    adventure.addFreeAgentsToTemp(chosenCards.get());
+                refreshToMatch();
+            }
+        }
+
     }
 
     public void searchFreeAgent() {
@@ -141,8 +161,9 @@ public class AdventureControlPaneController extends AdvPaneController {
             else {
                 adventure.addFreeAgentToTemp(card);
             }
+            refreshToMatch();
         }
-        refreshToMatch();
+
     }
 
     public AdventureDatabase getAdventureDatabase() {

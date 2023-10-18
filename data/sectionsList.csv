@@ -1,6 +1,6 @@
 "0","Altar of Death","true","Station one card here. That card is eliminated. Draft a card."
 "1","Asgard","true","If you clear this section without retreating, draft a card."
-"2","Atlantis","true","Station a card here, then generate a random unowned card. If the unowned card has higher POW, wound the stationed card."
+"2","Atlantis","true","Station a card here, then generate a random card. If that card has higher POW, wound the stationed card."
 "3","Attilan","true","When this section is revealed, all of your captured cards are swapped with random cards from your team."
 "4","Avengers Compound","true","Station an Avenger here."
 "5","Bar Sinister","true","Station a card here. A clone of that card becomes a mook in every other incomplete section this world (excluding the boss)."

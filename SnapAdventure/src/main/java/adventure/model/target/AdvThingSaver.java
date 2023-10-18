@@ -29,10 +29,13 @@ public class AdvThingSaver {
         {
             case CARD:
                 saveBosses(db.getBosses());
+                break;
             case LOCATION:
                 saveSections(db.getSections());
+                break;
             case TOKEN:
                 saveAdvTokens(db.getAdvTokens());
+                break;
         }
     }
 }

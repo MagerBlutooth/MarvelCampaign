@@ -45,8 +45,8 @@ public class AdventureControlPane extends EditorPane {
         controller.draftCard();
     }
 
-    public void generateCard() {
-        controller.generateCard();
+    public void generateCards() {
+        controller.generateCards();
     }
 
     public void searchCard() {

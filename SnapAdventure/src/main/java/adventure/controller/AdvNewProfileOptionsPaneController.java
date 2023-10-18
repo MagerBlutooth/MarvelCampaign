@@ -82,7 +82,7 @@ public class AdvNewProfileOptionsPaneController extends AdvPaneController {
 
     public void showNewProfile()
     {
-        adventure.initialize(teamMemberOptions.getValue(), teamCaptainOptions.getValue(),
+        adventure.initialize(mainDatabase, teamMemberOptions.getValue(), teamCaptainOptions.getValue(),
                 difficulty);
         AdvNewProfilePane advNewProfilePane = new AdvNewProfilePane();
         advNewProfilePane.initialize(mainDatabase, adventure, backPane);

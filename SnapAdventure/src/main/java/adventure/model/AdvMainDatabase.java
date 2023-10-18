@@ -77,7 +77,7 @@ public class AdvMainDatabase extends MainDatabase {
         return advMasterThingDatabase.getSections();
     }
 
-    public List<AdvToken> getAdvTokens() {
+    public TargetDatabase<AdvToken> getAdvTokens() {
         return advMasterThingDatabase.getAdvTokens();
     }
 

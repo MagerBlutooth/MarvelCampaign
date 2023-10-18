@@ -51,7 +51,7 @@ public class PlayableList extends TargetList<Playable> {
             }
             else
             {
-                Token t = (Token) db.lookup(Integer.parseInt(playableString[1]), TargetType.TOKEN);
+                AdvToken t = (AdvToken) db.lookup(Integer.parseInt(playableString[1]), TargetType.TOKEN);
                 InfinityStoneID stoneID = InfinityStoneID.lookupID(t.getID());
                 if(stoneID != null)
                 {

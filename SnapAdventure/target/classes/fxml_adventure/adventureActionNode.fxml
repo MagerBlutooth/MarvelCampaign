@@ -10,11 +10,11 @@
         <VBox spacing="10.0">
             <HBox spacing="10.0">
                 <Button text="Draft Card" onAction="#draftCard" id="smallButton"/>
-                <Button text="Generate Card" onAction="#generateCard" id="smallButton"/>
+                <Button text="Generate Cards" onAction="#generateCards" id="smallButton"/>
             </HBox>
             <HBox spacing="10.0">
                 <Button text="Search Card" onAction="#searchCard" id="smallButton"/>
-                <Button fx:id="randomCard" text="Random Card" onAction="#randomCard" id="smallButton"/>
+                <Button fx:id="randomCard" text="Any Random Card" onAction="#randomCard" id="smallButton"/>
             </HBox>
         </VBox>
     </VBox>

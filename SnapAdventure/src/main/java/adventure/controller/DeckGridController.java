@@ -1,5 +1,6 @@
 package adventure.controller;
 
+import adventure.model.adventure.DeckProfileList;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableNumberValue;
@@ -124,4 +125,5 @@ public class DeckGridController implements GridActionController<Card> {
     public CardList getChosenCards() {
         return chosenCards;
     }
+
 }

@@ -30,8 +30,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         dBContext.register(TargetType.ADV_CARD, vFactory.loadBosses(cards));
         dBContext.register(TargetType.CARD, cards);
         dBContext.register(TargetType.LOCATION, vFactory.loadSections(locations));
-        dBContext.register(TargetType.TOKEN, tokens);
-        dBContext.register(TargetType.ADV_TOKEN, vFactory.loadAdvTokens(tokens));
+        dBContext.register(TargetType.TOKEN, vFactory.loadAdvTokens(tokens));
     }
 
     public TargetDatabase<AdvCard> getBosses() {
@@ -47,7 +46,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
 
     public TargetDatabase<AdvToken> getAdvTokens() {
         TargetDatabase<AdvToken> tokens = new TargetDatabase<>();
-        tokens.addAll(dBContext.lookup(TargetType.ADV_TOKEN));
+        tokens.addAll(dBContext.lookup(TargetType.TOKEN));
         return tokens;
     }
 
@@ -62,11 +61,6 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
 
     public TargetDatabase<Card> getCards() {
         return dBContext.lookup(TargetType.CARD);
-    }
-
-    public TargetDatabase<Token> getTokens()
-    {
-        return dBContext.lookup(TargetType.TOKEN);
     }
 
     public void modifyBoss(AdvCard b) {
@@ -117,6 +111,16 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
             AdvCard b = getAdvCard(c);
             if(b.isEnabled())
                 enabled.add(c);
+        }
+        return enabled;
+    }
+
+    public TargetDatabase<AdvToken> getEnabledAdvTokens() {
+        TargetDatabase<AdvToken> enabled = new TargetDatabase<>();
+        for(AdvToken a: getAdvTokens())
+        {
+            if(a.isEnabled())
+                enabled.add(a);
         }
         return enabled;
     }

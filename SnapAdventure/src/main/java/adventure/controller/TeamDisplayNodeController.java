@@ -1,5 +1,6 @@
 package adventure.controller;
 
+import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.InfinityStoneDisplayNode;
@@ -37,10 +38,10 @@ public class TeamDisplayNodeController {
     Team team;
     Adventure adventure;
 
-    MainDatabase database;
+    AdvMainDatabase database;
     AdventureControlPane adventureControlPane;
 
-    public void initialize(MainDatabase d, Team t, AdventureControlPane aPane)
+    public void initialize(AdvMainDatabase d, Team t, AdventureControlPane aPane)
     {
         database = d;
         team = t;

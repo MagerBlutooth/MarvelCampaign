@@ -96,12 +96,18 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, C
     }
 
     public T getRandom() {
-        List<T> randomList = new ArrayList<>();
-        randomList.addAll(this.getThings());
+        List<T> randomList = new ArrayList<>(this.getThings());
         Collections.shuffle(randomList);
         return randomList.get(0);
     }
 
+    public List<T> getRandom(int i)
+    {
+        i = Math.min(i, this.size());
+        List<T> randomList = new ArrayList<>(this.getThings());
+        Collections.shuffle(randomList);
+        return randomList.subList(0, i);
+    }
     public TargetList<T> cloneNewCopy() {
         try {
             return (TargetList<T>) this.clone();

@@ -28,9 +28,9 @@ public class AdventureActionNodeController {
     }
 
     @FXML
-    public void generateCard()
+    public void generateCards()
     {
-        controlPane.generateCard();
+        controlPane.generateCards();
 
     }
 
@@ -45,7 +45,7 @@ public class AdventureActionNodeController {
         AdventureDatabase database = adventure.getAdventureDatabase();
         Card card = database.getCards().getRandom();
         CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, card,
-                    randomCard.localToScreen(0.0,0.0));
+                    randomCard.localToScreen(100.0,50.0));
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (!isNowFocused) {

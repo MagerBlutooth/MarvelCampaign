@@ -1,6 +1,8 @@
 package adventure.view.node;
 
+import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
+import adventure.model.target.AdvToken;
 import adventure.model.target.InfinityStoneID;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.HBox;
@@ -15,17 +17,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InfinityStoneDisplayNode extends HBox {
 
-    ConcurrentHashMap<InfinityStoneID, ControlNode<Token>> infinityStoneMap = new ConcurrentHashMap<>();
+    ConcurrentHashMap<InfinityStoneID, ControlNode<AdvToken>> infinityStoneMap = new ConcurrentHashMap<>();
     Team team;
 
-    public void initialize(MainDatabase mainDatabase, Team t)
+    public void initialize(AdvMainDatabase mainDatabase, Team t)
     {
         team = t;
-        TargetDatabase<Token> tokens = mainDatabase.getTokens();
+        TargetDatabase<AdvToken> tokens = mainDatabase.getAdvTokens();
         for(InfinityStoneID id: InfinityStoneID.values())
         {
-            Token token = tokens.lookup(id.getID());
-            ControlNode<Token> stoneNode = new ControlNode<>();
+            AdvToken token = tokens.lookup(id.getID());
+            ControlNode<AdvToken> stoneNode = new ControlNode<>();
             stoneNode.initialize(mainDatabase, token, mainDatabase.grabImage(token), ViewSize.TINY, false);
             infinityStoneMap.put(id, stoneNode);
             this.getChildren().add(stoneNode);
@@ -34,7 +36,7 @@ public class InfinityStoneDisplayNode extends HBox {
     }
 
     public void refresh() {
-        for (Map.Entry<InfinityStoneID, ControlNode<Token>> entry : infinityStoneMap.entrySet()) {
+        for (Map.Entry<InfinityStoneID, ControlNode<AdvToken>> entry : infinityStoneMap.entrySet()) {
             InfinityStoneID stoneID = entry.getKey();
             if (team.hasInfinityStone(stoneID)) {
                 entry.getValue().highlight();

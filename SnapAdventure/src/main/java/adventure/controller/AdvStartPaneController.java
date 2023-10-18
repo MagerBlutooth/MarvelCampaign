@@ -70,8 +70,7 @@ public class AdvStartPaneController extends AdvPaneController {
     }
 
     public void checkProfile(String profile, ProfileNode proNode, int num) {
-        AdventureDatabase adventureDatabase = new AdventureDatabase(mainDatabase);
-        Adventure adventure = new Adventure(mainDatabase, adventureDatabase, profile);
+        Adventure adventure = new Adventure(mainDatabase, profile);
         adventureStorageMap.put(profile, adventure);
         String name = adventure.getProfileName();
         if(name == null) {
@@ -92,9 +91,14 @@ public class AdvStartPaneController extends AdvPaneController {
 
     private void startAdventure(String profile) {
         Adventure adventure = selectAdventure(profile);
-
+        buttonToolBar.setDisable(true);
         final FullViewPane[] newPane = new FullViewPane[1];
         Task<FullViewPane> task = new Task<>() {
+            @Override
+            public boolean isCancelled() {
+                return super.isCancelled();
+            }
+
             @Override
             public FullViewPane call() {
                 if(adventure.isNewProfile())
@@ -111,12 +115,18 @@ public class AdvStartPaneController extends AdvPaneController {
                 }
                 return newPane[0];
             }
+
         };
         getCurrentScene().setCursor(Cursor.WAIT);
         task.setOnSucceeded(t -> {
             newPane[0] = task.getValue();
             changeScene(newPane[0]);
             newPane[0].setCursor(Cursor.DEFAULT);
+        });
+        task.setOnFailed(t -> {
+            System.out.println("Help");
+            if(task.isRunning())
+                task.cancel();
         });
         new Thread(task).start();
     }

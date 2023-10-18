@@ -41,4 +41,6 @@ public class SnapMainConstants {
     public static final int HYDRA_MEDBAY_ID = 100001;
     public static final int STARTING_YEAR = 2022;
     public static final int MAX_DECK_SIZE = 12;
+    public static final int MAX_SELECTION_NUM = 35;
+    public static final int DECK_PROFILE_DEFAULT = 4;
 }

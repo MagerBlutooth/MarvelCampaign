@@ -2,16 +2,14 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
+import adventure.model.adventure.DeckProfileList;
 import adventure.model.stats.MatchResult;
 import adventure.view.node.DeckItemControlNode;
-import adventure.view.popup.CardChooserDialog;
 import adventure.view.popup.CardDisplayPopup;
 import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
 import adventure.view.sortFilter.DeckLinkedSortMenuButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.helper.DeckCodeConverter;
@@ -31,7 +28,6 @@ import snapMain.model.target.CardList;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.button.ButtonToolBar;
 import snapMain.view.grabber.IconConstant;
 import snapMain.view.manager.CardManager;
 import snapMain.view.node.GridDisplayNode;
@@ -43,6 +39,15 @@ import java.util.ArrayList;
 public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<Card>  {
 
     @FXML
+    ToggleButton deckProfile1;
+    @FXML
+    ToggleButton deckProfile2;
+    @FXML
+    ToggleButton deckProfile3;
+    @FXML
+    ToggleButton deckProfile4;
+    ToggleGroup deckProfileToggle;
+    @FXML
     Button copyButton;
     @FXML
     Button pasteButton;
@@ -53,7 +58,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     Button confirmButton;
     @FXML
-    CardManager cardChoices;
+    CardManager allSelectableCards;
     @FXML
     GridDisplayNode<Card> deckDisplay;
     DeckGridController deckGridController;
@@ -62,7 +67,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     Button randomCardFromTeamButton;
     @FXML
     Button randomCardFromDeckButton;
-    ToggleGroup toggleGroup;
+    ToggleGroup matchResultToggle;
     @FXML
     ToggleButton winButton;
     @FXML
@@ -77,37 +82,64 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     DeckLinkedFilterMenuButton filterButton;
     Adventure adventure;
     FullViewPane backPane;
+    DeckProfileList deckProfiles;
+    int profileNum;
 
     public void initialize(AdvMainDatabase db, FullViewPane pane, Adventure a)
     {
         mainDatabase = db;
         adventure = a;
         backPane = pane;
-        toggleGroup = new ToggleGroup();
-        toggleGroup.getToggles().addAll(winButton, loseButton, escapeButton, forceRetreatButton);
-        toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+        deckProfiles = verifyDeckProfiles(adventure.getDeckProfiles());
+        matchResultToggle = new ToggleGroup();
+        matchResultToggle.getToggles().addAll(winButton, loseButton, escapeButton, forceRetreatButton);
+        matchResultToggle.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null)
                 oldVal.setSelected(true);
         });
+        deckProfileToggle = new ToggleGroup();
+        deckProfileToggle.getToggles().addAll(deckProfile1, deckProfile2, deckProfile3, deckProfile4);
+        deckProfileToggle.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+            if (newVal == null)
+                oldVal.setSelected(true);
+        });
+        toggleDeckProfile();
         setButtonImages();
         CardList selectableCards = a.getActiveCards();
         winButton.setSelected(true);
         setWin();
-        CardList verifiedRecentDeck = verifyCardList(adventure.getMostRecentDeck());
         deckGridController = new DeckGridController();
-        deckGridController.initialize(db, deckDisplay, verifiedRecentDeck, this);
-        cardChoices.initialize(selectableCards, TargetType.CARD, this, ViewSize.TINY, false);
-        cardChoices.setPrefColumns(8);
+        deckGridController.initialize(db, deckDisplay, deckProfiles.getLatestProfile(), this);
+        allSelectableCards.initialize(selectableCards, TargetType.CARD, this, ViewSize.TINY, false);
+        allSelectableCards.setPrefColumns(8);
         deckDisplay.setMaxWidth(700);
-        deckDisplay.initialize(verifiedRecentDeck, TargetType.CARD, deckGridController, ViewSize.SMALL,
+        deckDisplay.initialize(deckProfiles.getLatestProfile(), TargetType.CARD, deckGridController, ViewSize.SMALL,
                 false);
         deckDisplay.setBorder((new Border(new BorderStroke(Color.WHITE,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
-        sortButton.initialize(cardChoices.getListNodeController(), deckGridController);
-        filterButton.initialize(cardChoices.getListNodeController(), deckGridController);
+        sortButton.initialize(allSelectableCards.getListNodeController(), deckGridController);
+        filterButton.initialize(allSelectableCards.getListNodeController(), deckGridController);
         confirmButton.disableProperty().bind(Bindings.notEqual(SnapMainConstants.MAX_DECK_SIZE,
                 deckGridController.getDeckSizeProperty()));
         deckGridController.toggleNodeLights();
+    }
+
+    private void toggleDeckProfile() {
+        switch(deckProfiles.getLatestProfileNum())
+        {
+            case 1:
+                deckProfileToggle.selectToggle(deckProfile2);
+                break;
+            case 2:
+                deckProfileToggle.selectToggle(deckProfile3);
+                break;
+            case 3:
+                deckProfileToggle.selectToggle(deckProfile4);
+                break;
+            default:
+                deckProfileToggle.selectToggle(deckProfile1);
+        }
+
     }
 
     private void setButtonImages() {
@@ -197,7 +229,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     public void toggleNodeLight(Card c) {
-        cardChoices.toggleNodeLight(c);
+        allSelectableCards.toggleNodeLight(c);
     }
 
     @Override
@@ -214,9 +246,13 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     public void confirmDeck()
     {
-        adventure.setMostRecentDeck(deckGridController.getDeck());
+        adventure.updateDeckProfiles(deckProfiles, getProfileNum());
         adventure.updateStats(deckGridController.getDeck(), result);
         changeScene(backPane);
+    }
+
+    private int getProfileNum() {
+        return profileNum;
     }
 
     public void setWin()
@@ -244,7 +280,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         String data = (String) Clipboard.getSystemClipboard().getContent(DataFormat.PLAIN_TEXT);
         CardList pastedDeck = codeConverter.convertDeckCodeToDeck(mainDatabase.lookupDatabase(TargetType.CARD), data);
-        CardList verifiedCards = verifyCardList(pastedDeck);
+        CardList verifiedCards = verifyDeck(pastedDeck);
         if(!verifiedCards.isEmpty()) {
             clearDeck();
             for(Card c: pastedDeck) {
@@ -267,7 +303,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     private void highlightAll() {
-        cardChoices.highlightAll();
+        allSelectableCards.highlightAll();
     }
 
     @Override
@@ -279,9 +315,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     public void initializeButtonToolBar() {
 
     }
-    private CardList verifyCardList(CardList candidateCards) {
+
+    private CardList verifyDeck(CardList deck)
+    {
         CardList validCards = new CardList(new ArrayList<>());
-        for(Card c: candidateCards)
+        for(Card c: deck)
         {
             if(adventure.getActiveCards().contains(c))
                 validCards.add(c);
@@ -289,9 +327,53 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         return validCards;
     }
 
+    private DeckProfileList verifyDeckProfiles(DeckProfileList profileList) {
+        DeckProfileList newProfileList = new DeckProfileList(profileList.size());
+        for(int i = 0; i < profileList.size(); i++)
+        {
+            newProfileList.setProfile(i, profileList.getProfile(i));
+        }
+        return newProfileList;
+    }
+
     public void goBack()
     {
         changeScene(backPane);
     }
 
+    public void switchProfile(int pNum)
+    {
+        saveDeckProfile();
+        clearDeck();
+        for(Card c: deckProfiles.getProfile(pNum)) {
+            deckGridController.toggleEntry(c);
+            toggleNodeLight(c);
+        }
+        profileNum = pNum;
+        int proFileNumDisplay = pNum+1;
+        deckButtonConfirmText.setText("Switched to Profile " + proFileNumDisplay);
+    }
+
+    public void switchProfile1()
+    {
+        switchProfile(0);
+
+    }
+    public void switchProfile2()
+    {
+        switchProfile(1);
+    }
+
+    public void switchProfile3()
+    {
+        switchProfile(2);
+    }
+    public void switchProfile4()
+    {
+        switchProfile(3);
+    }
+
+    public void saveDeckProfile() {
+        deckProfiles.setProfile(profileNum, deckGridController.getDeck());
+    }
 }

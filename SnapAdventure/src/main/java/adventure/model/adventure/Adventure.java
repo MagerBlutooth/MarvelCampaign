@@ -27,11 +27,11 @@ public class Adventure {
     int currentSectionNum;
     boolean newProfileCheck;
     CardStatTracker cardStatTracker;
-    CardList mostRecentDeck;
+    DeckProfileList deckProfiles;
     List<InfinityStone> infinityStones;
     Difficulty difficulty;
 
-    public Adventure(AdvMainDatabase mainDB, AdventureDatabase database, String proFile)
+    public Adventure(AdvMainDatabase mainDB, String proFile)
     {
         //Initialize base objects
         team = new Team();
@@ -39,18 +39,18 @@ public class Adventure {
         availableLocations = new AdvLocationList(new ArrayList<>());
         worlds = new WorldList(new ArrayList<>());
         profileFile = proFile;
-        adventureDatabase = database;
+        adventureDatabase = new AdventureDatabase();
         newProfileCheck = false;
         infinityStones = new ArrayList<>();
         cardStatTracker = new CardStatTracker();
-        mostRecentDeck = new CardList(new ArrayList<>());
+        deckProfiles = new DeckProfileList(SnapMainConstants.DECK_PROFILE_DEFAULT);
         createInfinityStones();
         loadAdventure(proFile, mainDB);
     }
 
-    public void initialize(int numTeamMembers, int numTeamCaptains, Difficulty d) {
+    public void initialize(AdvMainDatabase db, int numTeamMembers, int numTeamCaptains, Difficulty d) {
         difficulty = d;
-        generateAdventure(numTeamMembers, numTeamCaptains);
+        generateAdventure(db, numTeamMembers, numTeamCaptains);
     }
 
     public List<String> convertToString()
@@ -64,8 +64,9 @@ public class Adventure {
         adventureString.add(availableLocations.toSaveString());
         adventureString.add(worlds.toSaveString());
         adventureString.add(cardStatTracker.toSaveString());
-        adventureString.add(mostRecentDeck.toSaveString());
+        adventureString.add(deckProfiles.toSaveString());
         adventureString.add(difficulty.toString());
+        adventureString.add(adventureDatabase.toSaveString());
         return adventureString;
     }
 
@@ -77,18 +78,19 @@ public class Adventure {
         }
 
         String[] splitString = stringToConvert.get(0).split(SnapMainConstants.CSV_SEPARATOR);
+
         profileName = splitString[0];
         currentWorldNum = Integer.parseInt(splitString[1]);
         currentSectionNum = Integer.parseInt(splitString[2]);
-        team.convertFromString(splitString[3], adventureDatabase.getCards());
+        team.convertFromString(splitString[3], mainDB.lookupDatabase(TargetType.CARD));
         cardStatTracker = new CardStatTracker();
+        adventureDatabase.fromSaveString(splitString[10], mainDB);
         availableBosses.fromSaveString(splitString[4], adventureDatabase.getBosses());
         availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
         worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
         cardStatTracker.fromSaveString(splitString[7]);
-        mostRecentDeck.fromSaveString(splitString[8], mainDB.lookupDatabase(TargetType.CARD));
+        deckProfiles.fromSaveString(splitString[8], mainDB.lookupDatabase(TargetType.CARD));
         difficulty = Difficulty.valueOf(splitString[9]);
-
     }
 
     public void saveAdventure()
@@ -104,7 +106,8 @@ public class Adventure {
         convertFromString(db, adventureString);
     }
 
-    private void generateAdventure(int numTeamMembers, int numCaptains) {
+    private void generateAdventure(AdvMainDatabase db, int numTeamMembers, int numCaptains) {
+        adventureDatabase.createNewDatabase(db);
         availableBosses = new AdvCardList(adventureDatabase.getBosses());
         availableLocations = new AdvLocationList(adventureDatabase.getSections());
         team = new Team(adventureDatabase, numTeamMembers, numCaptains);
@@ -354,12 +357,14 @@ public class Adventure {
         return getCurrentWorld().getMatchCount();
     }
 
-    public CardList getMostRecentDeck() {
-        return mostRecentDeck;
+    public DeckProfileList getDeckProfiles() {
+        return deckProfiles;
     }
 
-    public void setMostRecentDeck(CardList deck) {
-        mostRecentDeck = deck;
+    public void updateDeckProfiles(DeckProfileList list, int latest)
+    {
+        deckProfiles = list;
+        deckProfiles.setLatestProfileNum(latest);
     }
 
     public Enemy replaceEnemy(Playable p, int sectionNum, boolean clone) {
@@ -407,5 +412,19 @@ public class Adventure {
         return reclaimed;
     }
 
+
+    public void addFreeAgentsToTeam(CardList cards) {
+        for(Card c: cards)
+        {
+            addFreeAgentToTeam(c);
+        }
+    }
+
+    public void addFreeAgentsToTemp(CardList cards) {
+        for(Card c: cards)
+        {
+            addFreeAgentToTemp(c);
+        }
+    }
 
 }
