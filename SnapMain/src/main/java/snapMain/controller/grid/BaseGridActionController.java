@@ -4,7 +4,7 @@ import snapMain.controller.MainDatabase;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import snapMain.model.target.SnapTarget;
+import snapMain.model.target.*;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
@@ -23,6 +23,14 @@ public class BaseGridActionController<T extends SnapTarget> implements GridActio
         node.initialize(getDatabase(), t, i, v, blind);
         createTooltip(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<T> createEmptyNode(ViewSize v) {
+        ControlNode<T> blankNode = new ControlNode<>();
+        blankNode.initialize(mainDatabase.grabBlankImage(TargetType.CARD),
+                v);
+        return blankNode;
     }
 
     @Override

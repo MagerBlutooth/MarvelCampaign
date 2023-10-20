@@ -1,8 +1,10 @@
 package snapMain.model.target;
 
-public interface Playable extends SnapTarget {
+import snapMain.model.database.TargetDatabase;
 
-    public String[] toSaveStringArray();
-    public void fromSaveStringArray(String[] mInfo);
+public interface Playable<T extends SnapTarget> extends SnapTarget {
+
+    public String toSaveString();
+    public void fromSaveString(String mInfo, TargetDatabase<T> things);
     public String getEffect();
 }

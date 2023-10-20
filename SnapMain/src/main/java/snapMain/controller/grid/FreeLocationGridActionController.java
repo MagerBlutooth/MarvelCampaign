@@ -6,6 +6,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.model.target.Location;
 import snapMain.model.target.LocationList;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.dialog.LocationSearchSelectDialog;
@@ -29,6 +30,14 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
         createContextMenu(node);
         setMouseEvents(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<Location> createEmptyNode(ViewSize v) {
+        ControlNode<Location> locationNode = new ControlNode<>();
+        locationNode.initialize(mainDatabase, new Location(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return locationNode;
     }
 
     public void initialize(MainDatabase database, FreeAgentSelectNodeController controller, String s, String h,

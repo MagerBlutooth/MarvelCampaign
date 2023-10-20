@@ -1,6 +1,8 @@
 package adventure.model;
 
-import adventure.model.target.*;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvLocationList;
 import snapMain.model.constants.SnapMainConstants;
 
 import java.util.ArrayList;

@@ -1,29 +1,37 @@
 package adventure.controller;
 
+import adventure.model.target.ActiveCard;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
-import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 
-public class LostCardGridActionController implements GridActionController<Card> {
+public class LostCardGridActionController implements GridActionController<ActiveCard> {
 
     MainDatabase mainDatabase;
     TeamDisplayNodeController teamDisplayNodeController;
-    GridDisplayController<Card> ownGridController;
+    GridDisplayController<ActiveCard> ownGridController;
 
     @Override
-    public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<Card> node = new ControlNode<>();
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+        ControlNode<ActiveCard> node = new ControlNode<>();
         node.initialize(getDatabase(), card, i, v, blind);
         if(card.isActualThing())
             createContextMenu(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<ActiveCard> createEmptyNode(ViewSize v) {
+        ControlNode<ActiveCard> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
     }
 
     @Override
@@ -32,17 +40,17 @@ public class LostCardGridActionController implements GridActionController<Card> 
     }
 
     @Override
-    public void saveGridNode(ControlNode<Card> node) {
+    public void saveGridNode(ControlNode<ActiveCard> node) {
         teamDisplayNodeController.update(node.getSubject());
     }
 
     @Override
-    public void createTooltip(ControlNode<Card> n) {
+    public void createTooltip(ControlNode<ActiveCard> n) {
 
     }
 
     @Override
-    public void createContextMenu(ControlNode<Card> n) {
+    public void createContextMenu(ControlNode<ActiveCard> n) {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem retrieveItem = new MenuItem("Retrieve");
         retrieveItem.setOnAction(actionEvent -> retrieveCard(n.getSubject()));
@@ -50,18 +58,18 @@ public class LostCardGridActionController implements GridActionController<Card> 
         n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
 
-    private void retrieveCard(Card c) {
+    private void retrieveCard(ActiveCard c) {
         teamDisplayNodeController.returnCard(c);
         ownGridController.removeThing(c);
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Card> displayControlNode) {
+    public void setMouseEvents(ControlNode<ActiveCard> displayControlNode) {
 
     }
 
     public void initialize(MainDatabase d, TeamDisplayNodeController tController,
-                           GridDisplayController<Card> ownController) {
+                           GridDisplayController<ActiveCard> ownController) {
         mainDatabase = d;
         teamDisplayNodeController = tController;
         ownGridController = ownController;

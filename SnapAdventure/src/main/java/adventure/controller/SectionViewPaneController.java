@@ -5,6 +5,7 @@ import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.*;
+import adventure.model.target.base.*;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.HPDisplayNode;
@@ -39,7 +40,7 @@ public class SectionViewPaneController extends AdvPaneController {
     @FXML
     StackPane stationedDisplayBox;
     @FXML
-    StackPane pickupDisplayBox;
+    StackPane rewardDisplayBox;
     @FXML
     AdvLocationControlNode locationView;
     @FXML
@@ -52,7 +53,7 @@ public class SectionViewPaneController extends AdvPaneController {
     AdventureControlPane adventureControlPane;
     Section section;
     Adventure adventure;
-    GridDisplayNode<Card> stationedDisplay;
+    GridDisplayNode<ActiveCard> stationedDisplay;
     Enemy enemy;
     ContextMenu enemyMenu;
 
@@ -71,7 +72,7 @@ public class SectionViewPaneController extends AdvPaneController {
                 ViewSize.MEDIUM, false);
         hpDisplay.initialize(enemy);
         completeButton.disableProperty().bind(Bindings.lessThan(0,hpDisplay.getHPProperty()));
-        initializePickups(s);
+        initializeRewards(s);
         initializeStations(s);
         initializeContextMenus();
     }
@@ -123,8 +124,9 @@ public class SectionViewPaneController extends AdvPaneController {
     }
 
     private void changeEnemyClone() {
+        AdventureDatabase adb = adventure.getAdventureDatabase();
         CardOrTokenSearchSelectDialog cardSearchSelectDialog = new CardOrTokenSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(mainDatabase.getCardsAndTokens()));
+        cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(adb.getCardsAndTokens()));
         Optional<Playable> playable = cardSearchSelectDialog.showAndWait();
         if(playable.isPresent())
         {
@@ -138,11 +140,11 @@ public class SectionViewPaneController extends AdvPaneController {
 
     private void changeEnemy() {
         CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, new CardList(adventure.getFreeAgents()));
-        Optional<Card> card = cardSearchSelectDialog.showAndWait();
+        cardSearchSelectDialog.initialize(mainDatabase, new ActiveCardList(adventure.getFreeAgents()));
+        Optional<ActiveCard> card = cardSearchSelectDialog.showAndWait();
         if(card.isPresent())
         {
-            Card c = card.get();
+            ActiveCard c = card.get();
             TargetDatabase<AdvCard> bosses = mainDatabase.lookupDatabase(TargetType.ADV_CARD);
             AdvCard boss = bosses.lookup(c.getID());
             Enemy enemy = adventure.replaceEnemy(boss, section.getSectionNum(), false);
@@ -181,16 +183,16 @@ public class SectionViewPaneController extends AdvPaneController {
 
     private void initializeStations(Section s) {
         stationedDisplay = new GridDisplayNode<>();
-            BaseGridActionController<Card> gridActionController = new BaseGridActionController<>();
+            BaseGridActionController<ActiveCard> gridActionController = new BaseGridActionController<>();
             gridActionController.initialize(mainDatabase);
-             stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD_OR_TOKEN, gridActionController,
+             stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD, gridActionController,
                     ViewSize.TINY, false);
              stationedDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
              stationedDisplay.setMinHeight(120);
             stationedDisplayBox.getChildren().add(stationedDisplay);
     }
 
-    private void initializePickups(Section s) {
+    private void initializeRewards(Section s) {
             GridDisplayNode<Playable> pickupDisplay = new GridDisplayNode<>();
             BaseGridActionController<Playable> gridActionController = new BaseGridActionController<>();
             gridActionController.initialize(mainDatabase);
@@ -198,7 +200,7 @@ public class SectionViewPaneController extends AdvPaneController {
                     ViewSize.TINY, false);
             pickupDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             pickupDisplay.setMinHeight(120);
-            pickupDisplayBox.getChildren().add(pickupDisplay);
+            rewardDisplayBox.getChildren().add(pickupDisplay);
     }
 
     @Override
@@ -255,10 +257,13 @@ public class SectionViewPaneController extends AdvPaneController {
         if(section.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             CardChooserDialog chooserDialog = new CardChooserDialog();
             chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD);
-            Optional<Card> cardSelect = chooserDialog.showAndWait();
-            cardSelect.ifPresent(card -> adventure.stationCard(section, card));
-            initializeStations(section);
-            adventureControlPane.refreshToMatch();
+            Optional<ActiveCard> cardSelect = chooserDialog.showAndWait();
+            cardSelect.ifPresent(card -> {
+                adventure.stationCard(section, card);
+                initializeStations(section);
+                adventureControlPane.refreshToMatch();
+            });
+
         }
     }
 

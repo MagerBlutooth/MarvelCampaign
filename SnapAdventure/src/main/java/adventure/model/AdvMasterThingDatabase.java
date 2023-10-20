@@ -1,12 +1,10 @@
 package adventure.model;
 
-import adventure.model.target.*;
+import adventure.model.target.base.*;
 import snapMain.model.database.DatabaseContext;
 import snapMain.model.database.MasterThingDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
-
-import java.util.List;
 
 public class AdvMasterThingDatabase extends MasterThingDatabase {
     AdvThingFactory vFactory;
@@ -33,12 +31,12 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         dBContext.register(TargetType.TOKEN, vFactory.loadAdvTokens(tokens));
     }
 
-    public TargetDatabase<AdvCard> getBosses() {
+    public TargetDatabase<AdvCard> getAdvCards() {
         TargetDatabase<AdvCard> lookup = dBContext.lookup(TargetType.ADV_CARD);
         return lookup;
     }
 
-    public TargetDatabase<AdvLocation> getSections() {
+    public TargetDatabase<AdvLocation> getAdvLocations() {
         TargetDatabase<AdvLocation> locs = new TargetDatabase<>();
         locs.addAll(dBContext.lookup(TargetType.LOCATION));
         return locs;
@@ -66,14 +64,14 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
     public void modifyBoss(AdvCard b) {
         TargetDatabase<AdvCard> lookup = dBContext.lookup(TargetType.ADV_CARD);
         lookup.addNewEntry(b);
-        vSaver.saveBosses(getBosses());
+        vSaver.saveBosses(getAdvCards());
     }
 
     public void modifySection(AdvLocation s)
     {
         TargetDatabase<AdvLocation> lookup = dBContext.lookup(TargetType.LOCATION);
         lookup.addNewEntry(s);
-        vSaver.saveSections(getSections());
+        vSaver.saveSections(getAdvLocations());
     }
 
     public void modifyAdvToken(AdvToken a) {
@@ -84,7 +82,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
 
     public TargetDatabase<AdvCard> getEnabledAdvCards() {
         TargetDatabase<AdvCard> enabled = new TargetDatabase<>();
-        for(AdvCard b: getBosses())
+        for(AdvCard b: getAdvCards())
         {
             if(b.isEnabled())
                 enabled.add(b);
@@ -94,7 +92,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
 
     public TargetDatabase<AdvLocation> getEnabledAdvLocations() {
         TargetDatabase<AdvLocation> enabled = new TargetDatabase<>();
-        for(AdvLocation s: getSections())
+        for(AdvLocation s: getAdvLocations())
         {
             if(s.isEnabled())
                 enabled.add(s);
@@ -127,12 +125,12 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
 
     public AdvCard getAdvCard(Card card)
     {
-        return getBosses().lookup(card.getID());
+        return getAdvCards().lookup(card.getID());
     }
 
     public AdvLocation getAdvLocation(Location loc)
     {
-        return getSections().lookup(loc.getID());
+        return getAdvLocations().lookup(loc.getID());
     }
 
     private AdvToken getAdvToken(AdvToken token) {
@@ -152,11 +150,5 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
     public void toggleAdvToken(AdvToken token) {
         AdvToken t = getAdvToken(token);
         t.setEnabled(!t.isEnabled());
-    }
-
-    public List<AdvLocation> getAdvLocations() {
-        TargetDatabase<AdvLocation> locations = new TargetDatabase<>();
-        locations.addAll(dBContext.lookup(TargetType.LOCATION));
-        return locations;
     }
 }

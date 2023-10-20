@@ -70,10 +70,6 @@ public class CardList extends TargetList<Card> {
         {
             stringBuilder.append(c.getID());
             stringBuilder.append(SnapMainConstants.CSV_SEPARATOR);
-            stringBuilder.append(c.isCaptain());
-            stringBuilder.append(SnapMainConstants.CSV_SEPARATOR);
-            stringBuilder.append(c.isWounded());
-            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         if(!getCards().isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -95,8 +91,6 @@ public class CardList extends TargetList<Card> {
         {
             String[] cOptions = cString.split(SnapMainConstants.CSV_SEPARATOR);
             Card card = new Card(database.lookup(Integer.parseInt(cOptions[0])));
-            card.setCaptain(Boolean.parseBoolean(cOptions[1]));
-            card.setWounded(Boolean.parseBoolean(cOptions[2]));
             this.add(card);
         }
     }

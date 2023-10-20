@@ -11,13 +11,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import snapMain.model.target.BaseObject;
+import snapMain.model.target.SnapTarget;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.pane.EditorMenuPane;
 
 //Generic controller used for controlling a full window
-public abstract class ManagerPaneController<T extends BaseObject, C extends MainDatabase> extends ButtonToolBarPaneController<C> implements GridActionController<T> {
+public abstract class ManagerPaneController<T extends SnapTarget, C extends MainDatabase> extends ButtonToolBarPaneController<C> implements GridActionController<T> {
 
     @Override
     public void initialize(C database)

@@ -2,13 +2,11 @@ package adventure.view.node;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
-import adventure.model.target.AdvToken;
+import adventure.model.target.base.AdvToken;
 import adventure.model.target.InfinityStoneID;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.HBox;
-import snapMain.controller.MainDatabase;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Token;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 

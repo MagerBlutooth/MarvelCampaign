@@ -4,6 +4,7 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.AdvMasterThingDatabase;
 import adventure.model.World;
 import adventure.model.adventure.Adventure;
+import adventure.model.target.ActiveCard;
 import adventure.view.node.WorldClearSelectNode;
 import adventure.view.pane.AdventureControlPane;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ import snapMain.view.button.ButtonToolBar;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 
-public class WorldClearPaneController extends AdvPaneController implements GridActionController<Card> {
+public class WorldClearPaneController extends AdvPaneController implements GridActionController<ActiveCard> {
 
     @FXML
     Label matchCount;
@@ -50,29 +51,38 @@ public class WorldClearPaneController extends AdvPaneController implements GridA
 
 
     @Override
-    public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<Card> controlNode = new ControlNode<>();
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+        ControlNode<ActiveCard> controlNode = new ControlNode<>();
         controlNode.initialize(mainDatabase, card, i, v, blind);
         return controlNode;
     }
 
     @Override
-    public void saveGridNode(ControlNode<Card> node) {
+    public void saveGridNode(ControlNode<ActiveCard> node) {
 
     }
 
     @Override
-    public void createTooltip(ControlNode<Card> n) {
+    public void createTooltip(ControlNode<ActiveCard> n) {
 
     }
 
     @Override
-    public void createContextMenu(ControlNode<Card> n) {
+    public void createContextMenu(ControlNode<ActiveCard> n) {
 
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Card> displayControlNode) {
+    public ControlNode<ActiveCard> createEmptyNode(ViewSize v)
+    {
+        ControlNode<ActiveCard> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
+    }
+
+    @Override
+    public void setMouseEvents(ControlNode<ActiveCard> displayControlNode) {
 
     }
 }

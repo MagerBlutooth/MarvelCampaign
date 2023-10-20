@@ -2,7 +2,7 @@ package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvCard;
+import adventure.model.target.base.AdvCard;
 import adventure.view.node.AdvCardEditorNode;
 import adventure.view.pane.AdvCardManagerPane;
 import javafx.fxml.FXML;

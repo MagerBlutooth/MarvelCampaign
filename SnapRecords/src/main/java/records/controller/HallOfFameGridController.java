@@ -6,6 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
@@ -40,6 +41,14 @@ public class HallOfFameGridController implements GridActionController<Card> {
         controlNode.initialize(mainDatabase, card, i, v, blind);
         setMouseEvents(controlNode);
         return controlNode;
+    }
+
+    @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
     }
 
     @Override

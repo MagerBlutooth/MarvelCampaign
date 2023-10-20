@@ -6,6 +6,8 @@ import javafx.scene.control.MenuItem;
 import snapMain.model.target.CardList;
 import snapMain.model.target.Location;
 import snapMain.model.target.LocationList;
+import snapMain.model.target.TargetType;
+import snapMain.view.ViewSize;
 import snapMain.view.dialog.LocationSearchSelectDialog;
 import snapMain.view.node.control.ControlNode;
 
@@ -18,6 +20,14 @@ public class MapGridActionController extends ThingActionController<Location> {
     public void initialize(MainDatabase d, DraggableThingDisplayController<Location> c)
     {
         super.initialize(d, c);
+    }
+
+    @Override
+    public ControlNode<Location> createEmptyNode(ViewSize v) {
+        ControlNode<Location> locationNode = new ControlNode<>();
+        locationNode.initialize(mainDatabase, new Location(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return locationNode;
     }
 
     @Override

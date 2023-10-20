@@ -16,7 +16,7 @@ public class HallOfFameFactory {
         {
             String[] vInfo = csvContents.get(i);
             HallOfFameEntry e = new HallOfFameEntry(allCards);
-            e.fromSaveStringArray(vInfo);
+            e.fromCSVSaveStringArray(vInfo);
             entries.add(e);
         }
         return entries;

@@ -3,10 +3,7 @@ package records.model;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.helper.ListHelper;
-import snapMain.model.target.BaseObject;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
-import snapMain.model.target.TargetType;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,13 +18,19 @@ public class HallOfFameEntry extends BaseObject {
     SnapMonth month;
     int year;
 
-    public HallOfFameEntry(TargetDatabase<Card> db)
+    public HallOfFameEntry()
     {
+        super();
         cards = new CardList(new ArrayList<>());
-        cardDatabase = db;
+        captain = new Card();
         month = SnapMonth.JANUARY;
         year = Calendar.getInstance().get(Calendar.YEAR);
-        captain = new Card();
+    }
+
+    public HallOfFameEntry(TargetDatabase<Card> db)
+    {
+        this();
+        cardDatabase = db;
     }
     public HallOfFameEntry(HallOfFameEntry e)
     {
@@ -47,14 +50,14 @@ public class HallOfFameEntry extends BaseObject {
     }
 
     @Override
-    public String[] toSaveStringArray() {
+    public String[] toCSVSaveStringArray() {
         StringBuilder attributeStrings = new StringBuilder();
         attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
         return new String[]{String.valueOf(getID()), getName(), getMonth().toString(), getYear()+"", cards.toCSVSaveString(), String.valueOf(cards.getCardIndex(captain))};
     }
 
     @Override
-    public void fromSaveStringArray(String[] mInfo) {
+    public void fromCSVSaveStringArray(String[] mInfo) {
         setID(Integer.parseInt(mInfo[0]));
         setName(mInfo[1]);
         month = SnapMonth.valueOf(mInfo[2]);

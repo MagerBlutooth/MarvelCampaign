@@ -1,27 +1,38 @@
 package adventure.controller;
 
+import adventure.model.target.ActiveCard;
+import adventure.view.node.ActiveCardControlNode;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.target.Card;
+import snapMain.model.target.StatusEffect;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.grabber.IconConstant;
 import snapMain.view.node.control.ControlNode;
 
-public class TeamGridActionController implements GridActionController<Card> {
+public class TeamGridActionController implements GridActionController<ActiveCard> {
 
     MainDatabase mainDatabase;
     TeamDisplayNodeController teamDisplayNodeController;
 
     @Override
-    public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<Card> node = new ControlNode<>();
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+        ActiveCardControlNode node = new ActiveCardControlNode();
         node.initialize(getDatabase(), card, i, v, blind);
         createContextMenu(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<ActiveCard> createEmptyNode(ViewSize v) {
+        ControlNode<ActiveCard> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
     }
 
     @Override
@@ -30,12 +41,12 @@ public class TeamGridActionController implements GridActionController<Card> {
     }
 
     @Override
-    public void saveGridNode(ControlNode<Card> node) {
+    public void saveGridNode(ControlNode<ActiveCard> node) {
         teamDisplayNodeController.update(node.getSubject());
     }
 
     @Override
-    public void createTooltip(ControlNode<Card> n) {
+    public void createTooltip(ControlNode<ActiveCard> n) {
 
     }
 
@@ -47,9 +58,9 @@ public class TeamGridActionController implements GridActionController<Card> {
     }
 
     @Override
-    public void createContextMenu(ControlNode<Card> n) {
+    public void createContextMenu(ControlNode<ActiveCard> n) {
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem woundItem = setWoundItem(n.getSubject());
+        MenuItem woundItem = setWoundItem(n);
         MenuItem eliminateItem = new MenuItem("Eliminate");
         MenuItem captureItem = new MenuItem("Capture");
         MenuItem miaItem = new MenuItem("Send Away");
@@ -78,9 +89,10 @@ public class TeamGridActionController implements GridActionController<Card> {
         n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
 
-    private MenuItem setWoundItem(Card c) {
+    private MenuItem setWoundItem(ControlNode<ActiveCard> n) {
+        ActiveCard c = n.getSubject();
         MenuItem woundItem = new MenuItem();
-        if(c.isWounded()) {
+        if(c.hasStatus(StatusEffect.WOUND)) {
             woundItem.setText("Heal");
             setGraphic(woundItem, new ImageView(mainDatabase.grabIcon(IconConstant.HEAL)));
         }
@@ -91,13 +103,13 @@ public class TeamGridActionController implements GridActionController<Card> {
 
         woundItem.setOnAction(actionEvent -> {
             teamDisplayNodeController.toggleWound(c);
-            setWoundItem(c);
+            setWoundItem(n);
         });
         return woundItem;
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Card> displayControlNode) {
+    public void setMouseEvents(ControlNode<ActiveCard> displayControlNode) {
 
     }
 

@@ -1,7 +1,6 @@
 package adventure.view.node;
 
-import adventure.model.target.AdvCard;
-import adventure.model.target.AdvToken;
+import adventure.model.target.base.AdvToken;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;

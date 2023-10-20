@@ -6,6 +6,9 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
+import snapMain.model.target.Location;
+import snapMain.model.target.TargetType;
+import snapMain.view.ViewSize;
 import snapMain.view.dialog.CardSearchSelectDialog;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.node.control.DraggableControlNode;
@@ -23,17 +26,25 @@ public class AgentGridActionController extends ThingActionController<Card> {
     }
 
     @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return cardNode;
+    }
+
+    @Override
     public void createContextMenu(ControlNode<Card> node) {
         ContextMenu contextMenu = new ContextMenu();
         Card card = node.getSubject();
-        MenuItem woundItem = new MenuItem();
+/*        MenuItem woundItem = new MenuItem();
         woundItem.setOnAction(actionEvent ->
         {
             node.toggle();
             saveGridNode(node);
         });
-        contextMenu.getItems().add(woundItem);
-        if (card.isWounded()) {
+        contextMenu.getItems().add(woundItem);*/
+/*        if (card.isWounded()) {
             woundItem.setText("Heal");
             MenuItem eliminateItem = new MenuItem("Eliminate");
             eliminateItem.setOnAction(actionEvent ->
@@ -49,8 +60,8 @@ public class AgentGridActionController extends ThingActionController<Card> {
                 card.setCaptain(!card.isCaptain());
                 saveGridNode(node);
             }
-        });
-        contextMenu.getItems().add(captainItem);
+        });*/
+        //contextMenu.getItems().add(captainItem);
         MenuItem addCardItem = new MenuItem("Add Card");
         addCardItem.setOnAction(e -> {
             CardSearchSelectDialog dialog = new CardSearchSelectDialog();

@@ -27,9 +27,10 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
         return fxmlMainGrabber;
     }
 
-    public void initialize(TargetList<T> list, TargetType t, GridActionController<T> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<T> list, TargetType t, GridActionController<T> controller, ViewSize v,
+                           boolean statusVisible)
     {
-        gridDisplayController.initialize(list, t, controller, v, blind);
+        gridDisplayController.initialize(list, t, controller, v, statusVisible);
     }
 
     public void sortBy(String c) {

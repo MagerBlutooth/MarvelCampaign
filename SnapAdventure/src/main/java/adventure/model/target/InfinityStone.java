@@ -1,11 +1,13 @@
 package adventure.model.target;
 
+import snapMain.model.constants.SnapMainConstants;
+import snapMain.model.database.TargetDatabase;
 import snapMain.model.helper.StringHelper;
 import snapMain.model.target.Playable;
-import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 
-public class InfinityStone implements SnapTarget, Playable {
+public class InfinityStone implements Playable<Token> {
 
     int tokenId;
     InfinityStoneID stoneID;
@@ -66,14 +68,15 @@ public class InfinityStone implements SnapTarget, Playable {
     }
 
     @Override
-    public String[] toSaveStringArray() {
-        return new String[]{ getID()+"", stoneID+""};
+    public String toSaveString() {
+        return getID() + SnapMainConstants.CSV_SEPARATOR + stoneID;
     }
 
     @Override
-    public void fromSaveStringArray (String[] mInfo) {
-        setID(Integer.parseInt(mInfo[0]));
-        stoneID = InfinityStoneID.valueOf(mInfo[1]);
+    public void fromSaveString (String mInfo, TargetDatabase<Token> tokens) {
+        String[] splitString = mInfo.split(SnapMainConstants.CSV_SEPARATOR);
+        setID(Integer.parseInt(splitString[0]));
+        stoneID = InfinityStoneID.valueOf(splitString[1]);
     }
 
     @Override

@@ -5,6 +5,7 @@ import snapMain.controller.node.FreeAgentSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
@@ -24,6 +25,14 @@ public class FreeAgentGridActionController extends ThingActionController<Card> {
         createContextMenu(node);
         setMouseEvents(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.CARD),
+                ViewSize.MEDIUM,false);
+        return cardNode;
     }
 
     public void initialize(MainDatabase database, FreeAgentSelectNodeController controller, String s, String h)
@@ -47,7 +56,7 @@ public class FreeAgentGridActionController extends ThingActionController<Card> {
         MenuItem hydraItem = new MenuItem("To "+hydraName);
         hydraItem.setOnAction(e -> freeAgentController.toHydra(n.getSubject()));
         Card card = n.getSubject();
-        MenuItem woundItem = new MenuItem();
+   /*     MenuItem woundItem = new MenuItem();
         woundItem.setOnAction(e -> freeAgentController.toggleWoundAgent(card));
         if (card.isWounded()) {
             woundItem.setText("Heal");
@@ -60,12 +69,12 @@ public class FreeAgentGridActionController extends ThingActionController<Card> {
         }
         else
             woundItem.setText("Wound");
-
+*/
         MenuItem addItem = new MenuItem("Add Card");
         addItem.setOnAction(e -> freeAgentController.addAgent(card));
         MenuItem deleteItem = new MenuItem("Delete Card");
         deleteItem.setOnAction(e -> freeAgentController.removeAgent(card));
-        contextMenu.getItems().add(woundItem);
+        //contextMenu.getItems().add(woundItem);
         contextMenu.getItems().add(shieldItem);
         contextMenu.getItems().add(hydraItem);
         contextMenu.getItems().add(addItem);

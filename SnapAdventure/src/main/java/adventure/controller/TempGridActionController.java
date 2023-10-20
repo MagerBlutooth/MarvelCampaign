@@ -1,28 +1,38 @@
 package adventure.controller;
 
+import adventure.model.target.ActiveCard;
+import adventure.view.node.ActiveCardControlNode;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.grabber.IconConstant;
 import snapMain.view.node.control.ControlNode;
 
-public class TempGridActionController implements GridActionController<Card> {
+public class TempGridActionController implements GridActionController<ActiveCard> {
 
     MainDatabase mainDatabase;
     TeamDisplayNodeController teamDisplayNodeController;
 
     @Override
-    public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<Card> node = new ControlNode<>();
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+        ActiveCardControlNode node = new ActiveCardControlNode();
         node.initialize(getDatabase(), card, i, v, blind);
         if(card.isActualThing())
             createContextMenu(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<ActiveCard> createEmptyNode(ViewSize v) {
+        ControlNode<ActiveCard> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
     }
 
     @Override
@@ -31,17 +41,17 @@ public class TempGridActionController implements GridActionController<Card> {
     }
 
     @Override
-    public void saveGridNode(ControlNode<Card> node) {
+    public void saveGridNode(ControlNode<ActiveCard> node) {
         teamDisplayNodeController.update(node.getSubject());
     }
 
     @Override
-    public void createTooltip(ControlNode<Card> n) {
+    public void createTooltip(ControlNode<ActiveCard> n) {
 
     }
 
     @Override
-    public void createContextMenu(ControlNode<Card> n) {
+    public void createContextMenu(ControlNode<ActiveCard> n) {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem defectItem = new MenuItem("Defect");
         defectItem.setOnAction(actionEvent -> teamDisplayNodeController.makeCardFreeAgent(n.getSubject()));
@@ -62,7 +72,7 @@ public class TempGridActionController implements GridActionController<Card> {
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Card> displayControlNode) {
+    public void setMouseEvents(ControlNode<ActiveCard> displayControlNode) {
 
     }
 

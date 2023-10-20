@@ -5,6 +5,9 @@ import snapMain.controller.node.FactionSelectNodeController;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.model.target.Card;
+import snapMain.model.target.Location;
+import snapMain.model.target.TargetType;
+import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 
 public class PrisonGridActionController extends ThingActionController<Card> {
@@ -15,6 +18,14 @@ public class PrisonGridActionController extends ThingActionController<Card> {
     {
         super.initialize(database, prisonDisplay);
         factionController = c;
+    }
+
+    @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return cardNode;
     }
 
     @Override

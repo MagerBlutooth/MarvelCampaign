@@ -4,6 +4,8 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.adventure.DeckProfileList;
 import adventure.model.stats.MatchResult;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.view.node.DeckItemControlNode;
 import adventure.view.popup.CardDisplayPopup;
 import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
@@ -29,14 +31,14 @@ import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.grabber.IconConstant;
-import snapMain.view.manager.CardManager;
+import snapMain.view.manager.Manager;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.pane.FullViewPane;
 
 import java.util.ArrayList;
 
-public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<Card>  {
+public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<ActiveCard>  {
 
     @FXML
     ToggleButton deckProfile1;
@@ -58,9 +60,9 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     Button confirmButton;
     @FXML
-    CardManager allSelectableCards;
+    Manager<ActiveCard> allSelectableCards;
     @FXML
-    GridDisplayNode<Card> deckDisplay;
+    GridDisplayNode<ActiveCard> deckDisplay;
     DeckGridController deckGridController;
     MatchResult result;
     @FXML
@@ -105,7 +107,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         });
         toggleDeckProfile();
         setButtonImages();
-        CardList selectableCards = a.getActiveCards();
+        ActiveCardList selectableCards = a.getActiveCards();
         winButton.setSelected(true);
         setWin();
         deckGridController = new DeckGridController();
@@ -168,25 +170,35 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     @Override
-    public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
         DeckItemControlNode node = new DeckItemControlNode();
         node.initialize(mainDatabase, card, v);
         setMouseEvents(node);
         return node;
     }
 
+    @Override
+    public ControlNode<ActiveCard> createEmptyNode(ViewSize v) {
+        ControlNode<ActiveCard> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
+    }
+
     @FXML
     public void copyToCode()
     {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
-        codeConverter.encodeDeckToClipboard(deckGridController.getDeck());
+        ActiveCardList cards = deckGridController.getDeck();
+        CardList baseCards = cards.getBaseCards();
+        codeConverter.encodeDeckToClipboard(baseCards);
         deckButtonConfirmText.setText("Deck Code Pasted to Clipboard");
     }
 
     @FXML
     public void randomCardFromTeam()
     {
-        Card randomCard = adventure.getActiveCards().getRandom();
+        ActiveCard randomCard = adventure.getActiveCards().getRandom();
         CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, randomCard,
                 randomCardFromTeamButton.localToScreen(100.0,0.0));
         popup.show();
@@ -200,9 +212,9 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     public void randomCardFromDeck()
     {
-        CardList cards = deckGridController.getChosenCards();
+        ActiveCardList cards = deckGridController.getChosenCards();
         if(!cards.isEmpty()) {
-            Card randomCard = deckGridController.getChosenCards().getRandom();
+            ActiveCard randomCard = deckGridController.getChosenCards().getRandom();
             CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, randomCard,
                     randomCardFromDeckButton.localToScreen(100.0, 0.0));
             popup.show();
@@ -214,27 +226,27 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         }
     }
     @Override
-    public void saveGridNode(ControlNode<Card> node) {
+    public void saveGridNode(ControlNode<ActiveCard> node) {
 
     }
 
     @Override
-    public void createTooltip(ControlNode<Card> n) {
+    public void createTooltip(ControlNode<ActiveCard> n) {
 
     }
 
     @Override
-    public void createContextMenu(ControlNode<Card> n) {
+    public void createContextMenu(ControlNode<ActiveCard> n) {
 
     }
 
-    public void toggleNodeLight(Card c) {
+    public void toggleNodeLight(ActiveCard c) {
         allSelectableCards.toggleNodeLight(c);
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Card> node) {
-            Card card = node.getSubject();
+    public void setMouseEvents(ControlNode<ActiveCard> node) {
+        ActiveCard card = node.getSubject();
             node.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
                     boolean toggled = deckGridController.toggleEntry(card);
@@ -280,10 +292,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         String data = (String) Clipboard.getSystemClipboard().getContent(DataFormat.PLAIN_TEXT);
         CardList pastedDeck = codeConverter.convertDeckCodeToDeck(mainDatabase.lookupDatabase(TargetType.CARD), data);
-        CardList verifiedCards = verifyDeck(pastedDeck);
+        ActiveCardList cardList = adventure.lookupActiveCards(pastedDeck);
+        ActiveCardList verifiedCards = verifyDeck(cardList);
         if(!verifiedCards.isEmpty()) {
             clearDeck();
-            for(Card c: pastedDeck) {
+            for(ActiveCard c: cardList) {
                 deckGridController.toggleEntry(c);
                 toggleNodeLight(c);
             }
@@ -316,10 +329,10 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     }
 
-    private CardList verifyDeck(CardList deck)
+    private ActiveCardList verifyDeck(ActiveCardList deck)
     {
-        CardList validCards = new CardList(new ArrayList<>());
-        for(Card c: deck)
+        ActiveCardList validCards = new ActiveCardList(new ArrayList<>());
+        for(ActiveCard c: deck)
         {
             if(adventure.getActiveCards().contains(c))
                 validCards.add(c);
@@ -345,7 +358,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     {
         saveDeckProfile();
         clearDeck();
-        for(Card c: deckProfiles.getProfile(pNum)) {
+        for(ActiveCard c: deckProfiles.getProfile(pNum)) {
             deckGridController.toggleEntry(c);
             toggleNodeLight(c);
         }

@@ -1,36 +1,32 @@
 package adventure.controller;
 
-import adventure.model.adventure.DeckProfileList;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
+import adventure.view.node.ActiveCardControlNode;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableNumberValue;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
-import snapMain.model.target.SnapTarget;
-import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 
-import java.util.ArrayList;
-
-public class DeckGridController implements GridActionController<Card> {
+public class DeckGridController implements GridActionController<ActiveCard> {
 
     MainDatabase mainDatabase;
-    CardList chosenCards;
-    GridDisplayNode<Card> deckDisplay;
+    ActiveCardList chosenCards;
+    GridDisplayNode<ActiveCard> deckDisplay;
     IntegerProperty deckSizeProperty;
 
     DeckConstructorPaneController deckConstructorController;
 
-    public void initialize(MainDatabase db, GridDisplayNode<Card> dDisplay, CardList recentDeck,
+    public void initialize(MainDatabase db, GridDisplayNode<ActiveCard> dDisplay, ActiveCardList recentDeck,
                            DeckConstructorPaneController cController)
     {
         mainDatabase = db;
@@ -44,11 +40,19 @@ public class DeckGridController implements GridActionController<Card> {
     }
 
     @Override
-    public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<Card> controlNode = new ControlNode<>();
-        controlNode.initialize(mainDatabase, card, i, v, blind);
-        setMouseEvents(controlNode);
-        return controlNode;
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+        ActiveCardControlNode node = new ActiveCardControlNode();
+        node.initialize(mainDatabase, card, i, v, blind);
+        setMouseEvents(node);
+        return node;
+    }
+
+    @Override
+    public ControlNode<ActiveCard> createEmptyNode(ViewSize v) {
+        ControlNode<ActiveCard> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
     }
 
     @Override
@@ -57,22 +61,22 @@ public class DeckGridController implements GridActionController<Card> {
     }
 
     @Override
-    public void saveGridNode(ControlNode<Card> node) {
+    public void saveGridNode(ControlNode<ActiveCard> node) {
 
     }
 
     @Override
-    public void createTooltip(ControlNode<Card> n) {
+    public void createTooltip(ControlNode<ActiveCard> n) {
 
     }
 
     @Override
-    public void createContextMenu(ControlNode<Card> n) {
+    public void createContextMenu(ControlNode<ActiveCard> n) {
 
     }
 
     @Override
-    public void setMouseEvents(ControlNode<Card> controlNode) {
+    public void setMouseEvents(ControlNode<ActiveCard> controlNode) {
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 chosenCards.remove(controlNode.getSubject());
@@ -84,7 +88,7 @@ public class DeckGridController implements GridActionController<Card> {
         });
     }
 
-    public boolean toggleEntry(Card card) {
+    public boolean toggleEntry(ActiveCard card) {
         boolean toggled = false;
         if(chosenCards.contains(card)) {
             toggled = chosenCards.remove(card);
@@ -103,7 +107,7 @@ public class DeckGridController implements GridActionController<Card> {
         deckSizeProperty.set(chosenCards.size());
     }
 
-    public CardList getDeck() {
+    public ActiveCardList getDeck() {
         return chosenCards;
     }
 
@@ -116,13 +120,13 @@ public class DeckGridController implements GridActionController<Card> {
     }
 
     public void toggleNodeLights() {
-        for(Card c: chosenCards)
+        for(ActiveCard c: chosenCards)
         {
             deckConstructorController.toggleNodeLight(c);
         }
     }
 
-    public CardList getChosenCards() {
+    public ActiveCardList getChosenCards() {
         return chosenCards;
     }
 

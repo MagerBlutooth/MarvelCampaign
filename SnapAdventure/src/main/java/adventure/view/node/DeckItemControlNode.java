@@ -1,17 +1,14 @@
 package adventure.view.node;
 
+import adventure.model.target.ActiveCard;
 import snapMain.controller.MainDatabase;
-import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 
-import snapMain.model.target.TargetType;
+import snapMain.model.target.StatusEffect;
 import snapMain.view.ViewSize;
-import snapMain.view.node.control.ControlNode;
 
-public class DeckItemControlNode extends ControlNode<Card> {
+public class DeckItemControlNode extends ActiveCardControlNode {
 
-    public void initialize(MainDatabase db, Card c, ViewSize v) {
+    public void initialize(MainDatabase db, ActiveCard c, ViewSize v) {
 
         mainDatabase = db;
         subject = c;
@@ -19,9 +16,8 @@ public class DeckItemControlNode extends ControlNode<Card> {
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());
         createCaptainView(v);
-        setDamage(c.isWounded());
-        setCaptain(c.isCaptain());
+        setDamage(c.hasStatus(StatusEffect.WOUND));
+        setCaptain(c.hasStatus(StatusEffect.CAPTAIN));
         setHighlighted(true);
-
     }
 }

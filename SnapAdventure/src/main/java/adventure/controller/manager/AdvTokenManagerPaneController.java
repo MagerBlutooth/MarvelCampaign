@@ -1,17 +1,13 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvLocation;
-import adventure.model.target.AdvLocationList;
-import adventure.model.target.AdvToken;
-import adventure.model.target.AdvTokenList;
-import adventure.view.manager.AdvLocationManager;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.base.AdvToken;
+import adventure.model.target.base.AdvTokenList;
 import adventure.view.manager.AdvTokenManager;
-import adventure.view.node.AdvLocationControlNode;
 import adventure.view.node.AdvTokenControlNode;
 import adventure.view.pane.AdvEditorMenuPane;
 import adventure.view.pane.AdvTokenEditorPane;
-import adventure.view.pane.SectionEditorPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -65,6 +61,14 @@ public class AdvTokenManagerPaneController extends ManagerPaneController<AdvToke
         createContextMenu(node);
         setMouseEvents(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<AdvToken> createEmptyNode(ViewSize v) {
+        ControlNode<AdvToken> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new AdvToken(), mainDatabase.grabBlankImage(TargetType.TOKEN),
+                v,false);
+        return cardNode;
     }
 
     @Override

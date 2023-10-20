@@ -1,9 +1,10 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.view.popup.CardGeneratorDialog;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import snapMain.controller.MainDatabase;
@@ -14,8 +15,6 @@ import snapMain.view.menu.FilterMenuButton;
 import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.GridDisplayNode;
 
-import java.util.ArrayList;
-
 public class CardGeneratorDialogController {
 
     @FXML
@@ -25,20 +24,20 @@ public class CardGeneratorDialogController {
     @FXML
     ToggleButton none;
     @FXML
-    SortMenuButton<Card> sortButton;
+    SortMenuButton<ActiveCard> sortButton;
     @FXML
-    FilterMenuButton<Card> filterButton;
+    FilterMenuButton<ActiveCard> filterButton;
     @FXML
-    GridDisplayNode<Card> choiceNodes;
+    GridDisplayNode<ActiveCard> choiceNodes;
     MainDatabase mainDatabase;
-    CardList choices;
+    ActiveCardList choices;
     ToggleGroup toggleGroup;
 
 
-    public void initialize(AdvMainDatabase md, CardGeneratorDialog dialog, CardList selectables)
+    public void initialize(AdvMainDatabase md, CardGeneratorDialog dialog, ActiveCardList selectables)
     {
         choices = selectables;
-        BaseGridActionController<Card> cardChoiceActionController = new BaseGridActionController();
+        BaseGridActionController<ActiveCard> cardChoiceActionController = new BaseGridActionController();
         cardChoiceActionController.initialize(md);
         mainDatabase = md;
         CardGeneratorDialogGridActionController gridActionController =
@@ -59,7 +58,7 @@ public class CardGeneratorDialogController {
     }
 
 
-    public CardList getChosen() {
+    public ActiveCardList getChosen() {
         return choices;
     }
 

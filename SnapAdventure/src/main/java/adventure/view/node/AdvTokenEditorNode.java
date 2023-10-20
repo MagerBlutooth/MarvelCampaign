@@ -1,10 +1,8 @@
 package adventure.view.node;
 
-import adventure.controller.AdvCardEditorNodeController;
 import adventure.controller.AdvTokenEditorNodeController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvCard;
-import adventure.model.target.AdvToken;
+import adventure.model.target.base.AdvToken;
 
 public class AdvTokenEditorNode extends AdvNode {
 

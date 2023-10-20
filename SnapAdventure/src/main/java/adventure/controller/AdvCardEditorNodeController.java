@@ -1,8 +1,7 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvCard;
-import adventure.model.target.AdvToken;
+import adventure.model.target.base.AdvCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;

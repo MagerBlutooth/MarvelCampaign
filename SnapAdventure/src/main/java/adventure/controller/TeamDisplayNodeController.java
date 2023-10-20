@@ -3,13 +3,14 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
+import adventure.model.target.ActiveCard;
 import adventure.view.node.InfinityStoneDisplayNode;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardDisplayPopup;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import snapMain.controller.MainDatabase;
-import snapMain.model.target.Card;
+import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
@@ -21,11 +22,11 @@ public class TeamDisplayNodeController {
     @FXML
     Button miaButton;
     @FXML
-    GridDisplayNode<Card> teamCardDisplay;
+    GridDisplayNode<ActiveCard> teamCardDisplay;
     @FXML
     InfinityStoneDisplayNode infinityStoneDisplay;
     @FXML
-    public GridDisplayNode<Card> tempCardDisplay;
+    public GridDisplayNode<ActiveCard> tempCardDisplay;
     @FXML
     public Button eliminateButton;
     @FXML
@@ -57,9 +58,9 @@ public class TeamDisplayNodeController {
         lostCardController = new LostCardGridActionController();
         cardController.initialize(d, this);
         tempController.initialize(d, this);
-        teamCardDisplay.initialize(t.getTeamCards(), TargetType.CARD, cardController, ViewSize.SMALL, false);
+        teamCardDisplay.initialize(t.getTeamCards(), TargetType.CARD, cardController, ViewSize.SMALL, true);
         teamCardDisplay.setPrefColumns(6);
-        tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, tempController, ViewSize.SMALL, false);
+        tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, tempController, ViewSize.SMALL, true);
     }
 
     public void showCaptured()
@@ -126,57 +127,63 @@ public class TeamDisplayNodeController {
         infinityStoneDisplay.refresh();
     }
 
-    public void capture(Card card)
+    public void capture(ActiveCard card)
     {
         team.captureCard(card);
         adventureControlPane.refreshToMatch();
     }
 
-    public void eliminate(Card card) {
+    public void eliminate(ActiveCard card) {
         team.eliminateCard(card);
         adventureControlPane.refreshToMatch();
     }
 
-    public void revive(Card card)
+    public void revive(ActiveCard card)
     {
         team.reviveCard(card);
         adventureControlPane.refreshToMatch();
     }
 
-    public void free(Card card)
+    public void free(ActiveCard card)
     {
         team.freeCapturedCard(card);
         adventureControlPane.refreshToMatch();
     }
 
-    public void sendAway(Card card)
+    public void sendAway(ActiveCard card)
     {
         team.sendAway(card);
         adventure.sendAway(card);
         adventureControlPane.refreshToMatch();
     }
-    public void returnCard(Card card)
+    public void returnCard(ActiveCard card)
     {
         adventure.reclaimCard(card);
         adventureControlPane.refreshToMatch();
     }
 
-    public void update(Card subject) {
+    public void update(ActiveCard subject) {
         teamCardDisplay.update(subject);
         tempCardDisplay.update(subject);
     }
 
-    public void toggleWound(Card card) {
-        card.setWounded(!card.isWounded());
+    public void toggleWound(ActiveCard card) {
+        card.toggleStatus(StatusEffect.WOUND);
         update(card);
     }
 
-    public void toggleCaptain(Card card) {
-        card.setCaptain(!card.isCaptain());
+    public void toggleCaptain(ActiveCard card) {
+        card.toggleStatus(StatusEffect.CAPTAIN);
         update(card);
     }
 
-    public void makeCardFreeAgent(Card card) {
+    public void toggleExhausted(ActiveCard card)
+    {
+        card.toggleStatus(StatusEffect.EXHAUSTED);
+        update(card);
+    }
+
+    public void makeCardFreeAgent(ActiveCard card) {
         team.makeCardFreeAgent(card);
         adventureControlPane.refreshToMatch();
     }
@@ -185,12 +192,12 @@ public class TeamDisplayNodeController {
         teamCardDisplay.setFocusTraversable(true);
     }
 
-    public void fromTempToTeam(Card subject) {
+    public void fromTempToTeam(ActiveCard subject) {
         team.fromTempToTeam(subject);
         adventureControlPane.refreshToMatch();
     }
 
-    public void teamToTemp(Card subject) {
+    public void teamToTemp(ActiveCard subject) {
         team.fromTeamToTemp(subject);
         adventureControlPane.refreshToMatch();
     }

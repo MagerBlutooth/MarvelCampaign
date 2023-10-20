@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
@@ -61,6 +62,15 @@ public class HallOfFameManagerController extends BasePaneController implements G
         setMouseEvents(c);
         return c;
     }
+
+    @Override
+    public ControlNode<HallOfFameEntry> createEmptyNode(ViewSize v) {
+        ControlNode<HallOfFameEntry> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new HallOfFameEntry(), mainDatabase.grabBlankImage(TargetType.HALL_OF_FAME),
+                v,false);
+        return cardNode;
+    }
+
     @Override
     public void saveGridNode(ControlNode<HallOfFameEntry> node) {
 

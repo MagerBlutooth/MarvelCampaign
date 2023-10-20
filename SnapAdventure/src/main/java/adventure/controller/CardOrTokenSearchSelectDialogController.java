@@ -1,5 +1,6 @@
 package adventure.controller;
 
+import snapMain.model.target.Playable;
 import adventure.model.target.PlayableList;
 import adventure.view.popup.Choosable;
 import javafx.scene.control.ToggleGroup;

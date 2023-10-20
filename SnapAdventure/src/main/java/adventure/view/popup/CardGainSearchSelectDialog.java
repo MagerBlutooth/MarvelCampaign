@@ -1,16 +1,16 @@
 package adventure.view.popup;
 
 import adventure.controller.CardGainSearchSelectDialogController;
+import adventure.model.target.ActiveCard;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import snapMain.controller.MainDatabase;
-import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 
-public class CardGainSearchSelectDialog extends Dialog<Card> implements Choosable<Card>{
+public class CardGainSearchSelectDialog extends Dialog<ActiveCard> implements Choosable<ActiveCard>{
 
     CardGainSearchSelectDialogController controller;
     public CardGainSearchSelectDialog()
@@ -22,7 +22,7 @@ public class CardGainSearchSelectDialog extends Dialog<Card> implements Choosabl
         initModality(Modality.APPLICATION_MODAL);
     }
 
-    public void initialize(MainDatabase cd, TargetList<Card> selectableCards)
+    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectableCards)
     {
         controller.initialize(cd, this, selectableCards);
 
@@ -39,7 +39,7 @@ public class CardGainSearchSelectDialog extends Dialog<Card> implements Choosabl
     }
 
     @Override
-    public void setChoice(Card card) {
+    public void setChoice(ActiveCard card) {
         controller.setChoice(card);
     }
 }

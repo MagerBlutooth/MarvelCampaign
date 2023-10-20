@@ -2,15 +2,14 @@ package adventure.view.popup;
 
 import adventure.controller.CardGeneratorDialogController;
 import adventure.model.AdvMainDatabase;
+import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 
-public class CardGeneratorDialog extends Dialog<CardList> {
+public class CardGeneratorDialog extends Dialog<ActiveCardList> {
 
     CardGeneratorDialogController controller;
     public CardGeneratorDialog()
@@ -22,7 +21,7 @@ public class CardGeneratorDialog extends Dialog<CardList> {
         this.initStyle(StageStyle.UNDECORATED);
     }
 
-    public void initialize(AdvMainDatabase cd, CardList selectables)
+    public void initialize(AdvMainDatabase cd, ActiveCardList selectables)
     {
         controller.initialize(cd, this, selectables);
         setResultConverter(dialogButton -> {

@@ -1,18 +1,17 @@
 package adventure.model.adventure;
 
+import adventure.model.AdventureDatabase;
+import adventure.model.target.ActiveCardList;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 
-public class DeckProfileList implements Iterable<CardList> {
+public class DeckProfileList implements Iterable<ActiveCardList> {
 
-    List<CardList> profiles;
+    List<ActiveCardList> profiles;
     int latestProfileNum;
 
     public DeckProfileList(int profileCount)
@@ -21,14 +20,14 @@ public class DeckProfileList implements Iterable<CardList> {
         profileCount = Math.max(0, profileCount);
         for(int i = 0; i < profileCount; i++)
         {
-            profiles.add(new CardList(new ArrayList<>()));
+            profiles.add(new ActiveCardList(new ArrayList<>()));
         }
         latestProfileNum = 0;
     }
 
     public String toSaveString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for(CardList list: profiles)
+        for(ActiveCardList list: profiles)
         {
             stringBuilder.append(list.toSaveString());
             stringBuilder.append(SnapMainConstants.CATEGORY_SEPARATOR);
@@ -39,7 +38,7 @@ public class DeckProfileList implements Iterable<CardList> {
         return Base64.getEncoder().encodeToString(saveString.getBytes());
     }
 
-    public void fromSaveString(String saveString, TargetDatabase<Card> cardDatabase)
+    public void fromSaveString(String saveString, AdventureDatabase adventureDatabase)
     {
         byte[] decodedBytes = Base64.getDecoder().decode(saveString);
         String decodedString = new String(decodedBytes);
@@ -50,14 +49,14 @@ public class DeckProfileList implements Iterable<CardList> {
         for(int i = 0; i < cardsList.length; i++)
         {
             String cString = cardsList[i];
-            CardList deck = new CardList(new ArrayList<>());
-            deck.fromSaveString(cString, cardDatabase);
+            ActiveCardList deck = new ActiveCardList(new ArrayList<>());
+            deck.fromSaveString(cString, adventureDatabase.getCards());
             setProfile(i, deck);
         }
     }
 
     @Override
-    public Iterator<CardList> iterator() {
+    public Iterator<ActiveCardList> iterator() {
         return profiles.iterator();
     }
 
@@ -65,7 +64,7 @@ public class DeckProfileList implements Iterable<CardList> {
         return profiles.size();
     }
 
-    public CardList getProfile(int p) {
+    public ActiveCardList getProfile(int p) {
         if(p < 0 || p >= size())
             p = 0;
         return profiles.get(p);
@@ -76,7 +75,7 @@ public class DeckProfileList implements Iterable<CardList> {
        latestProfileNum = l;
     }
 
-    public CardList getLatestProfile()
+    public ActiveCardList getLatestProfile()
     {
         return getProfile(latestProfileNum);
     }
@@ -85,7 +84,7 @@ public class DeckProfileList implements Iterable<CardList> {
         return latestProfileNum;
     }
 
-    public void setProfile(int profileNum, CardList deck) {
+    public void setProfile(int profileNum, ActiveCardList deck) {
         profiles.set(profileNum, deck.cloneNewList(deck.getThings()));
     }
 }

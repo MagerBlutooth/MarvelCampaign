@@ -2,6 +2,7 @@ package adventure.model.target;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
+import adventure.model.target.base.AdvCard;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
@@ -16,19 +17,18 @@ public class Enemy implements SnapTarget {
 
     public Enemy()
     {
-        subject = new Card();
-        secondarySubject = new Card();
+        subject = new AdvCard();
+        secondarySubject = new AdvCard();
         subject.setID(SnapMainConstants.MOOK_ICON_ID);
         secondarySubject.setID(SnapMainConstants.MOOK_ICON_ID);
+        setBaseHP(AdventureConstants.MOOK_BASE_HP);
+        currentHP = baseHP;
     }
 
     public Enemy(Playable p)
     {
         this();
         subject = p;
-        secondarySubject = new Card();
-        setBaseHP(AdventureConstants.MOOK_BASE_HP);
-        currentHP = baseHP;
     }
 
     public Enemy(Playable p, int worldBonus)

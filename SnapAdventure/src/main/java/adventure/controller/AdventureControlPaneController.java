@@ -3,6 +3,8 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.model.target.Section;
 import adventure.view.node.AdventureActionNode;
 import adventure.view.node.DiceNode;
@@ -13,13 +15,10 @@ import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
 import snapMain.view.button.ButtonToolBar;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 public class AdventureControlPaneController extends AdvPaneController {
@@ -92,12 +91,12 @@ public class AdventureControlPaneController extends AdvPaneController {
     public void draftCard() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
         optionsDialog.initialize(adventure.getFreeAgents(), false);
-        Optional<TargetList<Card>> filteredSelectables = optionsDialog.showAndWait();
+        Optional<TargetList<ActiveCard>> filteredSelectables = optionsDialog.showAndWait();
         if(filteredSelectables.isPresent() && !filteredSelectables.get().isEmpty())
         {
             DraftDialog draftCardDialog = new DraftDialog();
             draftCardDialog.initialize(mainDatabase, adventure.draftCards(filteredSelectables.get()));
-            Optional<Card> card = draftCardDialog.showAndWait();
+            Optional<ActiveCard> card = draftCardDialog.showAndWait();
             card.ifPresent(value ->
             {
                 if(draftCardDialog.isTeam())
@@ -114,12 +113,12 @@ public class AdventureControlPaneController extends AdvPaneController {
     public void generateCards() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
         optionsDialog.initialize(adventure.getFreeAgents(), true);
-        Optional<TargetList<Card>> filteredSelectables = optionsDialog.showAndWait();
+        Optional<TargetList<ActiveCard>> filteredSelectables = optionsDialog.showAndWait();
         if(filteredSelectables.isPresent() && !optionsDialog.isMutiple())
         {
-            RandomDisplayDialog randomDialog = new RandomDisplayDialog();
+            RandomCardDisplayDialog randomDialog = new RandomCardDisplayDialog();
             randomDialog.initialize(mainDatabase, filteredSelectables.get().getRandom());
-            Optional<Card> card = randomDialog.showAndWait();
+            Optional<ActiveCard> card = randomDialog.showAndWait();
             card.ifPresent(value ->
             {
                 if(randomDialog.isTeam())
@@ -132,11 +131,11 @@ public class AdventureControlPaneController extends AdvPaneController {
         else if(filteredSelectables.isPresent())
         {
             CardGeneratorDialog chooseDialog = new CardGeneratorDialog();
-            CardList freeAgents = new CardList(adventure.getFreeAgents());
-            Collections.shuffle(freeAgents.getCards());
-            CardList randomCards = new CardList(freeAgents.getRandom(optionsDialog.getNumber()));
+            ActiveCardList freeAgents = new ActiveCardList(adventure.getFreeAgents());
+            Collections.shuffle(freeAgents.getThings());
+            ActiveCardList randomCards = new ActiveCardList(freeAgents.getRandom(optionsDialog.getNumber()));
             chooseDialog.initialize(mainDatabase, randomCards);
-            Optional<CardList> chosenCards = chooseDialog.showAndWait();
+            Optional<ActiveCardList> chosenCards = chooseDialog.showAndWait();
             if(chosenCards.isPresent() && !chosenCards.get().isEmpty())
             {
                 if(chooseDialog.isTeam())
@@ -152,10 +151,10 @@ public class AdventureControlPaneController extends AdvPaneController {
     public void searchFreeAgent() {
         CardGainSearchSelectDialog cardSearchSelectDialog = new CardGainSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
-        Optional<Card> selection = cardSearchSelectDialog.showAndWait();
+        Optional<ActiveCard> selection = cardSearchSelectDialog.showAndWait();
         if(selection.isPresent())
         {
-            Card card = selection.get();
+            ActiveCard card = selection.get();
             if(cardSearchSelectDialog.isTeam())
                 adventure.addFreeAgentToTeam(card);
             else {

@@ -1,17 +1,14 @@
 package adventure.view.popup;
 
 import adventure.controller.SelectionOptionDialogController;
+import adventure.model.target.ActiveCard;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
-import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
-import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 
-import java.util.Objects;
-
-public class SelectionOptionsDialog extends Dialog<TargetList<Card>> {
+public class SelectionOptionsDialog extends Dialog<TargetList<ActiveCard>> {
 
     SelectionOptionDialogController controller;
 
@@ -23,7 +20,7 @@ public class SelectionOptionsDialog extends Dialog<TargetList<Card>> {
         initStyle(StageStyle.UNDECORATED);
     }
 
-    public void initialize(TargetList<Card> freeAgents, boolean multiSelect)
+    public void initialize(TargetList<ActiveCard> freeAgents, boolean multiSelect)
     {
         controller.initialize(freeAgents, multiSelect);
         setResultConverter(dialogButton -> {

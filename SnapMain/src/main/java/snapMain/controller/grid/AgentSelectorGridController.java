@@ -95,6 +95,14 @@ public class AgentSelectorGridController extends ThingActionController<Card> {
     }
 
     @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return cardNode;
+    }
+
+    @Override
     public MainDatabase getDatabase() {
         return mainDatabase;
     }

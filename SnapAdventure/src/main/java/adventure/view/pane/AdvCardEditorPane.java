@@ -2,7 +2,7 @@ package adventure.view.pane;
 
 import adventure.controller.AdvCardEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvCard;
+import adventure.model.target.base.AdvCard;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.view.pane.editor.EditorPane;
 

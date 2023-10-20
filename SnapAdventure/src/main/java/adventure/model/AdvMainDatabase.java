@@ -1,9 +1,10 @@
 package adventure.model;
 
-import adventure.model.target.*;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvToken;
 import snapMain.controller.MainDatabase;
 import snapMain.model.database.MasterThingDatabase;
-import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
@@ -21,7 +22,7 @@ public class AdvMainDatabase extends MainDatabase {
         advMasterThingDatabase.loadDatabase();
     }
 
-    public List<Card> getCards() {
+    public TargetDatabase<Card> getCards() {
         return advMasterThingDatabase.getCards();
     }
     public TargetDatabase<Token> getTokens()
@@ -38,10 +39,10 @@ public class AdvMainDatabase extends MainDatabase {
     }
 
     public List<AdvCard> getBosses() {
-        return advMasterThingDatabase.getBosses();
+        return advMasterThingDatabase.getAdvCards();
     }
     public List<AdvCard> getActualAdvCards() {
-        List<AdvCard> bosses = advMasterThingDatabase.getBosses();
+        List<AdvCard> bosses = advMasterThingDatabase.getAdvCards();
         List<AdvCard> actualBosses = new ArrayList<>();
         for(AdvCard a: bosses)
         {
@@ -74,7 +75,7 @@ public class AdvMainDatabase extends MainDatabase {
     }
 
     public List<AdvLocation> getSections() {
-        return advMasterThingDatabase.getSections();
+        return advMasterThingDatabase.getAdvLocations();
     }
 
     public TargetDatabase<AdvToken> getAdvTokens() {
@@ -127,10 +128,4 @@ public class AdvMainDatabase extends MainDatabase {
         advMasterThingDatabase.toggleAdvToken(token);
     }
 
-    public PlayableDatabase getCardsAndTokens() {
-        PlayableDatabase playableDatabase = new PlayableDatabase();
-        playableDatabase.addAll(getCards());
-        playableDatabase.addAll(getTokens());
-        return playableDatabase;
-    }
 }

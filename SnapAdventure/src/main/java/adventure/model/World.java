@@ -3,10 +3,9 @@ package adventure.model;
 import adventure.model.stats.MatchResult;
 import adventure.model.stats.WorldStatTracker;
 import adventure.model.target.*;
+import adventure.model.target.base.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 
 import java.util.*;
 
@@ -75,12 +74,12 @@ public class World implements Cloneable{
 
     //Initialize boss to be a card that the player doesn't currently own
     //Postpone initializing boss of future worlds so that boss is always a current free agent.
-    public void initializeBoss(CardList freeAgents) {
-        CardList agentsCopy = new CardList(new ArrayList<>());
+    public void initializeBoss(ActiveCardList freeAgents) {
+        ActiveCardList agentsCopy = new ActiveCardList(new ArrayList<>());
         agentsCopy = agentsCopy.cloneNewList(freeAgents.getThings());
         Collections.shuffle(agentsCopy.getThings());
-        TargetDatabase<AdvCard> bosses = database.getBosses();
-        Card card = agentsCopy.get(0);
+        TargetDatabase<AdvCard> bosses = database.getAdvCards();
+        ActiveCard card = agentsCopy.get(0);
         AdvCard boss = bosses.lookup(card.getID());
         Enemy enemy = new Enemy(boss, bonusCalculator.calculateBoss(worldNum));
         bossSection.setEnemy(enemy);
@@ -103,7 +102,7 @@ public class World implements Cloneable{
         section3.fromSaveString(stringList[3].trim(), dB);
         section4 = new Section(database, 4, new Ruins(), new Enemy());
         section4.fromSaveString(stringList[4].trim(), dB);
-        bossSection = new BossSection(database, new Enemy(new Card()));
+        bossSection = new BossSection(database, new Enemy());
         bossSection.fromSaveString(stringList[5].trim(), dB);
         bossRevealed = Boolean.parseBoolean(stringList[6]);
         worldStatTracker = new WorldStatTracker();

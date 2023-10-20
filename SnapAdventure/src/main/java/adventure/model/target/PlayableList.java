@@ -1,8 +1,11 @@
 package adventure.model.target;
 
+import adventure.model.target.base.AdvToken;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.database.PlayableDatabase;
-import snapMain.model.target.*;
+import snapMain.model.target.Playable;
+import snapMain.model.target.SnapTarget;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
 
 import java.util.Base64;
 import java.util.List;
@@ -46,7 +49,7 @@ public class PlayableList extends TargetList<Playable> {
             TargetType tType = TargetType.valueOf(playableString[0]);
             if(tType == TargetType.CARD)
             {
-                Card c = (Card) db.lookup(Integer.parseInt(playableString[1]), TargetType.CARD);
+                ActiveCard c = (ActiveCard) db.lookup(Integer.parseInt(playableString[1]), TargetType.CARD);
                 this.add(c);
             }
             else

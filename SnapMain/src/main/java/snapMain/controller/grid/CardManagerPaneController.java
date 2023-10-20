@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
+import snapMain.model.target.Location;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.manager.CardManager;
@@ -41,11 +42,19 @@ public class CardManagerPaneController extends ManagerPaneController<Card, MainD
         //of cards getting set as such from the most recent campaign*/
         for(Card c: cards)
         {
-            c.setCaptain(false);
+            //c.setCaptain(false);
         }
         cardManager.initialize(cards, TargetType.CARD, this, ViewSize.MEDIUM, false);
         sortButton.initialize(cardManager.getListNodeController());
         filterButton.initialize(cardManager.getListNodeController());
+    }
+
+    @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return cardNode;
     }
 
     @Override

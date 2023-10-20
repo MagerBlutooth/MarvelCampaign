@@ -1,7 +1,7 @@
 package adventure.controller;
 
-import adventure.model.target.AdvLocation;
-import adventure.model.target.AdvLocationList;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvLocationList;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import snapMain.controller.MainDatabase;

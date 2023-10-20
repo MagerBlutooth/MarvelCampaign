@@ -1,9 +1,8 @@
 package adventure.model;
 
 import adventure.model.target.*;
+import adventure.model.target.base.*;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class FinalWorld extends World {
 
-    public FinalWorld(AdventureDatabase db, CardList freeAgents, List<AdvLocation> locations) {
+    public FinalWorld(AdventureDatabase db, ActiveCardList freeAgents, List<AdvLocation> locations) {
         super(db);
         section1 = new Section(db, 1, locations.get(0) , new Enemy(new Mook(),
                 bonusCalculator.calculateBoss(worldNum)));
@@ -28,13 +27,12 @@ public class FinalWorld extends World {
         initializeBoss(freeAgents);
 
     }
-
-    public void initializeMiniBoss(Section s, CardList freeAgents) {
-        CardList agentsCopy = new CardList(new ArrayList<>());
+    public void initializeMiniBoss(Section s, ActiveCardList freeAgents) {
+        ActiveCardList agentsCopy = new ActiveCardList(new ArrayList<>());
         agentsCopy = agentsCopy.cloneNewList(freeAgents.getThings());
         Collections.shuffle(agentsCopy.getThings());
-        TargetDatabase<AdvCard> bosses = database.getBosses();
-        Card card = agentsCopy.get(0);
+        TargetDatabase<AdvCard> bosses = database.getAdvCards();
+        ActiveCard card = agentsCopy.get(0);
         AdvCard boss = bosses.get(card.getID());
         Enemy enemy = new Enemy(boss, worldNum);
         s.setEnemy(enemy);

@@ -1,6 +1,6 @@
 package adventure.view.node;
 
-import adventure.model.target.AdvLocation;
+import adventure.model.target.base.AdvLocation;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;

@@ -31,7 +31,7 @@ public class DroppableLocationDisplayController extends GridDisplayController<Lo
     @Override
     protected void addNewNode(Location l, List<ControlNode<Location>> listOfObjects) {
         IconImage i = mainDatabase.grabImage(l);
-        ControlNode<Location> n = gridActionController.createControlNode(l,i,viewSize, blind);
+        ControlNode<Location> n = gridActionController.createControlNode(l,i,viewSize, statusVisible);
         n.setOnDragOver(mouseDragOver(n));
         n.setOnDragDropped(mouseDragDropped(n));
         n.setOnDragEntered(mouseDragEntered(n));

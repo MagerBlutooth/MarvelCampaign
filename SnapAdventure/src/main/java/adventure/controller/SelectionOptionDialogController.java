@@ -1,5 +1,7 @@
 package adventure.controller;
 
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -7,9 +9,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.Card;
 import snapMain.model.target.CardAttribute;
-import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
 
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class SelectionOptionDialogController {
 
     @FXML
     HBox selectionCountBox;
-    CardList selectables;
+    ActiveCardList selectables;
     @FXML
     ChoiceBox<Integer> minCostChoice;
     @FXML
@@ -50,9 +50,9 @@ public class SelectionOptionDialogController {
 
     Map<CardAttribute, ObservableValue<Boolean>> map = new HashMap<>();
 
-    public void initialize(TargetList<Card> s, boolean multiple)
+    public void initialize(TargetList<ActiveCard> s, boolean multiple)
     {
-        selectables = new CardList(s.getThings());
+        selectables = new ActiveCardList(s.getThings());
         if(multiple)
             initializeMultiBox();
         initializeCostBox();
@@ -144,7 +144,7 @@ public class SelectionOptionDialogController {
     }
 
     //TODO: Filter selectables based on enabled radio buttons
-    public TargetList<Card> getSelectables() {
+    public TargetList<ActiveCard> getSelectables() {
         if(costOnButton.isSelected())
         {
             selectables = selectables.filterCost(minCostChoice.getValue(),

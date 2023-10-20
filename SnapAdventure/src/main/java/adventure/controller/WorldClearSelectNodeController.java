@@ -2,11 +2,10 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
-import adventure.view.node.WorldClearSelectNode;
+import adventure.model.target.ActiveCard;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardChooserDialog;
 import adventure.view.popup.ConfirmationDialog;
-import adventure.view.popup.DraftDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,8 +15,6 @@ import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
-import snapMain.view.button.ButtonToolBar;
-import snapMain.view.node.GridDisplayNode;
 import snapMain.view.thing.CardView;
 
 import java.util.Optional;
@@ -53,8 +50,8 @@ public class WorldClearSelectNodeController extends AdvPaneController  {
     {
         CardChooserDialog chooserDialog = new CardChooserDialog();
         chooserDialog.initialize(mainDatabase, adventure.draftCards());
-        Optional<Card> card = chooserDialog.showAndWait();
-        card.ifPresent(value -> draftCardDisplay.initialize(mainDatabase, card.get(), ViewSize.MEDIUM, false));
+        Optional<ActiveCard> card = chooserDialog.showAndWait();
+        card.ifPresent(value -> draftCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM, false));
         draftButton.setDisable(true);
     }
 
@@ -63,8 +60,8 @@ public class WorldClearSelectNodeController extends AdvPaneController  {
     {
         CardChooserDialog chooserDialog = new CardChooserDialog();
         chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
-        Optional<Card> card = chooserDialog.showAndWait();
-        card.ifPresent(value -> healCardDisplay.initialize(mainDatabase, card.get(), ViewSize.MEDIUM, false));
+        Optional<ActiveCard> card = chooserDialog.showAndWait();
+        card.ifPresent(value -> healCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM, false));
         healButton.setDisable(true);
 
     }
@@ -87,9 +84,12 @@ public class WorldClearSelectNodeController extends AdvPaneController  {
                 return;
         }
         adventure.completeCurrentWorld();
-        adventure.addCardToTeam(draftCardDisplay.getCard());
-        adventure.addCardToTeam(bossDisplay.getCard());
-        adventure.healCard(healCardDisplay.getCard());
+        ActiveCard draftedCard = adventure.lookupCard(draftCardDisplay.getCard().getID());
+        ActiveCard bossCard = adventure.lookupCard(bossDisplay.getCard().getID());
+        ActiveCard healCard = adventure.lookupCard(healCardDisplay.getCard().getID());
+        adventure.addCardToTeam(draftedCard);
+        adventure.addCardToTeam(bossCard);
+        adventure.healCard(healCard);
         adventureControlPane.refreshToMatch();
         changeScene(adventureControlPane);
     }

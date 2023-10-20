@@ -1,11 +1,14 @@
 package snapMain.model.target;
 
+import snapMain.model.constants.SnapMainConstants;
+
 public abstract class EffectBaseObject extends BaseObject {
 
     String effect;
 
     public EffectBaseObject()
     {
+        super();
         effect = "";
     }
 

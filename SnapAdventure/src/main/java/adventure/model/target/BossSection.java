@@ -1,6 +1,7 @@
 package adventure.model.target;
 
 import adventure.model.AdventureDatabase;
+import adventure.model.target.base.Ruins;
 
 public class BossSection extends Section {
 

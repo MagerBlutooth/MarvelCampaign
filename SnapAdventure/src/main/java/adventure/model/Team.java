@@ -1,12 +1,12 @@
 package adventure.model;
 
-import adventure.model.target.InfinityStone;
-import adventure.model.target.InfinityStoneID;
-import adventure.model.target.Section;
+import adventure.model.target.*;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
+import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
@@ -16,43 +16,42 @@ import java.util.List;
 
 public class Team {
 
-    CardList teamCards;
-    CardList tempCards;
-    CardList freeAgentCards;
-    CardList capturedCards;
-    CardList miaCards;
-    CardList eliminatedCards;
+    ActiveCardList teamCards;
+    ActiveCardList tempCards;
+    ActiveCardList freeAgentCards;
+    ActiveCardList capturedCards;
+    ActiveCardList miaCards;
+    ActiveCardList eliminatedCards;
     List<InfinityStone> infinityStones;
 
     public Team()
     {
-        teamCards = new CardList(new ArrayList<>());
-        tempCards = new CardList(new ArrayList<>());
-        freeAgentCards = new CardList(new ArrayList<>());
-        capturedCards = new CardList(new ArrayList<>());
-        miaCards = new CardList(new ArrayList<>());
-        eliminatedCards = new CardList(new ArrayList<>());
+        teamCards = new ActiveCardList(new ArrayList<>());
+        tempCards = new ActiveCardList(new ArrayList<>());
+        freeAgentCards = new ActiveCardList(new ArrayList<>());
+        capturedCards = new ActiveCardList(new ArrayList<>());
+        miaCards = new ActiveCardList(new ArrayList<>());
+        eliminatedCards = new ActiveCardList(new ArrayList<>());
         infinityStones = new ArrayList<>();
     }
     public Team(AdventureDatabase database, int numTeamMembers, int numCaptains)
     {
         this();
-        CardList cards = new CardList(new ArrayList<>());
-        cards = cards.cloneNewList(database.getCards());
-        Collections.shuffle(cards.getThings());
+        ActiveCardList allCards = database.generateActiveCards();
+        allCards.shuffle();
         for(int i = 0; i < numTeamMembers; i++)
         {
-            teamCards.add(cards.get(i));
+            teamCards.add(allCards.get(i));
         }
-        cards.removeAll(teamCards.getCards());
-        freeAgentCards.addAll(cards.getCards());
+        allCards.removeAll(teamCards.getThings());
+        freeAgentCards.addAll(allCards.getThings());
         for(int i = 0; i < numCaptains; i++)
         {
-            teamCards.get(i).setCaptain(true);
+            teamCards.get(i).setStatus(StatusEffect.CAPTAIN, true);
         }
     }
 
-    public String convertToString() {
+    public String toSaveString() {
         String teamString =  teamCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 tempCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 freeAgentCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
@@ -62,23 +61,23 @@ public class Team {
         return Base64.getEncoder().encodeToString(teamString.getBytes());
     }
 
-    public void convertFromString(String teamString, TargetDatabase<Card> db) {
+    public void convertFromString(String teamString, AdventureDatabase ad) {
         byte[] decodedBytes = Base64.getDecoder().decode(teamString);
         String decodedString = new String(decodedBytes);
         String[] teamList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
-        teamCards.fromSaveString(teamList[0], db);
-        tempCards.fromSaveString(teamList[1], db);
-        freeAgentCards.fromSaveString(teamList[2], db);
-        capturedCards.fromSaveString(teamList[3], db);
-        miaCards.fromSaveString(teamList[4], db);
-        eliminatedCards.fromSaveString(teamList[5], db);
+        teamCards.fromSaveString(teamList[0], ad.getCards());
+        tempCards.fromSaveString(teamList[1], ad.getCards());
+        freeAgentCards.fromSaveString(teamList[2], ad.getCards());
+        capturedCards.fromSaveString(teamList[3], ad.getCards());
+        miaCards.fromSaveString(teamList[4], ad.getCards());
+        eliminatedCards.fromSaveString(teamList[5], ad.getCards());
     }
 
-    public CardList getTeamCards() {
+    public ActiveCardList getTeamCards() {
         return teamCards;
     }
 
-    public void captureCard(Card card) {
+    public void captureCard(ActiveCard card) {
         if(teamCards.contains(card)) {
             capturedCards.add(card);
             teamCards.remove(card);
@@ -90,7 +89,7 @@ public class Team {
         }
     }
 
-    public void freeCapturedCard(Card card)
+    public void freeCapturedCard(ActiveCard card)
     {
         if(capturedCards.contains(card))
         {
@@ -99,7 +98,7 @@ public class Team {
         }
     }
 
-    public void makeCardFreeAgent(Card card)
+    public void makeCardFreeAgent(ActiveCard card)
     {
         if(teamCards.contains(card) || tempCards.contains(card)) {
             freeAgentCards.add(card);
@@ -109,7 +108,7 @@ public class Team {
     }
 
 
-    public void eliminateCard(Card card) {
+    public void eliminateCard(ActiveCard card) {
 
         if(teamCards.contains(card) || tempCards.contains(card)) {
             eliminatedCards.add(card);
@@ -118,7 +117,7 @@ public class Team {
         }
     }
 
-    public void reviveCard(Card card) {
+    public void reviveCard(ActiveCard card) {
         if(eliminatedCards.contains(card))
         {
             teamCards.add(card);
@@ -126,7 +125,7 @@ public class Team {
         }
     }
 
-    public boolean returnCard(Card card) {
+    public boolean returnCard(ActiveCard card) {
         if(miaCards.contains(card) || capturedCards.contains(card) || eliminatedCards.contains(card)) {
             teamCards.add(card);
             miaCards.remove(card);
@@ -138,63 +137,63 @@ public class Team {
     }
 
 
-    public void sendAway(Card card) {
+    public void sendAway(ActiveCard card) {
         if(teamCards.contains(card)) {
             miaCards.add(card);
             teamCards.remove(card);
         }
     }
 
-    public TargetList<Card> getCaptains() {
-        CardList captains = new CardList(new ArrayList<>());
-        for(Card c: getTeamCards())
+    public TargetList<ActiveCard> getCaptains() {
+        ActiveCardList captains = new ActiveCardList(new ArrayList<>());
+        for(ActiveCard c: getTeamCards())
         {
-            if(c.isCaptain())
+            if(c.hasStatus(StatusEffect.CAPTAIN))
                 captains.add(c);
         }
         return captains;
     }
 
-    public TargetList<Card> getTempCards() {
+    public ActiveCardList getTempCards() {
         return tempCards;
     }
 
-    public CardList getEliminatedCards() {
+    public ActiveCardList getEliminatedCards() {
         return eliminatedCards;
     }
 
-    public CardList getCapturedCards() {
+    public ActiveCardList getCapturedCards() {
         return capturedCards;
     }
 
-    public CardList getMIACards()
+    public ActiveCardList getMIACards()
     {
         return miaCards;
     }
 
-    public CardList getFreeAgents()
+    public ActiveCardList getFreeAgents()
     {
         return freeAgentCards;
     }
 
-    public void healCard(Card c) {
-        Card card = teamCards.get(c);
+    public void healCard(ActiveCard c) {
+        ActiveCard card = teamCards.get(c);
         if(card!=null) {
-            card.setWounded(false);
+            card.setStatus(StatusEffect.WOUND, false);
         }
     }
 
-    public TargetList<Card> getWoundedCards() {
-        CardList cards = new CardList(new ArrayList<>());
-        for(Card c: teamCards)
+    public ActiveCardList getWoundedCards() {
+        ActiveCardList cards = new ActiveCardList(new ArrayList<>());
+        for(ActiveCard c: teamCards)
         {
-            if(c.isWounded())
+            if(c.hasStatus(StatusEffect.WOUND))
                 cards.add(c);
         }
         return cards;
     }
 
-    public void stationCard(Section s ,Card c)
+    public void stationCard(Section s, ActiveCard c)
     {
         if(s.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             s.stationCard(c);
@@ -212,7 +211,7 @@ public class Team {
         return false;
     }
 
-    public void addCardToTeam(Card c) {
+    public void addCardToTeam(ActiveCard c) {
         teamCards.add(c);
     }
 
@@ -220,17 +219,8 @@ public class Team {
         infinityStones.add(p);
     }
 
-    public Card getRandomCard() {
-        if(!teamCards.isEmpty()) {
-            List<Card> allCards = new ArrayList<>(teamCards.getThings());
-            Collections.shuffle(allCards);
-            return allCards.get(0);
-        }
-        return null;
-    }
-
     public void retrieveCapturedCards() {
-        teamCards.addAll(capturedCards.getCards());
+        teamCards.addAll(capturedCards.getThings());
         capturedCards.clear();
     }
 
@@ -238,24 +228,45 @@ public class Team {
         tempCards.clear();
     }
 
-    public void addCardToFreeAgents(Card card) {
+    public void addCardToFreeAgents(ActiveCard card) {
         freeAgentCards.add(card);
     }
 
     public void removeFromFreeAgents(Card card) {
-        freeAgentCards.remove(card);
+        ActiveCard aCard = null;
+        for(ActiveCard c: freeAgentCards)
+        {
+            if(c.getID() == card.getID())
+            {
+                aCard = c;
+                break;
+            }
+        }
+        if(aCard != null)
+           freeAgentCards.remove(aCard);
     }
 
-    public void fromTempToTeam(Card c) {
+    public void fromTempToTeam(ActiveCard c) {
         boolean removed = tempCards.remove(c);
         if(removed)
             teamCards.add(c);
     }
 
-    public void fromTeamToTemp(Card c)
+    public void fromTeamToTemp(ActiveCard c)
     {
         boolean removed = teamCards.remove(c);
         if(removed)
             tempCards.add(c);
+    }
+
+    public ActiveCardList getAllCards() {
+        ActiveCardList allCards = new ActiveCardList(new ArrayList<>());
+        allCards.addAll(teamCards.getThings());
+        allCards.addAll(tempCards.getThings());
+        allCards.addAll(freeAgentCards.getThings());
+        allCards.addAll(eliminatedCards.getThings());
+        allCards.addAll(capturedCards.getThings());
+        allCards.addAll(miaCards.getThings());
+        return allCards;
     }
 }

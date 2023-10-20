@@ -31,10 +31,10 @@ public class GridDisplayController<T extends SnapTarget>  {
         super();
     }
 
-    boolean blind;
+    boolean statusVisible;
 
     public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v,
-                           boolean bl)
+                           boolean sv)
     {
         mainDatabase = controller.getDatabase();
         targetType = tType;
@@ -42,7 +42,7 @@ public class GridDisplayController<T extends SnapTarget>  {
         groupList.getChildren().clear();
         viewSize = v;
         targetList = things;
-        blind = bl;
+        this.statusVisible = sv;
         sortOptions = new ArrayList<>(tType.getSortOptions());
         setFilterOptions(tType.getFilterOptions());
         populateDisplay();
@@ -63,43 +63,7 @@ public class GridDisplayController<T extends SnapTarget>  {
         targetList.sort();
         if(targetList.isEmpty())
         {
-            T blankObject = null;
-            switch(targetType)
-            {
-                case CARD:
-                    Card c = new Card();
-                    try {
-                        blankObject = (T) c.getClass().getDeclaredConstructor().newInstance();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                case LOCATION:
-                    Location l = new Location();
-                    try {
-                        blankObject = (T) l.getClass().getDeclaredConstructor().newInstance();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                case TOKEN:
-                    Token t = new Token();
-                    try {
-                        blankObject = (T) t.getClass().getDeclaredConstructor().newInstance();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                case CARD_OR_TOKEN:
-                    CardOrToken ct = new CardOrToken();
-                    try {
-                        blankObject = (T) ct.getClass().getDeclaredConstructor().newInstance();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-            }
-            addNewNode(blankObject, listOfObjects);
+            addBlankNode(listOfObjects);
         }
         for(T t: targetList)
         {
@@ -122,9 +86,14 @@ public class GridDisplayController<T extends SnapTarget>  {
         groupList.getChildren().addAll(observableList);
     }
 
-     protected void addNewNode(T t, List<ControlNode<T>> listOfObjects) {
+    private void addBlankNode(List<ControlNode<T>> listOfObjects) {
+        ControlNode<T> n = gridActionController.createEmptyNode(viewSize);
+        listOfObjects.add(n);
+    }
+
+    protected void addNewNode(T t, List<ControlNode<T>> listOfObjects) {
         IconImage i = mainDatabase.grabImage(t);
-        ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, blind);
+        ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, statusVisible);
         listOfObjects.add(n);
     }
 
@@ -195,9 +164,9 @@ public class GridDisplayController<T extends SnapTarget>  {
         return gridActionController;
     }
 
-    public boolean isBlind()
+    public boolean isStatusVisible()
     {
-        return blind;
+        return statusVisible;
     }
 
     public ViewSize getViewSize()

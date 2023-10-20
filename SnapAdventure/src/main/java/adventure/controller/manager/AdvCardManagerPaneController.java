@@ -1,8 +1,9 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvCard;
-import adventure.model.target.AdvCardList;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvCardList;
 import adventure.view.manager.BossManager;
 import adventure.view.node.AdvCardControlNode;
 import adventure.view.pane.AdvEditorMenuPane;
@@ -60,6 +61,14 @@ public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard,
         createTooltip(node);
         setMouseEvents(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<AdvCard> createEmptyNode(ViewSize v) {
+        ControlNode<AdvCard> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new AdvCard(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
     }
 
     @Override

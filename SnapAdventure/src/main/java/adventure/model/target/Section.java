@@ -3,8 +3,8 @@ package adventure.model.target;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.Team;
+import adventure.model.target.base.AdvLocation;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
@@ -13,23 +13,30 @@ import java.util.Base64;
 
 public class Section implements Cloneable, SnapTarget {
     AdvLocation advLocation;
-    CardList stationedCards;
+    ActiveCardList stationedCards;
     PlayableList pickups;
     PlayableDatabase cardsAndTokens;
-    TargetDatabase<Card> cardDatabase;
+    AdventureDatabase adventureDatabase;
     boolean revealed;
     boolean completed;
     int sectionNum;
     Enemy enemy;
 
+    private Section()
+    {
+        super();
+        advLocation = new AdvLocation(new Location());
+        stationedCards = new ActiveCardList(new ArrayList<>());
+        pickups = new PlayableList(new ArrayList<>());
+    }
+
     public Section(AdventureDatabase database, int num, AdvLocation l, Enemy e)
     {
+        this();
         sectionNum = num;
         advLocation = l;
-        stationedCards = new CardList(new ArrayList<>());
-        pickups = new PlayableList(new ArrayList<>());
         cardsAndTokens = database.getCardsAndTokens();
-        cardDatabase = database.getCards();
+        adventureDatabase = database;
         revealed = false;
         enemy = e;
     }
@@ -37,12 +44,12 @@ public class Section implements Cloneable, SnapTarget {
     public Section(Section loc) {
         sectionNum = loc.sectionNum;
         advLocation = loc.advLocation;
-        stationedCards = new CardList(new ArrayList<>());
+        stationedCards = new ActiveCardList(new ArrayList<>());
         pickups = new PlayableList(new ArrayList<>());
         cardsAndTokens = loc.cardsAndTokens;
         revealed = loc.revealed;
         completed = loc.completed;
-        cardDatabase = loc.cardDatabase;
+        adventureDatabase = loc.adventureDatabase;
         enemy = loc.enemy;
     }
 
@@ -72,7 +79,7 @@ public class Section implements Cloneable, SnapTarget {
         advLocation = locDatabase.lookup(Integer.parseInt(stringList[1]));
         enemy = new Enemy();
         enemy.fromSaveString(stringList[2], database);
-        stationedCards.fromSaveString(stringList[3], cardDatabase);
+        stationedCards.fromSaveString(stringList[3], adventureDatabase.getCards());
         pickups.fromSaveString(stringList[4], cardsAndTokens);
         revealed = Boolean.parseBoolean(stringList[5]);
         completed = Boolean.parseBoolean(stringList[6]);
@@ -118,7 +125,7 @@ public class Section implements Cloneable, SnapTarget {
         return new Section(this);
     }
 
-    public void stationCard(Card c) {
+    public void stationCard(ActiveCard c) {
         stationedCards.add(c);
     }
 
@@ -130,7 +137,7 @@ public class Section implements Cloneable, SnapTarget {
         return pickups;
     }
 
-    public TargetList<Card> getStationedCards()
+    public TargetList<ActiveCard> getStationedCards()
     {
         return stationedCards;
     }
@@ -192,7 +199,7 @@ public class Section implements Cloneable, SnapTarget {
         return oldEnemy;
     }
 
-    public boolean removeStationedCard(Card card, Team t) {
+    public boolean removeStationedCard(ActiveCard card, Team t) {
         boolean removed = stationedCards.remove(card);
         if(removed)
             t.addCardToTeam(card);

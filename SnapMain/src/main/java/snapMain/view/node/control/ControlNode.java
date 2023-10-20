@@ -23,7 +23,6 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
     protected ImageView imageView;
 
     protected TargetType targetType;
-    protected AnchorPane starPane;
 
     public Image getImage() {
         return imageView.getImage();
@@ -31,53 +30,25 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
 
     public ControlNode()
     {
-        starPane = new AnchorPane();
         imageView = new ImageView();
         getChildren().add(imageView);
     }
 
-    public void initialize(MainDatabase db, T t, IconImage i, ViewSize v, boolean blind) {
-
-        mainDatabase = db;
-        targetType = t.getTargetType();
-        subject = t;
+    public void initialize(IconImage i, ViewSize v)
+    {
         imageView.setImage(i);
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());
-        setEnabled(t.isEnabled());
         highlighted = true;
-
-        if(subject instanceof Card)
-        {
-            Card c = (Card)t;
-            if(!blind && c.isCaptain())
-                createCaptainView(v);
-            setDamage(c.isWounded());
-            setCaptain(c.isCaptain());
-        }
-        else if(t instanceof Location)
-        {
-            Location l = (Location)subject;
-            setDamage(l.isRuined());
-        }
     }
 
-    protected void createCaptainView(ViewSize v) {
-        starPane.setMinSize(v.getSizeVal(), v.getSizeVal());
-        starPane.setMaxSize(v.getSizeVal(),v.getSizeVal());
-        ImageView captainStar = new ImageView(grabStarIcon());
-        captainStar.setFitWidth(30);
-        captainStar.setFitHeight(30);
-        AnchorPane.setLeftAnchor(captainStar, 0.0);
-        AnchorPane.setBottomAnchor(captainStar, 0.0);
-        starPane.getChildren().add(captainStar);
-        this.getChildren().add(starPane);
-        starPane.toFront();
-        starPane.setVisible(false);
-    }
+    public void initialize(MainDatabase db, T t, IconImage i, ViewSize v, boolean blind) {
 
-    private IconImage grabStarIcon() {
-        return mainDatabase.grabIcon(IconConstant.STAR);
+        this.initialize(i, v);
+        mainDatabase = db;
+        targetType = t.getTargetType();
+        subject = t;
+        setEnabled(t.isEnabled());
     }
 
     public T getSubject() {
@@ -114,23 +85,7 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
         return targetType;
     }
 
-    public void setDamage(boolean wounded)
-    {
-        if(wounded) {
-            Blend blush = new Blend();
-            blush.setMode(BlendMode.MULTIPLY);
-            ColorAdjust redWound = new ColorAdjust();
-            redWound.setSaturation(-1.0);
-            Lighting lighting = new Lighting(new Light.Distant(0,70,Color.CRIMSON));
-            blush.setTopInput(redWound);
-            blush.setBottomInput(lighting);
-            blush.setOpacity(0.1);
-            imageView.setEffect(blush);
-        }
-        else
-            imageView.setEffect(null);
 
-    }
 
     public void setGolden(boolean golden) {
         Blend gold = new Blend();
@@ -148,17 +103,6 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
             imageView.setEffect(null);
     }
 
-    public void setCaptain(boolean yes) {
-        if(yes)
-        {
-            starPane.setVisible(true);
-        }
-
-        else {
-            starPane.setVisible(false);
-        }
-    }
-
     public void toggleNodeLight() {
         setHighlighted(!highlighted);
     }
@@ -170,5 +114,9 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
             highlight();
         else
             lowlight();
+    }
+
+    public void update(T t) {
+
     }
 }

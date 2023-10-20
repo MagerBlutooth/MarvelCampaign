@@ -32,6 +32,14 @@ public class LocationManagerPaneController extends ManagerPaneController<Locatio
         locationManager.setMinSize(Button.USE_PREF_SIZE, Button.USE_PREF_SIZE);
     }
 
+    @Override
+    public ControlNode<Location> createEmptyNode(ViewSize v) {
+        ControlNode<Location> locationNode = new ControlNode<>();
+        locationNode.initialize(mainDatabase, new Location(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return locationNode;
+    }
+
     //Left click toggles the node. Right-click allows you to edit.
     @Override
     public void saveGridNode(ControlNode<Location> node) {

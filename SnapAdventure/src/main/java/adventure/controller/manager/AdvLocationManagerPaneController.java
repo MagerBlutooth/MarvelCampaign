@@ -1,8 +1,9 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvLocation;
-import adventure.model.target.AdvLocationList;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvLocationList;
 import adventure.view.manager.AdvLocationManager;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.pane.AdvEditorMenuPane;
@@ -59,6 +60,14 @@ public class AdvLocationManagerPaneController extends ManagerPaneController<AdvL
         createContextMenu(node);
         setMouseEvents(node);
         return node;
+    }
+
+    @Override
+    public ControlNode<AdvLocation> createEmptyNode(ViewSize v) {
+        ControlNode<AdvLocation> locNode = new ControlNode<>();
+        locNode.initialize(mainDatabase, new AdvLocation(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return locNode;
     }
 
     @Override

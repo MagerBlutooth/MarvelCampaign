@@ -3,16 +3,12 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardDisplayPopup;
-import adventure.view.popup.CardSearchSelectDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
-import snapMain.model.target.TargetList;
-
-import java.util.Optional;
 
 public class AdventureActionNodeController {
 
@@ -42,8 +38,8 @@ public class AdventureActionNodeController {
     @FXML
     public void randomCard()
     {
-        AdventureDatabase database = adventure.getAdventureDatabase();
-        Card card = database.getCards().getRandom();
+        ActiveCardList cards = adventure.getActiveCards();
+        ActiveCard card = cards.getRandom();
         CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, card,
                     randomCard.localToScreen(100.0,50.0));
         popup.show();

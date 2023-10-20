@@ -1,7 +1,7 @@
 package adventure.view.popup;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvCard;
+import adventure.model.target.base.AdvCard;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 

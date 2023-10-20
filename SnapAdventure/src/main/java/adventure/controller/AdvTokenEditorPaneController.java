@@ -2,9 +2,8 @@ package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvToken;
+import adventure.model.target.base.AdvToken;
 import adventure.view.node.AdvTokenEditorNode;
-import adventure.view.pane.AdvCardManagerPane;
 import adventure.view.pane.AdvTokenManagerPane;
 import javafx.fxml.FXML;
 import snapMain.model.target.TargetType;

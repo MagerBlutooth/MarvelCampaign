@@ -43,14 +43,14 @@ public class BaseStartPaneController extends ButtonToolBarPaneController {
         Collections.shuffle(locations.getLocations());
         CardList shieldAgents = new CardList(cards.subList(0, STARTING_CARDS));
         CardList hydraAgents = new CardList(cards.subList(STARTING_CARDS, STARTING_CARDS*2));
-        for(int i = 0; i < STARTING_CAPTAINS; i++)
+/*        for(int i = 0; i < STARTING_CAPTAINS; i++)
         {
             shieldAgents.get(i).setCaptain(true);
         }
         for(int i = 0; i < STARTING_CAPTAINS; i++)
         {
             hydraAgents.get(i).setCaptain(true);
-        }
+        }*/
         LocationList shieldLocations = new LocationList(locations.subList(0, STARTING_LOCS));
         LocationList hydraLocations = new LocationList(locations.subList(STARTING_LOCS, STARTING_LOCS*2));
         shieldAgents.sort();

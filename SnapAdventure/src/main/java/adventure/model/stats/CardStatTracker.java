@@ -1,10 +1,8 @@
 package adventure.model.stats;
 
-import snapMain.controller.MainDatabase;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 
 import java.util.Base64;
 import java.util.Map;
@@ -18,16 +16,16 @@ public class CardStatTracker {
         cardStatMap = new ConcurrentHashMap<>();
     }
 
-    public void initialize(TargetDatabase<Card> cards) {
-        for(Card card: cards)
+    public void initialize(ActiveCardList cards) {
+        for(ActiveCard card: cards)
         {
             cardStatMap.put(card.getID(), new CardStats());
         }
     }
 
-    public void updateCardStats(CardList deck, MatchResult result)
+    public void updateCardStats(ActiveCardList deck, MatchResult result)
     {
-        for(Card c: deck)
+        for(ActiveCard c: deck)
         {
             int id = c.getID();
             CardStats cardStats = cardStatMap.get(id);
@@ -35,7 +33,7 @@ public class CardStatTracker {
         }
     }
 
-    public int lookupCardStat(Card c, MatchResult result)
+    public int lookupCardStat(ActiveCard c, MatchResult result)
     {
         return cardStatMap.get(c.getID()).lookupStat(result);
     }

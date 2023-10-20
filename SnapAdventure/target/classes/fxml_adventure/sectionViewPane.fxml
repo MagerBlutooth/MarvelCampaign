@@ -29,8 +29,8 @@
                 <StackPane fx:id="stationedDisplayBox"/>
             </VBox>
             <VBox alignment="CENTER" spacing="20.0">
-                <Label text="Pickups"/>
-                <StackPane fx:id="pickupDisplayBox"/>
+                <Label text="Rewards"/>
+                <StackPane fx:id="rewardDisplayBox"/>
             </VBox>
         </HBox>
         <VBox alignment="CENTER" spacing="10.0">

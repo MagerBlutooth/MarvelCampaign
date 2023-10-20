@@ -72,7 +72,7 @@ public enum TargetType {
         @Override
         public List<String> getSortOptions() {
             List<String> options = new ArrayList<>();
-            for (BossSortMode mode : BossSortMode.values())
+            for (AdvCardSortMode mode : AdvCardSortMode.values())
                 options.add(mode.toString());
             return options;
         }

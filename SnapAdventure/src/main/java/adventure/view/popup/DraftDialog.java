@@ -1,17 +1,17 @@
 package adventure.view.popup;
 
 import adventure.controller.DraftCardDialogController;
+import adventure.model.target.ActiveCard;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
 import snapMain.controller.MainDatabase;
-import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
-public class DraftDialog extends Dialog<Card> implements Choosable<Card> {
+public class DraftDialog extends Dialog<ActiveCard> implements Choosable<ActiveCard> {
 
-    DraftCardDialogController<Card> controller;
+    DraftCardDialogController controller;
 
     public DraftDialog()
     {
@@ -20,7 +20,7 @@ public class DraftDialog extends Dialog<Card> implements Choosable<Card> {
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<Card> selectables)
+    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectables)
     {
         controller.initialize(cd, this, selectables, TargetType.CARD);
         setResultConverter(dialogButton -> {
@@ -32,7 +32,7 @@ public class DraftDialog extends Dialog<Card> implements Choosable<Card> {
     }
 
     @Override
-    public void setChoice(Card card) {
+    public void setChoice(ActiveCard card) {
         controller.setChoice(card);
     }
 

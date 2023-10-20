@@ -1,28 +1,23 @@
 package adventure.model;
 
-import adventure.model.adventure.Adventure;
-import adventure.model.target.AdvCard;
-import adventure.model.target.AdvCardList;
-import adventure.model.target.AdvLocation;
-import adventure.model.target.AdvToken;
+import adventure.model.target.*;
+import adventure.model.target.base.*;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.database.PlayableDatabase;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Base64;
 
 public class AdventureDatabase {
 
     //This class keeps track of what cards, locations, and tokens are enabled for the current adventure.
-    TargetDatabase<Card> cards;
     TargetDatabase<AdvCard> advCards;
     TargetDatabase<AdvLocation> advLocations;
     TargetDatabase<AdvToken> advTokens;
 
     public AdventureDatabase() {
-        cards = new TargetDatabase<>();
         advCards = new TargetDatabase<>();
         advLocations = new TargetDatabase<>();
         advTokens = new TargetDatabase<>();
@@ -30,17 +25,23 @@ public class AdventureDatabase {
 
     public void createNewDatabase(AdvMainDatabase controllerDatabase) {
         AdvMasterThingDatabase masterThingDatabase = controllerDatabase.getAdvMasterThingDatabase();
-        CardList clonedCards = new CardList(new ArrayList<>());
-        clonedCards = clonedCards.cloneNewList(masterThingDatabase.getEnabledCards());
-        cards = new TargetDatabase<>();
-        cards.addAll(clonedCards.getCards());
         advCards = masterThingDatabase.getEnabledAdvCards();
         advLocations = masterThingDatabase.getEnabledAdvLocations();
         advTokens = masterThingDatabase.getEnabledAdvTokens();
     }
 
+    public ActiveCardList generateActiveCards() {
+        ActiveCardList activeCards = new ActiveCardList(new ArrayList<>());
+        for(AdvCard c: advCards)
+        {
+            if(c.isActualThing())
+                activeCards.add(new ActiveCard(c.getCard()));
+        }
+        return activeCards;
+    }
 
-    public TargetDatabase<AdvCard> getBosses() {
+
+    public TargetDatabase<AdvCard> getAdvCards() {
         return advCards;
     }
 
@@ -48,27 +49,10 @@ public class AdventureDatabase {
         return advLocations;
     }
 
-    public TargetDatabase<Card> getCards() {
-        return cards;
-    }
-
-    public PlayableDatabase getCardsAndTokens() {
-        PlayableDatabase playableDatabase = new PlayableDatabase();
-        playableDatabase.addAll(cards);
-        playableDatabase.addAll(advTokens);
-        return playableDatabase;
-    }
-
     public TargetList<AdvCard> getBossList() {
         AdvCardList bossCopy = new AdvCardList(new ArrayList<>());
         bossCopy.addAll(advCards);
         return bossCopy;
-    }
-
-    public TargetList<Card> getCardList() {
-        CardList c = new CardList(new ArrayList<>());
-        c.addAll(cards);
-        return c;
     }
 
     public void fromSaveString(String saveString, AdvMainDatabase mainDatabase) {
@@ -81,19 +65,16 @@ public class AdventureDatabase {
         String[] locIDList = databaseString[1].split(SnapMainConstants.CSV_SEPARATOR);
         String[] tokenIDList = databaseString[2].split(SnapMainConstants.CSV_SEPARATOR);
 
-        TargetDatabase<Card> cardDatabase = mainDatabase.lookupDatabase(TargetType.CARD);
         TargetDatabase<AdvCard> advCardDatabase = mainDatabase.lookupDatabase(TargetType.ADV_CARD);
-            for(String i: cardIDList)
+            for(String s: cardIDList)
             {
-                Card c = cardDatabase.lookup(Integer.parseInt(i));
-                cards.add(c);
-                AdvCard a = advCardDatabase.lookup(Integer.parseInt(i));
+                AdvCard a = advCardDatabase.lookup(Integer.parseInt(s));
                 advCards.add(a);
             }
         TargetDatabase<AdvLocation> locDatabase = mainDatabase.lookupDatabase(TargetType.LOCATION);
-        for(String i: locIDList)
+        for(String s: locIDList)
         {
-            AdvLocation l = locDatabase.lookup(Integer.parseInt(i));
+            AdvLocation l = locDatabase.lookup(Integer.parseInt(s));
             advLocations.add(l);
         }
         TargetDatabase<AdvToken> tokenDatabase = mainDatabase.lookupDatabase(TargetType.TOKEN);
@@ -106,10 +87,10 @@ public class AdventureDatabase {
 
     public String toSaveString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Card c : cards) {
-            stringBuilder.append(c.getID()).append(SnapMainConstants.CSV_SEPARATOR);
+        for (AdvCard c : advCards) {
+            stringBuilder.append(c.toSaveString()).append(SnapMainConstants.CSV_SEPARATOR);
         }
-        if (cards.isEmpty())
+        if (advCards.isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         stringBuilder.append(SnapMainConstants.CATEGORY_SEPARATOR);
         for (AdvLocation l : advLocations) {
@@ -125,5 +106,36 @@ public class AdventureDatabase {
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         String result = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
+    }
+
+    public TargetDatabase<Card> getCards() {
+        TargetDatabase<Card> cards = new TargetDatabase<>();
+        for(AdvCard aCard: getAdvCards())
+        {
+            if(aCard.isActualThing()) {
+                Card card = aCard.getCard();
+                cards.add(card);
+            }
+        }
+        return cards;
+    }
+
+    public TargetDatabase<Token> getTokens()
+    {
+        TargetDatabase<Token> tokens = new TargetDatabase<>();
+        for(AdvToken a: advTokens)
+        {
+            Token t = a.getToken();
+            tokens.add(t);
+        }
+        return tokens;
+    }
+
+    public PlayableDatabase getCardsAndTokens()
+    {
+        PlayableDatabase db = new PlayableDatabase();
+        db.addAll(advCards);
+        db.addAll(advTokens);
+        return db;
     }
 }

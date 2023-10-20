@@ -2,7 +2,7 @@ package adventure.view.node;
 
 import adventure.controller.AdvCardEditorNodeController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.AdvCard;
+import adventure.model.target.base.AdvCard;
 
 public class AdvCardEditorNode extends AdvNode {
 

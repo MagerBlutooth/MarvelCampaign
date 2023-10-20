@@ -1,15 +1,15 @@
 package adventure.controller;
 
 
+import adventure.model.target.ActiveCard;
 import adventure.view.popup.CardGeneratorDialog;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.BaseGridActionController;
-import snapMain.model.target.Card;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.node.control.ControlNode;
 
-public class CardGeneratorDialogGridActionController extends BaseGridActionController<Card> {
+public class CardGeneratorDialogGridActionController extends BaseGridActionController<ActiveCard> {
 
     CardGeneratorDialog dialog;
 
@@ -20,9 +20,9 @@ public class CardGeneratorDialogGridActionController extends BaseGridActionContr
     }
 
     @Override
-    public ControlNode<Card> createControlNode(Card t, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<Card> node = new ControlNode<>();
-        node.initialize(getDatabase(), t, i, v, blind);
+    public ControlNode<ActiveCard> createControlNode(ActiveCard t, IconImage i, ViewSize v, boolean status) {
+        ControlNode<ActiveCard> node = new ControlNode<>();
+        node.initialize(getDatabase(), t, i, v, status);
         return node;
     }
 }

@@ -35,5 +35,7 @@ module SnapAdventure {
     opens fxml_adventure;
     exports adventure.model.stats;
     opens adventure.model.stats;
+    exports adventure.model.target.base;
+    opens adventure.model.target.base;
 
 }

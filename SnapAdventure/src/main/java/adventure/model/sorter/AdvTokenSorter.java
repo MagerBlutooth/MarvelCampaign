@@ -1,7 +1,6 @@
 package adventure.model.sorter;
 
-import adventure.model.target.AdvLocation;
-import adventure.model.target.AdvToken;
+import adventure.model.target.base.AdvToken;
 
 import java.util.ArrayList;
 import java.util.Comparator;
