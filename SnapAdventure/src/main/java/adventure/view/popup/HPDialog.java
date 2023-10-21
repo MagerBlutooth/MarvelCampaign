@@ -25,7 +25,7 @@ public class HPDialog extends Dialog<Integer> {
         controller.initialize(currentHP);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                return controller.getCalculatedHP();
+                return controller.getNewBaseHP();
             }
             return null;
         });

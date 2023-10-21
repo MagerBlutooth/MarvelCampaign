@@ -13,7 +13,7 @@ public class Enemy implements SnapTarget {
     Playable subject;
     Playable secondarySubject;
     int baseHP;
-    int currentHP;
+    int missingHP;
 
     public Enemy()
     {
@@ -22,7 +22,7 @@ public class Enemy implements SnapTarget {
         subject.setID(SnapMainConstants.MOOK_ICON_ID);
         secondarySubject.setID(SnapMainConstants.MOOK_ICON_ID);
         setBaseHP(AdventureConstants.MOOK_BASE_HP);
-        currentHP = baseHP;
+        missingHP = 0;
     }
 
     public Enemy(Playable p)
@@ -36,14 +36,13 @@ public class Enemy implements SnapTarget {
         this();
         subject = p;
         setBaseHP(worldBonus);
-        currentHP = baseHP;
     }
 
     public Enemy(Enemy nme) {
         subject = nme.subject;
         secondarySubject = nme.secondarySubject;
         setBaseHP(nme.baseHP);
-        currentHP = nme.currentHP;
+        missingHP = nme.missingHP;
     }
 
     public void setSecondarySubject(Playable p)
@@ -95,7 +94,7 @@ public class Enemy implements SnapTarget {
                 SnapMainConstants.SUBCATEGORY_SEPARATOR +
                 baseHP +
                 SnapMainConstants.SUBCATEGORY_SEPARATOR +
-                currentHP;
+                missingHP;
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
@@ -115,7 +114,7 @@ public class Enemy implements SnapTarget {
             targetDatabase = database.lookupDatabase(TargetType.TOKEN);
         subject = (Playable)targetDatabase.lookup(id);
         baseHP = Integer.parseInt(stringList[2]);
-        currentHP = Integer.parseInt(stringList[3]);
+        missingHP = Integer.parseInt(stringList[3]);
     }
 
     public SnapTarget getSubject() {
@@ -126,8 +125,14 @@ public class Enemy implements SnapTarget {
         return subject.getEffect();
     }
 
-    public void setCurrentHP(int newHP) {
-        currentHP = newHP;
+    public void gainHP(int hp)
+    {
+        missingHP = Math.max(0, missingHP - hp);
+    }
+
+    public void loseHP(int hp)
+    {
+        missingHP = missingHP + hp;
     }
 
     public void setBaseHP(int h) {
@@ -138,7 +143,7 @@ public class Enemy implements SnapTarget {
 
     public int getCurrentHP()
     {
-        return currentHP;
+        return baseHP - missingHP;
     }
 
     public int getBaseHP() {

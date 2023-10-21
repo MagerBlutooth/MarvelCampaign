@@ -9,6 +9,10 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, C
 
     List<T> things;
 
+    public TargetList()
+    {
+        things = new ArrayList<>();
+    }
     protected TargetList(List<T> t) {
         things = new ArrayList<>();
         things.addAll(t);
@@ -69,6 +73,16 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, C
     public boolean contains(T t) {
         return things.contains(t);
     }
+
+    public boolean contains(int id)
+    {
+        for(T thing: things)
+        {
+            if(thing.getID() == id)
+                return true;
+        }
+        return false;
+    }
     public Iterator<T> iterator() {
         return getThings().listIterator();
     }
@@ -115,6 +129,15 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, C
         catch(Exception e)
         {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public T getFromId(int i) {
+        for(T t: this)
+        {
+            if(t.getID() == i)
+                return t;
         }
         return null;
     }

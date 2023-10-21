@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ActiveCard implements Playable<Card> {
     Card card;
     ConcurrentHashMap<StatusEffect, Boolean> statusEffectMap;
-
     public ActiveCard()
     {
         statusEffectMap = new ConcurrentHashMap<>();
@@ -160,4 +159,5 @@ public class ActiveCard implements Playable<Card> {
     public boolean hasAnyAttributes(List<CardAttribute> cardAttributes) {
         return getCard().hasAnyAttributes(cardAttributes);
     }
+
 }

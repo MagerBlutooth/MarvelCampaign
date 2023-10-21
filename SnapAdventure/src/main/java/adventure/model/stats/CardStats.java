@@ -11,6 +11,8 @@ public class CardStats {
     int losses;
     int escapes;
     int forceRetreats;
+    int currentStreak;
+    int longestStreak;
 
     public CardStats()
     {
@@ -18,9 +20,10 @@ public class CardStats {
         losses = 0;
         escapes = 0;
         forceRetreats = 0;
+        currentStreak = 0;
     }
 
-    public void updateCardStat(MatchResult result) {
+    public void updateCardStat(boolean used, MatchResult result) {
 
         switch(result)
         {
@@ -36,6 +39,13 @@ public class CardStats {
             case FORCE_RETREAT:
                 forceRetreats++;
                 break;
+        }
+        if(used) {
+            currentStreak++;
+            longestStreak = Math.max(currentStreak, longestStreak);
+        }
+        else {
+            currentStreak = 0;
         }
     }
 
@@ -75,5 +85,9 @@ public class CardStats {
                 return forceRetreats;
         }
         return -1;
+    }
+
+    public int getCurrentStreak() {
+        return currentStreak;
     }
 }

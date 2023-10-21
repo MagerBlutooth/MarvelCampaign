@@ -8,6 +8,7 @@ import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.node.DeckItemControlNode;
 import adventure.view.popup.CardDisplayPopup;
+import adventure.view.popup.CardExhaustionConfirmationDialog;
 import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
 import adventure.view.sortFilter.DeckLinkedSortMenuButton;
 import javafx.beans.binding.Bindings;
@@ -25,8 +26,8 @@ import javafx.scene.paint.Color;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.helper.DeckCodeConverter;
-import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
+import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
@@ -111,11 +112,12 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         winButton.setSelected(true);
         setWin();
         deckGridController = new DeckGridController();
-        deckGridController.initialize(db, deckDisplay, deckProfiles.getLatestProfile(), this);
+        ActiveCardList verifiedDeck = verifyDeck(deckProfiles.getLatestProfile());
+        deckGridController.initialize(db, deckDisplay, verifiedDeck, this);
         allSelectableCards.initialize(selectableCards, TargetType.CARD, this, ViewSize.TINY, false);
         allSelectableCards.setPrefColumns(8);
         deckDisplay.setMaxWidth(700);
-        deckDisplay.initialize(deckProfiles.getLatestProfile(), TargetType.CARD, deckGridController, ViewSize.SMALL,
+        deckDisplay.initialize(verifiedDeck, TargetType.CARD, deckGridController, ViewSize.SMALL,
                 false);
         deckDisplay.setBorder((new Border(new BorderStroke(Color.WHITE,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
@@ -250,6 +252,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
             node.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
                     boolean toggled = deckGridController.toggleEntry(card);
+                    saveDeckProfile();
                     if(toggled)
                         node.toggleNodeLight();
                     e.consume();
@@ -258,8 +261,17 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     public void confirmDeck()
     {
+        ActiveCardList deck = deckGridController.getDeck();
         adventure.updateDeckProfiles(deckProfiles, getProfileNum());
-        adventure.updateStats(deckGridController.getDeck(), result);
+        adventure.updateStats(deck, result);
+        ActiveCardList recoveredCards = adventure.recoverCards(deck);
+        ActiveCardList exhaustedCards = adventure.exhaustCards(deck);
+        if(!(exhaustedCards.isEmpty() && recoveredCards.isEmpty())) {
+            CardExhaustionConfirmationDialog cardDisplayConfirmationDialog = new CardExhaustionConfirmationDialog();
+            cardDisplayConfirmationDialog.initialize(mainDatabase, exhaustedCards,
+                    recoveredCards);
+            cardDisplayConfirmationDialog.showAndWait();
+        }
         changeScene(backPane);
     }
 
@@ -334,7 +346,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         ActiveCardList validCards = new ActiveCardList(new ArrayList<>());
         for(ActiveCard c: deck)
         {
-            if(adventure.getActiveCards().contains(c))
+            if(adventure.getActiveCards().contains(c) && !c.hasStatus(StatusEffect.EXHAUSTED))
                 validCards.add(c);
         }
         return validCards;
@@ -388,5 +400,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     public void saveDeckProfile() {
         deckProfiles.setProfile(profileNum, deckGridController.getDeck());
+    }
+
+    @Override
+    public void changeScene(FullViewPane pane)
+    {
+        super.changeScene(pane);
     }
 }

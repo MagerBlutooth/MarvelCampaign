@@ -154,7 +154,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         section2Node.refresh(w.getSecondSection());
         section3Node.refresh(w.getThirdSection());
         section4Node.refresh(w.getFourthSection());
-        bossControlNode.refresh((w.getBoss()));
+        bossControlNode.refresh((w.getBoss()), w.isBossRevealed());
     }
 
     private void setWorldLabel(World w) {
@@ -171,7 +171,9 @@ public class WorldDisplayNodeController extends AdvPaneController {
     }
 
     public void revealBossCheck() {
-        if(world.isBossRevealed())
+        if(world.isBossRevealed()) {
             bossControlNode.reveal();
+            setRevealOption();
+        }
     }
 }

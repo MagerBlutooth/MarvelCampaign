@@ -1,15 +1,23 @@
 <?import adventure.view.node.HPDisplayNode?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <fx:root type="HPDisplayNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
          fx:controller="adventure.controller.HPDisplayNodeController">
     <HBox alignment="CENTER" spacing="20.0">
         <Label text="HP:"/>
-        <ProgressBar fx:id="healthBar" style="-fx-accent: red"/>
+        <HBox>
+            <ProgressBar fx:id="healthBar" style="-fx-accent: red"/>
+            <VBox>
+                <Button text="+" onAction="#increaseHPByOne" minWidth="24" maxWidth="24" minHeight="24"
+                        maxHeight="24" id="tinyButton"/>
+                <Button text="-" onAction="#reduceHPByOne" minWidth="24" maxWidth="24"
+                        minHeight="24" maxHeight="24" id="tinyButton"/>
+            </VBox>
+        </HBox>
         <Label fx:id="healthValue"/>
     </HBox>
     <padding>

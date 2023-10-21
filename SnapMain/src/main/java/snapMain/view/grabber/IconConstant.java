@@ -53,12 +53,12 @@ public enum IconConstant {
         String getImageName() {
             return "/toTeamIcon.png";
         }
-    },TEMP {
+    }, TEMP {
         @Override
         String getImageName() {
             return "/toTempIcon.png";
         }
-    },  DEFECT {
+    }, DEFECT {
         @Override
         String getImageName() {
             return "/defectSign.png";
@@ -73,27 +73,27 @@ public enum IconConstant {
         String getImageName() {
             return "/pasteIcon.png";
         }
-    },COPY {
+    }, COPY {
         @Override
         String getImageName() {
             return "/copyIcon.png";
         }
-    },DICE {
+    }, DICE {
         @Override
         String getImageName() {
             return "/diceIcon.png";
         }
-    },CLEAR {
+    }, CLEAR {
         @Override
         String getImageName() {
             return "/clearIcon.png";
         }
-    },D2 {
+    }, D2 {
         @Override
         String getImageName() {
             return "/d2Icon.png";
         }
-    },D4 {
+    }, D4 {
         @Override
         String getImageName() {
             return "/d4Icon.png";
@@ -104,30 +104,51 @@ public enum IconConstant {
         String getImageName() {
             return "/d6Icon.png";
         }
-    },D8 {
+    }, D8 {
         @Override
         String getImageName() {
             return "/d8Icon.png";
         }
-    },D10 {
+    }, D10 {
         @Override
         String getImageName() {
             return "/d10Icon.png";
         }
-    },D12 {
+    }, D12 {
         @Override
         String getImageName() {
             return "/d12Icon.png";
         }
-    },D20 {
+    }, D20 {
         @Override
         String getImageName() {
             return "/d20Icon.png";
         }
-    },D100 {
+    }, D100 {
         @Override
         String getImageName() {
             return "/d100Icon.png";
+        }
+    }, EXHAUST {
+
+    @Override
+    String getImageName() {
+        return "/exhaustSign.png";
+    }
+    }, RECOVER {
+        @Override
+        String getImageName() {
+            return "/recoverSign.png";
+        }
+    }, PIG {
+        @Override
+        String getImageName()  {
+            return "/pigIcon.png";
+        }
+    }, RAPTOR {
+        @Override
+        String getImageName() {
+            return "/raptorIcon.png";
         }
     };
 

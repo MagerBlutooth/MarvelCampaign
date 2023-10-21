@@ -16,11 +16,11 @@ public class HPDialogController {
 
     ToggleGroup toggleGroup;
 
-    int currentHP;
+    int baseHP;
     public void initialize(int h)
     {
-        currentHP = h;
-        loseButton.setSelected(true);
+        baseHP = h;
+        gainButton.setSelected(true);
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(gainButton, loseButton);
 
@@ -34,9 +34,9 @@ public class HPDialogController {
 
     }
 
-    public int getCalculatedHP() {
+    public int getNewBaseHP() {
         if(gainButton.isSelected())
-            return currentHP + Integer.parseInt(hpValue.getText());
-        return currentHP - Integer.parseInt(hpValue.getText());
+            return baseHP + Integer.parseInt(hpValue.getText());
+        return baseHP - Integer.parseInt(hpValue.getText());
     }
 }

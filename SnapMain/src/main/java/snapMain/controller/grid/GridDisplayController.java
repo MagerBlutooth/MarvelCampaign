@@ -155,11 +155,6 @@ public class GridDisplayController<T extends SnapTarget>  {
         populateDisplay();
     }
 
-    public MainDatabase getControllerDatabase()
-    {
-        return mainDatabase;
-    }
-
     protected GridActionController<T> getGridActionController() {
         return gridActionController;
     }

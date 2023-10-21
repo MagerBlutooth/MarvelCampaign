@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import snapMain.controller.grid.BaseGridActionController;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.Card;
 import snapMain.model.target.SnapTarget;
@@ -23,6 +24,8 @@ import snapMain.view.node.control.ControlNode;
 
 public class WorldClearPaneController extends AdvPaneController implements GridActionController<ActiveCard> {
 
+    @FXML
+    GridDisplayNode<ActiveCard> reclaimedCards;
     @FXML
     Label matchCount;
     @FXML
@@ -37,6 +40,10 @@ public class WorldClearPaneController extends AdvPaneController implements GridA
         mainDatabase = database;
         worldClearNode.initialize(database, a, cPane);
         matchCount.setText(a.getWorldMatchCount()+"");
+        BaseGridActionController<ActiveCard> gridActionController = new BaseGridActionController<>();
+        gridActionController.initialize(database);
+        reclaimedCards.initialize(a.reclaimCards(), TargetType.CARD, gridActionController, ViewSize.SMALL,
+                true);
     }
 
     @Override

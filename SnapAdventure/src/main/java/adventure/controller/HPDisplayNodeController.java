@@ -12,7 +12,6 @@ public class HPDisplayNodeController {
     Label healthValue;
     @FXML
     ProgressBar healthBar;
-
     IntegerProperty hpIntegerProperty;
 
     Enemy boss;
@@ -40,5 +39,19 @@ public class HPDisplayNodeController {
 
     public IntegerProperty getHPProperty() {
         return hpIntegerProperty;
+    }
+
+    public void increaseHPByOne()
+    {
+        boss.gainHP(1);
+        hpIntegerProperty.set(boss.getCurrentHP());
+        refresh();
+    }
+
+    public void reduceHPByOne()
+    {
+        boss.loseHP(1);
+        hpIntegerProperty.set(boss.getCurrentHP());
+        refresh();
     }
 }

@@ -35,7 +35,7 @@ public class Section implements Cloneable, SnapTarget {
         this();
         sectionNum = num;
         advLocation = l;
-        cardsAndTokens = database.getCardsAndTokens();
+        cardsAndTokens = database.getEnemySubjects();
         adventureDatabase = database;
         revealed = false;
         enemy = e;

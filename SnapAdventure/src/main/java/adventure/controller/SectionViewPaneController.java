@@ -88,8 +88,8 @@ public class SectionViewPaneController extends AdvPaneController {
         locationView.setOnMouseClicked(e -> sectionMenu.show(locationView, e.getScreenX(), e.getScreenY()));
 
         enemyMenu = new ContextMenu();
-        MenuItem changeHPItem = new MenuItem("Change HP");
-        changeHPItem.setOnAction(e -> changeHP());
+        MenuItem changeHPItem = new MenuItem("Change Base HP");
+        changeHPItem.setOnAction(e -> changeBaseHP());
         MenuItem changeEnemy = new MenuItem("Change Enemy");
         changeEnemy.setOnAction(e -> changeEnemy());
         enemyMenu.getItems().add(changeHPItem);
@@ -111,14 +111,15 @@ public class SectionViewPaneController extends AdvPaneController {
     }
 
     private void addSecondaryEffect() {
-        AdvCardChooserDialog chooserDialog = new AdvCardChooserDialog();
+        CardOrTokenSearchSelectDialog chooserDialog = new CardOrTokenSearchSelectDialog();
         AdventureDatabase aDatabase = adventure.getAdventureDatabase();
-        chooserDialog.initialize(mainDatabase, aDatabase.getBossList());
-        Optional<AdvCard> boss = chooserDialog.showAndWait();
-        if(boss.isPresent())
+        TargetList<Playable> playableOptions = new PlayableList(aDatabase.getEnemySubjects());
+        chooserDialog.initialize(mainDatabase, playableOptions);
+        Optional<Playable> secondEffect = chooserDialog.showAndWait();
+        if(secondEffect.isPresent())
         {
-            AdvCard bossCard = boss.get();
-            enemyView.setSecondary(bossCard);
+            Playable enemyEffect = secondEffect.get();
+            enemyView.setSecondary(enemyEffect);
             enemyEffectText.setText(enemyView.getSecondarySubject().getEffect());
         }
     }
@@ -126,13 +127,13 @@ public class SectionViewPaneController extends AdvPaneController {
     private void changeEnemyClone() {
         AdventureDatabase adb = adventure.getAdventureDatabase();
         CardOrTokenSearchSelectDialog cardSearchSelectDialog = new CardOrTokenSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(adb.getCardsAndTokens()));
+        cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(adb.getEnemySubjects()));
         Optional<Playable> playable = cardSearchSelectDialog.showAndWait();
         if(playable.isPresent())
         {
             Playable p = playable.get();
             Enemy enemy = adventure.replaceEnemy(p, section.getSectionNum(), true);
-            enemyView.refresh(enemy);
+            enemyView.refresh(enemy, true);
             enemyEffectText.setText(p.getEffect());
         }
         adventureControlPane.refreshToMatch();
@@ -148,7 +149,7 @@ public class SectionViewPaneController extends AdvPaneController {
             TargetDatabase<AdvCard> bosses = mainDatabase.lookupDatabase(TargetType.ADV_CARD);
             AdvCard boss = bosses.lookup(c.getID());
             Enemy enemy = adventure.replaceEnemy(boss, section.getSectionNum(), false);
-            enemyView.refresh(enemy);
+            enemyView.refresh(enemy, true);
             enemyEffectText.setText(boss.getEffect());
         }
         adventureControlPane.refreshToMatch();
@@ -189,7 +190,7 @@ public class SectionViewPaneController extends AdvPaneController {
                     ViewSize.TINY, false);
              stationedDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
              stationedDisplay.setMinHeight(120);
-            stationedDisplayBox.getChildren().add(stationedDisplay);
+             stationedDisplayBox.getChildren().add(stationedDisplay);
     }
 
     private void initializeRewards(Section s) {
@@ -227,12 +228,6 @@ public class SectionViewPaneController extends AdvPaneController {
         }
     }
 
-    private void defeatBoss() {
-        WorldClearPane worldClearPane = new WorldClearPane();
-        worldClearPane.initialize(mainDatabase, adventure, adventureControlPane);
-        changeScene(worldClearPane);
-    }
-
     @FXML
     public void skipSection()
     {
@@ -240,13 +235,19 @@ public class SectionViewPaneController extends AdvPaneController {
         changeScene(adventureControlPane);
     }
 
+    private void defeatBoss() {
+        WorldClearPane worldClearPane = new WorldClearPane();
+        worldClearPane.initialize(mainDatabase, adventure, adventureControlPane);
+        changeScene(worldClearPane);
+    }
+
     @FXML
-    public void changeHP()
+    public void changeBaseHP()
     {
         HPDialog dialog = new HPDialog();
-        dialog.initialize(enemy.getCurrentHP());
+        dialog.initialize(enemy.getBaseHP());
         Optional<Integer> newHP = dialog.showAndWait();
-        newHP.ifPresent(integer -> enemy.setCurrentHP(integer));
+        newHP.ifPresent(integer -> enemy.setBaseHP(integer));
         hpDisplay.update();
         adventure.saveAdventure();
     }
@@ -273,5 +274,12 @@ public class SectionViewPaneController extends AdvPaneController {
         DeckConstructorPane deckConstructorPane = new DeckConstructorPane();
         deckConstructorPane.initialize(mainDatabase, sectionViewPane, adventure);
         changeScene(deckConstructorPane);
+    }
+
+    @FXML
+    public void changeScene(FullViewPane pane)
+    {
+        adventureControlPane.refreshToMatch();
+        super.changeScene(pane);
     }
 }

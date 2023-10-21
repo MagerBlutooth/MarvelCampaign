@@ -25,17 +25,17 @@ public class CardStatTracker {
 
     public void updateCardStats(ActiveCardList deck, MatchResult result)
     {
-        for(ActiveCard c: deck)
+        for(Map.Entry<Integer, CardStats> e: cardStatMap.entrySet())
         {
-            int id = c.getID();
-            CardStats cardStats = cardStatMap.get(id);
-            cardStats.updateCardStat(result);
+            CardStats cardStats = e.getValue();
+            int id = e.getKey();
+            cardStats.updateCardStat(deck.contains(id), result);
         }
     }
 
-    public int lookupCardStat(ActiveCard c, MatchResult result)
+    public CardStats lookupCardStat(ActiveCard c)
     {
-        return cardStatMap.get(c.getID()).lookupStat(result);
+        return cardStatMap.get(c.getID());
     }
 
     public String toSaveString() {

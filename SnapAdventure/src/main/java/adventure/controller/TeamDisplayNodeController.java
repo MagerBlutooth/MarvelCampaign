@@ -1,12 +1,15 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.AdventureConstants;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
 import adventure.view.node.InfinityStoneDisplayNode;
+import adventure.view.pane.AdventureClearPane;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardDisplayPopup;
+import adventure.view.popup.IntegerPromptDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import snapMain.controller.MainDatabase;
@@ -14,6 +17,8 @@ import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
+
+import java.util.Optional;
 
 public class TeamDisplayNodeController {
 
@@ -153,8 +158,18 @@ public class TeamDisplayNodeController {
     public void sendAway(ActiveCard card)
     {
         team.sendAway(card);
-        adventure.sendAway(card);
-        adventureControlPane.refreshToMatch();
+        if(adventure.getCurrentWorldNum() < 8) {
+            IntegerPromptDialog integerPromptDialog = new IntegerPromptDialog();
+            integerPromptDialog.initialize("Send Away to Which World?",
+                    adventure.getCurrentWorldNum() + 1,
+                    AdventureConstants.NUMBER_OF_WORLDS);
+            Optional<Integer> worldToSend = integerPromptDialog.showAndWait();
+            worldToSend.ifPresent(w -> adventure.sendAway(w, card));
+            adventureControlPane.refreshToMatch();
+        }
+        else {
+            adventure.sendAway(9, card);
+        }
     }
     public void returnCard(ActiveCard card)
     {
@@ -176,10 +191,14 @@ public class TeamDisplayNodeController {
         card.toggleStatus(StatusEffect.CAPTAIN);
         update(card);
     }
+    public void togglePig(ActiveCard card) {
+        card.toggleStatus(StatusEffect.PIG);
+        update(card);
+    }
 
-    public void toggleExhausted(ActiveCard card)
+    public void toggleRaptor(ActiveCard card)
     {
-        card.toggleStatus(StatusEffect.EXHAUSTED);
+        card.toggleStatus(StatusEffect.RAPTOR);
         update(card);
     }
 
@@ -187,11 +206,6 @@ public class TeamDisplayNodeController {
         team.makeCardFreeAgent(card);
         adventureControlPane.refreshToMatch();
     }
-
-    public void focusTeamNode() {
-        teamCardDisplay.setFocusTraversable(true);
-    }
-
     public void fromTempToTeam(ActiveCard subject) {
         team.fromTempToTeam(subject);
         adventureControlPane.refreshToMatch();
@@ -201,4 +215,5 @@ public class TeamDisplayNodeController {
         team.fromTeamToTemp(subject);
         adventureControlPane.refreshToMatch();
     }
+
 }

@@ -6,7 +6,6 @@ import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -131,11 +130,11 @@ public class AdventureDatabase {
         return tokens;
     }
 
-    public PlayableDatabase getCardsAndTokens()
+    public PlayableDatabase getEnemySubjects()
     {
         PlayableDatabase db = new PlayableDatabase();
-        db.addAll(advCards);
-        db.addAll(advTokens);
+        db.addAll(advCards.getActualThings());
+        db.addAll(advTokens.getActualThings());
         return db;
     }
 }

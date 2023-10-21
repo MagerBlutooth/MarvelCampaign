@@ -5,10 +5,7 @@ import adventure.model.sorter.ActiveCardSorter;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.sortFilter.CardSortMode;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardAttribute;
-import snapMain.model.target.CardList;
-import snapMain.model.target.TargetList;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -18,6 +15,11 @@ public class ActiveCardList extends TargetList<ActiveCard> {
 
     ActiveCardSorter cardSorter = new ActiveCardSorter();
     ActiveCardFilter cardFilter = new ActiveCardFilter();
+
+    public ActiveCardList()
+    {
+        super();
+    }
 
     public ActiveCardList(List<ActiveCard> activeCards)
     {
@@ -110,7 +112,7 @@ public class ActiveCardList extends TargetList<ActiveCard> {
     }
 
     public ActiveCardList cloneNewList(List<ActiveCard> existingList) {
-        ActiveCardList clonedCards = new ActiveCardList(new ArrayList<>());
+        ActiveCardList clonedCards = new ActiveCardList();
         for(ActiveCard c: existingList)
         {
             clonedCards.add(new ActiveCard(c));
@@ -119,7 +121,7 @@ public class ActiveCardList extends TargetList<ActiveCard> {
     }
 
     public CardList getBaseCards() {
-        CardList baseCards = new CardList(new ArrayList<>());
+        CardList baseCards = new CardList();
         for(ActiveCard c: this)
         {
             baseCards.add(c.getCard());
@@ -134,5 +136,16 @@ public class ActiveCardList extends TargetList<ActiveCard> {
                 return c;
         }
         return new ActiveCard(new Card());
+    }
+
+    public List<ActiveCard> getActiveThings() {
+        List<ActiveCard> activeCards = new ArrayList<>();
+        for(ActiveCard c: this)
+        {
+            if(!c.hasStatus(StatusEffect.EXHAUSTED) && !c.hasStatus(StatusEffect.PIG) &&
+                    !c.hasStatus(StatusEffect.RAPTOR))
+                activeCards.add(c);
+        }
+        return activeCards;
     }
 }

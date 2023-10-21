@@ -34,9 +34,9 @@ public class EnemyControlNode extends ControlNode<Enemy> {
             isRevealed = revealed;
         }
 
-    public void refresh(Enemy e) {
+    public void refresh(Enemy e, boolean reveal) {
         subject = e;
-        setRevealed(isRevealed);
+        setRevealed(reveal);
         setSecondaryImage();
     }
 
@@ -100,10 +100,6 @@ public class EnemyControlNode extends ControlNode<Enemy> {
         AnchorPane.setBottomAnchor(secondaryView, 0.0);
         secondaryPane.toFront();
         secondaryPane.getChildren().add(secondaryView);
-    }
-
-    public boolean noSecondaryDefined() {
-        return secondaryDefined;
     }
 
     public Playable getSecondarySubject() {

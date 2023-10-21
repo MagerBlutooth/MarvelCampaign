@@ -27,6 +27,10 @@ public class CardList extends TargetList<Card> {
         cardFilter = cards.cardFilter;
     }
 
+    public CardList() {
+        super();
+    }
+
     public void sort()
     {
         List<Card> sortedCards = cardSorter.sort(new ArrayList<>(getCards()));

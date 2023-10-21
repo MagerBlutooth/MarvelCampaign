@@ -3,6 +3,7 @@ package adventure.controller;
 import adventure.model.target.ActiveCard;
 import adventure.view.node.ActiveCardControlNode;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import snapMain.controller.MainDatabase;
@@ -20,9 +21,9 @@ public class TeamGridActionController implements GridActionController<ActiveCard
     TeamDisplayNodeController teamDisplayNodeController;
 
     @Override
-    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean statusVisible) {
         ActiveCardControlNode node = new ActiveCardControlNode();
-        node.initialize(getDatabase(), card, i, v, blind);
+        node.initialize(getDatabase(), card, i, v, statusVisible);
         createContextMenu(node);
         return node;
     }
@@ -67,17 +68,33 @@ public class TeamGridActionController implements GridActionController<ActiveCard
         MenuItem tempItem = new MenuItem("To Temp");
         MenuItem defectItem = new MenuItem("Defect");
         MenuItem captainItem = new MenuItem("Toggle Captain");
+        MenuItem pigItem = new MenuItem("Pig");
+        MenuItem raptorItem = new MenuItem(("Raptor"));
+
         setGraphic(captureItem, new ImageView(mainDatabase.grabIcon(IconConstant.CAPTURE)));
         setGraphic(eliminateItem, new ImageView(mainDatabase.grabIcon(IconConstant.ELIMINATE)));
         setGraphic(captainItem, new ImageView(mainDatabase.grabIcon(IconConstant.STAR)));
         setGraphic(defectItem, new ImageView(mainDatabase.grabIcon(IconConstant.DEFECT)));
         setGraphic(miaItem, new ImageView(mainDatabase.grabIcon(IconConstant.SEND_AWAY)));
         setGraphic(tempItem, new ImageView(mainDatabase.grabIcon(IconConstant.TEMP)));
+        setGraphic(pigItem, new ImageView(mainDatabase.grabIcon(IconConstant.PIG)));
+        setGraphic(raptorItem, new ImageView(mainDatabase.grabIcon(IconConstant.RAPTOR)));
         eliminateItem.setOnAction(actionEvent -> teamDisplayNodeController.eliminate(n.getSubject()));
         captureItem.setOnAction(actionEvent -> teamDisplayNodeController.capture(n.getSubject()));
         miaItem.setOnAction(actionEvent -> teamDisplayNodeController.sendAway(n.getSubject()));
         tempItem.setOnAction(actionEvent -> teamDisplayNodeController.teamToTemp(n.getSubject()));
-        captainItem.setOnAction(actionEvent -> teamDisplayNodeController.toggleCaptain(n.getSubject()));
+        captainItem.setOnAction(actionEvent -> {
+            teamDisplayNodeController.toggleCaptain(n.getSubject());
+            createContextMenu(n);
+        });
+        pigItem.setOnAction(actionEvent -> {
+            teamDisplayNodeController.togglePig(n.getSubject());
+            createContextMenu(n);
+        });
+        raptorItem.setOnAction(actionEvent -> {
+            teamDisplayNodeController.toggleRaptor(n.getSubject());
+            createContextMenu(n);
+        });
         defectItem.setOnAction(actionEvent -> teamDisplayNodeController.makeCardFreeAgent(n.getSubject()));
         contextMenu.getItems().add(woundItem);
         contextMenu.getItems().add(eliminateItem);
@@ -86,6 +103,8 @@ public class TeamGridActionController implements GridActionController<ActiveCard
         contextMenu.getItems().add(tempItem);
         contextMenu.getItems().add(captainItem);
         contextMenu.getItems().add(defectItem);
+        contextMenu.getItems().add(pigItem);
+        contextMenu.getItems().add(raptorItem);
         n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
 

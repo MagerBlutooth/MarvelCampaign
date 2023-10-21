@@ -84,12 +84,20 @@ public class WorldClearSelectNodeController extends AdvPaneController  {
                 return;
         }
         adventure.completeCurrentWorld();
-        ActiveCard draftedCard = adventure.lookupCard(draftCardDisplay.getCard().getID());
-        ActiveCard bossCard = adventure.lookupCard(bossDisplay.getCard().getID());
-        ActiveCard healCard = adventure.lookupCard(healCardDisplay.getCard().getID());
-        adventure.addCardToTeam(draftedCard);
-        adventure.addCardToTeam(bossCard);
-        adventure.healCard(healCard);
+        if(draftCardDisplay.getCard() != null)
+        {
+            ActiveCard draftedCard = adventure.lookupCard(draftCardDisplay.getCard().getID());
+            adventure.addCardToTeam(draftedCard);
+        }
+        if(bossDisplay.getCard() != null)
+        {
+            ActiveCard bossCard = adventure.lookupCard(bossDisplay.getCard().getID());
+            adventure.addCardToTeam(bossCard);
+        }
+        if(healCardDisplay.getCard() != null) {
+            ActiveCard healCard = adventure.lookupCard(healCardDisplay.getCard().getID());
+            adventure.healCard(healCard);
+        }
         adventureControlPane.refreshToMatch();
         changeScene(adventureControlPane);
     }

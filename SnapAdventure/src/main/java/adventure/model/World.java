@@ -141,12 +141,6 @@ public class World implements Cloneable{
         return bossSection.getEnemy();
     }
 
-    public Section getRandomSection() {
-        Random random = new Random();
-        int sectionNum = random.nextInt(4)+1;
-        return getSection(sectionNum);
-    }
-
     public Section getSection(int sectionNum) {
         switch(sectionNum)
         {
