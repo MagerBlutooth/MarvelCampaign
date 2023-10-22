@@ -6,4 +6,5 @@ import snapMain.view.node.ListNode;
 
 public abstract class Manager<T extends SnapTarget> extends ListNode<T> {
 
+
 }

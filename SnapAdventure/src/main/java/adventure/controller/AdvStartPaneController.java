@@ -2,26 +2,19 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
-import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.ProfileNode;
 import adventure.view.pane.*;
-import javafx.beans.binding.Bindings;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import snapMain.model.logger.MLogger;
 import snapMain.view.button.ButtonToolBar;
 import snapMain.view.pane.FullViewPane;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.FileHandler;
 
 import static adventure.model.AdventureConstants.EMPTY_PROFILE;
 

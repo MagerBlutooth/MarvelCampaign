@@ -18,6 +18,7 @@ public class World implements Cloneable{
     BossSection bossSection;
     AdventureDatabase database;
     int worldNum;
+    int currentSectionNum;
     WorldBonusCalculator bonusCalculator;
     WorldStatTracker worldStatTracker;
     boolean bossRevealed;
@@ -39,6 +40,7 @@ public class World implements Cloneable{
         section4 = new Section(db,4, locations.get(3), new Enemy(new Mook(), bonusCalculator.calculateMook(worldNum)));
         bossSection = new BossSection( db, new Enemy(new Mook(), bonusCalculator.calculateBoss(worldNum)));
         section1.reveal();
+        currentSectionNum = 1;
     }
 
     public World(World world) {
@@ -52,10 +54,12 @@ public class World implements Cloneable{
         worldNum = world.worldNum;
         bossRevealed = world.bossRevealed;
         worldStatTracker = world.worldStatTracker;
+        currentSectionNum = world.currentSectionNum;
     }
 
     public String toSaveString() {
-        String result = worldNum +
+        String result = worldNum + SnapMainConstants.CATEGORY_SEPARATOR +
+                currentSectionNum +
                 SnapMainConstants.CATEGORY_SEPARATOR +
                 section1.toSaveString() +
                 SnapMainConstants.CATEGORY_SEPARATOR +
@@ -94,19 +98,20 @@ public class World implements Cloneable{
             return;
         String[] stringList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
         worldNum = Integer.parseInt(stringList[0]);
+        currentSectionNum = Integer.parseInt(stringList[1]);
         section1 = new Section(database, 1, new Ruins(), new Enemy());
-        section1.fromSaveString(stringList[1].trim(), dB);
+        section1.fromSaveString(stringList[2].trim(), dB);
         section2 = new Section(database, 2,  new Ruins(), new Enemy());
-        section2.fromSaveString(stringList[2].trim(), dB);
+        section2.fromSaveString(stringList[3].trim(), dB);
         section3 = new Section( database, 3, new Ruins(), new Enemy());
-        section3.fromSaveString(stringList[3].trim(), dB);
+        section3.fromSaveString(stringList[4].trim(), dB);
         section4 = new Section(database, 4, new Ruins(), new Enemy());
-        section4.fromSaveString(stringList[4].trim(), dB);
+        section4.fromSaveString(stringList[5].trim(), dB);
         bossSection = new BossSection(database, new Enemy());
-        bossSection.fromSaveString(stringList[5].trim(), dB);
-        bossRevealed = Boolean.parseBoolean(stringList[6]);
+        bossSection.fromSaveString(stringList[6].trim(), dB);
+        bossRevealed = Boolean.parseBoolean(stringList[7]);
         worldStatTracker = new WorldStatTracker();
-        worldStatTracker.fromSaveString(stringList[7]);
+        worldStatTracker.fromSaveString(stringList[8]);
     }
 
     @Override
@@ -166,7 +171,6 @@ public class World implements Cloneable{
     public void revealNextSection(int currentNum) {
         if(currentNum == AdventureConstants.SECTIONS_PER_WORLD)
             return;
-
         Section s = getSection(currentNum+1);
         s.reveal();
     }
@@ -251,5 +255,20 @@ public class World implements Cloneable{
             stationedCards.addAll(s.unstationCards());
         }
         return stationedCards;
+    }
+
+    public boolean isCurrentSection(Section subject) {
+        return currentSectionNum == subject.getSectionNum();
+    }
+
+    public void incrementCurrentSectionNum() {
+        if (currentSectionNum == AdventureConstants.SECTIONS_PER_WORLD)
+            currentSectionNum = 1;
+        else
+            currentSectionNum++;
+    }
+
+    public int getCurrentSectionNum() {
+        return currentSectionNum;
     }
 }

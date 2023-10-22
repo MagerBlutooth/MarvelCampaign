@@ -1,6 +1,7 @@
 package adventure.controller;
 
 import adventure.model.target.ActiveCard;
+import adventure.view.node.ActiveCardControlNode;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import snapMain.controller.MainDatabase;
@@ -18,9 +19,9 @@ public class LostCardGridActionController implements GridActionController<Active
     GridDisplayController<ActiveCard> ownGridController;
 
     @Override
-    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<ActiveCard> node = new ControlNode<>();
-        node.initialize(getDatabase(), card, i, v, blind);
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean statusVisible) {
+        ActiveCardControlNode node = new ActiveCardControlNode();
+        node.initialize(getDatabase(), card, i, v, statusVisible);
         if(card.isActualThing())
             createContextMenu(node);
         return node;
@@ -60,7 +61,7 @@ public class LostCardGridActionController implements GridActionController<Active
 
     private void retrieveCard(ActiveCard c) {
         teamDisplayNodeController.returnCard(c);
-        ownGridController.removeThing(c);
+        ownGridController.removeTarget(c);
     }
 
     @Override

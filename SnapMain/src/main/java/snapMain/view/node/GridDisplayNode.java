@@ -1,14 +1,11 @@
 package snapMain.view.node;
 
-import javafx.beans.value.ObservableNumberValue;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
-import snapMain.model.target.CardList;
 import snapMain.model.target.SnapTarget;
 import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLMainGrabber;
 import javafx.scene.control.ScrollPane;
-import snapMain.model.logger.MLogger;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
@@ -41,18 +38,23 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
         return gridDisplayController;
     }
 
-    public void addThing(T t)
+    public void addTarget(T t)
     {
-        gridDisplayController.addThing(t);
+        gridDisplayController.addTarget(t);
     }
 
-    public void removeThing(T t)
+    public void removeTarget(T t)
     {
-        gridDisplayController.removeThing(t);
+        gridDisplayController.removeTarget(t);
     }
 
-    public void refreshToMatch(TargetList<T> things) {
-        gridDisplayController.refresh(things);
+    public void refreshToMatch(TargetList<T> targets) {
+        gridDisplayController.refresh(targets);
+    }
+
+    public void refresh()
+    {
+        gridDisplayController.refresh();
     }
 
     public void setPrefColumns(int i) {

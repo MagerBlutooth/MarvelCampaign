@@ -14,10 +14,7 @@ import adventure.view.sortFilter.DeckLinkedSortMenuButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -26,6 +23,7 @@ import javafx.scene.paint.Color;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.helper.DeckCodeConverter;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.CardList;
 import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
@@ -88,6 +86,8 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     DeckProfileList deckProfiles;
     int profileNum;
 
+    final static MLogger logger = new MLogger(AdventureControlPaneController.class);
+
     public void initialize(AdvMainDatabase db, FullViewPane pane, Adventure a)
     {
         mainDatabase = db;
@@ -114,11 +114,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         deckGridController = new DeckGridController();
         ActiveCardList verifiedDeck = verifyDeck(deckProfiles.getLatestProfile());
         deckGridController.initialize(db, deckDisplay, verifiedDeck, this);
-        allSelectableCards.initialize(selectableCards, TargetType.CARD, this, ViewSize.TINY, false);
+        allSelectableCards.initialize(selectableCards, TargetType.CARD, this, ViewSize.TINY, true);
         allSelectableCards.setPrefColumns(8);
         deckDisplay.setMaxWidth(700);
         deckDisplay.initialize(verifiedDeck, TargetType.CARD, deckGridController, ViewSize.SMALL,
-                false);
+                true);
         deckDisplay.setBorder((new Border(new BorderStroke(Color.WHITE,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
         sortButton.initialize(allSelectableCards.getListNodeController(), deckGridController);
@@ -172,10 +172,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     @Override
-    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean statusVisible) {
         DeckItemControlNode node = new DeckItemControlNode();
-        node.initialize(mainDatabase, card, v);
+        node.initialize(mainDatabase, card, i, v, true);
         setMouseEvents(node);
+        createContextMenu(node);
         return node;
     }
 
@@ -239,7 +240,53 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     @Override
     public void createContextMenu(ControlNode<ActiveCard> n) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem woundItem = createWoundItem(n);
+        contextMenu.getItems().add(woundItem);
+        n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
+    }
 
+/*    private MenuItem createCaptureItem(ControlNode<ActiveCard> n) {
+        ActiveCard c = n.getSubject();
+        MenuItem captureItem = new MenuItem("Capture");
+        ImageView icon = new ImageView(mainDatabase.grabIcon(IconConstant.CAPTURE));
+        icon.setFitWidth(20);
+        icon.setFitHeight(20);
+        captureItem.setGraphic(icon);
+        captureItem.setOnAction(e -> {
+            adventure.captureCard(c);
+            allSelectableCards.removeObject(c);
+            deckGridController.removeObject(c);
+        });
+        return captureItem;
+    }*/
+
+    private MenuItem createWoundItem(ControlNode<ActiveCard> n) {
+        ActiveCard c = n.getSubject();
+        MenuItem woundItem;
+        ImageView icon;
+        if(c.hasStatus(StatusEffect.WOUND))
+        {
+            woundItem= new MenuItem("Heal");
+            icon = new ImageView(mainDatabase.grabIcon(IconConstant.HEAL));
+            woundItem.setGraphic(icon);
+        }
+        else {
+            woundItem= new MenuItem("Wound");
+            icon = new ImageView(mainDatabase.grabIcon(IconConstant.WOUND));
+            woundItem.setGraphic(icon);
+        }
+        woundItem.setOnAction(e -> {
+            c.toggleStatus(StatusEffect.WOUND);
+            logger.info(n.getSubject()+ "'s wound status set to "
+                    + n.getSubject().hasStatus(StatusEffect.WOUND));
+            allSelectableCards.refresh();
+            deckGridController.refresh();
+            createContextMenu(n);
+        });
+        icon.setFitWidth(20);
+        icon.setFitHeight(20);
+        return woundItem;
     }
 
     public void toggleNodeLight(ActiveCard c) {
@@ -272,7 +319,23 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
                     recoveredCards);
             cardDisplayConfirmationDialog.showAndWait();
         }
+        logger.info(deck + getResultString(result));
         changeScene(backPane);
+    }
+
+    private String getResultString(MatchResult result) {
+        switch(result)
+        {
+            case FORCE_RETREAT:
+                return " forced the enemy to retreat.";
+            case WIN:
+                return " achieved a decisive victory.";
+            case LOSE:
+                return " suffered a humiliating defeat.";
+            default:
+                return " managed to get away safely.";
+        }
+
     }
 
     private int getProfileNum() {
@@ -371,7 +434,8 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     {
         saveDeckProfile();
         clearDeck();
-        for(ActiveCard c: deckProfiles.getProfile(pNum)) {
+        ActiveCardList newDeck = verifyDeck(deckProfiles.getProfile(pNum));
+        for(ActiveCard c: newDeck) {
             deckGridController.toggleEntry(c);
             toggleNodeLight(c);
         }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class MLogger implements org.slf4j.Logger, Serializable {
 
     public static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(MLogger.class.getName());
-    private static final String NAME = "AnimeLogger";
+    private static final String NAME = "SnapLogger";
     private static final String FORMAT_CONSTANT = "%";
 
     public MLogger(Class<?> name) {

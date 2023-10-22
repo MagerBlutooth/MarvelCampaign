@@ -140,16 +140,20 @@ public class GridDisplayController<T extends SnapTarget>  {
         populateDisplay();
     }
 
+    public void refresh() {
+        populateDisplay();
+    }
+
     public void setPrefColumns(int c) {
         groupList.setPrefColumns(c);
     }
 
-    public void addThing(T t) {
+    public void addTarget(T t) {
         targetList.add(t);
         populateDisplay();
     }
 
-    public void removeThing(T t)
+    public void removeTarget(T t)
     {
         targetList.remove(t);
         populateDisplay();

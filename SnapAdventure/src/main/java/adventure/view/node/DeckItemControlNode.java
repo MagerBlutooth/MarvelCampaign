@@ -4,11 +4,13 @@ import adventure.model.target.ActiveCard;
 import snapMain.controller.MainDatabase;
 
 import snapMain.model.target.StatusEffect;
+import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 
 public class DeckItemControlNode extends ActiveCardControlNode {
 
-    public void initialize(MainDatabase db, ActiveCard c, ViewSize v) {
+    @Override
+    public void initialize(MainDatabase db, ActiveCard c, IconImage i, ViewSize v, boolean statusVisible) {
 
         mainDatabase = db;
         subject = c;
@@ -16,8 +18,10 @@ public class DeckItemControlNode extends ActiveCardControlNode {
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());
         createCaptainView(v);
-        setDamage(c.hasStatus(StatusEffect.WOUND));
-        setCaptain(c.hasStatus(StatusEffect.CAPTAIN));
+        if(statusVisible) {
+            setDamage(c.hasStatus(StatusEffect.WOUND));
+            setCaptain(c.hasStatus(StatusEffect.CAPTAIN));
+        }
         setHighlighted(true);
     }
 }

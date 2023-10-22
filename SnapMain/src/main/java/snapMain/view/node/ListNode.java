@@ -27,8 +27,9 @@ public abstract class ListNode<T extends SnapTarget> extends StackPane {
         return list.getController();
     }
 
-    public void initialize(TargetList<T> things, TargetType t, GridActionController<T> c, ViewSize v, boolean blind) {
-        list.initialize(things, t, c, v, blind);
+    public void initialize(TargetList<T> things, TargetType t, GridActionController<T> c, ViewSize v,
+                           boolean statusVisible) {
+        list.initialize(things, t, c, v, statusVisible);
     }
 
     public <V extends CampaignListNodeController<BaseObject>> V getController() {
@@ -55,5 +56,14 @@ public abstract class ListNode<T extends SnapTarget> extends StackPane {
 
     public void highlightAll() {
         list.highlightAll();
+    }
+
+    public void refresh()
+    {
+        list.refresh();
+    }
+
+    public void removeObject(T t) {
+        list.removeTarget(t);
     }
 }

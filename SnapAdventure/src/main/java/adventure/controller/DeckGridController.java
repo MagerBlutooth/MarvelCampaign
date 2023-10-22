@@ -40,9 +40,9 @@ public class DeckGridController implements GridActionController<ActiveCard> {
     }
 
     @Override
-    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
+    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean statusVisible) {
         ActiveCardControlNode node = new ActiveCardControlNode();
-        node.initialize(mainDatabase, card, i, v, blind);
+        node.initialize(mainDatabase, card, i, v, statusVisible);
         setMouseEvents(node);
         return node;
     }
@@ -130,4 +130,13 @@ public class DeckGridController implements GridActionController<ActiveCard> {
         return chosenCards;
     }
 
+    public void refresh() {
+        deckDisplay.refreshToMatch(chosenCards);
+        toggleNodeLights();
+    }
+
+    public void removeObject(ActiveCard c) {
+        chosenCards.remove(c);
+        deckDisplay.refresh();
+    }
 }

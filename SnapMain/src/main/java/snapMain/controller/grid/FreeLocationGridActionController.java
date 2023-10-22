@@ -73,11 +73,11 @@ public class FreeLocationGridActionController extends ThingActionController<Loca
             LocationSearchSelectDialog dialog = new LocationSearchSelectDialog();
             dialog.initialize(mainDatabase, new LocationList(mainDatabase.getLocations()));
             Optional<Location> newLoc = dialog.showAndWait();
-            newLoc.ifPresent(location -> locationGridDisplayNode.addThing(location));
+            newLoc.ifPresent(location -> locationGridDisplayNode.addTarget(location));
             locationGridDisplayNode.sortBy("Name");
         });
         MenuItem delLocItem = new MenuItem("Delete");
-        delLocItem.setOnAction(e -> {locationGridDisplayNode.removeThing(n.getSubject());
+        delLocItem.setOnAction(e -> {locationGridDisplayNode.removeTarget(n.getSubject());
             locationGridDisplayNode.sortBy("Name");
         });
         contextMenu.getItems().add(shieldItem);

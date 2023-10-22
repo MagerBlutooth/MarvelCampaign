@@ -26,7 +26,6 @@ public class Adventure {
     AdvLocationList availableLocations;
     WorldList worlds;
     int currentWorldNum;
-    int currentSectionNum;
     boolean newProfileCheck;
     CardStatTracker cardStatTracker = new CardStatTracker();
     ExhaustionCalculator exhaustionCalculator = new ExhaustionCalculator();
@@ -61,7 +60,6 @@ public class Adventure {
         List<String> adventureString = new ArrayList<>();
         adventureString.add(profileName);
         adventureString.add(currentWorldNum + "");
-        adventureString.add(currentSectionNum + "");
         adventureString.add(team.toSaveString());
         adventureString.add(availableBosses.toSaveString());
         adventureString.add(availableLocations.toSaveString());
@@ -83,16 +81,15 @@ public class Adventure {
 
         profileName = splitString[0];
         currentWorldNum = Integer.parseInt(splitString[1]);
-        currentSectionNum = Integer.parseInt(splitString[2]);
-        adventureDatabase.fromSaveString(splitString[10], mainDB);
-        team.convertFromString(splitString[3], adventureDatabase);
-        availableBosses.fromSaveString(splitString[4], adventureDatabase.getAdvCards());
-        availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
-        worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
-        cardStatTracker.fromSaveString(splitString[7]);
-        deckProfiles.fromSaveString(splitString[8], adventureDatabase);
-        difficulty = Difficulty.valueOf(splitString[9]);
-        miaCardTracker.fromSaveString(splitString[11], team.getAllCards());
+        adventureDatabase.fromSaveString(splitString[9], mainDB);
+        team.convertFromString(splitString[2], adventureDatabase);
+        availableBosses.fromSaveString(splitString[3], adventureDatabase.getAdvCards());
+        availableLocations.fromSaveString(splitString[4], adventureDatabase.getSections());
+        worlds.fromSaveString(adventureDatabase, mainDB, splitString[5]);
+        cardStatTracker.fromSaveString(splitString[6]);
+        deckProfiles.fromSaveString(splitString[7], adventureDatabase);
+        difficulty = Difficulty.valueOf(splitString[8]);
+        miaCardTracker.fromSaveString(splitString[10], team.getAllCards());
     }
 
     public void saveAdventure() {
@@ -116,7 +113,6 @@ public class Adventure {
         availableBosses.removeAll(worlds.getAllBosses());
         availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
-        currentSectionNum = 1;
         cardStatTracker.initialize(getAllCards());
         World w = worlds.get(currentWorldNum);
         w.initializeBoss(getFreeAgents());
@@ -152,7 +148,7 @@ public class Adventure {
     }
 
     public int getCurrentSectionNum() {
-        return currentSectionNum;
+        return getCurrentWorld().getCurrentSectionNum();
     }
 
     public Team getTeam() {
@@ -161,6 +157,9 @@ public class Adventure {
 
     public String getProfileName() {
         return profileName;
+    }
+    public String getProfileFile() {
+        return profileFile;
     }
 
     public boolean isNewProfile() {
@@ -192,15 +191,16 @@ public class Adventure {
         if (getCurrentWorld().numClearedSections() >= difficulty.getSectionsRequiredToClear()) {
             getCurrentWorld().setBossRevealed(true);
         }
-        getCurrentWorld().revealNextSection(currentSectionNum);
+        getCurrentWorld().revealNextSection(getCurrentSectionNum());
+        incrementCurrentSectionNum();
+    }
+    public void skipCurrentSection() {
+        getCurrentWorld().revealNextSection(getCurrentSectionNum());
         incrementCurrentSectionNum();
     }
 
     public void incrementCurrentSectionNum() {
-        if (currentSectionNum == AdventureConstants.SECTIONS_PER_WORLD)
-            currentSectionNum = 1;
-        else
-            currentSectionNum++;
+        getCurrentWorld().incrementCurrentSectionNum();
     }
 
     public void completeCurrentWorld() {
@@ -210,7 +210,6 @@ public class Adventure {
         team.tempCardsExpire();
         if (currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
             currentWorldNum++;
-            currentSectionNum = 1;
             getCurrentWorld().initializeBoss(team.getFreeAgents());
         } else if (currentWorldNum == AdventureConstants.NUMBER_OF_WORLDS && infinityStones.size() == 6) {
             currentWorldNum++;
@@ -502,4 +501,9 @@ public class Adventure {
     public Map<Integer, CardStats> getRankedCardStats() {
         return cardStatTracker.getCardStatsSorted();
     }
+
+    public void captureCard(ActiveCard c) {
+        team.captureCard(c);
+    }
+
 }

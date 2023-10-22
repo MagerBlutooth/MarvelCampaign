@@ -53,8 +53,8 @@ public class DraggableThingDisplayNode<T extends BaseObject> extends GridDisplay
         return controller;
     }
 
-    public void refreshToMatch(TargetList<T> things) {
-        controller.refresh(things);
+    public void refreshToMatch(TargetList<T> targets) {
+        controller.refresh(targets);
     }
 
     public void filterBy(String text, boolean remove) {

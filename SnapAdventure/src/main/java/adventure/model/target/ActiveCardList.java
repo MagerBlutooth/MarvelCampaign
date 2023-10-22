@@ -159,4 +159,19 @@ public class ActiveCardList extends TargetList<ActiveCard> {
         }
         return true;
     }
+
+    public String toString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Deck: ");
+        stringBuilder.append("[");
+        for(ActiveCard c: this)
+        {
+            stringBuilder.append(c);
+            stringBuilder.append(",");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(","));
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
 }

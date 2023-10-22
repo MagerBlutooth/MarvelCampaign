@@ -7,6 +7,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
@@ -17,6 +18,8 @@ public class TempGridActionController implements GridActionController<ActiveCard
 
     MainDatabase mainDatabase;
     TeamDisplayNodeController teamDisplayNodeController;
+
+    final static MLogger logger = new MLogger(TempGridActionController.class);
 
     @Override
     public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
@@ -54,9 +57,15 @@ public class TempGridActionController implements GridActionController<ActiveCard
     public void createContextMenu(ControlNode<ActiveCard> n) {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem defectItem = new MenuItem("Defect");
-        defectItem.setOnAction(actionEvent -> teamDisplayNodeController.makeCardFreeAgent(n.getSubject()));
+        defectItem.setOnAction(actionEvent -> {
+            teamDisplayNodeController.makeCardFreeAgent(n.getSubject());
+            logger.info(n.getSubject()+ " defected to the enemy team.");
+        });
         MenuItem teamItem = new MenuItem("To Team");
-        teamItem.setOnAction(actionEvent -> teamDisplayNodeController.fromTempToTeam(n.getSubject()));
+        teamItem.setOnAction(actionEvent -> {
+            teamDisplayNodeController.fromTempToTeam(n.getSubject());
+            logger.info(n.getSubject()+ " moved to main team.");
+        });
         setGraphic(defectItem, new ImageView(mainDatabase.grabIcon(IconConstant.DEFECT)));
         setGraphic(teamItem, new ImageView(mainDatabase.grabIcon(IconConstant.TEAM)));
         contextMenu.getItems().add(teamItem);

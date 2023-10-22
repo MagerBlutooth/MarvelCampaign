@@ -25,7 +25,7 @@ public class CardDisplayPopup extends AdvPopup {
     public CardDisplayPopup(MainDatabase db, ActiveCard c, Point2D p)
     {
         ActiveCardControlNode node = new ActiveCardControlNode();
-        node.initialize(db, c, db.grabImage(c), ViewSize.TINY, false);
+        node.initialize(db, c, db.grabImage(c), ViewSize.TINY, true);
         setX(p.getX());
         setY(p.getY());
         Scene scene = new Scene(node);
@@ -55,7 +55,7 @@ public class CardDisplayPopup extends AdvPopup {
 
     public void initialize(GridActionController<ActiveCard> controller)
     {
-        cardGridDisplayNode.initialize(cards, TargetType.CARD, controller, ViewSize.TINY, false);
+        cardGridDisplayNode.initialize(cards, TargetType.CARD, controller, ViewSize.TINY, true);
     }
 
     public GridDisplayController<ActiveCard> getGridDisplayController() {

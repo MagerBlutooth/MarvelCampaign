@@ -1,7 +1,7 @@
 package adventure.model.target;
 
 public enum InfinityStoneID {
-    POWER_STONE(5, "Increase damage done to bosses and mooks by 1"),
+    POWER_STONE(5, "Increase damage done to mooks by 1"),
     MIND_STONE(24, "Once per world, you may draft a card."),
     REALITY_STONE(6, "Once per world, you may reroll the current location."),
     TIME_STONE(13, "Once per section, you may revert the results of a match."),

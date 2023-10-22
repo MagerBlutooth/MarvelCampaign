@@ -50,19 +50,19 @@ public class WorldDisplayNodeController extends AdvPaneController {
         sections = new ArrayList<>();
         adventurePane = aPane;
 
-        Section advLocation1 = w.getFirstSection();
-        Section advLocation2 = w.getSecondSection();
-        Section advLocation3 = w.getThirdSection();
-        Section advLocation4 = w.getFourthSection();
+        Section section1 = w.getFirstSection();
+        Section section2 = w.getSecondSection();
+        Section section3 = w.getThirdSection();
+        Section section4 = w.getFourthSection();
         Enemy boss = w.getBoss();
-        section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation()),
-                ViewSize.MEDIUM, advLocation1.isRevealed());
-        section2Node.initialize(d, advLocation2, d.grabImage(advLocation2.getLocation()),
-                ViewSize.MEDIUM, advLocation1.isRevealed());
-        section3Node.initialize(d, advLocation3, d.grabImage(advLocation3.getLocation()),
-                ViewSize.MEDIUM, advLocation1.isRevealed());
-        section4Node.initialize(d, advLocation4, d.grabImage(advLocation4.getLocation()),
-                ViewSize.MEDIUM, advLocation1.isRevealed());
+        section1Node.initialize(d, section1, d.grabImage(section1.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section1));
+        section2Node.initialize(d, section2, d.grabImage(section2.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section2));
+        section3Node.initialize(d, section3, d.grabImage(section3.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section3));
+        section4Node.initialize(d, section4, d.grabImage(section4.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section4));
         sections.add(section1Node);
         sections.add(section2Node);
         sections.add(section3Node);
@@ -119,7 +119,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     private void setSectionMouseOption(SectionControlNode sectionNode, AdventureControlPane aPane) {
         sectionNode.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getButton() == MouseButton.PRIMARY && sectionNode.isRevealed()) {
+            if(mouseEvent.getButton() == MouseButton.PRIMARY && world.isCurrentSection(sectionNode.getSubject())) {
                 SectionViewPane sectionViewPane = new SectionViewPane();
                 sectionViewPane.initialize(mainDatabase, aPane, sectionNode.getSubject());
                 changeScene(sectionViewPane);
@@ -150,10 +150,10 @@ public class WorldDisplayNodeController extends AdvPaneController {
     public void refresh(World w)
     {
         setWorldLabel(w);
-        section1Node.refresh(w.getFirstSection());
-        section2Node.refresh(w.getSecondSection());
-        section3Node.refresh(w.getThirdSection());
-        section4Node.refresh(w.getFourthSection());
+        section1Node.refresh(w.getSection(1), w.isCurrentSection(w.getSection(1)));
+        section2Node.refresh(w.getSection(2), w.isCurrentSection(w.getSection(2)));
+        section3Node.refresh(w.getSection(3), w.isCurrentSection(w.getSection(3)));
+        section4Node.refresh(w.getSection(4), w.isCurrentSection(w.getSection(4)));
         bossControlNode.refresh((w.getBoss()), w.isBossRevealed());
     }
 

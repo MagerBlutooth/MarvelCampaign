@@ -1,6 +1,7 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
@@ -16,11 +17,19 @@ import adventure.view.pane.AdventureFailPane;
 import adventure.view.popup.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import snapMain.model.logger.MFormatter;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.TargetList;
 import snapMain.view.button.ButtonToolBar;
+import snapMain.view.pane.FullViewPane;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Optional;
+import java.util.logging.FileHandler;
 
 public class AdventureControlPaneController extends AdvPaneController {
 
@@ -39,6 +48,10 @@ public class AdventureControlPaneController extends AdvPaneController {
     Adventure adventure;
     AdventureDatabase adventureDatabase;
 
+    FileHandler logHandler;
+
+    final static MLogger adventureLogger = new MLogger(AdventureControlPaneController.class);
+
 
     public void initialize(AdvMainDatabase database, Adventure a)
     {
@@ -52,6 +65,34 @@ public class AdventureControlPaneController extends AdvPaneController {
         adventureActionNode.initialize(database, adventure, adventureControlPane);
         diceNode.initialize(database);
         adventure.saveAdventure();
+        setLogHandler(a.getProfileFile());
+    }
+
+    private void setLogHandler(String profileFile) {
+        try {
+            FileHandler logHandler = null;
+            if (profileFile.contains("1")) {
+                MLogger.LOGGER.info("Loading Profile 1...");
+                logHandler = new FileHandler(AdventureConstants.LOG_1, true);
+                MLogger.LOGGER.addHandler(logHandler);
+            }
+            else if (profileFile.contains("2")) {
+                MLogger.LOGGER.info("Loading Profile 2...");
+                logHandler = new FileHandler(AdventureConstants.LOG_2, true);
+                MLogger.LOGGER.addHandler(logHandler);
+            }
+            else if (profileFile.contains("3")) {
+                MLogger.LOGGER.info("Loading Profile 3...");
+                logHandler = new FileHandler(AdventureConstants.LOG_3, true);
+                MLogger.LOGGER.addHandler(logHandler);
+            }
+            assert logHandler != null;
+            logHandler.setFormatter(new MFormatter());
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void failAdventureCheck() {
@@ -59,6 +100,8 @@ public class AdventureControlPaneController extends AdvPaneController {
             AdventureFailPane adventureFailPane = new AdventureFailPane();
             adventureFailPane.initialize(mainDatabase, adventure);
             changeScene(adventureFailPane);
+            MLogger.LOGGER.info("Adventure Failed. Game Over.");
+            MLogger.LOGGER.removeHandler(logHandler);
         }
     }
 
@@ -71,7 +114,7 @@ public class AdventureControlPaneController extends AdvPaneController {
     public void initializeButtonToolBar() {
         AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
         mainMenuPane.initialize(mainDatabase);
-        buttonToolBar.initialize(mainMenuPane);
+        buttonToolBar.initialize(mainMenuPane, logHandler);
     }
 
     public Adventure getAdventure() {
@@ -79,6 +122,9 @@ public class AdventureControlPaneController extends AdvPaneController {
     }
 
     public void skipSection(Section section) {
+        logInfo("Section " + adventure.getCurrentWorldNum() + "-" + adventure.getCurrentSectionNum()
+                + " skipped");
+        adventure.skipCurrentSection();
         worldDisplayNode.revealNextSection(section.getSectionNum());
         refreshToMatch();
     }
@@ -91,6 +137,8 @@ public class AdventureControlPaneController extends AdvPaneController {
     }
 
     public void completeSection() {
+        logInfo("Section " + adventure.getCurrentWorldNum() + "-" + adventure.getCurrentSectionNum()
+                + " completed");
         adventure.completeCurrentSection();
         worldDisplayNode.revealBossCheck();
         refreshToMatch();
@@ -109,13 +157,18 @@ public class AdventureControlPaneController extends AdvPaneController {
             Optional<ActiveCard> card = draftCardDialog.showAndWait();
             card.ifPresent(value ->
             {
-                if(draftCardDialog.isTeam())
+                if(draftCardDialog.isTeam()) {
                     adventure.addFreeAgentToTeam(value);
-                else
+                    MLogger.LOGGER.info("Drafted " + value + " to team.");
+                }
+                else {
                     adventure.addFreeAgentToTemp(value);
+                    MLogger.LOGGER.info("Drafted " + value + " to temp.");
+                }
                 refreshToMatch();
             });
         }
+
 
     }
 
@@ -131,10 +184,14 @@ public class AdventureControlPaneController extends AdvPaneController {
             Optional<ActiveCard> card = randomDialog.showAndWait();
             card.ifPresent(value ->
             {
-                if(randomDialog.isTeam())
+                if(randomDialog.isTeam()) {
                     adventure.addFreeAgentToTeam(value);
-                else
+                    MLogger.LOGGER.info("Added " + value + " to team.");
+                }
+                else {
                     adventure.addFreeAgentToTemp(value);
+                    MLogger.LOGGER.info("Added " + value + " to temp.");
+                }
 
             });
         }
@@ -148,10 +205,14 @@ public class AdventureControlPaneController extends AdvPaneController {
             Optional<ActiveCardList> chosenCards = chooseDialog.showAndWait();
             if(chosenCards.isPresent() && !chosenCards.get().isEmpty())
             {
-                if(chooseDialog.isTeam())
+                if(chooseDialog.isTeam()) {
                     adventure.addFreeAgentsToTeam(chosenCards.get());
-                else
+                    MLogger.LOGGER.info("Added " + chosenCards.get() + " to team.");
+                }
+                else {
                     adventure.addFreeAgentsToTemp(chosenCards.get());
+                    MLogger.LOGGER.info("Added " + chosenCards.get() + " to team.");
+                }
                 refreshToMatch();
             }
         }
@@ -165,10 +226,15 @@ public class AdventureControlPaneController extends AdvPaneController {
         if(selection.isPresent())
         {
             ActiveCard card = selection.get();
-            if(cardSearchSelectDialog.isTeam())
+            if(cardSearchSelectDialog.isTeam()) {
                 adventure.addFreeAgentToTeam(card);
+                MLogger.LOGGER.info("Added " + selection.get() + " to team.");
+            }
             else {
-                adventure.addFreeAgentToTemp(card);
+                {
+                    adventure.addFreeAgentToTemp(card);
+                    MLogger.LOGGER.info("Added " + selection.get() + " to temp.");
+                }
             }
             refreshToMatch();
         }
@@ -177,5 +243,10 @@ public class AdventureControlPaneController extends AdvPaneController {
 
     public AdventureDatabase getAdventureDatabase() {
         return adventureDatabase;
+    }
+
+    public void logInfo(String string)
+    {
+        adventureLogger.info(string);
     }
 }

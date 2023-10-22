@@ -16,6 +16,9 @@ public class AdventureConstants {
     public static final String PROFILE_1 = "profiles/adventureProfile1.txt";
     public static final String PROFILE_2 = "profiles/adventureProfile2.txt";
     public static final String PROFILE_3 = "profiles/adventureProfile3.txt";
+    public static final String LOG_1 = "logs/adventureLog1.txt";
+    public static final String LOG_2 = "logs/adventureLog2.txt";
+    public static final String LOG_3 = "logs/adventureLog3.txt";
 
     public static final int MOOK_BASE_HP = 1;
 

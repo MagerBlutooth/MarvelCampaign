@@ -1,9 +1,11 @@
 package adventure.view;
 
+import adventure.model.AdventureConstants;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import snapMain.model.logger.MHandler;
 import snapMain.model.logger.MLogger;
+
 
 public class GameMain extends Application {
 
