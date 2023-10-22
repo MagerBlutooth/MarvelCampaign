@@ -58,7 +58,7 @@ public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard,
     public ControlNode<AdvCard> createControlNode(AdvCard c, IconImage i, ViewSize v, boolean revealed) {
         AdvCardControlNode node = new AdvCardControlNode();
         node.initialize(mainDatabase, c, i, v, revealed);
-        createTooltip(node);
+        createContextMenu(node);
         setMouseEvents(node);
         return node;
     }
@@ -78,15 +78,15 @@ public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard,
 
     @Override
     public void createTooltip(ControlNode<AdvCard> n) {
+
+    }
+    @Override
+    public void createContextMenu(ControlNode<AdvCard> n) {
         ContextMenu rightClickMenu = new ContextMenu();
         MenuItem editMenuItem = new MenuItem("Edit");
         editMenuItem.setOnAction(actionEvent -> editSubject(n));
         rightClickMenu.getItems().add(editMenuItem);
         n.setOnContextMenuRequested(e -> rightClickMenu.show(n, e.getScreenX(), e.getScreenY()));
-    }
-    @Override
-    public void createContextMenu(ControlNode<AdvCard> n) {
-
     }
 
     @Override

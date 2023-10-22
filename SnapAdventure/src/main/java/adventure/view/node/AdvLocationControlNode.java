@@ -13,23 +13,16 @@ public class AdvLocationControlNode extends ControlNode<AdvLocation> {
 
     @Override
         public void initialize(MainDatabase db, AdvLocation s, IconImage i, ViewSize v, boolean revealed) {
-            mainDatabase = db;
-            targetType = TargetType.LOCATION;
-            subject = s;
-            imageView.setImage(i);
-            imageView.setFitWidth(v.getSizeVal());
-            imageView.setFitHeight(v.getSizeVal());
-            setEnabled(s.isEnabled());
-            if(!revealed)
-                unreveal();
-        }
-        public void toggleReveal()
-        {
-            if(revealed)
-                unreveal();
-            else
-                reveal();
-        }
+        mainDatabase = db;
+        targetType = TargetType.LOCATION;
+        subject = s;
+        imageView.setImage(i);
+        imageView.setFitWidth(v.getSizeVal());
+        imageView.setFitHeight(v.getSizeVal());
+        setEnabled(s.isEnabled());
+        if (!revealed)
+            unreveal();
+    }
 
     public void unreveal() {
         imageView.setImage(mainDatabase.grabBlankImage(TargetType.LOCATION));

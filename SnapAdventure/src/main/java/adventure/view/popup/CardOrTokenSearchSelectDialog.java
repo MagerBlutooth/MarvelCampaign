@@ -1,6 +1,6 @@
 package adventure.view.popup;
 
-import adventure.controller.CardOrTokenSearchSelectDialogController;
+import adventure.controller.dialog.CardOrTokenSearchSelectDialogController;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
@@ -10,16 +10,15 @@ import snapMain.controller.MainDatabase;
 import snapMain.model.target.Playable;
 import snapMain.model.target.TargetList;
 
-public class CardOrTokenSearchSelectDialog extends Dialog<Playable> implements Choosable<Playable>{
+public class CardOrTokenSearchSelectDialog extends AdvDialog<Playable> implements Choosable<Playable>{
 
     CardOrTokenSearchSelectDialogController controller;
     public CardOrTokenSearchSelectDialog()
     {
+        super();
         FXMLAdventureGrabber adventureGrabber = new FXMLAdventureGrabber();
         adventureGrabber.grabFXML("cardOrTokenSelectDialog.fxml", this.getDialogPane());
         controller = adventureGrabber.getController();
-        initStyle(StageStyle.UNDECORATED);
-        initModality(Modality.APPLICATION_MODAL);
     }
 
     public void initialize(MainDatabase cd, TargetList<Playable> selectableCards)

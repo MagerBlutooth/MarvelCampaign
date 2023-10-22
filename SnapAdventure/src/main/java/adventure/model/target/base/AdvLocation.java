@@ -13,6 +13,7 @@ public class AdvLocation extends BaseObject {
     public AdvLocation()
     {
         location = new Location();
+        setID(SnapMainConstants.RUINS_ICON_ID);
     }
 
     public AdvLocation(Location l)
@@ -20,7 +21,7 @@ public class AdvLocation extends BaseObject {
         location = l;
         setName(l.getName());
         setID(l.getID());
-        effect = "";
+        effect = "No Location Effect.";
     }
 
     public AdvLocation(AdvLocation advLocation) {

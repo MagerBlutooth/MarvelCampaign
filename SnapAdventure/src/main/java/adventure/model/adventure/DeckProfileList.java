@@ -25,6 +25,12 @@ public class DeckProfileList implements Iterable<ActiveCardList> {
         latestProfileNum = 0;
     }
 
+    public DeckProfileList(DeckProfileList profileList)
+    {
+        profiles = new ArrayList<>(profileList.profiles);
+        latestProfileNum = profileList.latestProfileNum;
+    }
+
     public String toSaveString() {
         StringBuilder stringBuilder = new StringBuilder();
         for(ActiveCardList list: profiles)

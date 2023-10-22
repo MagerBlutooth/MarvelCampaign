@@ -12,6 +12,7 @@ public class Location extends EffectBaseObject {
     {
         super();
         name = "Ruins";
+        id = SnapMainConstants.RUINS_ICON_ID;
         stationedAgents = new CardList(new ArrayList<>());
     }
 

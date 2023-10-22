@@ -1,22 +1,25 @@
 package adventure.view.popup;
 
-import adventure.controller.RandomDisplayDialogController;
+import adventure.controller.dialog.RandomDisplayDialogController;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 
 import java.util.ArrayList;
 
-public class RandomCardDisplayDialog extends Dialog<ActiveCard> implements Choosable<ActiveCard> {
+public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Choosable<ActiveCard> {
 
     RandomDisplayDialogController<ActiveCard> controller;
 
     public RandomCardDisplayDialog()
     {
+        super();
         FXMLAdventureGrabber adventureGrabber = new FXMLAdventureGrabber();
         adventureGrabber.grabFXML("randomDisplayDialog.fxml", this.getDialogPane());
         controller = adventureGrabber.getController();

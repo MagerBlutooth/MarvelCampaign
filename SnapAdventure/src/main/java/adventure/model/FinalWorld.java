@@ -10,7 +10,7 @@ import java.util.List;
 
 public class FinalWorld extends World {
 
-    public FinalWorld(AdventureDatabase db, ActiveCardList freeAgents, List<AdvLocation> locations) {
+    public FinalWorld(AdventureDatabase db, ActiveCardList freeAgents, AdvLocationList locations) {
         super(db);
         section1 = new Section(db, 1, locations.get(0) , new Enemy(new Mook(),
                 bonusCalculator.calculateBoss(worldNum)));
@@ -24,6 +24,7 @@ public class FinalWorld extends World {
         section4 = new Section(db,4, locations.get(3), new Enemy(new Mook(),
                 bonusCalculator.calculateBoss(worldNum)));
         initializeMiniBoss(section4, freeAgents);
+        bossSection = new BossSection(db, new Enemy(new Mook()));
         initializeBoss(freeAgents);
 
     }

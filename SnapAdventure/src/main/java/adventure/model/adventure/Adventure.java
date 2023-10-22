@@ -2,6 +2,7 @@ package adventure.model.adventure;
 
 import adventure.model.*;
 import adventure.model.stats.CardStatTracker;
+import adventure.model.stats.CardStats;
 import adventure.model.stats.MatchResult;
 import adventure.model.target.*;
 import adventure.model.target.base.AdvCard;
@@ -116,7 +117,7 @@ public class Adventure {
         availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
         currentSectionNum = 1;
-        cardStatTracker.initialize(getActiveCards());
+        cardStatTracker.initialize(getAllCards());
         World w = worlds.get(currentWorldNum);
         w.initializeBoss(getFreeAgents());
         placeInfinityStones();
@@ -181,7 +182,7 @@ public class Adventure {
 
     private int getFutureWorldNum() {
         Random random = new Random();
-        int worldChosen = random.nextInt(worlds.size() - 1) + 1;
+        int worldChosen = random.nextInt(getCurrentWorldNum()+1,worlds.size()) + 1;
         return worldChosen;
     }
 
@@ -203,13 +204,15 @@ public class Adventure {
     }
 
     public void completeCurrentWorld() {
+        team.retrieveCapturedCards();
+        reclaimCards();
+        team.exhaustedCardsRecover();
+        team.tempCardsExpire();
         if (currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
             currentWorldNum++;
             currentSectionNum = 1;
-            team.retrieveCapturedCards();
-            team.loseTempCards();
             getCurrentWorld().initializeBoss(team.getFreeAgents());
-        } else if (infinityStones.size() == 6) {
+        } else if (currentWorldNum == AdventureConstants.NUMBER_OF_WORLDS && infinityStones.size() == 6) {
             currentWorldNum++;
             worlds.add(new World(adventureDatabase));
         }
@@ -344,6 +347,10 @@ public class Adventure {
         return matchCount;
     }
 
+    public int getNumMatchType(MatchResult m) {
+        return getCurrentWorld().getNumMatchType(m);
+    }
+
     public int getWorldMatchCount() {
         return getCurrentWorld().getMatchCount();
     }
@@ -454,10 +461,45 @@ public class Adventure {
         return getCurrentWorld().getWorldNum();
     }
 
+
+    //TODO: Make it so this method can be called without actually reclaiming the cards, in case user closes program
+    // before confirming the WorldClearPane.
     public ActiveCardList reclaimCards() {
         ActiveCardList reclaimedCards = new ActiveCardList();
         reclaimedCards.addAll(team.retrieveMIACards(miaCardTracker, getCurrentWorldNum() + 1).getThings());
         reclaimedCards.addAll(team.retrieveCapturedCards().getThings());
+        reclaimedCards.addAll(getCurrentWorld().retrieveStationedCards());
         return reclaimedCards;
+    }
+
+    public void enemyEscapes(int sectionNum) {
+       Enemy enemy =  worlds.get(getCurrentWorldNum()).enemyEscapes(sectionNum);
+       int futureWorld = getFutureWorldNum();
+       World world = worlds.get(futureWorld);
+       Section s = world.getRandomSection();
+       s.setEnemy(enemy);
+       team.sendCapturedCardsAway(miaCardTracker, futureWorld+1);
+    }
+
+    public boolean failStateCheck() {
+        ActiveCardList activeCards = getActiveCards();
+        return activeCards.size() < SnapMainConstants.DECK_SIZE || activeCards.hasNoCaptains();
+    }
+
+    private void createFinalWorld() {
+        if(worlds.size() == AdventureConstants.NUMBER_OF_WORLDS)
+        {
+            worlds.add(new FinalWorld(adventureDatabase, team.getFreeAgents(), availableLocations));
+        }
+    }
+
+    public Enemy getFinalBoss() {
+        if(worlds.size() == AdventureConstants.NUMBER_OF_WORLDS)
+            createFinalWorld();
+        return worlds.get(AdventureConstants.NUMBER_OF_WORLDS).getBoss();
+    }
+
+    public Map<Integer, CardStats> getRankedCardStats() {
+        return cardStatTracker.getCardStatsSorted();
     }
 }

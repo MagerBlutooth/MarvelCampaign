@@ -32,6 +32,8 @@
                         <Label text="Infinity Stones" alignment="CENTER"/>
                         <InfinityStoneDisplayNode fx:id="infinityStoneDisplay" spacing="5.0" alignment="CENTER_RIGHT"/>
                     </VBox>
+                    <Region prefWidth="100" HBox.hgrow="ALWAYS"/>
+                    <Button text="Disband All Temp" onAction="#defectAll"/>
                 </HBox>
             </VBox>
         </HBox>

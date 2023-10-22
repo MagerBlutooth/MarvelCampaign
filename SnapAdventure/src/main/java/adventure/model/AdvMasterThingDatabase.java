@@ -84,7 +84,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         TargetDatabase<AdvCard> enabled = new TargetDatabase<>();
         for(AdvCard b: getAdvCards())
         {
-            if(b.isEnabled())
+            if(b.isEnabled() && b.isActualThing())
                 enabled.add(b);
         }
         return enabled;
@@ -94,7 +94,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         TargetDatabase<AdvLocation> enabled = new TargetDatabase<>();
         for(AdvLocation s: getAdvLocations())
         {
-            if(s.isEnabled())
+            if(s.isEnabled() && s.isActualThing())
                 enabled.add(s);
         }
         return enabled;
@@ -107,7 +107,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         for(Card c: getCards())
         {
             AdvCard b = getAdvCard(c);
-            if(b.isEnabled())
+            if(b.isEnabled() && b.isActualThing())
                 enabled.add(c);
         }
         return enabled;
@@ -117,7 +117,7 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         TargetDatabase<AdvToken> enabled = new TargetDatabase<>();
         for(AdvToken a: getAdvTokens())
         {
-            if(a.isEnabled())
+            if(a.isEnabled() && a.isActualThing())
                 enabled.add(a);
         }
         return enabled;

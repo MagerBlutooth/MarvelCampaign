@@ -3,49 +3,45 @@ package adventure.model.stats;
 import snapMain.model.constants.SnapMainConstants;
 
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.function.Function;
+import java.util.Comparator;
 
-public class CardStats {
+public class CardStats implements Comparable<CardStats> {
     int wins;
     int losses;
     int escapes;
     int forceRetreats;
-    int currentStreak;
-    int longestStreak;
+    int currentUseStreak;
+    int longestUseStreak;
 
-    public CardStats()
-    {
+    public CardStats() {
         wins = 0;
         losses = 0;
         escapes = 0;
         forceRetreats = 0;
-        currentStreak = 0;
+        currentUseStreak = 0;
     }
 
     public void updateCardStat(boolean used, MatchResult result) {
 
-        switch(result)
-        {
-            case WIN:
-                wins++;
-                break;
-            case LOSE:
-                losses++;
-                break;
-            case ESCAPE:
-                escapes++;
-                break;
-            case FORCE_RETREAT:
-                forceRetreats++;
-                break;
-        }
-        if(used) {
-            currentStreak++;
-            longestStreak = Math.max(currentStreak, longestStreak);
-        }
-        else {
-            currentStreak = 0;
+        if (used) {
+            switch (result) {
+                case WIN:
+                    wins++;
+                    break;
+                case LOSE:
+                    losses++;
+                    break;
+                case ESCAPE:
+                    escapes++;
+                    break;
+                case FORCE_RETREAT:
+                    forceRetreats++;
+                    break;
+            }
+            currentUseStreak++;
+            longestUseStreak = Math.max(currentUseStreak, longestUseStreak);
+        } else {
+            currentUseStreak = 0;
         }
     }
 
@@ -61,8 +57,7 @@ public class CardStats {
 
     }
 
-    public void fromSaveString(String saveString)
-    {
+    public void fromSaveString(String saveString) {
         byte[] decodedBytes = Base64.getDecoder().decode(saveString);
         String decodedString = new String(decodedBytes);
         String[] splitString = decodedString.split(SnapMainConstants.STRING_SEPARATOR);
@@ -73,8 +68,7 @@ public class CardStats {
     }
 
     public int lookupStat(MatchResult result) {
-        switch(result)
-        {
+        switch (result) {
             case WIN:
                 return wins;
             case LOSE:
@@ -87,7 +81,29 @@ public class CardStats {
         return -1;
     }
 
-    public int getCurrentStreak() {
-        return currentStreak;
+    public int getCurrentUseStreak() {
+        return currentUseStreak;
+    }
+
+    @Override
+    public int compareTo(CardStats o) {
+        int result = Comparator.comparing(CardStats::getTotalMatches).thenComparing(CardStats::getTotalWinsAndEscapes)
+                .compare(this, o);
+        if (result == 0) {
+            return Comparator.comparing(CardStats::getTotalLossesAndForceRetreats).compare(o, this);
+        }
+        return result;
+    }
+
+    private int getTotalLossesAndForceRetreats() {
+        return lookupStat(MatchResult.LOSE) + lookupStat(MatchResult.FORCE_RETREAT);
+    }
+
+    private int getTotalWinsAndEscapes() {
+        return lookupStat(MatchResult.WIN) + lookupStat(MatchResult.ESCAPE);
+    }
+
+    public int getTotalMatches() {
+        return wins + losses + escapes + forceRetreats;
     }
 }

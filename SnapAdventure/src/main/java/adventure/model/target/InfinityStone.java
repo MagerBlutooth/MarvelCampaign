@@ -12,6 +12,18 @@ public class InfinityStone implements Playable<Token> {
     int tokenId;
     InfinityStoneID stoneID;
 
+    public InfinityStone()
+    {
+        tokenId = -1;
+        stoneID = null;
+    }
+
+    public InfinityStone(InfinityStone i)
+    {
+        tokenId = i.tokenId;
+        stoneID = i.stoneID;
+    }
+
     public InfinityStone(int tId, InfinityStoneID sId)
     {
         tokenId = tId;

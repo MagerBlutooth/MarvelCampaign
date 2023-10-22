@@ -2,9 +2,12 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
+import adventure.model.stats.CardStats;
 import adventure.model.target.ActiveCard;
-import adventure.view.node.WorldClearSelectNode;
-import adventure.view.pane.AdventureControlPane;
+import adventure.model.target.Enemy;
+import adventure.model.target.base.AdvCard;
+import adventure.view.pane.AdvMainMenuPane;
+import adventure.view.popup.CardStatDisplayPopup;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -12,63 +15,64 @@ import snapMain.controller.grid.GridActionController;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.button.ButtonToolBar;
 import snapMain.view.node.control.ControlNode;
+import snapMain.view.thing.CardView;
 
-public class AdventureClearPaneController extends AdvPaneController implements GridActionController<ActiveCard> {
+import java.util.Map;
+
+public class AdventureClearPaneController extends AdvPaneController {
 
     @FXML
-    Label matchCount;
+    Label victoryLabel;
+    @FXML
+    CardView enemyView;
+
+    Adventure adventure;
 
     public void initialize(AdvMainDatabase database, Adventure a)
     {
         mainDatabase = database;
-        matchCount.setText(a.getWorldMatchCount()+"");
+        adventure = a;
+        Enemy finalBoss = a.getFinalBoss();
+        a.saveAdventure();
+        if(finalBoss.getCurrentHP() > 0) {
+            victoryLabel.setText("Congratulations! You have stopped the mastermind " + finalBoss +
+                    " from retrieving the Infinity Stones. Perhaps if you had obtained all of them, you may have been "
+                    + "able" + "to confront them directly. They escaped back into the multiverse and your world is " +
+                    "safe...for now.");
+
+        }
+        else{
+            victoryLabel.setText("Oh, snap! You have defeated the evil mastermind " + finalBoss +
+                    " using the combined power of the Infinity Stones and put an end to their reign of terror. " +
+                    "You have" + "saved not only your universe, but the entire multiverse from this great evil.");
+        }
+        enemyView.initialize(database, ((AdvCard) finalBoss.getSubject()).getCard(), ViewSize.LARGE, false);
     }
 
     @Override
     public Scene getCurrentScene() {
-        return matchCount.getScene();
+        return victoryLabel.getScene();
     }
 
     @Override
     public void initializeButtonToolBar() {
     }
 
-
-    @Override
-    public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean blind) {
-        ControlNode<ActiveCard> controlNode = new ControlNode<>();
-        controlNode.initialize(mainDatabase, card, i, v, blind);
-        return controlNode;
-    }
-
-    @Override
-    public void saveGridNode(ControlNode<ActiveCard> node) {
-
-    }
-
-    @Override
-    public void createTooltip(ControlNode<ActiveCard> n) {
-
-    }
-
-    @Override
-    public void createContextMenu(ControlNode<ActiveCard> n) {
-
-    }
-
-    @Override
-    public ControlNode<ActiveCard> createEmptyNode(ViewSize v)
+    @FXML
+    public void showCardStats()
     {
-        ControlNode<ActiveCard> cardNode = new ControlNode<>();
-        cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
-                v,false);
-        return cardNode;
+        Map<Integer, CardStats> sortedCardStats = adventure.getRankedCardStats();
+        CardStatDisplayPopup popup  = new CardStatDisplayPopup();
+        popup.initialize(mainDatabase, sortedCardStats);
+        popup.showAndWait();
     }
 
-    @Override
-    public void setMouseEvents(ControlNode<ActiveCard> displayControlNode) {
 
+    public void endGame()
+    {
+        AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
+        mainMenuPane.initialize(mainDatabase);
+        changeScene(mainMenuPane);
     }
 }

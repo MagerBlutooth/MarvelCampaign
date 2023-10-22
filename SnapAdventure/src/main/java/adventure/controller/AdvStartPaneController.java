@@ -63,7 +63,7 @@ public class AdvStartPaneController extends AdvPaneController {
 
     }
 
-    private void validateProfiles() {
+    public void validateProfiles() {
         checkProfile(AdventureConstants.PROFILE_1, profile1, 1);
         checkProfile(AdventureConstants.PROFILE_2, profile2, 2);
         checkProfile(AdventureConstants.PROFILE_3, profile3, 3);
@@ -93,6 +93,14 @@ public class AdvStartPaneController extends AdvPaneController {
         Adventure adventure = selectAdventure(profile);
         buttonToolBar.setDisable(true);
         final FullViewPane[] newPane = new FullViewPane[1];
+
+        if(!adventure.isNewProfile() && adventure.failStateCheck())
+        {
+            AdventureFailPane adventureFailPane = new AdventureFailPane();
+            adventureFailPane.initialize(mainDatabase, adventure);
+            changeScene(adventureFailPane);
+            return;
+        }
         Task<FullViewPane> task = new Task<>() {
             @Override
             public boolean isCancelled() {

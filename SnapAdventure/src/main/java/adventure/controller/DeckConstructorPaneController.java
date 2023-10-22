@@ -123,7 +123,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
         sortButton.initialize(allSelectableCards.getListNodeController(), deckGridController);
         filterButton.initialize(allSelectableCards.getListNodeController(), deckGridController);
-        confirmButton.disableProperty().bind(Bindings.notEqual(SnapMainConstants.MAX_DECK_SIZE,
+        confirmButton.disableProperty().bind(Bindings.notEqual(SnapMainConstants.DECK_SIZE,
                 deckGridController.getDeckSizeProperty()));
         deckGridController.toggleNodeLights();
     }
@@ -353,11 +353,12 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     private DeckProfileList verifyDeckProfiles(DeckProfileList profileList) {
-        DeckProfileList newProfileList = new DeckProfileList(profileList.size());
+        DeckProfileList newProfileList = new DeckProfileList(profileList);
         for(int i = 0; i < profileList.size(); i++)
         {
             newProfileList.setProfile(i, profileList.getProfile(i));
         }
+        profileNum = newProfileList.getLatestProfileNum();
         return newProfileList;
     }
 
@@ -376,23 +377,27 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         }
         profileNum = pNum;
         int proFileNumDisplay = pNum+1;
+        deckProfiles.setLatestProfileNum(profileNum);
         deckButtonConfirmText.setText("Switched to Profile " + proFileNumDisplay);
     }
 
+    @FXML
     public void switchProfile1()
     {
         switchProfile(0);
 
     }
+    @FXML
     public void switchProfile2()
     {
         switchProfile(1);
     }
-
+    @FXML
     public void switchProfile3()
     {
         switchProfile(2);
     }
+    @FXML
     public void switchProfile4()
     {
         switchProfile(3);

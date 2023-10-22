@@ -12,6 +12,7 @@ import adventure.view.node.TeamDisplayNode;
 import adventure.view.node.WorldDisplayNode;
 import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdventureControlPane;
+import adventure.view.pane.AdventureFailPane;
 import adventure.view.popup.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -53,6 +54,14 @@ public class AdventureControlPaneController extends AdvPaneController {
         adventure.saveAdventure();
     }
 
+    private void failAdventureCheck() {
+        if(adventure.failStateCheck()) {
+            AdventureFailPane adventureFailPane = new AdventureFailPane();
+            adventureFailPane.initialize(mainDatabase, adventure);
+            changeScene(adventureFailPane);
+        }
+    }
+
     @Override
     public Scene getCurrentScene() {
         return buttonToolBar.getScene();
@@ -78,6 +87,7 @@ public class AdventureControlPaneController extends AdvPaneController {
         teamDisplayNode.refresh();
         worldDisplayNode.refresh(adventure.getCurrentWorld());
         adventure.saveAdventure();
+        failAdventureCheck();
     }
 
     public void completeSection() {

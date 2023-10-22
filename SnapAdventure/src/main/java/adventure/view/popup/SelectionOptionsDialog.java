@@ -8,16 +8,16 @@ import javafx.scene.control.Dialog;
 import javafx.stage.StageStyle;
 import snapMain.model.target.TargetList;
 
-public class SelectionOptionsDialog extends Dialog<TargetList<ActiveCard>> {
+public class SelectionOptionsDialog extends AdvDialog<TargetList<ActiveCard>> {
 
     SelectionOptionDialogController controller;
 
     public SelectionOptionsDialog()
     {
+        super();
         FXMLAdventureGrabber adventureGrabber = new FXMLAdventureGrabber();
         adventureGrabber.grabFXML("selectionOptionsDialog.fxml", this.getDialogPane());
         controller = adventureGrabber.getController();
-        initStyle(StageStyle.UNDECORATED);
     }
 
     public void initialize(TargetList<ActiveCard> freeAgents, boolean multiSelect)

@@ -19,7 +19,7 @@ public class Team {
     ActiveCardList capturedCards;
     ActiveCardList miaCards;
     ActiveCardList eliminatedCards;
-    List<InfinityStone> infinityStones;
+    InfinityStoneList infinityStones;
 
     public Team() {
         teamCards = new ActiveCardList();
@@ -28,7 +28,7 @@ public class Team {
         capturedCards = new ActiveCardList();
         miaCards = new ActiveCardList();
         eliminatedCards = new ActiveCardList();
-        infinityStones = new ArrayList<>();
+        infinityStones = new InfinityStoneList();
         allCards = new ActiveCardList();
     }
 
@@ -39,7 +39,7 @@ public class Team {
         allCardsCopy = allCardsCopy.cloneNewList(allCards.getThings());
         allCardsCopy.shuffle();
         for (int i = 0; i < numTeamMembers; i++) {
-            teamCards.add(allCards.get(i));
+            teamCards.add(allCardsCopy.get(i));
         }
         allCardsCopy.removeAll(teamCards.getThings());
         freeAgentCards.addAll(allCardsCopy.getThings());
@@ -55,7 +55,8 @@ public class Team {
                 capturedCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 miaCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 eliminatedCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR
-                + allCards.toSaveString();
+                + allCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR
+                + infinityStones.toSaveString();
         return Base64.getEncoder().encodeToString(teamString.getBytes());
     }
 
@@ -70,6 +71,7 @@ public class Team {
         miaCards.fromSaveString(teamList[4], ad.getCards());
         eliminatedCards.fromSaveString(teamList[5], ad.getCards());
         allCards.fromSaveString(teamList[6], ad.getCards());
+        infinityStones.fromSaveString(teamList[7], ad.getTokens());
     }
 
     public ActiveCardList getTeamCards() {
@@ -213,7 +215,8 @@ public class Team {
         return tempList;
     }
 
-    public void loseTempCards() {
+    public void tempCardsExpire() {
+        freeAgentCards.addAll(tempCards.getThings());
         tempCards.clear();
     }
 
@@ -254,5 +257,21 @@ public class Team {
         teamCards.addAll(miaCards.getThings());
         miaCards.removeAll(miaCards.getThings());
         return retrievedCards;
+    }
+
+    public void sendCapturedCardsAway(MIACardTracker miaCardTracker, int world) {
+        for(ActiveCard c: capturedCards)
+        {
+            miaCards.add(c);
+            miaCardTracker.addCard(world, c);
+        }
+        capturedCards.clear();
+    }
+
+    public void exhaustedCardsRecover() {
+        for(ActiveCard c: teamCards)
+        {
+            c.setStatus(StatusEffect.EXHAUSTED, false);
+        }
     }
 }

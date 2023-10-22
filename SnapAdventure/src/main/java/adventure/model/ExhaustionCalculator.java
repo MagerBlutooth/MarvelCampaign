@@ -19,7 +19,7 @@ public class ExhaustionCalculator {
         {
             CardStats cardStat = tracker.lookupCardStat(c);
             boolean exhaust = false;
-            int currentStreak = cardStat.getCurrentStreak();
+            int currentStreak = cardStat.getCurrentUseStreak();
             if(!c.hasStatus(StatusEffect.EXHAUSTED) && currentStreak > 1)
             {
                 exhaust = calculateExhaustion(currentStreak);

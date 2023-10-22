@@ -61,6 +61,8 @@ public class SectionViewPaneController extends AdvPaneController {
         mainDatabase = dB;
         adventureControlPane = cP;
         section = s;
+        if(s instanceof BossSection)
+            skipButton.setDisable(true);
         enemy = s.getEnemy();
         adventure = cP.getAdventure();
         AdvLocation l = s.getLocation();
@@ -101,6 +103,9 @@ public class SectionViewPaneController extends AdvPaneController {
         addSecondaryEffectIem.setOnAction(e -> addSecondaryEffect());
         enemyMenu.getItems().add(addSecondaryEffectIem);
         enemyView.setOnMouseClicked(e -> enemyMenu.show(enemyView, e.getScreenX(), e.getScreenY()));
+        MenuItem escapeEnemyOption = new MenuItem("Enemy Escapes");
+        escapeEnemyOption.setOnAction(e -> enemyEscape());
+        enemyMenu.getItems().add(escapeEnemyOption);
 
         ContextMenu stationMenu = new ContextMenu();
         MenuItem stationCardItem = new MenuItem("Station");
@@ -108,6 +113,11 @@ public class SectionViewPaneController extends AdvPaneController {
         stationMenu.getItems().add(stationCardItem);
         stationedDisplayBox.setOnMouseClicked(e -> stationMenu.show(stationedDisplayBox, e.getScreenX(),
                 e.getScreenY()));
+    }
+
+    private void enemyEscape() {
+        adventure.enemyEscapes(section.getSectionNum());
+        enemyView.update(section.getEnemy());
     }
 
     private void addSecondaryEffect() {

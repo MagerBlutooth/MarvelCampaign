@@ -3,9 +3,9 @@ package adventure.model.stats;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import snapMain.model.constants.SnapMainConstants;
+import snapMain.model.target.Card;
 
-import java.util.Base64;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CardStatTracker {
@@ -31,6 +31,19 @@ public class CardStatTracker {
             int id = e.getKey();
             cardStats.updateCardStat(deck.contains(id), result);
         }
+    }
+
+    public Map<Integer, CardStats> getCardStatsSorted()
+    {
+        List<Map.Entry<Integer, CardStats>> list = new ArrayList<>(cardStatMap.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+
+        Map<Integer, CardStats> result = new LinkedHashMap<>();
+        for (Map.Entry<Integer, CardStats> entry : list) {
+            if(entry.getValue().getTotalMatches() > 0)
+                result.put(entry.getKey(), entry.getValue());
+        }
+        return result;
     }
 
     public CardStats lookupCardStat(ActiveCard c)

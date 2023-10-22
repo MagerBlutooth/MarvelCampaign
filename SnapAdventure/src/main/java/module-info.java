@@ -37,5 +37,7 @@ module SnapAdventure {
     opens adventure.model.stats;
     exports adventure.model.target.base;
     opens adventure.model.target.base;
+    exports adventure.controller.dialog;
+    opens adventure.controller.dialog;
 
 }

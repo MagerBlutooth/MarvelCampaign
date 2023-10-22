@@ -6,6 +6,7 @@ import adventure.model.target.ActiveCard;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardChooserDialog;
 import adventure.view.popup.ConfirmationDialog;
+import adventure.view.popup.SimpleChooserDialog;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -48,8 +49,8 @@ public class WorldClearSelectNodeController extends AdvPaneController  {
     @FXML
     public void draftCard()
     {
-        CardChooserDialog chooserDialog = new CardChooserDialog();
-        chooserDialog.initialize(mainDatabase, adventure.draftCards());
+        SimpleChooserDialog<ActiveCard> chooserDialog = new SimpleChooserDialog<>();
+        chooserDialog.initialize(mainDatabase, adventure.draftCards(), TargetType.CARD);
         Optional<ActiveCard> card = chooserDialog.showAndWait();
         card.ifPresent(value -> draftCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM, false));
         draftButton.setDisable(true);
@@ -58,7 +59,7 @@ public class WorldClearSelectNodeController extends AdvPaneController  {
     @FXML
     public void healCard()
     {
-        CardChooserDialog chooserDialog = new CardChooserDialog();
+        SimpleChooserDialog<ActiveCard> chooserDialog = new SimpleChooserDialog<>();
         chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
         Optional<ActiveCard> card = chooserDialog.showAndWait();
         card.ifPresent(value -> healCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM, false));
@@ -84,22 +85,26 @@ public class WorldClearSelectNodeController extends AdvPaneController  {
                 return;
         }
         adventure.completeCurrentWorld();
-        if(draftCardDisplay.getCard() != null)
-        {
-            ActiveCard draftedCard = adventure.lookupCard(draftCardDisplay.getCard().getID());
+        ActiveCard draftedCard = collectCard(draftCardDisplay);
+        if(draftedCard != null && draftedCard.isActualThing())
             adventure.addCardToTeam(draftedCard);
-        }
-        if(bossDisplay.getCard() != null)
-        {
-            ActiveCard bossCard = adventure.lookupCard(bossDisplay.getCard().getID());
+
+        ActiveCard bossCard = collectCard(bossDisplay);
+        if(bossCard != null && bossCard.isActualThing())
             adventure.addCardToTeam(bossCard);
-        }
-        if(healCardDisplay.getCard() != null) {
-            ActiveCard healCard = adventure.lookupCard(healCardDisplay.getCard().getID());
+        ActiveCard healCard = collectCard(healCardDisplay);
+        if(healCard != null && healCard.isActualThing()) {
             adventure.healCard(healCard);
         }
         adventureControlPane.refreshToMatch();
         changeScene(adventureControlPane);
+    }
+
+    private ActiveCard collectCard(CardView cardDisplay) {
+        Card collectedCard = cardDisplay.getCard();
+        if(collectedCard != null)
+            return adventure.lookupCard(collectedCard.getID());
+        return null;
     }
 
     private boolean buttonsDisabled() {

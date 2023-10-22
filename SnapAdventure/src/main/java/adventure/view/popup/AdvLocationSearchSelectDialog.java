@@ -1,6 +1,6 @@
 package adventure.view.popup;
 
-import adventure.controller.AdvLocationSearchSelectDialogController;
+import adventure.controller.dialog.AdvLocationSearchSelectDialogController;
 import adventure.model.target.base.AdvLocation;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.*;
@@ -9,7 +9,7 @@ import javafx.stage.StageStyle;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.*;
 
-public class AdvLocationSearchSelectDialog extends Dialog<AdvLocation>
+public class AdvLocationSearchSelectDialog extends AdvDialog<AdvLocation>
         implements Choosable<AdvLocation> {
 
 
@@ -17,10 +17,9 @@ public class AdvLocationSearchSelectDialog extends Dialog<AdvLocation>
     AdvLocationSearchSelectDialogController controller;
     public AdvLocationSearchSelectDialog()
     {
+        super();
         FXMLAdventureGrabber fxmlMainGrabber = new FXMLAdventureGrabber();
         fxmlMainGrabber.grabFXML("advLocationSearchSelectDialog.fxml", this.getDialogPane());
-        initModality(Modality.APPLICATION_MODAL);
-        this.initStyle(StageStyle.UNDECORATED);
         controller = fxmlMainGrabber.getController();
     }
     public void initialize(MainDatabase cd, TargetList<AdvLocation> selectableLocs)

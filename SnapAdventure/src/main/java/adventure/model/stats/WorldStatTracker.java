@@ -60,4 +60,8 @@ public class WorldStatTracker {
             worldStatMap.put(MatchResult.valueOf(entryString[0]), Integer.parseInt(entryString[1]));
         };
     }
+
+    public int getNumMatchType(MatchResult m) {
+        return worldStatMap.get(m);
+    }
 }

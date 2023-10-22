@@ -153,4 +153,9 @@ public class Enemy implements SnapTarget {
     public Playable getSecondarySubject() {
         return secondarySubject;
     }
+
+    public String toString()
+    {
+        return getName();
+    }
 }

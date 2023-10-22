@@ -25,7 +25,7 @@
 {
 -fx-font-family: "Avengeance Heroic Avenger";
     -fx-font-size: 48px;
-    -fx-text-fill: white;
+    -fx-text-fill: lightslategray;
 }
 
 #title
@@ -82,7 +82,7 @@
    -fx-border-color:black;
  }
 
- #imageButton:hover {
+#imageButton:hover {
    -fx-background-color: black;
  }
 
@@ -138,6 +138,7 @@
  -fx-background-color:black;
  -fx-alignment: center;
   }
+
  .choice-box {
  -fx-border-color:white;
  -fx-border-width: 3 3 3 3 ;

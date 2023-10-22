@@ -124,6 +124,12 @@ public class TeamDisplayNodeController {
         });
     }
 
+    public void defectAll()
+    {
+        team.tempCardsExpire();
+        tempCardDisplay.refreshToMatch(team.getTempCards());
+    }
+
 
     public void refresh()
     {

@@ -19,6 +19,22 @@
     -fx-font-size: 16px;
 }
 
+.winStyle {
+    -fx-text-fill: limegreen;
+}
+
+.loseStyle {
+    -fx-text-fill: crimson;
+}
+
+.escapeStyle {
+    -fx-text-fill: gold;
+}
+
+.forceRetreatStyle {
+    -fx-text-fill: mediumpurple;
+}
+
 #smallButton
 {
     -fx-font-family: "Avengeance Heroic Avenger";
@@ -105,7 +121,7 @@
  -fx-border-width: 3 3 3 3 ;
  }
 
- .context-menu {
+.context-menu {
      -fx-background-color: black;
      -fx-border-color: lightslategray;
  }

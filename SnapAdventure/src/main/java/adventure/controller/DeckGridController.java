@@ -94,7 +94,7 @@ public class DeckGridController implements GridActionController<ActiveCard> {
             toggled = chosenCards.remove(card);
             setDeckSizeProperty();
         }
-        else if(chosenCards.size() < SnapMainConstants.MAX_DECK_SIZE){
+        else if(chosenCards.size() < SnapMainConstants.DECK_SIZE){
             toggled = chosenCards.add(card);
             setDeckSizeProperty();
 

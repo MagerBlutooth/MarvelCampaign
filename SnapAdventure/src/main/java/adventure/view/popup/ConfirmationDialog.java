@@ -2,6 +2,7 @@ package adventure.view.popup;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
 import java.util.Objects;
@@ -16,6 +17,7 @@ public class ConfirmationDialog extends Alert {
         getDialogPane().getStyleClass().add("myDialog");
         setHeaderText(null);
         setGraphic(null);
+        initModality(Modality.APPLICATION_MODAL);
         this.initStyle(StageStyle.UNDECORATED);
     }
 

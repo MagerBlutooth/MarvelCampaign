@@ -105,7 +105,7 @@ public class HallOfFameEntry extends BaseObject {
 
     public boolean addCard(Card c, List<HallOfFameEntry> otherEntries)
     {
-        if(cards.size() < SnapMainConstants.MAX_DECK_SIZE && deckValidWithNewCard(c, otherEntries)) {
+        if(cards.size() < SnapMainConstants.DECK_SIZE && deckValidWithNewCard(c, otherEntries)) {
             cards.add(c);
             cards.sort();
             return true;
@@ -154,7 +154,7 @@ public class HallOfFameEntry extends BaseObject {
 
 
     public boolean isValid() {
-        return captain!=null && cards.size()==SnapMainConstants.MAX_DECK_SIZE;
+        return captain!=null && cards.size()==SnapMainConstants.DECK_SIZE;
     }
 
     public SnapMonth getMonth() {

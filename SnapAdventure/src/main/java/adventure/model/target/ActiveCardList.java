@@ -148,4 +148,15 @@ public class ActiveCardList extends TargetList<ActiveCard> {
         }
         return activeCards;
     }
+
+    public boolean hasNoCaptains() {
+        for(ActiveCard c: this)
+        {
+            if(c.hasStatus(StatusEffect.CAPTAIN))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -4,12 +4,14 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.Team;
 import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.Mook;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 public class Section implements Cloneable, SnapTarget {
     AdvLocation advLocation;
@@ -204,5 +206,18 @@ public class Section implements Cloneable, SnapTarget {
         if(removed)
             t.addCardToTeam(card);
         return removed;
+    }
+
+    public Enemy enemyEscapes() {
+        Enemy escapingEnemy = new Enemy(enemy);
+        enemy = new Enemy();
+        return escapingEnemy;
+    }
+
+    public ActiveCardList unstationCards() {
+        ActiveCardList unstationingCards = new ActiveCardList();
+        unstationingCards.addAll(stationedCards.getThings());
+        stationedCards.clear();
+        return unstationingCards;
     }
 }

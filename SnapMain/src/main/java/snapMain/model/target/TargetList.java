@@ -37,6 +37,11 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, C
         things.addAll(toAdd);
     }
 
+    public void addAll(TargetList<T> toAdd)
+    {
+        things.addAll(toAdd.things);
+    }
+
     public List<T> subList(int fromIndex, int toIndex) {
         return things.subList(fromIndex, toIndex);
     }

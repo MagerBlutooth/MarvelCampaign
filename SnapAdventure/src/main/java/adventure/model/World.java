@@ -144,6 +144,8 @@ public class World implements Cloneable{
     public Section getSection(int sectionNum) {
         switch(sectionNum)
         {
+            case 1:
+                return section1;
             case 2:
                 return section2;
             case 3:
@@ -151,7 +153,7 @@ public class World implements Cloneable{
             case 4:
                 return section4;
             default:
-                return section1;
+                return bossSection;
         }
     }
 
@@ -193,6 +195,7 @@ public class World implements Cloneable{
         sections.add(section2);
         sections.add(section3);
         sections.add(section4);
+        sections.add(bossSection);
         return sections;
     }
 
@@ -207,6 +210,10 @@ public class World implements Cloneable{
     public int getMatchCount()
     {
         return worldStatTracker.getNumMatches();
+    }
+
+    public int getNumMatchType(MatchResult m) {
+        return worldStatTracker.getNumMatchType(m);
     }
 
     public void updateWorldStats(MatchResult r) {
@@ -225,5 +232,24 @@ public class World implements Cloneable{
 
     public void setBossRevealed(boolean b) {
         bossRevealed = b;
+    }
+
+    public Enemy enemyEscapes(int sectionNum) {
+        return getSection(sectionNum).enemyEscapes();
+    }
+
+    public Section getRandomSection() {
+        Random random = new Random();
+        int sectionNum = random.nextInt(getSections().size())+1;
+        return getSection(sectionNum);
+    }
+
+    public ActiveCardList retrieveStationedCards() {
+        ActiveCardList stationedCards = new ActiveCardList();
+        for(Section s: getSections())
+        {
+            stationedCards.addAll(s.unstationCards());
+        }
+        return stationedCards;
     }
 }

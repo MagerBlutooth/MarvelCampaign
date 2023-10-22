@@ -16,9 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import snapMain.controller.MainDatabase;
-import snapMain.view.IconImage;
 import snapMain.view.grabber.IconConstant;
 
 import java.io.File;
