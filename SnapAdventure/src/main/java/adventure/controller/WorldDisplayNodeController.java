@@ -150,6 +150,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
     public void refresh(World w)
     {
         setWorldLabel(w);
+        world = w;
         section1Node.refresh(w.getSection(1), w.isCurrentSection(w.getSection(1)));
         section2Node.refresh(w.getSection(2), w.isCurrentSection(w.getSection(2)));
         section3Node.refresh(w.getSection(3), w.isCurrentSection(w.getSection(3)));

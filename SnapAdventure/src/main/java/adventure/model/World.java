@@ -1,6 +1,6 @@
 package adventure.model;
 
-import adventure.model.stats.MatchResult;
+import adventure.model.stats.AdvMatchResult;
 import adventure.model.stats.WorldStatTracker;
 import adventure.model.target.*;
 import adventure.model.target.base.*;
@@ -216,11 +216,11 @@ public class World implements Cloneable{
         return worldStatTracker.getNumMatches();
     }
 
-    public int getNumMatchType(MatchResult m) {
+    public int getNumMatchType(AdvMatchResult m) {
         return worldStatTracker.getNumMatchType(m);
     }
 
-    public void updateWorldStats(MatchResult r) {
+    public void updateWorldStats(AdvMatchResult r) {
         worldStatTracker.incrementNumMatches(r);
     }
 

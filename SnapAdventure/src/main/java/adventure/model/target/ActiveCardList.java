@@ -174,4 +174,16 @@ public class ActiveCardList extends TargetList<ActiveCard> {
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
+
+    public TargetList<ActiveCard> getCaptains() {
+        TargetList<ActiveCard> captains = new ActiveCardList();
+        for(ActiveCard c: this)
+        {
+            if(c.hasStatus(StatusEffect.CAPTAIN))
+            {
+                captains.add(c);
+            }
+        }
+        return captains;
+    }
 }

@@ -15,16 +15,16 @@
             <Label fx:id="worldClear"/>
             <HBox alignment="BOTTOM_CENTER" spacing="10.0">
                 <Label fx:id="matchCount"/>
-                <Label text="  total matches" id="info"/>
+                <Label text="  total matches"/>
              </HBox>
             <HBox alignment="CENTER" spacing ="30.0">
                 <HBox alignment="BOTTOM_CENTER" spacing="10.0">
                     <Label fx:id="winCount" styleClass="winStyle"/>
-                    <Label text="  wins" id="info" styleClass="winStyle"/>
+                    <Label text="  wins" id="info"/>
                 </HBox>
                 <HBox alignment="BOTTOM_CENTER" spacing="10.0">
                     <Label fx:id="forcedRetreatCount" styleClass="forceRetreatStyle"/>
-                    <Label text="  forced retreats" id="info" styleClass="forceRetreatStyle"/>
+                    <Label text="  forced retreats" id="info"/>
                 </HBox>
             </HBox>
             <HBox alignment="CENTER" spacing ="30.0">
@@ -34,7 +34,11 @@
                 </HBox>
                 <HBox alignment="BOTTOM_CENTER" spacing="10.0">
                     <Label fx:id="escapeCount" styleClass="escapeStyle"/>
-                    <Label text="  escapes" id="info" styleClass="escapeStyle"/>
+                    <Label text="  escapes" id="info"/>
+                </HBox>
+                <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+                    <Label fx:id="tieCount" styleClass="tieStyle"/>
+                    <Label text="  escapes" id="info"/>
                 </HBox>
             </HBox>
         </VBox>

@@ -15,7 +15,7 @@ public class MIACardTracker {
 
     public MIACardTracker() {
         miaCardMap = new ConcurrentHashMap<>();
-        for (int i = 2; i <= AdventureConstants.NUMBER_OF_WORLDS + 2; i++) {
+        for (int i = 1; i <= AdventureConstants.NUMBER_OF_WORLDS + 2; i++) {
             miaCardMap.put(i, new ActiveCardList());
         }
     }

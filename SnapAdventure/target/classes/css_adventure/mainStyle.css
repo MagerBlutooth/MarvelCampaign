@@ -3,7 +3,7 @@
     -fx-font-size: 32px;
     -fx-selection-bar-text: white;
     -fx-background-color:black;
-    -fx-faction-color:dodgerblue
+    -fx-faction-color: ghostwhite;
 }
 
 .label {
@@ -125,7 +125,7 @@
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: dodgerblue;
+    -fx-background-color: -fx-faction-color;
     -fx-text-fill: white;
 }
 
@@ -162,7 +162,7 @@
 
 .choice-box .label:hover
 {
-   -fx-background-color: -fx-faction-color;
+   -fx-background-color: dodgerblue;
    -fx-text-fill: black;
 }
 
@@ -173,11 +173,11 @@
 }
 
 .menu-item:focused > .label {
-    -fx-text-fill: -fx-faction-color;
+    -fx-text-fill: dodgerblue;
 }
 
 .radio-menu-item:focused:checked > .left-container > .radio {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .scroll-bar > corner {
@@ -249,7 +249,7 @@
 
 .menu-button:hover
 {
-   -fx-background-color: -fx-faction-color;
+   -fx-background-color: dodgerblue;
 }
 
 .menu-item
@@ -281,7 +281,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .menu-item:focused .label {
@@ -300,7 +300,7 @@
 
 .tab-pane .tab:selected
 {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .tab-label {
@@ -316,7 +316,6 @@
     -fx-background-color: black;
     -fx-border-color: white;
     -fx-border-width: 4;
-
 }
 
 .toggle-button:selected {
@@ -325,3 +324,72 @@
     -fx-border-color: white;
     -fx-border-width: 4;
 }
+
+.winStyle {
+-fx-border-color:#4bdb39;
+}
+.winStyle .text {
+-fx-fill:#4bdb39;
+ }
+ .winStyle .text:hover, .winStyle .text:selected{
+ -fx-fill:#4bdb39;
+ }
+.winStyle:hover, .winStyle:selected {
+  -fx-background-color: #0d4828;
+  -fx-border-color: #4bdb39;
+}
+
+.loseStyle {
+ -fx-border-color:#F54A4A;
+ }
+.loseStyle .text {
+ -fx-fill:#F54A4A;
+ }
+  .loseStyle .text:hover, .loseStyle .text:selected{
+  -fx-fill:#F54A4A;
+  }
+ .loseStyle:hover, .loseStyle:selected {
+   -fx-background-color: #530815;
+   -fx-border-color: #F54A4A;
+ }
+ .escapeStyle {
+  -fx-border-color:#E1DD4E;
+ }
+ .escapeStyle .text {
+  -fx-fill:#E1DD4E;
+ }
+.escapeStyle .text:hover, .escapeStyle .text:selected{
+  -fx-fill:#E1DD4E;
+  }
+
+.escapeStyle:hover, .escapeStyle:selected {
+    -fx-background-color: #615c08;
+    -fx-border-color:#E1DD4E;
+  }
+
+.forcedRetreatStyle {
+   -fx-border-color:mediumpurple;
+  }
+.forcedRetreatStyle .text {
+   -fx-fill:mediumpurple;
+  }
+.forcedRetreatStyle:hover, .forcedRetreatStyle:active, .forcedRetreatStyle:focus, .forcedRetreatStyle:selected {
+      -fx-background-color: darkslateblue;
+      -fx-border-color: mediumpurple;
+}
+ .forcedRetreatStyle .text:hover, .forcedRetreatStyle .text:selected{
+  -fx-fill:mediumpurple;
+  }
+  .tieStyle {
+     -fx-border-color:lightsteelblue;
+    }
+  .tieStyle .text {
+     -fx-fill:lightsteelblue;
+    }
+  .tieStyle:hover, .tieStyle:active, .tieStyle:focus, .tieStyle:selected {
+        -fx-background-color: lightslategray;
+        -fx-border-color: lightsteelblue;
+  }
+   .tieStyle .text:hover, .tieStyle .text:selected{
+    -fx-fill:lightsteelblue;
+    }

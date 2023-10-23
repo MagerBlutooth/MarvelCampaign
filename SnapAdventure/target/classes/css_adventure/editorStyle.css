@@ -3,7 +3,7 @@
     -fx-font-size: 32px;
     -fx-selection-bar-text: white;
     -fx-background-color:black;
-    -fx-faction-color:dodgerblue
+    -fx-faction-color: ghostwhite;
 }
 
 .label {
@@ -20,15 +20,19 @@
 }
 
 .winStyle {
-    -fx-text-fill: limegreen;
+   -fx-text-fill: limegreen;
 }
 
 .loseStyle {
-    -fx-text-fill: crimson;
+   -fx-text-fill: crimson;
 }
 
 .escapeStyle {
-    -fx-text-fill: gold;
+   -fx-text-fill: gold;
+}
+
+.tieStyle {
+    -fx-text-fill: lightsteelblue;
 }
 
 .forceRetreatStyle {
@@ -224,7 +228,7 @@
 
 .menu-button:hover
 {
-   -fx-background-color: -fx-faction-color;
+   -fx-background-color: dodgerblue;
 }
 
 .check-menu-item .label {
@@ -239,7 +243,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .menu-item:focused .label {
@@ -253,5 +257,5 @@
 
 .tab-pane .tab:selected
 {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }

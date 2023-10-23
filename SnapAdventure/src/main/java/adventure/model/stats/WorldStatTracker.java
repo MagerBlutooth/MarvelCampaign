@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class WorldStatTracker {
-    ConcurrentHashMap<MatchResult, Integer> worldStatMap;
+    ConcurrentHashMap<AdvMatchResult, Integer> worldStatMap;
 
     public WorldStatTracker()
     {
         worldStatMap = new ConcurrentHashMap<>();
-        for(MatchResult m: MatchResult.values())
+        for(AdvMatchResult m: AdvMatchResult.values())
         {
             worldStatMap.put(m, 0);
         }
@@ -21,21 +21,21 @@ public class WorldStatTracker {
     public int getNumMatches()
     {
         int numMatches = 0;
-        for(Map.Entry<MatchResult, Integer> e: worldStatMap.entrySet())
+        for(Map.Entry<AdvMatchResult, Integer> e: worldStatMap.entrySet())
         {
             numMatches += e.getValue();
         }
         return numMatches;
     }
 
-    public void incrementNumMatches(MatchResult r) {
+    public void incrementNumMatches(AdvMatchResult r) {
         int i = worldStatMap.get(r);
         worldStatMap.replace(r, i+1);
     }
 
     public String toSaveString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for(Map.Entry<MatchResult, Integer> e: worldStatMap.entrySet())
+        for(Map.Entry<AdvMatchResult, Integer> e: worldStatMap.entrySet())
         {
             stringBuilder.append(e.getKey());
             stringBuilder.append(SnapMainConstants.CATEGORY_SEPARATOR);
@@ -57,11 +57,11 @@ public class WorldStatTracker {
         for(String s: mapSplit)
         {
             String[] entryString = s.split(SnapMainConstants.CATEGORY_SEPARATOR);
-            worldStatMap.put(MatchResult.valueOf(entryString[0]), Integer.parseInt(entryString[1]));
+            worldStatMap.put(AdvMatchResult.valueOf(entryString[0]), Integer.parseInt(entryString[1]));
         };
     }
 
-    public int getNumMatchType(MatchResult m) {
+    public int getNumMatchType(AdvMatchResult m) {
         return worldStatMap.get(m);
     }
 }

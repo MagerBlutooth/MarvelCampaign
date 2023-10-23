@@ -3,7 +3,7 @@ package adventure.model.adventure;
 import adventure.model.*;
 import adventure.model.stats.CardStatTracker;
 import adventure.model.stats.CardStats;
-import adventure.model.stats.MatchResult;
+import adventure.model.stats.AdvMatchResult;
 import adventure.model.target.*;
 import adventure.model.target.base.AdvCard;
 import adventure.model.target.base.AdvCardList;
@@ -27,9 +27,9 @@ public class Adventure {
     WorldList worlds;
     int currentWorldNum;
     boolean newProfileCheck;
-    CardStatTracker cardStatTracker = new CardStatTracker();
+    CardStatTracker cardStatTracker;
     ExhaustionCalculator exhaustionCalculator = new ExhaustionCalculator();
-    MIACardTracker miaCardTracker = new MIACardTracker();
+    MIACardTracker miaCardTracker;
     DeckProfileList deckProfiles;
     List<InfinityStone> infinityStones;
     Difficulty difficulty;
@@ -135,7 +135,7 @@ public class Adventure {
         Collections.shuffle(possibleSections);
         for (int i = 0; i < infinityStones.size(); i++) {
             int choice = possibleSections.get(i);
-            int worldNum = (int) Math.floor((double) choice / AdventureConstants.SECTIONS_PER_WORLD);
+            int worldNum = (int) Math.floor((double) choice / AdventureConstants.SECTIONS_PER_WORLD) + 1;
             int secNum = choice % AdventureConstants.SECTIONS_PER_WORLD + 1;
             World w = worlds.get(worldNum);
             Section s = w.getSection(secNum);
@@ -320,7 +320,7 @@ public class Adventure {
         w.updateSection(new AdvLocation(new Location()), sectionNum);
     }
 
-    public void updateStats(ActiveCardList deck, MatchResult result) {
+    public void updateStats(ActiveCardList deck, AdvMatchResult result) {
         cardStatTracker.updateCardStats(deck, result);
         getCurrentWorld().updateWorldStats(result);
     }
@@ -346,7 +346,7 @@ public class Adventure {
         return matchCount;
     }
 
-    public int getNumMatchType(MatchResult m) {
+    public int getNumMatchType(AdvMatchResult m) {
         return getCurrentWorld().getNumMatchType(m);
     }
 

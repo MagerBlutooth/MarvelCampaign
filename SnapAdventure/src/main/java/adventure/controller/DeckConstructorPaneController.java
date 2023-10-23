@@ -3,14 +3,14 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.adventure.DeckProfileList;
-import adventure.model.stats.MatchResult;
+import adventure.model.stats.AdvMatchResult;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.node.DeckItemControlNode;
-import adventure.view.popup.CardDisplayPopup;
-import adventure.view.popup.CardExhaustionConfirmationDialog;
+import adventure.view.popup.*;
 import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
 import adventure.view.sortFilter.DeckLinkedSortMenuButton;
+import com.opencsv.bean.function.AccessorInvoker;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -24,6 +24,7 @@ import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.helper.DeckCodeConverter;
 import snapMain.model.logger.MLogger;
+import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
 import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
@@ -36,6 +37,7 @@ import snapMain.view.node.control.ControlNode;
 import snapMain.view.pane.FullViewPane;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<ActiveCard>  {
 
@@ -63,20 +65,11 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     GridDisplayNode<ActiveCard> deckDisplay;
     DeckGridController deckGridController;
-    MatchResult result;
+    AdvMatchResult result;
     @FXML
     Button randomCardFromTeamButton;
     @FXML
     Button randomCardFromDeckButton;
-    ToggleGroup matchResultToggle;
-    @FXML
-    ToggleButton winButton;
-    @FXML
-    ToggleButton loseButton;
-    @FXML
-    ToggleButton escapeButton;
-    @FXML
-    ToggleButton forceRetreatButton;
     @FXML
     DeckLinkedSortMenuButton sortButton;
     @FXML
@@ -94,12 +87,6 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         adventure = a;
         backPane = pane;
         deckProfiles = verifyDeckProfiles(adventure.getDeckProfiles());
-        matchResultToggle = new ToggleGroup();
-        matchResultToggle.getToggles().addAll(winButton, loseButton, escapeButton, forceRetreatButton);
-        matchResultToggle.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
-            if (newVal == null)
-                oldVal.setSelected(true);
-        });
         deckProfileToggle = new ToggleGroup();
         deckProfileToggle.getToggles().addAll(deckProfile1, deckProfile2, deckProfile3, deckProfile4);
         deckProfileToggle.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
@@ -109,7 +96,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         toggleDeckProfile();
         setButtonImages();
         ActiveCardList selectableCards = a.getActiveCards();
-        winButton.setSelected(true);
+
         setWin();
         deckGridController = new DeckGridController();
         ActiveCardList verifiedDeck = verifyDeck(deckProfiles.getLatestProfile());
@@ -189,7 +176,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     @FXML
-    public void copyToCode()
+    public void copyToClipboard()
     {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         ActiveCardList cards = deckGridController.getDeck();
@@ -308,22 +295,44 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     public void confirmDeck()
     {
+        copyToClipboard();
         ActiveCardList deck = deckGridController.getDeck();
         adventure.updateDeckProfiles(deckProfiles, getProfileNum());
-        adventure.updateStats(deck, result);
-        ActiveCardList recoveredCards = adventure.recoverCards(deck);
-        ActiveCardList exhaustedCards = adventure.exhaustCards(deck);
-        if(!(exhaustedCards.isEmpty() && recoveredCards.isEmpty())) {
-            CardExhaustionConfirmationDialog cardDisplayConfirmationDialog = new CardExhaustionConfirmationDialog();
-            cardDisplayConfirmationDialog.initialize(mainDatabase, exhaustedCards,
-                    recoveredCards);
-            cardDisplayConfirmationDialog.showAndWait();
+        AdvMatchResultPopup resultPopup = new AdvMatchResultPopup();
+        resultPopup.initialize(!deck.hasNoCaptains());
+        resultPopup.centerToParent(getCurrentScene().getWindow());
+        Optional<AdvMatchResult> result = resultPopup.showAndWait();
+        if(result.isPresent()) {
+            adventure.updateStats(deck, result.get());
+            if(resultPopup.doesCapture())
+            {
+                SimpleChooserDialog<ActiveCard> captainChoice = new SimpleChooserDialog<>();
+                captainChoice.initialize(mainDatabase, deck.getCaptains(), TargetType.CARD);
+                Optional<ActiveCard> capturingCaptain = captainChoice.showAndWait();
+                if(capturingCaptain.isPresent()) {
+                    CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
+                    cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
+                    Optional<ActiveCard> card = cardSearchSelectDialog.showAndWait();
+                    card.ifPresent(activeCard -> {
+                        adventure.sendAway(adventure.getCurrentWorldNum()+1, capturingCaptain.get());
+                        adventure.addCardToTeam(activeCard);
+                    });
+                }
+            }
+            ActiveCardList recoveredCards = adventure.recoverCards(deck);
+            ActiveCardList exhaustedCards = adventure.exhaustCards(deck);
+            if (!(exhaustedCards.isEmpty() && recoveredCards.isEmpty())) {
+                CardExhaustionConfirmationDialog cardDisplayConfirmationDialog = new CardExhaustionConfirmationDialog();
+                cardDisplayConfirmationDialog.initialize(mainDatabase, exhaustedCards,
+                        recoveredCards);
+                cardDisplayConfirmationDialog.showAndWait();
+            }
+            logger.info(deck + getResultString(result.get()));
+            changeScene(backPane);
         }
-        logger.info(deck + getResultString(result));
-        changeScene(backPane);
     }
 
-    private String getResultString(MatchResult result) {
+    private String getResultString(AdvMatchResult result) {
         switch(result)
         {
             case FORCE_RETREAT:
@@ -344,22 +353,22 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     public void setWin()
     {
-        result = MatchResult.WIN;
+        result = AdvMatchResult.WIN;
     }
 
     public void setLose()
     {
-        result = MatchResult.LOSE;
+        result = AdvMatchResult.LOSE;
     }
 
     public void setForceRetreat()
     {
-        result = MatchResult.FORCE_RETREAT;
+        result = AdvMatchResult.FORCE_RETREAT;
     }
 
     public void setEscape()
     {
-        result = MatchResult.ESCAPE;
+        result = AdvMatchResult.ESCAPE;
     }
 
     public void pasteFromClipboard()

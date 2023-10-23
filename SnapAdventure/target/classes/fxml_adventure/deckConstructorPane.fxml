@@ -22,7 +22,7 @@
                                 <AdvTooltip text="Get Random Card in Deck"/>
                             </tooltip>
                         </Button>
-                        <Button fx:id="copyButton" onAction="#copyToCode" id="imageButton">
+                        <Button fx:id="copyButton" onAction="#copyToClipboard" id="imageButton">
                             <tooltip>
                                 <AdvTooltip text="Copy Deck to Clipboard"/>
                             </tooltip>
@@ -57,12 +57,6 @@
                             <AdvTooltip text="Get Random Card from Team"/>
                         </tooltip>
                     </Button>
-                </HBox>
-                <HBox alignment="CENTER" spacing="10.0">
-                    <ToggleButton fx:id="winButton" text="Win" onAction="#setWin" id="smallButton"/>
-                    <ToggleButton fx:id="loseButton" text="Lose" onAction="#setLose" id="smallButton"/>
-                    <ToggleButton fx:id="escapeButton" text="Escape" onAction="#setEscape" id="smallButton"/>
-                    <ToggleButton fx:id="forceRetreatButton" text="Force Retreat" onAction="#setForceRetreat" id="smallButton"/>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10.0">
                     <Button text="Back" id="smallButton" onAction="#goBack"/>

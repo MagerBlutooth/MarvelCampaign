@@ -3,7 +3,6 @@ package adventure.model.stats;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.Card;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,7 +22,7 @@ public class CardStatTracker {
         }
     }
 
-    public void updateCardStats(ActiveCardList deck, MatchResult result)
+    public void updateCardStats(ActiveCardList deck, AdvMatchResult result)
     {
         for(Map.Entry<Integer, CardStats> e: cardStatMap.entrySet())
         {

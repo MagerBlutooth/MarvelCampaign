@@ -1,21 +1,16 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdvMasterThingDatabase;
-import adventure.model.World;
 import adventure.model.adventure.Adventure;
-import adventure.model.stats.MatchResult;
+import adventure.model.stats.AdvMatchResult;
 import adventure.model.target.ActiveCard;
 import adventure.view.node.WorldClearSelectNode;
 import adventure.view.pane.AdventureControlPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.controller.grid.GridActionController;
-import snapMain.model.target.Card;
-import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
@@ -33,6 +28,8 @@ public class WorldClearPaneController extends AdvPaneController implements GridA
     Label lossCount;
     @FXML
     Label escapeCount;
+    @FXML
+    Label tieCount;
     @FXML
     Label forcedRetreatCount;
     @FXML
@@ -52,10 +49,11 @@ public class WorldClearPaneController extends AdvPaneController implements GridA
         worldClearNode.initialize(database, a, cPane);
         worldClear.setText("World " + a.getCurrentWorldNum() +" Cleared!");
         matchCount.setText(a.getWorldMatchCount()+"");
-        winCount.setText(a.getNumMatchType(MatchResult.WIN)+"");
-        lossCount.setText(a.getNumMatchType(MatchResult.LOSE)+"");
-        escapeCount.setText(a.getNumMatchType(MatchResult.ESCAPE)+"");
-        forcedRetreatCount.setText(a.getNumMatchType(MatchResult.FORCE_RETREAT)+"");
+        winCount.setText(a.getNumMatchType(AdvMatchResult.WIN)+"");
+        lossCount.setText(a.getNumMatchType(AdvMatchResult.LOSE)+"");
+        escapeCount.setText(a.getNumMatchType(AdvMatchResult.ESCAPE)+"");
+        forcedRetreatCount.setText(a.getNumMatchType(AdvMatchResult.FORCE_RETREAT)+"");
+        tieCount.setText(a.getNumMatchType(AdvMatchResult.TIE)+"");
         BaseGridActionController<ActiveCard> gridActionController = new BaseGridActionController<>();
         gridActionController.initialize(database);
         reclaimedCards.initialize(a.reclaimCards(), TargetType.CARD, gridActionController, ViewSize.SMALL,

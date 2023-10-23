@@ -10,6 +10,7 @@ public class CardStats implements Comparable<CardStats> {
     int losses;
     int escapes;
     int forceRetreats;
+    int ties;
     int currentUseStreak;
     int longestUseStreak;
 
@@ -18,10 +19,11 @@ public class CardStats implements Comparable<CardStats> {
         losses = 0;
         escapes = 0;
         forceRetreats = 0;
+        ties = 0;
         currentUseStreak = 0;
     }
 
-    public void updateCardStat(boolean used, MatchResult result) {
+    public void updateCardStat(boolean used, AdvMatchResult result) {
 
         if (used) {
             switch (result) {
@@ -36,6 +38,9 @@ public class CardStats implements Comparable<CardStats> {
                     break;
                 case FORCE_RETREAT:
                     forceRetreats++;
+                    break;
+                case TIE:
+                    ties++;
                     break;
             }
             currentUseStreak++;
@@ -52,7 +57,10 @@ public class CardStats implements Comparable<CardStats> {
                 SnapMainConstants.STRING_SEPARATOR +
                 escapes +
                 SnapMainConstants.STRING_SEPARATOR +
-                forceRetreats;
+                forceRetreats + SnapMainConstants.STRING_SEPARATOR +
+                ties + SnapMainConstants.STRING_SEPARATOR +
+                currentUseStreak + SnapMainConstants.STRING_SEPARATOR
+                + longestUseStreak;
         return Base64.getEncoder().encodeToString(saveString.getBytes());
 
     }
@@ -65,9 +73,12 @@ public class CardStats implements Comparable<CardStats> {
         losses = Integer.parseInt(splitString[1]);
         escapes = Integer.parseInt(splitString[2]);
         forceRetreats = Integer.parseInt(splitString[3]);
+        ties = Integer.parseInt(splitString[4]);
+        currentUseStreak = Integer.parseInt(splitString[5]);
+        longestUseStreak = Integer.parseInt(splitString[6]);
     }
 
-    public int lookupStat(MatchResult result) {
+    public int lookupStat(AdvMatchResult result) {
         switch (result) {
             case WIN:
                 return wins;
@@ -77,6 +88,8 @@ public class CardStats implements Comparable<CardStats> {
                 return escapes;
             case FORCE_RETREAT:
                 return forceRetreats;
+            case TIE:
+                return ties;
         }
         return -1;
     }
@@ -96,14 +109,14 @@ public class CardStats implements Comparable<CardStats> {
     }
 
     private int getTotalLossesAndForceRetreats() {
-        return lookupStat(MatchResult.LOSE) + lookupStat(MatchResult.FORCE_RETREAT);
+        return lookupStat(AdvMatchResult.LOSE) + lookupStat(AdvMatchResult.FORCE_RETREAT);
     }
 
     private int getTotalWinsAndEscapes() {
-        return lookupStat(MatchResult.WIN) + lookupStat(MatchResult.ESCAPE);
+        return lookupStat(AdvMatchResult.WIN) + lookupStat(AdvMatchResult.ESCAPE);
     }
 
     public int getTotalMatches() {
-        return wins + losses + escapes + forceRetreats;
+        return wins + losses + escapes + forceRetreats + ties;
     }
 }

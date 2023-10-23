@@ -2,7 +2,7 @@ package adventure.view.node;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.stats.CardStats;
-import adventure.model.stats.MatchResult;
+import adventure.model.stats.AdvMatchResult;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -42,10 +42,10 @@ public class CardStatEntryNode extends StackPane {
         cardView.initialize(db, c, ViewSize.SMALL, false);
         rankLabel.setText(rank + "");
         matchLabel.setText(stats.getTotalMatches()+"");
-        winLabel.setText(stats.lookupStat(MatchResult.WIN) + "");
-        lossLabel.setText(stats.lookupStat(MatchResult.LOSE) + "");
-        escapeLabel.setText(stats.lookupStat(MatchResult.ESCAPE) + "");
-        forceRetreatLabel.setText(stats.lookupStat(MatchResult.FORCE_RETREAT) + "");
+        winLabel.setText(stats.lookupStat(AdvMatchResult.WIN) + "");
+        lossLabel.setText(stats.lookupStat(AdvMatchResult.LOSE) + "");
+        escapeLabel.setText(stats.lookupStat(AdvMatchResult.ESCAPE) + "");
+        forceRetreatLabel.setText(stats.lookupStat(AdvMatchResult.FORCE_RETREAT) + "");
     }
 
 }
