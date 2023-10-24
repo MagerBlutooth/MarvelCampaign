@@ -3,6 +3,7 @@ package adventure.controller.dialog;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
@@ -56,5 +57,6 @@ public abstract class AdvSearchSelectDialogController<T extends SnapTarget> {
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());
         choice = t;
+
     }
 }

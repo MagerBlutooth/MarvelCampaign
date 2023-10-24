@@ -10,21 +10,22 @@ import adventure.view.node.DeckItemControlNode;
 import adventure.view.popup.*;
 import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
 import adventure.view.sortFilter.DeckLinkedSortMenuButton;
-import com.opencsv.bean.function.AccessorInvoker;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.helper.DeckCodeConverter;
 import snapMain.model.logger.MLogger;
-import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
 import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
@@ -39,7 +40,7 @@ import snapMain.view.pane.FullViewPane;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<ActiveCard>  {
+public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<ActiveCard> {
 
     @FXML
     ToggleButton deckProfile1;
@@ -81,8 +82,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     final static MLogger logger = new MLogger(AdventureControlPaneController.class);
 
-    public void initialize(AdvMainDatabase db, FullViewPane pane, Adventure a)
-    {
+    public void initialize(AdvMainDatabase db, FullViewPane pane, Adventure a) {
         mainDatabase = db;
         adventure = a;
         backPane = pane;
@@ -116,8 +116,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     private void toggleDeckProfile() {
-        switch(deckProfiles.getLatestProfileNum())
-        {
+        switch (deckProfiles.getLatestProfileNum()) {
             case 1:
                 deckProfileToggle.selectToggle(deckProfile2);
                 break;
@@ -141,20 +140,19 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         setGraphic(randomCardFromTeamButton, new ImageView(mainDatabase.grabIcon(IconConstant.DICE)), true);
     }
 
-    private void setGraphic(Button b, ImageView image, boolean flat)
-    {
+    private void setGraphic(Button b, ImageView image, boolean flat) {
         image.setFitWidth(30);
-        if(flat)
+        if (flat)
             image.setFitHeight(30);
-       else
-           image.setFitHeight(40);
-       b.setOnMouseEntered(e -> {
-           ColorAdjust lightUp = new ColorAdjust();
-           lightUp.setSaturation(-1.0);
-           lightUp.setHue(1.0);
-           image.setEffect(lightUp);
-       });
-       b.setOnMouseExited(e -> image.setEffect(null));
+        else
+            image.setFitHeight(40);
+        b.setOnMouseEntered(e -> {
+            ColorAdjust lightUp = new ColorAdjust();
+            lightUp.setSaturation(-1.0);
+            lightUp.setHue(1.0);
+            image.setEffect(lightUp);
+        });
+        b.setOnMouseExited(e -> image.setEffect(null));
         b.setGraphic(image);
     }
 
@@ -163,7 +161,6 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         DeckItemControlNode node = new DeckItemControlNode();
         node.initialize(mainDatabase, card, i, v, true);
         setMouseEvents(node);
-        createContextMenu(node);
         return node;
     }
 
@@ -171,13 +168,12 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     public ControlNode<ActiveCard> createEmptyNode(ViewSize v) {
         ControlNode<ActiveCard> cardNode = new ControlNode<>();
         cardNode.initialize(mainDatabase, new ActiveCard(), mainDatabase.grabBlankImage(TargetType.CARD),
-                v,false);
+                v, false);
         return cardNode;
     }
 
     @FXML
-    public void copyToClipboard()
-    {
+    public void copyToClipboard() {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         ActiveCardList cards = deckGridController.getDeck();
         CardList baseCards = cards.getBaseCards();
@@ -186,11 +182,10 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     @FXML
-    public void randomCardFromTeam()
-    {
+    public void randomCardFromTeam() {
         ActiveCard randomCard = adventure.getActiveCards().getRandom();
         CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, randomCard,
-                randomCardFromTeamButton.localToScreen(100.0,0.0));
+                randomCardFromTeamButton.localToScreen(100.0, 0.0));
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (!isNowFocused) {
@@ -200,10 +195,9 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     @FXML
-    public void randomCardFromDeck()
-    {
+    public void randomCardFromDeck() {
         ActiveCardList cards = deckGridController.getChosenCards();
-        if(!cards.isEmpty()) {
+        if (!cards.isEmpty()) {
             ActiveCard randomCard = deckGridController.getChosenCards().getRandom();
             CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, randomCard,
                     randomCardFromDeckButton.localToScreen(100.0, 0.0));
@@ -215,6 +209,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
             });
         }
     }
+
     @Override
     public void saveGridNode(ControlNode<ActiveCard> node) {
 
@@ -227,10 +222,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     @Override
     public void createContextMenu(ControlNode<ActiveCard> n) {
-        ContextMenu contextMenu = new ContextMenu();
-        MenuItem woundItem = createWoundItem(n);
-        contextMenu.getItems().add(woundItem);
-        n.setOnContextMenuRequested(e -> contextMenu.show(n, e.getScreenX(), e.getScreenY()));
+
     }
 
 /*    private MenuItem createCaptureItem(ControlNode<ActiveCard> n) {
@@ -252,20 +244,18 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         ActiveCard c = n.getSubject();
         MenuItem woundItem;
         ImageView icon;
-        if(c.hasStatus(StatusEffect.WOUND))
-        {
-            woundItem= new MenuItem("Heal");
+        if (c.hasStatus(StatusEffect.WOUND)) {
+            woundItem = new MenuItem("Heal");
             icon = new ImageView(mainDatabase.grabIcon(IconConstant.HEAL));
             woundItem.setGraphic(icon);
-        }
-        else {
-            woundItem= new MenuItem("Wound");
+        } else {
+            woundItem = new MenuItem("Wound");
             icon = new ImageView(mainDatabase.grabIcon(IconConstant.WOUND));
             woundItem.setGraphic(icon);
         }
         woundItem.setOnAction(e -> {
             c.toggleStatus(StatusEffect.WOUND);
-            logger.info(n.getSubject()+ "'s wound status set to "
+            logger.info(n.getSubject() + "'s wound status set to "
                     + n.getSubject().hasStatus(StatusEffect.WOUND));
             allSelectableCards.refresh();
             deckGridController.refresh();
@@ -283,18 +273,19 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @Override
     public void setMouseEvents(ControlNode<ActiveCard> node) {
         ActiveCard card = node.getSubject();
-            node.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-                if (e.getButton() == MouseButton.PRIMARY) {
-                    boolean toggled = deckGridController.toggleEntry(card);
-                    saveDeckProfile();
-                    if(toggled)
-                        node.toggleNodeLight();
-                    e.consume();
-                }});
-        }
+        node.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if (e.getButton() == MouseButton.PRIMARY) {
+                boolean toggled = deckGridController.toggleEntry(card);
+                saveDeckProfile();
+                if (toggled)
+                    node.toggleNodeLight();
+                e.consume();
+            }
+        });
+    }
+
     @FXML
-    public void confirmDeck()
-    {
+    public void confirmDeck() {
         copyToClipboard();
         ActiveCardList deck = deckGridController.getDeck();
         adventure.updateDeckProfiles(deckProfiles, getProfileNum());
@@ -302,23 +293,12 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         resultPopup.initialize(!deck.hasNoCaptains());
         resultPopup.centerToParent(getCurrentScene().getWindow());
         Optional<AdvMatchResult> result = resultPopup.showAndWait();
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             adventure.updateStats(deck, result.get());
-            if(resultPopup.doesCapture())
-            {
-                SimpleChooserDialog<ActiveCard> captainChoice = new SimpleChooserDialog<>();
-                captainChoice.initialize(mainDatabase, deck.getCaptains(), TargetType.CARD);
-                Optional<ActiveCard> capturingCaptain = captainChoice.showAndWait();
-                if(capturingCaptain.isPresent()) {
-                    CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
-                    cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
-                    Optional<ActiveCard> card = cardSearchSelectDialog.showAndWait();
-                    card.ifPresent(activeCard -> {
-                        adventure.sendAway(adventure.getCurrentWorldNum()+1, capturingCaptain.get());
-                        adventure.addCardToTeam(activeCard);
-                    });
-                }
-            }
+            captureOrWoundCardOption(deck);
+            if (resultPopup.doesCapture())
+                captainCaptureOption(deck);
+
             ActiveCardList recoveredCards = adventure.recoverCards(deck);
             ActiveCardList exhaustedCards = adventure.exhaustCards(deck);
             if (!(exhaustedCards.isEmpty() && recoveredCards.isEmpty())) {
@@ -332,9 +312,35 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         }
     }
 
+    private void captainCaptureOption(ActiveCardList deck) {
+        SimpleChooserDialog<ActiveCard> captainChoice = new SimpleChooserDialog<>();
+        captainChoice.initialize(mainDatabase, deck.getCaptains(), TargetType.CARD);
+        Optional<ActiveCard> capturingCaptain = captainChoice.showAndWait();
+        if (capturingCaptain.isPresent()) {
+            CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
+            cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
+            Optional<ActiveCard> card = cardSearchSelectDialog.showAndWait();
+            card.ifPresent(activeCard -> {
+                adventure.sendAway(adventure.getCurrentWorldNum() + 1, capturingCaptain.get());
+                adventure.addCardToTeam(activeCard);
+            });
+        }
+
+    }
+
+    private void captureOrWoundCardOption(ActiveCardList deck) {
+        WoundCaptureChoiceDialog woundCaptureChoice = new WoundCaptureChoiceDialog();
+        woundCaptureChoice.initialize(mainDatabase, deck);
+        Optional<ActiveCard> targetCard = woundCaptureChoice.showAndWait();
+        if (woundCaptureChoice.captureOptionSelected() && targetCard.isPresent()) {
+            adventure.captureCard(targetCard.get());
+        } else if (woundCaptureChoice.woundOptionSelected() && targetCard.isPresent()) {
+            targetCard.get().setStatus(StatusEffect.WOUND, true);
+        }
+    }
+
     private String getResultString(AdvMatchResult result) {
-        switch(result)
-        {
+        switch (result) {
             case FORCE_RETREAT:
                 return " forced the enemy to retreat.";
             case WIN:
@@ -351,48 +357,41 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         return profileNum;
     }
 
-    public void setWin()
-    {
+    public void setWin() {
         result = AdvMatchResult.WIN;
     }
 
-    public void setLose()
-    {
+    public void setLose() {
         result = AdvMatchResult.LOSE;
     }
 
-    public void setForceRetreat()
-    {
+    public void setForceRetreat() {
         result = AdvMatchResult.FORCE_RETREAT;
     }
 
-    public void setEscape()
-    {
+    public void setEscape() {
         result = AdvMatchResult.ESCAPE;
     }
 
-    public void pasteFromClipboard()
-    {
+    public void pasteFromClipboard() {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         String data = (String) Clipboard.getSystemClipboard().getContent(DataFormat.PLAIN_TEXT);
         CardList pastedDeck = codeConverter.convertDeckCodeToDeck(mainDatabase.lookupDatabase(TargetType.CARD), data);
         ActiveCardList cardList = adventure.lookupActiveCards(pastedDeck);
         ActiveCardList verifiedCards = verifyDeck(cardList);
-        if(!verifiedCards.isEmpty()) {
+        if (!verifiedCards.isEmpty()) {
             clearDeck();
-            for(ActiveCard c: cardList) {
+            for (ActiveCard c : cardList) {
                 deckGridController.toggleEntry(c);
                 toggleNodeLight(c);
             }
             deckButtonConfirmText.setText("Deck Pasted from Clipboard");
-        }
-        else{
+        } else {
             deckButtonConfirmText.setText("No valid cards found to paste");
         }
     }
 
-    public void clearDeck()
-    {
+    public void clearDeck() {
         deckGridController.clear();
         deckDisplay.clear();
         highlightAll();
@@ -413,12 +412,10 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     }
 
-    private ActiveCardList verifyDeck(ActiveCardList deck)
-    {
+    private ActiveCardList verifyDeck(ActiveCardList deck) {
         ActiveCardList validCards = new ActiveCardList(new ArrayList<>());
-        for(ActiveCard c: deck)
-        {
-            if(adventure.getActiveCards().contains(c) && !c.hasStatus(StatusEffect.EXHAUSTED))
+        for (ActiveCard c : deck) {
+            if (adventure.getActiveCards().contains(c) && !c.hasStatus(StatusEffect.EXHAUSTED))
                 validCards.add(c);
         }
         return validCards;
@@ -426,53 +423,49 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
 
     private DeckProfileList verifyDeckProfiles(DeckProfileList profileList) {
         DeckProfileList newProfileList = new DeckProfileList(profileList);
-        for(int i = 0; i < profileList.size(); i++)
-        {
+        for (int i = 0; i < profileList.size(); i++) {
             newProfileList.setProfile(i, profileList.getProfile(i));
         }
         profileNum = newProfileList.getLatestProfileNum();
         return newProfileList;
     }
 
-    public void goBack()
-    {
+    public void goBack() {
         changeScene(backPane);
     }
 
-    public void switchProfile(int pNum)
-    {
+    public void switchProfile(int pNum) {
         saveDeckProfile();
         clearDeck();
         ActiveCardList newDeck = verifyDeck(deckProfiles.getProfile(pNum));
-        for(ActiveCard c: newDeck) {
+        for (ActiveCard c : newDeck) {
             deckGridController.toggleEntry(c);
             toggleNodeLight(c);
         }
         profileNum = pNum;
-        int proFileNumDisplay = pNum+1;
+        int proFileNumDisplay = pNum + 1;
         deckProfiles.setLatestProfileNum(profileNum);
         deckButtonConfirmText.setText("Switched to Profile " + proFileNumDisplay);
     }
 
     @FXML
-    public void switchProfile1()
-    {
+    public void switchProfile1() {
         switchProfile(0);
 
     }
+
     @FXML
-    public void switchProfile2()
-    {
+    public void switchProfile2() {
         switchProfile(1);
     }
+
     @FXML
-    public void switchProfile3()
-    {
+    public void switchProfile3() {
         switchProfile(2);
     }
+
     @FXML
-    public void switchProfile4()
-    {
+    public void switchProfile4() {
         switchProfile(3);
     }
 
@@ -481,8 +474,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     @Override
-    public void changeScene(FullViewPane pane)
-    {
+    public void changeScene(FullViewPane pane) {
         super.changeScene(pane);
     }
 }

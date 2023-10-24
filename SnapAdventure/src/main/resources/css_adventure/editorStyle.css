@@ -54,21 +54,22 @@
     -fx-text-box-border: white;
 }
 
-#infoTextArea
+.infoText
 {
     -fx-font-family: "Ubuntu";
-    -fx-font-size: 16;
+    -fx-font-size: 20;
     -fx-display-caret: false;
     -fx-font-alignment: center;
 }
 
-#infoTextArea .content{
-      -fx-border-width: 0;
- }
-
-#infoTextArea  *.text {
-     -fx-text-alignment: center;
- }
+.secondaryInfoText
+{
+    -fx-text-fill: gold;
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20;
+    -fx-display-caret: false;
+    -fx-font-alignment: center;
+}
 
 .text-area{
     -fx-text-fill: white;

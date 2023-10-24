@@ -8,7 +8,7 @@ public class Ruins extends AdvLocation {
 
     public Ruins()
     {
-        super(new Location());
+        super(new AdvLocation());
         setID(SnapMainConstants.RUINS_ICON_ID);
         setEffect("No Location Effect.");
     }

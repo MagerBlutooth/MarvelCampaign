@@ -52,7 +52,7 @@ public class AdvLocationSearchSelectDialogController
         AdvLocationList locs = new AdvLocationList(new ArrayList<>());
         locs = locs.cloneNewList(choices.getThings());
         locs.shuffle();
-        setChoice(locs.get(0));
+        searchSelectDialog.setChoice(locs.get(0));
     }
 
 }

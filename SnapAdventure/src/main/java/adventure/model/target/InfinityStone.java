@@ -95,4 +95,9 @@ public class InfinityStone implements Playable<Token> {
     public String getEffect() {
         return stoneID.getEffect();
     }
+
+    public String toString()
+    {
+        return StringHelper.displayFormat(stoneID.toString());
+    }
 }

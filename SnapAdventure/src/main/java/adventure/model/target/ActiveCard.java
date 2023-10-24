@@ -1,5 +1,6 @@
 package adventure.model.target;
 
+import adventure.model.AdventureConstants;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
@@ -13,16 +14,19 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ActiveCard implements Playable<Card> {
     Card card;
     ConcurrentHashMap<StatusEffect, Boolean> statusEffectMap;
+    boolean temp;
     public ActiveCard()
     {
         statusEffectMap = new ConcurrentHashMap<>();
         card = new Card();
         initializeStatusEffectMap();
+        temp = false;
     }
     public ActiveCard(Card c)
     {
         this();
         card = c;
+        temp = false;
     }
 
     public ActiveCard(ActiveCard a)
@@ -59,6 +63,8 @@ public class ActiveCard implements Playable<Card> {
         }
         if(!statusEffectMap.isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.append(SnapMainConstants.CSV_SEPARATOR);
+        stringBuilder.append(temp);
         String result = stringBuilder.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
@@ -79,6 +85,7 @@ public class ActiveCard implements Playable<Card> {
             boolean b = Boolean.parseBoolean(effectString[1]);
             statusEffectMap.replace(e, b);
         }
+        temp = Boolean.parseBoolean(splitString[2]);
     }
 
     @Override
@@ -113,7 +120,10 @@ public class ActiveCard implements Playable<Card> {
 
     @Override
     public boolean hasAttribute(String entry) {
+        if(entry.equals(AdventureConstants.TEMP_FILTER_STRING))
+            return temp;
         return card.hasAttribute(entry);
+
     }
 
     public String toString()
@@ -160,4 +170,7 @@ public class ActiveCard implements Playable<Card> {
         return getCard().hasAnyAttributes(cardAttributes);
     }
 
+    public void setTemp(boolean t) {
+        temp = t;
+    }
 }

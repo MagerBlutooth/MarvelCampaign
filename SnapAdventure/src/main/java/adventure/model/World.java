@@ -6,6 +6,7 @@ import adventure.model.target.*;
 import adventure.model.target.base.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.logger.MLogger;
 
 import java.util.*;
 
@@ -22,6 +23,8 @@ public class World implements Cloneable{
     WorldBonusCalculator bonusCalculator;
     WorldStatTracker worldStatTracker;
     boolean bossRevealed;
+
+    MLogger logger = new MLogger(World.class);
 
     public World(AdventureDatabase db)
     {
@@ -236,6 +239,7 @@ public class World implements Cloneable{
 
     public void setBossRevealed(boolean b) {
         bossRevealed = b;
+        logger.info("World Boss revealed to be "+ getBoss());
     }
 
     public Enemy enemyEscapes(int sectionNum) {

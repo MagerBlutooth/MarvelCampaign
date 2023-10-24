@@ -126,6 +126,7 @@ public class GridDisplayController<T extends SnapTarget>  {
     }
 
     public void filter(String text, boolean remove) {
+        filterOptionsMap.putIfAbsent(text, !remove);
         filterOptionsMap.replace(text, !remove);
         populateDisplay();
     }

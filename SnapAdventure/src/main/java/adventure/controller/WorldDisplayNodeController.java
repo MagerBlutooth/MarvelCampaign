@@ -156,6 +156,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
         section3Node.refresh(w.getSection(3), w.isCurrentSection(w.getSection(3)));
         section4Node.refresh(w.getSection(4), w.isCurrentSection(w.getSection(4)));
         bossControlNode.refresh((w.getBoss()), w.isBossRevealed());
+        setBossContextMenu();
     }
 
     private void setWorldLabel(World w) {

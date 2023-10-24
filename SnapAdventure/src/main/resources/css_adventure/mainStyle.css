@@ -25,7 +25,7 @@
 {
 -fx-font-family: "Avengeance Heroic Avenger";
     -fx-font-size: 48px;
-    -fx-text-fill: lightslategray;
+    -fx-text-fill: ghostwhite;
 }
 
 #title
@@ -76,6 +76,10 @@
 -fx-fill:white;
  }
 
+ .radio-button
+ {
+    -fx-text-fill:white;
+ }
 #imageButton
  {
    -fx-border-width: 3 3 3 3;

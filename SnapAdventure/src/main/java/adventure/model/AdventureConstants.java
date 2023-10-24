@@ -27,4 +27,5 @@ public class AdventureConstants {
     public static final List<Integer> TEAM_CAPTAIN_START_CHOICES = Arrays.asList(1, 3, 4, 6);
 
     public static final String EMPTY_PROFILE = "Empty";
+    public static final String TEMP_FILTER_STRING = "Temp";
 }

@@ -12,7 +12,7 @@ public class AdvCard extends BaseObject implements Playable<Card> {
     {
         card = new Card();
         setEnabled(true);
-        effect = "";
+        effect = "No Enemy Effect.";
     }
 
     public AdvCard(Card c)

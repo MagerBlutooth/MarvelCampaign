@@ -9,6 +9,8 @@ import snapMain.model.target.*;
 
 import java.util.Base64;
 
+import static snapMain.model.constants.SnapMainConstants.SUBCATEGORY_SEPARATOR;
+
 public class Enemy implements SnapTarget {
     Playable subject;
     Playable secondarySubject;
@@ -90,11 +92,13 @@ public class Enemy implements SnapTarget {
     }
 
     public String toSaveString() {
-        String result = getTargetType() + SnapMainConstants.SUBCATEGORY_SEPARATOR + getID() +
-                SnapMainConstants.SUBCATEGORY_SEPARATOR +
+        String result = getTargetType() + SUBCATEGORY_SEPARATOR + getID() +
+                SUBCATEGORY_SEPARATOR +
                 baseHP +
-                SnapMainConstants.SUBCATEGORY_SEPARATOR +
-                missingHP;
+                SUBCATEGORY_SEPARATOR +
+                missingHP
+                + SUBCATEGORY_SEPARATOR + secondarySubject.getTargetType() + SUBCATEGORY_SEPARATOR +
+                secondarySubject.getID();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
@@ -104,7 +108,7 @@ public class Enemy implements SnapTarget {
         String decodedString = new String(decodedBytes);
         if(decodedString.isBlank())
             return;
-        String[] stringList = decodedString.split(SnapMainConstants.SUBCATEGORY_SEPARATOR);
+        String[] stringList = decodedString.split(SUBCATEGORY_SEPARATOR);
         TargetType targetType = TargetType.valueOf(stringList[0]);
         int id = Integer.parseInt(stringList[1]);
         TargetDatabase<SnapTarget> targetDatabase = new TargetDatabase<>();
@@ -115,6 +119,13 @@ public class Enemy implements SnapTarget {
         subject = (Playable)targetDatabase.lookup(id);
         baseHP = Integer.parseInt(stringList[2]);
         missingHP = Integer.parseInt(stringList[3]);
+        TargetType secondaryType = TargetType.valueOf(stringList[4]);
+        if(secondaryType == TargetType.CARD)
+            targetDatabase = database.lookupDatabase(TargetType.ADV_CARD);
+        else if(secondaryType == TargetType.TOKEN)
+            targetDatabase = database.lookupDatabase(TargetType.TOKEN);
+        int secondID= Integer.parseInt(stringList[5]);
+        secondarySubject = (Playable) targetDatabase.lookup(secondID);
     }
 
     public SnapTarget getSubject() {
@@ -133,6 +144,8 @@ public class Enemy implements SnapTarget {
     public void loseHP(int hp)
     {
         missingHP = missingHP + hp;
+        if(missingHP > baseHP)
+            missingHP = baseHP;
     }
 
     public void setBaseHP(int h) {
@@ -157,5 +170,9 @@ public class Enemy implements SnapTarget {
     public String toString()
     {
         return getName();
+    }
+
+    public String getSecondaryEffect() {
+        return getSecondarySubject().getEffect();
     }
 }

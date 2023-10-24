@@ -1,5 +1,6 @@
 package adventure.model.target;
 
+import adventure.model.Team;
 import adventure.model.sorter.ActiveCardFilter;
 import adventure.model.sorter.ActiveCardSorter;
 import snapMain.model.constants.SnapMainConstants;

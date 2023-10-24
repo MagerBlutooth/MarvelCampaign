@@ -4,6 +4,7 @@ import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.node.ActiveCardControlNode;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
@@ -11,9 +12,11 @@ import javafx.scene.paint.Color;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
+import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
+import snapMain.view.node.control.ControlNode;
 
 import java.util.Objects;
 
@@ -61,4 +64,5 @@ public class CardDisplayPopup extends AdvPopup {
     public GridDisplayController<ActiveCard> getGridDisplayController() {
         return cardGridDisplayNode.getController();
     }
+
 }

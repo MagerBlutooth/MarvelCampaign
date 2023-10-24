@@ -10,6 +10,7 @@ import adventure.model.target.base.AdvCardList;
 import adventure.model.target.base.AdvLocation;
 import adventure.model.target.base.AdvLocationList;
 import snapMain.model.constants.SnapMainConstants;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.*;
 
 import java.util.*;
@@ -31,8 +32,10 @@ public class Adventure {
     ExhaustionCalculator exhaustionCalculator = new ExhaustionCalculator();
     MIACardTracker miaCardTracker;
     DeckProfileList deckProfiles;
-    List<InfinityStone> infinityStones;
+    List<InfinityStone> allInfinityStones;
     Difficulty difficulty;
+
+    MLogger logger = new MLogger(Adventure.class);
 
     public Adventure(AdvMainDatabase mainDB, String proFile) {
         //Initialize base objects
@@ -43,7 +46,7 @@ public class Adventure {
         profileFile = proFile;
         adventureDatabase = new AdventureDatabase();
         newProfileCheck = false;
-        infinityStones = new ArrayList<>();
+        allInfinityStones = new ArrayList<>();
         cardStatTracker = new CardStatTracker();
         miaCardTracker = new MIACardTracker();
         deckProfiles = new DeckProfileList(SnapMainConstants.DECK_PROFILE_DEFAULT);
@@ -122,7 +125,7 @@ public class Adventure {
     private void createInfinityStones() {
         for (InfinityStoneID id : InfinityStoneID.values()) {
             InfinityStone infinityStone = new InfinityStone(id.getID(), id);
-            infinityStones.add(infinityStone);
+            allInfinityStones.add(infinityStone);
         }
     }
 
@@ -133,13 +136,13 @@ public class Adventure {
             possibleSections.add(i);
         }
         Collections.shuffle(possibleSections);
-        for (int i = 0; i < infinityStones.size(); i++) {
+        for (int i = 0; i < allInfinityStones.size(); i++) {
             int choice = possibleSections.get(i);
             int worldNum = (int) Math.floor((double) choice / AdventureConstants.SECTIONS_PER_WORLD) + 1;
             int secNum = choice % AdventureConstants.SECTIONS_PER_WORLD + 1;
             World w = worlds.get(worldNum);
             Section s = w.getSection(secNum);
-            s.addPickup(infinityStones.get(i));
+            s.addReward(allInfinityStones.get(i));
         }
     }
 
@@ -197,6 +200,8 @@ public class Adventure {
     public void skipCurrentSection() {
         getCurrentWorld().revealNextSection(getCurrentSectionNum());
         incrementCurrentSectionNum();
+        logInfo("Section " + getCurrentWorldNum() + "-" + getCurrentSectionNum()
+                + " skipped");
     }
 
     public void incrementCurrentSectionNum() {
@@ -211,7 +216,7 @@ public class Adventure {
         if (currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
             currentWorldNum++;
             getCurrentWorld().initializeBoss(team.getFreeAgents());
-        } else if (currentWorldNum == AdventureConstants.NUMBER_OF_WORLDS && infinityStones.size() == 6) {
+        } else if (currentWorldNum == AdventureConstants.NUMBER_OF_WORLDS && allInfinityStones.size() == 6) {
             currentWorldNum++;
             worlds.add(new World(adventureDatabase));
         }
@@ -264,6 +269,7 @@ public class Adventure {
     public void addFreeAgentToTeam(ActiveCard card) {
         team.getTeamCards().add(card);
         team.getFreeAgents().remove(card);
+        MLogger.LOGGER.info("Drafted " + card + " to team.");
     }
 
     public void healCard(ActiveCard card) {
@@ -281,6 +287,8 @@ public class Adventure {
     public void addFreeAgentToTemp(ActiveCard card) {
         team.getTempCards().add(card);
         team.getFreeAgents().remove(card);
+        card.setTemp(true);
+        logInfo("Drafted " + card + " to temp.");
     }
 
     public ActiveCardList getFreeAgents() {
@@ -288,7 +296,7 @@ public class Adventure {
     }
 
     public void collectPickups(Section section) {
-        TargetList<Playable> pickups = section.getPickups();
+        TargetList<Playable> pickups = section.getRewards();
         for (Playable p : pickups) {
             if (p instanceof ActiveCard) {
                 team.addCardToTeam((ActiveCard) p);
@@ -304,12 +312,11 @@ public class Adventure {
         return availableLocations;
     }
 
+    //Do not add changed locations back to the available locations pool since this would make locations like Westview
+    //and Mirror Dimension infinitely recycle.
     public void updateSection(AdvLocation newLoc, int sectionNum) {
         World w = getCurrentWorld();
-        AdvLocation oldLoc = w.getSection(sectionNum).getLocation();
         w.updateSection(newLoc, sectionNum);
-        if (oldLoc.isActualThing())
-            availableLocations.add(oldLoc);
         if (newLoc.isActualThing())
             availableLocations.remove(newLoc);
     }
@@ -331,7 +338,6 @@ public class Adventure {
             team.getTeamCards().add(card);
         }
     }
-
     public Card getBossCard() {
         World w = getCurrentWorld();
         AdvCard boss = (AdvCard) w.getBoss().getSubject();
@@ -471,13 +477,15 @@ public class Adventure {
         return reclaimedCards;
     }
 
-    public void enemyEscapes(int sectionNum) {
+    public Section enemyEscapes(int sectionNum) {
        Enemy enemy =  worlds.get(getCurrentWorldNum()).enemyEscapes(sectionNum);
        int futureWorld = getFutureWorldNum();
        World world = worlds.get(futureWorld);
-       Section s = world.getRandomSection();
-       s.setEnemy(enemy);
+       Section escapedSection = world.getRandomSection();
+       escapedSection.setEnemy(enemy);
        team.sendCapturedCardsAway(miaCardTracker, futureWorld+1);
+       logger.info(enemy + " escaped from world " + getCurrentWorldNum());
+       return escapedSection;
     }
 
     public boolean failStateCheck() {
@@ -504,6 +512,23 @@ public class Adventure {
 
     public void captureCard(ActiveCard c) {
         team.captureCard(c);
+        logInfo(c + " captured");
     }
 
+    public void logInfo(String string)
+    {
+        logger.info(string);
+    }
+
+    public void stealRandomInfinityStone(Section s) {
+        Section escapedSection = enemyEscapes(s.getSectionNum());
+        InfinityStone randomInfinityStone = team.getRandomInfinityStone();
+        escapedSection.addReward(randomInfinityStone);
+        team.loseInfinityStone(randomInfinityStone);
+        logger.info(randomInfinityStone + " stolen by " + escapedSection.getEnemy());
+    }
+
+    public boolean hasInfinityStone() {
+        return !allInfinityStones.isEmpty();
+    }
 }

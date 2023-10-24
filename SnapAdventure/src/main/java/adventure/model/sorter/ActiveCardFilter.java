@@ -1,5 +1,6 @@
 package adventure.model.sorter;
 
+import adventure.model.Team;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import snapMain.model.target.CardAttribute;

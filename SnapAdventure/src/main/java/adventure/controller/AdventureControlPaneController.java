@@ -50,9 +50,6 @@ public class AdventureControlPaneController extends AdvPaneController {
 
     FileHandler logHandler;
 
-    final static MLogger adventureLogger = new MLogger(AdventureControlPaneController.class);
-
-
     public void initialize(AdvMainDatabase database, Adventure a)
     {
         super.initialize(database);
@@ -122,8 +119,6 @@ public class AdventureControlPaneController extends AdvPaneController {
     }
 
     public void skipSection(Section section) {
-        logInfo("Section " + adventure.getCurrentWorldNum() + "-" + adventure.getCurrentSectionNum()
-                + " skipped");
         adventure.skipCurrentSection();
         worldDisplayNode.revealNextSection(section.getSectionNum());
         refreshToMatch();
@@ -137,8 +132,6 @@ public class AdventureControlPaneController extends AdvPaneController {
     }
 
     public void completeSection() {
-        logInfo("Section " + adventure.getCurrentWorldNum() + "-" + adventure.getCurrentSectionNum()
-                + " completed");
         adventure.completeCurrentSection();
         worldDisplayNode.revealBossCheck();
         refreshToMatch();
@@ -159,11 +152,9 @@ public class AdventureControlPaneController extends AdvPaneController {
             {
                 if(draftCardDialog.isTeam()) {
                     adventure.addFreeAgentToTeam(value);
-                    MLogger.LOGGER.info("Drafted " + value + " to team.");
                 }
                 else {
                     adventure.addFreeAgentToTemp(value);
-                    MLogger.LOGGER.info("Drafted " + value + " to temp.");
                 }
                 refreshToMatch();
             });
@@ -186,11 +177,9 @@ public class AdventureControlPaneController extends AdvPaneController {
             {
                 if(randomDialog.isTeam()) {
                     adventure.addFreeAgentToTeam(value);
-                    MLogger.LOGGER.info("Added " + value + " to team.");
                 }
                 else {
                     adventure.addFreeAgentToTemp(value);
-                    MLogger.LOGGER.info("Added " + value + " to temp.");
                 }
 
             });
@@ -207,11 +196,9 @@ public class AdventureControlPaneController extends AdvPaneController {
             {
                 if(chooseDialog.isTeam()) {
                     adventure.addFreeAgentsToTeam(chosenCards.get());
-                    MLogger.LOGGER.info("Added " + chosenCards.get() + " to team.");
                 }
                 else {
                     adventure.addFreeAgentsToTemp(chosenCards.get());
-                    MLogger.LOGGER.info("Added " + chosenCards.get() + " to team.");
                 }
                 refreshToMatch();
             }
@@ -228,12 +215,10 @@ public class AdventureControlPaneController extends AdvPaneController {
             ActiveCard card = selection.get();
             if(cardSearchSelectDialog.isTeam()) {
                 adventure.addFreeAgentToTeam(card);
-                MLogger.LOGGER.info("Added " + selection.get() + " to team.");
             }
             else {
                 {
                     adventure.addFreeAgentToTemp(card);
-                    MLogger.LOGGER.info("Added " + selection.get() + " to temp.");
                 }
             }
             refreshToMatch();
@@ -243,10 +228,5 @@ public class AdventureControlPaneController extends AdvPaneController {
 
     public AdventureDatabase getAdventureDatabase() {
         return adventureDatabase;
-    }
-
-    public void logInfo(String string)
-    {
-        adventureLogger.info(string);
     }
 }

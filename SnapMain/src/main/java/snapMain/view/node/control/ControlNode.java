@@ -116,7 +116,4 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
             lowlight();
     }
 
-    public void update(T t) {
-
-    }
 }

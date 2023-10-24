@@ -16,7 +16,7 @@ public class Card extends EffectBaseObject implements Unit {
     public Card()
     {
         super();
-        name = "New Card";
+        name = "Random Mook";
         pool = 1;
         power = 0;
         cost = 1;

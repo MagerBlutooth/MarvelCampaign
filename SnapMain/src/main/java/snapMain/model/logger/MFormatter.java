@@ -10,7 +10,7 @@ public class MFormatter extends java.util.logging.Formatter {
     public String format(LogRecord record) {
         StringBuilder builder = new StringBuilder(1000);
 
-        SimpleDateFormat d = new SimpleDateFormat("dd/MM/yy HH:mm");
+        SimpleDateFormat d = new SimpleDateFormat("MM/dd/yy HH:mm");
         Calendar c = Calendar.getInstance();
         String currentDate = d.format(c.getTime());
         builder.append(currentDate + ": ");

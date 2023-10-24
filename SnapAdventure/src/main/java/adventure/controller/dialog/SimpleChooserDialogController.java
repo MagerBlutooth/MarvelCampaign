@@ -39,6 +39,7 @@ public class SimpleChooserDialogController<T extends SnapTarget> {
         choiceNodes.initialize(selectables, targetType, gridActionController, ViewSize.MEDIUM,
                 false);
         choiceNodes.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        choiceNodes.setPrefColumns(6);
     }
 
     public T getSelection() {

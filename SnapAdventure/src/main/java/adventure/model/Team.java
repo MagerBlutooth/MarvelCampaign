@@ -9,6 +9,7 @@ import snapMain.model.target.TargetList;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 
 public class Team {
 
@@ -238,14 +239,18 @@ public class Team {
 
     public void fromTempToTeam(ActiveCard c) {
         boolean removed = tempCards.remove(c);
-        if (removed)
+        if (removed) {
+            c.setTemp(false);
             teamCards.add(c);
+        }
     }
 
     public void fromTeamToTemp(ActiveCard c) {
         boolean removed = teamCards.remove(c);
-        if (removed)
+        if (removed) {
+            c.setTemp(true);
             tempCards.add(c);
+        }
     }
 
     public ActiveCardList getAllCards() {
@@ -273,5 +278,15 @@ public class Team {
         {
             c.setStatus(StatusEffect.EXHAUSTED, false);
         }
+    }
+
+    public void loseInfinityStone(InfinityStone randomInfinityStone) {
+        infinityStones.remove(randomInfinityStone);
+    }
+
+    public InfinityStone getRandomInfinityStone() {
+        Random random = new Random();
+        int i = random.nextInt(infinityStones.size());
+        return infinityStones.get(i);
     }
 }

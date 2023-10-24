@@ -32,7 +32,9 @@ public class SectionViewPaneController extends AdvPaneController {
     @FXML
     FullViewPane sectionViewPane;
     @FXML
-    TextArea enemyEffectText;
+    Label enemyEffectText;
+    @FXML
+    Label secondaryEffectText;
     @FXML
     EnemyControlNode enemyView;
     @FXML
@@ -44,7 +46,7 @@ public class SectionViewPaneController extends AdvPaneController {
     @FXML
     AdvLocationControlNode locationView;
     @FXML
-    TextArea locationEffectText;
+    Label locationEffectText;
 
     @FXML
     Button skipButton;
@@ -72,11 +74,19 @@ public class SectionViewPaneController extends AdvPaneController {
         enemyEffectText.setText(enemy.getEffect());
         enemyView.initialize(mainDatabase, enemy, mainDatabase.grabImage(enemy.getSubject()),
                 ViewSize.MEDIUM, false);
+        setSecondaryEffect();
         hpDisplay.initialize(enemy);
         completeButton.disableProperty().bind(Bindings.lessThan(0,hpDisplay.getHPProperty()));
         initializeRewards(s);
         initializeStations(s);
         initializeContextMenus();
+    }
+
+    private void setSecondaryEffect() {
+        if(enemy.getSecondarySubject().isActualThing()) {
+            enemyView.setSecondary(enemy.getSecondarySubject());
+            secondaryEffectText.setText(enemy.getSecondaryEffect());
+        }
     }
 
     private void initializeContextMenus() {
@@ -106,6 +116,11 @@ public class SectionViewPaneController extends AdvPaneController {
         MenuItem escapeEnemyOption = new MenuItem("Enemy Escapes");
         escapeEnemyOption.setOnAction(e -> enemyEscape());
         enemyMenu.getItems().add(escapeEnemyOption);
+        if(adventure.hasInfinityStone()) {
+            MenuItem stealInfinityStoneOption = new MenuItem("Steal Infinity Stone");
+            stealInfinityStoneOption.setOnAction(e -> enemyStealsInfinityStone(section));
+            enemyMenu.getItems().add(stealInfinityStoneOption);
+        }
 
         ContextMenu stationMenu = new ContextMenu();
         MenuItem stationCardItem = new MenuItem("Station");
@@ -115,9 +130,16 @@ public class SectionViewPaneController extends AdvPaneController {
                 e.getScreenY()));
     }
 
+    private void enemyStealsInfinityStone(Section s) {
+        adventure.stealRandomInfinityStone(s);
+        adventureControlPane.refreshToMatch();
+    }
+
     private void enemyEscape() {
         adventure.enemyEscapes(section.getSectionNum());
-        enemyView.update(section.getEnemy());
+        enemyView.refresh(enemy, true);
+        enemyEffectText.setText(enemy.getEffect());
+        secondaryEffectText.setText(enemy.getSecondaryEffect());
     }
 
     private void addSecondaryEffect() {
@@ -129,8 +151,9 @@ public class SectionViewPaneController extends AdvPaneController {
         if(secondEffect.isPresent())
         {
             Playable enemyEffect = secondEffect.get();
-            enemyView.setSecondary(enemyEffect);
-            enemyEffectText.setText(enemyView.getSecondarySubject().getEffect());
+            enemy.setSecondarySubject(enemyEffect);
+            setSecondaryEffect();
+            secondaryEffectText.setText(enemy.getSecondaryEffect());
         }
     }
 
@@ -207,7 +230,7 @@ public class SectionViewPaneController extends AdvPaneController {
             GridDisplayNode<Playable> pickupDisplay = new GridDisplayNode<>();
             BaseGridActionController<Playable> gridActionController = new BaseGridActionController<>();
             gridActionController.initialize(mainDatabase);
-            pickupDisplay.initialize(s.getPickups(), TargetType.CARD_OR_TOKEN, gridActionController,
+            pickupDisplay.initialize(s.getRewards(), TargetType.CARD_OR_TOKEN, gridActionController,
                     ViewSize.TINY, false);
             pickupDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             pickupDisplay.setMinHeight(120);
