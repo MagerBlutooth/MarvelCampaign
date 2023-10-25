@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <fx:root fx:id="mainPane" type="adventure.view.pane.AdvMainMenuPane"
          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvMainMenuController" prefHeight="600">
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.MainMenuController"
+         minHeight="600" maxHeight="600" minWidth="600" maxWidth="600">
     <StackPane>
         <VBox alignment="CENTER" spacing="20.0">
             <Label id="title" text="Snap Adventure"/>

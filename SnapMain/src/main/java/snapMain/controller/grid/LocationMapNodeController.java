@@ -50,6 +50,14 @@ public class LocationMapNodeController implements GridActionController<Location>
     }
 
     @Override
+    public ControlNode<Location> createEmptyNode(ViewSize v) {
+        ControlNode<Location> locationNode = new ControlNode<>();
+        locationNode.initialize(mainDatabase, new Location(), mainDatabase.grabBlankImage(TargetType.LOCATION),
+                v,false);
+        return locationNode;
+    }
+
+    @Override
     public MainDatabase getDatabase() {
         return mainDatabase;
     }

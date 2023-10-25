@@ -20,9 +20,9 @@ public class DraggableThingDisplayNode<T extends BaseObject> extends GridDisplay
     }
 
     @Override
-    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> actionController, ViewSize viewSize, boolean blind)
+    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> actionController, ViewSize viewSize, boolean statusVisible)
     {
-        controller.initialize(things, tType, actionController, viewSize, blind);
+        controller.initialize(things, tType, actionController, viewSize, statusVisible);
     }
 
     public String toString()
@@ -53,8 +53,8 @@ public class DraggableThingDisplayNode<T extends BaseObject> extends GridDisplay
         return controller;
     }
 
-    public void refreshToMatch(TargetList<T> things) {
-        controller.refresh(things);
+    public void refreshToMatch(TargetList<T> targets) {
+        controller.refresh(targets);
     }
 
     public void filterBy(String text, boolean remove) {

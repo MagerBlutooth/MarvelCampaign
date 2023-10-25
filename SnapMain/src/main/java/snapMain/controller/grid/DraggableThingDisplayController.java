@@ -24,15 +24,16 @@ public class DraggableThingDisplayController<T extends BaseObject> extends GridD
     DraggableThingDisplayNode<T> draggableThingDisplayNode;
 
     @Override
-    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v,
+                           boolean statusVisible)
     {
-        super.initialize(things, tType, controller, v, blind);
+        super.initialize(things, tType, controller, v, statusVisible);
     }
 
     @Override
     protected void addNewNode(T t, List<ControlNode<T>> listOfObjects) {
         IconImage i = mainDatabase.grabImage(t);
-        ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, blind);
+        ControlNode<T> n = gridActionController.createControlNode(t, i, viewSize, statusVisible);
         addDragDetected(n);
         addDragOver();
         addDragEntered();

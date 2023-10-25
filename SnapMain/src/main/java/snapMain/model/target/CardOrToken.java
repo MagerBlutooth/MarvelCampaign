@@ -1,59 +1,46 @@
 package snapMain.model.target;
 
-public class CardOrToken implements Playable {
+public class CardOrToken implements SnapTarget {
 
-    Playable p;
+    Unit u;
+
     public CardOrToken()
     {
-        p = new Card();
-    }
-    @Override
-    public String[] toSaveStringArray() {
-        return p.toSaveStringArray();
-    }
-
-    @Override
-    public void fromSaveStringArray(String[] mInfo) {
-        p.fromSaveStringArray(mInfo);
-    }
-
-    @Override
-    public String getEffect() {
-        return "";
+        u = new Card();
     }
 
     @Override
     public TargetType getTargetType() {
-        return p.getTargetType();
+        return TargetType.CARD_OR_TOKEN;
     }
 
     @Override
     public int getID() {
-        return p.getID();
+        return 0;
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-        p.setEnabled(enabled);
+
     }
 
     @Override
     public boolean isEnabled() {
-        return p.isEnabled();
+        return false;
     }
 
     @Override
     public String getName() {
-        return p.getName();
+        return null;
     }
 
     @Override
     public void setID(int id) {
-        p.setID(id);
+
     }
 
     @Override
     public boolean hasAttribute(String entry) {
-        return p.hasAttribute(entry);
+        return false;
     }
 }

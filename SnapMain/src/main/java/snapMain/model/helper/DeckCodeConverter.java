@@ -11,12 +11,10 @@ import java.util.Base64;
 
 public class DeckCodeConverter {
 
-    public CardList convertDeckCodeToDeck(TargetDatabase<Card> cardDatabase, String encodedString)
+    public CardList convertDeckCodeToDeck(TargetDatabase<Card> cardDatabase, String deckCode)
     {
-        byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
         CardList cards = new CardList(new ArrayList<>());
-        String decodedString = new String(decodedBytes);
-        String[] splitString = decodedString.split("#");
+        String[] splitString = deckCode.split("#");
         for(String s: splitString)
         {
             if(s.contains("("))

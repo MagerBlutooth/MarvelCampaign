@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 import snapMain.view.node.editor.CardEditorNode;
 import snapMain.view.pane.manager.CardManagerPane;
 import snapMain.view.thing.CardView;
@@ -14,13 +14,13 @@ public class CardEditorPaneController extends EditorPaneController {
 
     @FXML
     CardView imagePane;
-    ThingImageGrabber imageGrabber;
+    TargetImageGrabber imageGrabber;
     @FXML
     CardEditorNode cardEditorNode;
 
     public CardEditorPaneController()
     {
-        imageGrabber = new ThingImageGrabber(TargetType.CARD);
+        imageGrabber = new TargetImageGrabber(TargetType.CARD);
     }
 
     public void initialize(MainDatabase database, ViewSize viewSize, Card card)
@@ -28,7 +28,6 @@ public class CardEditorPaneController extends EditorPaneController {
         super.initialize(database);
         cardEditorNode.initialize(database, card);
         imagePane.initialize(mainDatabase, card, viewSize, true);
-        imagePane.disableTooltip();
     }
 
     @FXML

@@ -5,10 +5,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
+public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, Cloneable {
 
     List<T> things;
 
+    public TargetList()
+    {
+        things = new ArrayList<>();
+    }
     protected TargetList(List<T> t) {
         things = new ArrayList<>();
         things.addAll(t);
@@ -31,6 +35,11 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
 
     public void addAll(List<T> toAdd) {
         things.addAll(toAdd);
+    }
+
+    public void addAll(TargetList<T> toAdd)
+    {
+        things.addAll(toAdd.things);
     }
 
     public List<T> subList(int fromIndex, int toIndex) {
@@ -69,6 +78,16 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
     public boolean contains(T t) {
         return things.contains(t);
     }
+
+    public boolean contains(int id)
+    {
+        for(T thing: things)
+        {
+            if(thing.getID() == id)
+                return true;
+        }
+        return false;
+    }
     public Iterator<T> iterator() {
         return getThings().listIterator();
     }
@@ -96,12 +115,18 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
     }
 
     public T getRandom() {
-        List<T> randomList = new ArrayList<>();
-        randomList.addAll(this.getThings());
+        List<T> randomList = new ArrayList<>(this.getThings());
         Collections.shuffle(randomList);
         return randomList.get(0);
     }
 
+    public List<T> getRandom(int i)
+    {
+        i = Math.min(i, this.size());
+        List<T> randomList = new ArrayList<>(this.getThings());
+        Collections.shuffle(randomList);
+        return randomList.subList(0, i);
+    }
     public TargetList<T> cloneNewCopy() {
         try {
             return (TargetList<T>) this.clone();
@@ -109,6 +134,15 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T> {
         catch(Exception e)
         {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public T getFromId(int i) {
+        for(T t: this)
+        {
+            if(t.getID() == i)
+                return t;
         }
         return null;
     }

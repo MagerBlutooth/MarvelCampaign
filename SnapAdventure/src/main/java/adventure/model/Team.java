@@ -1,232 +1,292 @@
 package adventure.model;
 
-import adventure.model.thing.InfinityStone;
-import adventure.model.thing.InfinityStoneID;
-import adventure.model.thing.Section;
+import adventure.model.target.*;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
+import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Team {
 
-    CardList activeCards;
-    CardList tempCards;
-    CardList freeAgentCards;
-    CardList capturedCards;
-    CardList miaCards;
-    CardList eliminatedCards;
-    List<InfinityStone> infinityStones;
+    ActiveCardList allCards;
+    ActiveCardList teamCards;
+    ActiveCardList tempCards;
+    ActiveCardList freeAgentCards;
+    ActiveCardList capturedCards;
+    ActiveCardList miaCards;
+    ActiveCardList eliminatedCards;
+    InfinityStoneList infinityStones;
 
-    public Team()
-    {
-        activeCards = new CardList(new ArrayList<>());
-        tempCards = new CardList(new ArrayList<>());
-        freeAgentCards = new CardList(new ArrayList<>());
-        capturedCards = new CardList(new ArrayList<>());
-        miaCards = new CardList(new ArrayList<>());
-        eliminatedCards = new CardList(new ArrayList<>());
-        infinityStones = new ArrayList<>();
+    public Team() {
+        teamCards = new ActiveCardList();
+        tempCards = new ActiveCardList();
+        freeAgentCards = new ActiveCardList();
+        capturedCards = new ActiveCardList();
+        miaCards = new ActiveCardList();
+        eliminatedCards = new ActiveCardList();
+        infinityStones = new InfinityStoneList();
+        allCards = new ActiveCardList();
     }
-    public Team(AdventureDatabase database)
-    {
+
+    public Team(AdventureDatabase database, int numTeamMembers, int numCaptains) {
         this();
-        List<Card> cards = new ArrayList<>(database.getCards());
-        Collections.shuffle(cards);
-        for(int i = 0; i < AdventureConstants.STARTING_CARDS; i++)
-        {
-            activeCards.add(cards.get(i));
+        allCards = database.generateActiveCards();
+        ActiveCardList allCardsCopy = new ActiveCardList();
+        allCardsCopy = allCardsCopy.cloneNewList(allCards.getThings());
+        allCardsCopy.shuffle();
+        for (int i = 0; i < numTeamMembers; i++) {
+            teamCards.add(allCardsCopy.get(i));
         }
-        cards.removeAll(activeCards.getCards());
-        freeAgentCards.addAll(cards);
-        for(int i = 0; i < AdventureConstants.STARTING_CAPTAINS; i++)
-        {
-            activeCards.get(i).setCaptain(true);
+        allCardsCopy.removeAll(teamCards.getThings());
+        freeAgentCards.addAll(allCardsCopy.getThings());
+        for (int i = 0; i < numCaptains; i++) {
+            teamCards.get(i).setStatus(StatusEffect.CAPTAIN, true);
         }
     }
 
-    public String convertToString() {
-        String teamString =  activeCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+    public String toSaveString() {
+        String teamString = teamCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 tempCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 freeAgentCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 capturedCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
                 miaCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
-                eliminatedCards.toSaveString();
+                eliminatedCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR
+                + allCards.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR
+                + infinityStones.toSaveString();
         return Base64.getEncoder().encodeToString(teamString.getBytes());
     }
 
-    public void convertFromString(String teamString, TargetDatabase<Card> db) {
+    public void convertFromString(String teamString, AdventureDatabase ad) {
         byte[] decodedBytes = Base64.getDecoder().decode(teamString);
         String decodedString = new String(decodedBytes);
         String[] teamList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
-        activeCards.fromSaveString(teamList[0], db);
-        tempCards.fromSaveString(teamList[1], db);
-        freeAgentCards.fromSaveString(teamList[2], db);
-        capturedCards.fromSaveString(teamList[3], db);
-        miaCards.fromSaveString(teamList[4], db);
-        eliminatedCards.fromSaveString(teamList[5], db);
+        teamCards.fromSaveString(teamList[0], ad.getCards());
+        tempCards.fromSaveString(teamList[1], ad.getCards());
+        freeAgentCards.fromSaveString(teamList[2], ad.getCards());
+        capturedCards.fromSaveString(teamList[3], ad.getCards());
+        miaCards.fromSaveString(teamList[4], ad.getCards());
+        eliminatedCards.fromSaveString(teamList[5], ad.getCards());
+        allCards.fromSaveString(teamList[6], ad.getCards());
+        infinityStones.fromSaveString(teamList[7], ad.getTokens());
     }
 
-    public CardList getActiveCards() {
-        return activeCards;
+    public ActiveCardList getTeamCards() {
+        return teamCards;
     }
 
-    public void captureCard(Card card) {
-        if(activeCards.contains(card)) {
+    public void captureCard(ActiveCard card) {
+        if (teamCards.contains(card)) {
             capturedCards.add(card);
-            activeCards.remove(card);
+            teamCards.remove(card);
         }
-        if(tempCards.contains(card))
-        {
+        if (tempCards.contains(card)) {
             makeCardFreeAgent(card);
             tempCards.remove(card);
         }
     }
 
-    public void freeCapturedCard(Card card)
-    {
-        if(capturedCards.contains(card))
-        {
-            activeCards.add(card);
+    public void freeCapturedCard(ActiveCard card) {
+        if (capturedCards.contains(card)) {
+            teamCards.add(card);
             capturedCards.remove(card);
         }
     }
 
-    public void makeCardFreeAgent(Card card)
-    {
-        if(activeCards.contains(card) || tempCards.contains(card)) {
+    public void makeCardFreeAgent(ActiveCard card) {
+        if (teamCards.contains(card) || tempCards.contains(card)) {
             freeAgentCards.add(card);
-            activeCards.remove(card);
+            teamCards.remove(card);
             tempCards.remove(card);
         }
     }
 
 
-    public void eliminateCard(Card card) {
+    public void eliminateCard(ActiveCard card) {
 
-        if(activeCards.contains(card) || tempCards.contains(card)) {
+        if (teamCards.contains(card) || tempCards.contains(card)) {
             eliminatedCards.add(card);
-            activeCards.remove(card);
+            teamCards.remove(card);
             tempCards.remove(card);
         }
     }
 
-    public void reviveCard(Card card) {
-        if(eliminatedCards.contains(card))
-        {
-            activeCards.add(card);
+    public void reviveCard(ActiveCard card) {
+        if (eliminatedCards.contains(card)) {
+            teamCards.add(card);
             eliminatedCards.remove(card);
         }
     }
 
-    public void returnCard(Card card) {
-        if(miaCards.contains(card)) {
-            activeCards.add(card);
+    public boolean returnCard(ActiveCard card) {
+        if (miaCards.contains(card) || capturedCards.contains(card) || eliminatedCards.contains(card)) {
+            teamCards.add(card);
             miaCards.remove(card);
+            capturedCards.remove(card);
+            eliminatedCards.remove(card);
+            return true;
         }
+        return false;
     }
 
 
-    public void sendAway(Card card) {
-        if(activeCards.contains(card)) {
+    public void sendAway(ActiveCard card) {
+        if (teamCards.contains(card)) {
             miaCards.add(card);
-            activeCards.remove(card);
+            teamCards.remove(card);
         }
     }
 
-    public TargetList<Card> getCaptains() {
-        CardList captains = new CardList(new ArrayList<>());
-        for(Card c: getActiveCards())
-        {
-            if(c.isCaptain())
+    public TargetList<ActiveCard> getCaptains() {
+        ActiveCardList captains = new ActiveCardList(new ArrayList<>());
+        for (ActiveCard c : getTeamCards()) {
+            if (c.hasStatus(StatusEffect.CAPTAIN))
                 captains.add(c);
         }
         return captains;
     }
 
-    public TargetList<Card> getTempCards() {
+    public ActiveCardList getTempCards() {
         return tempCards;
     }
 
-    public CardList getEliminatedCards() {
+    public ActiveCardList getEliminatedCards() {
         return eliminatedCards;
     }
 
-    public CardList getCapturedCards() {
+    public ActiveCardList getCapturedCards() {
         return capturedCards;
     }
 
-    public CardList getMIACards()
-    {
+    public ActiveCardList getMIACards() {
         return miaCards;
     }
 
-    public CardList getFreeAgents()
-    {
+    public ActiveCardList getFreeAgents() {
         return freeAgentCards;
     }
 
-    public void healCard(Card card) {
-        activeCards.get(card).setWounded(false);
+    public void healCard(ActiveCard c) {
+        ActiveCard card = teamCards.get(c);
+        if (card != null) {
+            card.setStatus(StatusEffect.WOUND, false);
+        }
     }
 
-    public TargetList<Card> getWoundedCards() {
-        CardList cards = new CardList(new ArrayList<>());
-        for(Card c: activeCards)
-        {
-            if(c.isWounded())
+    public ActiveCardList getWoundedCards() {
+        ActiveCardList cards = new ActiveCardList(new ArrayList<>());
+        for (ActiveCard c : teamCards) {
+            if (c.hasStatus(StatusEffect.WOUND))
                 cards.add(c);
         }
         return cards;
     }
 
-    public void stationCard(Section s ,Card c)
-    {
-        if(s.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
+    public void stationCard(Section s, ActiveCard c) {
+        if (s.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             s.stationCard(c);
-            activeCards.remove(c);
+            teamCards.remove(c);
         }
     }
 
-    public boolean hasInfinityStone(InfinityStoneID id)
-    {
-        for(InfinityStone stone: infinityStones)
-        {
-            if(stone.getID() == id.getID())
+    public boolean hasInfinityStone(InfinityStoneID id) {
+        for (InfinityStone stone : infinityStones) {
+            if (stone.getID() == id.getID())
                 return true;
         }
         return false;
     }
 
-    public void addCardToTeam(Card c) {
-        activeCards.add(c);
+    public void addCardToTeam(ActiveCard c) {
+        teamCards.add(c);
     }
 
     public void gainInfinityStone(InfinityStone p) {
         infinityStones.add(p);
     }
 
-    public Card getRandomCard() {
-        if(!activeCards.isEmpty()) {
-            List<Card> allCards = new ArrayList<>(activeCards.getThings());
-            Collections.shuffle(allCards);
-            return allCards.get(0);
-        }
-        return null;
+    public ActiveCardList retrieveCapturedCards() {
+        teamCards.addAll(capturedCards.getThings());
+        ActiveCardList tempList = new ActiveCardList(capturedCards.getThings());
+        capturedCards.clear();
+        return tempList;
     }
 
-    public void retrieveCapturedCards() {
-        activeCards.addAll(capturedCards.getCards());
+    public void tempCardsExpire() {
+        freeAgentCards.addAll(tempCards.getThings());
+        tempCards.clear();
+    }
+
+    public void addCardToFreeAgents(ActiveCard card) {
+        freeAgentCards.add(card);
+    }
+
+    public void removeFromFreeAgents(Card card) {
+        ActiveCard aCard = null;
+        for (ActiveCard c : freeAgentCards) {
+            if (c.getID() == card.getID()) {
+                aCard = c;
+                break;
+            }
+        }
+        if (aCard != null)
+            freeAgentCards.remove(aCard);
+    }
+
+    public void fromTempToTeam(ActiveCard c) {
+        boolean removed = tempCards.remove(c);
+        if (removed) {
+            c.setTemp(false);
+            teamCards.add(c);
+        }
+    }
+
+    public void fromTeamToTemp(ActiveCard c) {
+        boolean removed = teamCards.remove(c);
+        if (removed) {
+            c.setTemp(true);
+            tempCards.add(c);
+        }
+    }
+
+    public ActiveCardList getAllCards() {
+        return allCards;
+    }
+
+    public ActiveCardList retrieveMIACards(MIACardTracker miaCardTracker, int i) {
+        ActiveCardList retrievedCards = miaCardTracker.lookup(i);
+        teamCards.addAll(miaCards.getThings());
+        miaCards.removeAll(miaCards.getThings());
+        return retrievedCards;
+    }
+
+    public void sendCapturedCardsAway(MIACardTracker miaCardTracker, int world) {
+        for(ActiveCard c: capturedCards)
+        {
+            miaCards.add(c);
+            miaCardTracker.addCard(world, c);
+        }
         capturedCards.clear();
     }
 
-    public void loseTempCards() {
-        tempCards.clear();
+    public void exhaustedCardsRecover() {
+        for(ActiveCard c: teamCards)
+        {
+            c.setStatus(StatusEffect.EXHAUSTED, false);
+        }
+    }
+
+    public void loseInfinityStone(InfinityStone randomInfinityStone) {
+        infinityStones.remove(randomInfinityStone);
+    }
+
+    public InfinityStone getRandomInfinityStone() {
+        Random random = new Random();
+        int i = random.nextInt(infinityStones.size());
+        return infinityStones.get(i);
     }
 }

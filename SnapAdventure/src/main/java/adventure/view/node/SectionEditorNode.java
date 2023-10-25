@@ -2,7 +2,7 @@ package adventure.view.node;
 
 import adventure.controller.SectionEditorNodeController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.AdvLocation;
+import adventure.model.target.base.AdvLocation;
 
 public class SectionEditorNode extends AdvNode {
 

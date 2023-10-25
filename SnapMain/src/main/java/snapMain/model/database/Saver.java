@@ -29,7 +29,7 @@ public abstract class Saver<T extends BaseObject> {
             writer = new CSVWriter(new FileWriter(saveFile));
             for(T t: vDatabase)
             {
-                String[] s = t.toSaveStringArray();
+                String[] s = t.toCSVSaveStringArray();
                 writer.writeNext(s);
             }
             writer.close();

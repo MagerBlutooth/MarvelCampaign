@@ -1,29 +1,27 @@
 package adventure.view.node;
 
+import adventure.model.target.ActiveCard;
 import snapMain.controller.MainDatabase;
-import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
 
-import snapMain.model.target.TargetType;
+import snapMain.model.target.StatusEffect;
+import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.node.control.ControlNode;
 
-public class DeckItemControlNode extends ControlNode<Card> {
+public class DeckItemControlNode extends ActiveCardControlNode {
 
-    public void initialize(MainDatabase db, Card c, CardList deck, ViewSize v) {
+    @Override
+    public void initialize(MainDatabase db, ActiveCard c, IconImage i, ViewSize v, boolean statusVisible) {
 
         mainDatabase = db;
-        TargetDatabase<Card> targetDatabase = mainDatabase.lookupDatabase(TargetType.CARD);
-        subject = targetDatabase.lookup(c.getID());
-        if(subject == null)
-            subject = c;
+        subject = c;
         imageView.setImage(mainDatabase.grabImage(c));
         imageView.setFitWidth(v.getSizeVal());
         imageView.setFitHeight(v.getSizeVal());
         createCaptainView(v);
+        if(statusVisible) {
+            setDamage(c.hasStatus(StatusEffect.WOUND));
+            setCaptain(c.hasStatus(StatusEffect.CAPTAIN));
+        }
         setHighlighted(true);
-        setDamage(c.isWounded());
-        setCaptain(c.isCaptain());
     }
 }

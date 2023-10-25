@@ -7,9 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import snapMain.model.helper.FileHelper;
+import snapMain.model.logger.MLogger;
 import snapMain.view.button.ButtonToolBar;
 import snapMain.view.pane.FullViewPane;
 import snapMain.view.pane.BasicStage;
+
+import java.util.logging.FileHandler;
 
 public class ButtonToolBarController {
 
@@ -22,11 +26,18 @@ public class ButtonToolBarController {
     @FXML
     Button exitButton;
     FullViewPane backPane;
+    FileHandler fileHandler;
 
     public void initialize(FullViewPane bP) {
 
         backPane = bP;
         HBox.setHgrow(spacerPane, Priority.ALWAYS);
+    }
+
+    public void initialize(FullViewPane bP, FileHandler f)
+    {
+        this.initialize(bP);
+        fileHandler = f;
     }
 
     public void removeBackButton()
@@ -35,6 +46,8 @@ public class ButtonToolBarController {
     }
 
     public void goBack() {
+        if(fileHandler != null)
+            MLogger.LOGGER.removeHandler(fileHandler);
         changeScene(backPane);
     }
 

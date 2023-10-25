@@ -9,12 +9,6 @@ import java.util.List;
 
 public class IntelControl<T extends EffectBaseObject> implements ContextControl<T>
 {
-    public MenuItem setCaptainOption(Card c)
-    {
-        MenuItem captainOption = new MenuItem("Captain");
-        captainOption.setOnAction(actionEvent -> c.setCaptain(!c.isCaptain()));
-        return captainOption;
-    }
 
     @Override
     public List<MenuItem> createMenuItems(T t) {

@@ -1,9 +1,9 @@
 package adventure.model;
 
-import adventure.model.thing.*;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvLocationList;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.Playable;
-import snapMain.model.target.SnapTarget;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -29,7 +29,7 @@ public class WorldList extends ArrayList<World> {
             locations.add(s2);
             locations.add(s3);
             locations.add(s4);
-            World world = new World(database, locations, i);
+            World world = new World(database, locations, i+1);
             add(world);
         }
 
@@ -85,5 +85,11 @@ public class WorldList extends ArrayList<World> {
                 allBosses.add((AdvCard) w.getBoss().getSubject());
         }
         return allBosses;
+    }
+
+    @Override
+    public World get(int worldNum)
+    {
+        return super.get(worldNum-1);
     }
 }

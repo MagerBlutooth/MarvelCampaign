@@ -9,6 +9,7 @@ import snapMain.view.node.control.ControlNode;
 public interface GridActionController<T extends SnapTarget> {
 
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind);
+    ControlNode<T> createEmptyNode(ViewSize v);
     //Blind boolean specifies whether Captain status should be visible
     public MainDatabase getDatabase();
     public void saveGridNode(ControlNode<T> node);

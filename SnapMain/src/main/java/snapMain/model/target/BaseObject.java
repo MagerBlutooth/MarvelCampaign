@@ -21,14 +21,14 @@ public abstract class BaseObject implements Cloneable, SnapTarget {
         enabled = t.isEnabled();
     }
 
-    public abstract String[] toSaveStringArray();
+    public abstract String[] toCSVSaveStringArray();
 
     public int getID()
     {
         return id;
     }
 
-    public abstract void fromSaveStringArray(String[] mInfo);
+    public abstract void fromCSVSaveStringArray(String[] mInfo);
 
     public void setID(int i)
     {

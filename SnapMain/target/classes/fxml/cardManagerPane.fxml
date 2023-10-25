@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import snapMain.view.button.ButtonToolBar?>
 <?import snapMain.view.manager.CardManager?>
-<?import snapMain.view.menu.CardFilterMenuButton?>
-<?import snapMain.view.menu.CardSortMenuButton?>
+<?import snapMain.view.menu.FilterMenuButton?>
+<?import snapMain.view.menu.SortMenuButton?>
 <?import snapMain.view.pane.manager.CardManagerPane?>
 <fx:root type="CardManagerPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
@@ -16,8 +16,8 @@
         <HBox spacing="30.0" alignment="CENTER">
             <VBox alignment="CENTER">
                 <HBox spacing="20.0" alignment="CENTER">
-                    <CardSortMenuButton text="Sort" fx:id="sortButton"/>
-                    <CardFilterMenuButton text="Filter" fx:id="filterButton"/>
+                    <SortMenuButton text="Sort" fx:id="sortButton"/>
+                    <FilterMenuButton text="Filter" fx:id="filterButton"/>
                     <Button text="New Card" onAction="#addNewEntry"/>
                 </HBox>
                 <CardManager fx:id="cardManager"/>

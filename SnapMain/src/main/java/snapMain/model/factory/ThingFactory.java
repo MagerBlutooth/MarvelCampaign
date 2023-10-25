@@ -16,7 +16,7 @@ public class ThingFactory {
         {
             String[] vInfo = csvContents.get(i);
             Card c = new Card();
-            c.fromSaveStringArray(vInfo);
+            c.fromCSVSaveStringArray(vInfo);
             cards.add(c);
         }
         return cards;
@@ -31,7 +31,7 @@ public class ThingFactory {
         {
             String[] vInfo = csvContents.get(i);
             Location l = new Location();
-            l.fromSaveStringArray(vInfo);
+            l.fromCSVSaveStringArray(vInfo);
             worlds.add(l);
         }
         return worlds;
@@ -46,7 +46,7 @@ public class ThingFactory {
         {
             String[] vInfo = csvContents.get(i);
             Token t = new Token();
-            t.fromSaveStringArray(vInfo);
+            t.fromCSVSaveStringArray(vInfo);
             tokens.add(t);
         }
         return tokens;

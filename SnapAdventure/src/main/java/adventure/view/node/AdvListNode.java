@@ -25,11 +25,6 @@ public abstract class AdvListNode<T extends BaseObject> extends StackPane {
         fxmlAdventureGrabber.grabFXML(getFXMLString(), this, this);
     }
 
-    public GridDisplayController<T> getListNodeController()
-    {
-        return list.getController();
-    }
-
     public void initialize(TargetList<T> things, TargetType t, GridActionController<T> c, ViewSize v, boolean blind) {
         list.initialize(things, t, c, v, blind);
     }

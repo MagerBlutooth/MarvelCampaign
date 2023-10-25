@@ -20,9 +20,9 @@ public class HallOfFameDisplayNode extends GridDisplayNode<HallOfFameEntry> {
     }
 
     @Override
-    public void initialize(TargetList<HallOfFameEntry> things, TargetType tType, GridActionController<HallOfFameEntry> actionController, ViewSize viewSize, boolean blind)
+    public void initialize(TargetList<HallOfFameEntry> things, TargetType tType, GridActionController<HallOfFameEntry> actionController, ViewSize viewSize, boolean statusVisible)
     {
-        controller.initialize(things, tType, actionController, viewSize, blind);
+        controller.initialize(things, tType, actionController, viewSize, statusVisible);
     }
 
     public String toString()

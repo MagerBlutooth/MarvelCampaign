@@ -5,7 +5,8 @@ import snapMain.model.target.Card;
 import snapMain.model.target.Location;
 import snapMain.model.target.TargetType;
 import snapMain.model.target.Token;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.IconConstant;
+import snapMain.view.grabber.TargetImageGrabber;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,12 +18,13 @@ public class MasterImageCache {
     Map<Integer, IconImage> cardImageCache = new LinkedHashMap<>();
     Map<Integer, IconImage> locationImageCache = new LinkedHashMap<>();
     Map<Integer, IconImage> tokenImageCache = new LinkedHashMap<>();
+    Map<IconConstant, IconImage> iconImageCache = new LinkedHashMap<>();
 
     MasterThingDatabase masterThingDatabase;
 
-    ThingImageGrabber cardImageGrabber = new ThingImageGrabber(TargetType.CARD);
-    ThingImageGrabber locationImageGrabber = new ThingImageGrabber(TargetType.LOCATION);
-    ThingImageGrabber tokenImageGrabber = new ThingImageGrabber(TargetType.TOKEN);
+    TargetImageGrabber cardImageGrabber = new TargetImageGrabber(TargetType.CARD);
+    TargetImageGrabber locationImageGrabber = new TargetImageGrabber(TargetType.LOCATION);
+    TargetImageGrabber tokenImageGrabber = new TargetImageGrabber(TargetType.TOKEN);
 
 
     public MasterImageCache(MasterThingDatabase database)
@@ -31,6 +33,14 @@ public class MasterImageCache {
         setCardCache();
         setLocationCache();
         setTokenCache();
+        setIconCache();
+    }
+
+    private void setIconCache() {
+        for(IconConstant i: IconConstant.values())
+        {
+            iconImageCache.put(i, i.grabImage());
+        }
     }
 
     private void setTokenCache() {
@@ -40,6 +50,7 @@ public class MasterImageCache {
             tokenImageCache.put(t.getID(), tokenImageGrabber.grabImage(t.getID()));
         }
         tokenImageCache.put(NO_ICON_ID, tokenImageGrabber.grabImage(NO_ICON_ID));
+        cardImageCache.put(BLANK_ICON_ID, tokenImageGrabber.grabImage(BLANK_ICON_ID));
     }
 
     private void setLocationCache() {
@@ -62,18 +73,17 @@ public class MasterImageCache {
     }
 
     public IconImage getImage(int id, TargetType tt) {
-        switch(tt)
-        {
-            case CARD:
-                return cardImageCache.get(id);
-            case LOCATION:
-                return locationImageCache.get(id);
-            case TOKEN:
-                return tokenImageCache.get(id);
-            case CARD_OR_TOKEN:
+        return switch (tt) {
+            case CARD -> cardImageCache.get(id);
+            case LOCATION -> locationImageCache.get(id);
+            case TOKEN -> tokenImageCache.get(id);
+            default -> null;
+        };
+    }
 
-        }
-        return null;
+    public IconImage getIcon(IconConstant i)
+    {
+        return iconImageCache.get(i);
     }
 
     public void cacheCard(Card c, IconImage i) {

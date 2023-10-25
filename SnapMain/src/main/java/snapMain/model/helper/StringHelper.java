@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class StringHelper {
 
     public static String displayFormat(String string) {
-        string = string.replace("-", " ");
+        string = string.replaceAll("[^A-Za-z0-9]", "");
         return string.replace(" ", "");
     }
 

@@ -4,13 +4,10 @@ import adventure.controller.AdventureControlPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
-import adventure.model.stats.MatchResult;
-import adventure.model.thing.Section;
+import adventure.model.target.Section;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import snapMain.model.target.CardList;
+import snapMain.view.pane.FullViewPane;
 import snapMain.view.pane.editor.EditorPane;
-
-import java.util.Optional;
 
 public class AdventureControlPane extends EditorPane {
 
@@ -45,35 +42,23 @@ public class AdventureControlPane extends EditorPane {
         controller.completeSection();
     }
 
-    public void completeCurrentWorld() {
-        controller.completeWorld();
-    }
-
     public void draftCard() {
         controller.draftCard();
     }
 
-    public void healCard() {
-        controller.healCard();
-    }
-
-    public void generateCard() {
-        controller.generateCard();
+    public void generateCards() {
+        controller.generateCards();
     }
 
     public void searchCard() {
         controller.searchFreeAgent();
     }
 
-    public void createClone() {
-        controller.createClone();
-    }
-
-    public void updateStats(CardList deck, MatchResult result) {
-        controller.updateStats(deck, result);
-    }
-
     public AdventureDatabase getAdventureDatabase() {
         return controller.getAdventureDatabase();
+    }
+
+    public void changeScene(FullViewPane fullViewPane) {
+        controller.changeScene(fullViewPane);
     }
 }

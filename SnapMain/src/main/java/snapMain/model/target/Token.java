@@ -1,6 +1,6 @@
 package snapMain.model.target;
 
-public class Token extends BaseObject implements Playable {
+public class Token extends BaseObject implements SnapTarget {
 
     int power;
     int cost;
@@ -16,22 +16,17 @@ public class Token extends BaseObject implements Playable {
         name = t.getName();
     }
     @Override
-    public String[] toSaveStringArray() {
+    public String[] toCSVSaveStringArray() {
         return new String[]{String.valueOf(getID()), getName(), String.valueOf(getCost()), String.valueOf(getPower()), String.valueOf(isEnabled())};
     }
 
     @Override
-    public void fromSaveStringArray(String[] tInfo) {
+    public void fromCSVSaveStringArray(String[] tInfo) {
         id = Integer.parseInt(tInfo[0]);
         name = tInfo[1];
         cost = Integer.parseInt(tInfo[2]);
         power = Integer.parseInt(tInfo[3]);
         enabled = Boolean.parseBoolean(tInfo[4]);
-    }
-
-    @Override
-    public String getEffect() {
-        return "";
     }
 
     @Override

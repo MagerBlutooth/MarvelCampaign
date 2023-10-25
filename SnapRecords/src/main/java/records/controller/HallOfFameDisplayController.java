@@ -23,9 +23,9 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     HallOfFameDisplayNode hallOfFameDisplayNode;
 
     @Override
-    public void initialize(TargetList<HallOfFameEntry> entries, TargetType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<HallOfFameEntry> entries, TargetType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean statusVisible)
     {
-        super.initialize(entries, tType, controller, v, blind);
+        super.initialize(entries, tType, controller, v, statusVisible);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     protected void addNewNode(HallOfFameEntry t, List<ControlNode<HallOfFameEntry>> listOfObjects)
     {
         IconImage i = mainDatabase.grabImage(t.getCaptain());
-        ControlNode<HallOfFameEntry> n = getGridActionController().createControlNode(t, i, getViewSize(), isBlind());
+        ControlNode<HallOfFameEntry> n = getGridActionController().createControlNode(t, i, getViewSize(), isStatusVisible());
         listOfObjects.add(n);
     }
 

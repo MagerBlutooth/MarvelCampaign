@@ -11,7 +11,7 @@ import snapMain.model.target.Location;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 import snapMain.view.thing.LocationView;
 
 
@@ -23,14 +23,14 @@ public class LocationViewController extends CampaignViewController<Location> {
     @FXML
     ImageView mainImage;
     int imageSize;
-    private ThingImageGrabber imageGrabber;
+    private TargetImageGrabber imageGrabber;
     Location location;
     ContextMenu contextMenu = new ContextMenu();
 
     @Override
     public void initialize(Location l, ViewSize s) {
         location = l;
-        imageGrabber = new ThingImageGrabber(TargetType.LOCATION);
+        imageGrabber = new TargetImageGrabber(TargetType.LOCATION);
         imageSize = s.getSizeVal();
         locationView.setViewSize(s);
         setMainImage(imageGrabber.grabImage(l.getID()), s);

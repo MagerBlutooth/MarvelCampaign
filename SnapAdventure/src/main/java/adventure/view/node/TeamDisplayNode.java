@@ -1,9 +1,11 @@
 package adventure.view.node;
 
 import adventure.controller.TeamDisplayNodeController;
+import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import adventure.view.pane.AdventureControlPane;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.MainDatabase;
 
@@ -17,8 +19,7 @@ public class TeamDisplayNode extends StackPane {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    //Display Node should be "blind" if Captain status should be hidden
-    public void initialize(MainDatabase d, Team t, Adventure a)
+    public void initialize(AdvMainDatabase d, Team t, AdventureControlPane a)
     {
         controller.initialize(d, t, a);
     }

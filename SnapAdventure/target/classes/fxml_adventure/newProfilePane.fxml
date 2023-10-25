@@ -6,7 +6,7 @@
 <?import snapMain.view.node.GridDisplayNode?>
 <fx:root type="AdvNewProfilePane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvNewProfilePaneController" maxHeight="800">
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.NewProfilePaneController" maxHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <VBox alignment="CENTER">

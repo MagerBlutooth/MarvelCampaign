@@ -2,12 +2,10 @@ package snapMain.view.node;
 
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.GridDisplayController;
-import snapMain.model.target.CardList;
 import snapMain.model.target.SnapTarget;
 import snapMain.view.ViewSize;
 import snapMain.view.fxml.FXMLMainGrabber;
 import javafx.scene.control.ScrollPane;
-import snapMain.model.logger.MLogger;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
@@ -26,9 +24,10 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
         return fxmlMainGrabber;
     }
 
-    public void initialize(TargetList<T> list, TargetType t, GridActionController<T> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<T> list, TargetType t, GridActionController<T> controller, ViewSize v,
+                           boolean statusVisible)
     {
-        gridDisplayController.initialize(list, t, controller, v, blind);
+        gridDisplayController.initialize(list, t, controller, v, statusVisible);
     }
 
     public void sortBy(String c) {
@@ -39,18 +38,23 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
         return gridDisplayController;
     }
 
-    public void addThing(T t)
+    public void addTarget(T t)
     {
-        gridDisplayController.addThing(t);
+        gridDisplayController.addTarget(t);
     }
 
-    public void removeThing(T t)
+    public void removeTarget(T t)
     {
-        gridDisplayController.removeThing(t);
+        gridDisplayController.removeTarget(t);
     }
 
-    public void refreshToMatch(TargetList<T> things) {
-        gridDisplayController.refresh(things);
+    public void refreshToMatch(TargetList<T> targets) {
+        gridDisplayController.refresh(targets);
+    }
+
+    public void refresh()
+    {
+        gridDisplayController.refresh();
     }
 
     public void setPrefColumns(int i) {
@@ -72,4 +76,5 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
     public void clear() {
         gridDisplayController.clear();
     }
+
 }

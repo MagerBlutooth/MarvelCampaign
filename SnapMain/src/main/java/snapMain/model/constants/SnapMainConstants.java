@@ -32,13 +32,17 @@ public class SnapMainConstants {
 
     public static final Color FREE_COLOR = Color.WHITESMOKE;
     public static final int MAX_STATIONED_AGENTS = 4;
-    public static final Color WOUND_COLOR = Color.CRIMSON;
     public static final int NO_ICON_ID = 10000;
 
     public static final int MOOK_ICON_ID = 20000;
+    public static final int BLANK_ICON_ID = 20000;
     public static final int RUINS_ICON_ID = 30000;
+    public static final int PIG_ICON_ID = 18;
+    public static final int RAPTOR_ICON_ID = 26;
     public static final int SHIELD_MEDBAY_ID = 100000;
     public static final int HYDRA_MEDBAY_ID = 100001;
     public static final int STARTING_YEAR = 2022;
-    public static final int MAX_DECK_SIZE = 12;
+    public static final int DECK_SIZE = 12;
+    public static final int MAX_SELECTION_NUM = 35;
+    public static final int DECK_PROFILE_DEFAULT = 4;
 }

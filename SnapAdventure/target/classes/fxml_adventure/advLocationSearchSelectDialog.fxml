@@ -4,15 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.TextField?>
 <?import snapMain.view.node.GridDisplayNode?>
+<?import javafx.scene.control.Button?>
 <fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
-         fx:controller="adventure.controller.AdvLocationSearchSelectDialogController">
+         fx:controller="adventure.controller.dialog.AdvLocationSearchSelectDialogController">
     <content>
-        <VBox>
+        <VBox spacing="10.0" alignment="CENTER">
             <StackPane fx:id="displayPane"/>
             <TextField fx:id="searchBar"/>
             <GridDisplayNode fx:id="choiceNodes"/>
+            <Button text="Random" onAction="#selectRandom"/>
             <padding>
                 <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
             </padding>
@@ -21,6 +23,6 @@
     <padding>
         <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
     </padding>
-    <ButtonType fx:id="okButton" text="OK" buttonData="OK_DONE"/>
+    <ButtonType fx:id="okButton" fx:constant="OK"/>
     <ButtonType fx:id="cancelButton" text="Cancel" buttonData="CANCEL_CLOSE"/>
 </fx:root>

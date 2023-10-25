@@ -1,7 +1,15 @@
 package adventure.view.popup;
 
-import snapMain.model.target.Card;
+import adventure.model.AdvMainDatabase;
+import adventure.model.target.ActiveCard;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
 
-public class CardChooserDialog extends ChooserDialog<Card> {
+public class CardChooserDialog extends ChooserDialog<ActiveCard> {
+
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<ActiveCard> cards)
+    {
+        super.initialize(mainDatabase, cards, TargetType.CARD);
+    }
 
 }

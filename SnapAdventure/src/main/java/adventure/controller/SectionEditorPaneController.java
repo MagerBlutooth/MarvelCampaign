@@ -2,22 +2,22 @@ package adventure.controller;
 
 import adventure.controller.manager.AdvEditorPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.AdvLocation;
+import adventure.model.target.base.AdvLocation;
 import adventure.view.node.SectionEditorNode;
 import adventure.view.pane.AdvLocationManagerPane;
 import javafx.fxml.FXML;
 import snapMain.model.target.TargetType;
-import snapMain.view.grabber.ThingImageGrabber;
+import snapMain.view.grabber.TargetImageGrabber;
 
 public class SectionEditorPaneController extends AdvEditorPaneController
 {
-    ThingImageGrabber imageGrabber;
+    TargetImageGrabber imageGrabber;
     @FXML
     SectionEditorNode sectionEditorNode;
 
     public SectionEditorPaneController()
     {
-        imageGrabber = new ThingImageGrabber(TargetType.LOCATION);
+        imageGrabber = new TargetImageGrabber(TargetType.LOCATION);
     }
 
     public void initialize(AdvMainDatabase database, AdvLocation s)

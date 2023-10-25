@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import snapMain.view.button.ButtonToolBar?>
+<?import javafx.geometry.Insets?>
 <fx:root type="AdventureControlPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdventureControlPaneController" prefWidth="1600"
@@ -14,9 +15,12 @@
         <ButtonToolBar fx:id="buttonToolBar"/>
         <TeamDisplayNode fx:id="teamDisplayNode"/>
         <HBox alignment="CENTER" spacing="40.0">
-            <DiceNode/>
+            <DiceNode fx:id="diceNode"/>
             <WorldDisplayNode fx:id="worldDisplayNode"/>
             <AdventureActionNode fx:id="adventureActionNode"/>
         </HBox>
+        <padding>
+            <Insets top="20.0" left="20.0" bottom="20.0" right="20.0"/>
+        </padding>
     </VBox>
 </fx:root>

@@ -2,29 +2,28 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.World;
-import adventure.model.thing.Enemy;
-import adventure.model.thing.BossSection;
-import adventure.model.thing.Section;
+import adventure.model.target.Enemy;
+import adventure.model.target.BossSection;
+import adventure.model.target.Section;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.SectionControlNode;
 import adventure.view.pane.AdventureControlPane;
-import adventure.view.pane.BossViewPane;
 import adventure.view.pane.SectionViewPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import snapMain.view.ViewSize;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorldDisplayNodeController extends AdvPaneController {
+public class WorldDisplayNodeController extends FullViewPaneController {
 
     @FXML
     EnemyControlNode bossControlNode;
-    @FXML
-    Label bossEffectText;
     @FXML
     SectionControlNode section1Node;
     @FXML
@@ -39,6 +38,9 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     World world;
 
+    AdventureControlPane adventurePane;
+    ContextMenu bossContextMenu;
+
 
     public void initialize(AdvMainDatabase d, World w, AdventureControlPane aPane)
     {
@@ -46,38 +48,68 @@ public class WorldDisplayNodeController extends AdvPaneController {
         world = w;
         setWorldLabel(w);
         sections = new ArrayList<>();
+        adventurePane = aPane;
 
-        Section advLocation1 = w.getFirstSection();
-        Section advLocation2 = w.getSecondSection();
-        Section advLocation3 = w.getThirdSection();
-        Section advLocation4 = w.getFourthSection();
+        Section section1 = w.getFirstSection();
+        Section section2 = w.getSecondSection();
+        Section section3 = w.getThirdSection();
+        Section section4 = w.getFourthSection();
         Enemy boss = w.getBoss();
-        bossEffectText.setText(boss.getEffect());
-        section1Node.initialize(d, advLocation1, d.grabImage(advLocation1.getLocation()),
-                ViewSize.MEDIUM, true);
-        section2Node.initialize(d, advLocation2, d.grabImage(advLocation1.getLocation()),
-                ViewSize.MEDIUM, false);
-        section3Node.initialize(d, advLocation3, d.grabImage(advLocation1.getLocation()),
-                ViewSize.MEDIUM, false);
-        section4Node.initialize(d, advLocation4, d.grabImage(advLocation1.getLocation()),
-                ViewSize.MEDIUM, false);
+        section1Node.initialize(d, section1, d.grabImage(section1.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section1));
+        section2Node.initialize(d, section2, d.grabImage(section2.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section2));
+        section3Node.initialize(d, section3, d.grabImage(section3.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section3));
+        section4Node.initialize(d, section4, d.grabImage(section4.getLocation()),
+                ViewSize.MEDIUM, w.isCurrentSection(section4));
         sections.add(section1Node);
         sections.add(section2Node);
         sections.add(section3Node);
         sections.add(section4Node);
         bossControlNode.initialize(mainDatabase, boss, d.grabImage(boss.getSubject()), ViewSize.MEDIUM, false);
-        bossControlNode.unreveal();
+        bossControlNode.setRevealed(w.isBossRevealed());
         setSectionMouseOption(section1Node, aPane);
         setSectionMouseOption(section2Node, aPane);
         setSectionMouseOption(section3Node, aPane);
         setSectionMouseOption(section4Node, aPane);
         setBossMouseOption(bossControlNode, aPane);
+        setBossContextMenu();
+    }
+
+    private void setBossContextMenu() {
+        bossContextMenu = new ContextMenu();
+        MenuItem revealItem = setRevealOption();
+        bossContextMenu.getItems().add(revealItem);
+        bossControlNode.setOnContextMenuRequested(e -> bossContextMenu.show(bossControlNode, e.getScreenX(),
+                e.getScreenY()));
+    }
+
+    private MenuItem setRevealOption() {
+        MenuItem menuItem;
+        if(world.isBossRevealed())
+        {
+            menuItem = new MenuItem("Unreveal");
+            menuItem.setOnAction(e -> {
+                unrevealBoss();
+                setBossContextMenu();
+            });
+        }
+        else
+        {
+            menuItem = new MenuItem("Reveal");
+            menuItem.setOnAction(e -> {
+                revealBoss();
+                setBossContextMenu();
+            });
+        }
+        return menuItem;
     }
 
     private void setBossMouseOption(EnemyControlNode bossNode, AdventureControlPane aPane) {
         bossNode.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY && world.isBossRevealed()) {
-                BossViewPane bossViewPane = new BossViewPane();
+                SectionViewPane bossViewPane = new SectionViewPane();
                 bossViewPane.initialize(mainDatabase, aPane, new BossSection(aPane.getAdventureDatabase(),
                         bossNode.getSubject()));
                 changeScene(bossViewPane);
@@ -87,7 +119,7 @@ public class WorldDisplayNodeController extends AdvPaneController {
 
     private void setSectionMouseOption(SectionControlNode sectionNode, AdventureControlPane aPane) {
         sectionNode.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getButton() == MouseButton.PRIMARY && sectionNode.isRevealed()) {
+            if(mouseEvent.getButton() == MouseButton.PRIMARY && world.isCurrentSection(sectionNode.getSubject())) {
                 SectionViewPane sectionViewPane = new SectionViewPane();
                 sectionViewPane.initialize(mainDatabase, aPane, sectionNode.getSubject());
                 changeScene(sectionViewPane);
@@ -101,14 +133,30 @@ public class WorldDisplayNodeController extends AdvPaneController {
         refresh(world);
     }
 
+    public void revealBoss()
+    {
+        world.setBossRevealed(true);
+        bossControlNode.setRevealed(true);
+        refresh(world);
+    }
+
+    public void unrevealBoss()
+    {
+        world.setBossRevealed(false);
+        bossControlNode.setRevealed(false);
+        refresh(world);
+    }
+
     public void refresh(World w)
     {
         setWorldLabel(w);
-        section1Node.refresh(w.getFirstSection());
-        section2Node.refresh(w.getSecondSection());
-        section3Node.refresh(w.getThirdSection());
-        section4Node.refresh(w.getFourthSection());
-        bossControlNode.refresh((w.getBoss()));
+        world = w;
+        section1Node.refresh(w.getSection(1), w.isCurrentSection(w.getSection(1)));
+        section2Node.refresh(w.getSection(2), w.isCurrentSection(w.getSection(2)));
+        section3Node.refresh(w.getSection(3), w.isCurrentSection(w.getSection(3)));
+        section4Node.refresh(w.getSection(4), w.isCurrentSection(w.getSection(4)));
+        bossControlNode.refresh((w.getBoss()), w.isBossRevealed());
+        setBossContextMenu();
     }
 
     private void setWorldLabel(World w) {
@@ -125,7 +173,9 @@ public class WorldDisplayNodeController extends AdvPaneController {
     }
 
     public void revealBossCheck() {
-        if(world.isBossRevealed())
+        if(world.isBossRevealed()) {
             bossControlNode.reveal();
+            setRevealOption();
+        }
     }
 }

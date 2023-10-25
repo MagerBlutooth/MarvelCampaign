@@ -74,9 +74,4 @@ public class FreeAgentSelectNodeController extends FactionSelectNodeController{
         l.setRuined(!l.isRuined());
         refresh();
     }
-
-    public void toggleWoundAgent(Card a) {
-        a.setWounded(!a.isWounded());
-        refresh();
-    }
 }

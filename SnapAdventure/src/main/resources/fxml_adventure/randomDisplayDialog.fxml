@@ -4,10 +4,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import snapMain.view.node.GridDisplayNode?>
+<?import snapMain.view.menu.FilterMenuButton?>
 <fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
-         fx:controller="adventure.controller.RandomDisplayDialogController">
+         fx:controller="adventure.controller.dialog.RandomDisplayDialogController">
     <content>
         <VBox alignment="CENTER" spacing="10.0">
             <Label text="Choose"/>

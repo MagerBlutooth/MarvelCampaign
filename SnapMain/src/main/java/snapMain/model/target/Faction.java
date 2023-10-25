@@ -120,16 +120,6 @@ public class Faction {
         return name;
     }
 
-    public CardList getCaptains() {
-        CardList captains = new CardList(new ArrayList<>());
-        for(Card a: getAgentCards())
-        {
-            if(a.isCaptain())
-                captains.add(a);
-        }
-        return captains;
-    }
-
     public CardList getAllOwnedAgents()
     {
         return ownedAgents;
@@ -170,9 +160,9 @@ public class Faction {
             Card a = ownedAgents.get(i);
             aString.append(a.getID());
             aString.append(SUBCATEGORY_SEPARATOR);
-            aString.append(a.isWounded());
+            //aString.append(a.isWounded());
             aString.append(SUBCATEGORY_SEPARATOR);
-            aString.append(a.isCaptain());
+            //aString.append(a.isCaptain());
             aString.append(STRING_SEPARATOR);
         }
 
@@ -212,8 +202,8 @@ public class Faction {
         {
             String[] cardString = a.split(SUBCATEGORY_SEPARATOR);
             Card c = new Card(cDatabase.lookup(Integer.parseInt(cardString[0])));
-            c.setWounded(Boolean.parseBoolean(cardString[1]));
-            c.setCaptain(Boolean.parseBoolean(cardString[2]));
+            //c.setWounded(Boolean.parseBoolean(cardString[1]));
+            //c.setCaptain(Boolean.parseBoolean(cardString[2]));
             ownedAgents.add(c);
         }
         //Lookup Locations

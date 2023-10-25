@@ -12,8 +12,8 @@ module SnapAdventure {
     exports adventure.model;
     exports adventure.model.adventure;
     exports adventure.model.sorter;
-    exports adventure.model.thing;
-    opens adventure.model.thing;
+    exports adventure.model.target;
+    opens adventure.model.target;
     exports adventure.controller.manager;
     exports adventure.view.fxml;
     exports adventure.view.node;
@@ -31,8 +31,13 @@ module SnapAdventure {
     opens adventure.model.adventure;
     opens adventure.model.sorter;
     opens adventure.view.pane;
+    opens adventure.view.sortFilter;
     opens fxml_adventure;
     exports adventure.model.stats;
     opens adventure.model.stats;
+    exports adventure.model.target.base;
+    opens adventure.model.target.base;
+    exports adventure.controller.dialog;
+    opens adventure.controller.dialog;
 
 }

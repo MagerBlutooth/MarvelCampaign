@@ -114,6 +114,14 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
         return node;
     }
 
+    @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
+    }
+
     private boolean isGolden(Card c) {
         for(HallOfFameEntry entry: otherEntries)
         {

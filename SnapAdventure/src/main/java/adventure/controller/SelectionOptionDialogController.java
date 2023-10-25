@@ -1,22 +1,27 @@
 package adventure.controller;
 
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.Card;
 import snapMain.model.target.CardAttribute;
-import snapMain.model.target.CardList;
 import snapMain.model.target.TargetList;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SelectionOptionDialogController {
 
-    CardList selectables;
+    @FXML
+    HBox selectionCountBox;
+    ActiveCardList selectables;
     @FXML
     ChoiceBox<Integer> minCostChoice;
     @FXML
@@ -40,15 +45,30 @@ public class SelectionOptionDialogController {
     @FXML
     ListView<CardAttribute> attributeChecklist;
 
+    ChoiceBox<Integer> selectionCount;
+    boolean multiSelect;
+
     Map<CardAttribute, ObservableValue<Boolean>> map = new HashMap<>();
 
-    public void initialize(TargetList<Card> s)
+    public void initialize(TargetList<ActiveCard> s, boolean multiple)
     {
-        selectables = new CardList(s.getThings());
+        selectables = new ActiveCardList(s.getThings());
+        if(multiple)
+            initializeMultiBox();
         initializeCostBox();
         initializePowerBox();
         initializePoolBox();
         initializeAttributeList();
+    }
+
+    private void initializeMultiBox() {
+        selectionCountBox.getChildren().add(new Label("Amount: "));
+        selectionCount = new ChoiceBox<>();
+        selectionCount.setValue(1);
+        selectionCount.getItems().setAll(
+                IntStream.rangeClosed(1,SnapMainConstants.MAX_SELECTION_NUM).boxed().collect(Collectors.toList()));
+        selectionCountBox.getChildren().add(selectionCount);
+        multiSelect = true;
     }
 
     private void initializeCostBox() {
@@ -124,7 +144,7 @@ public class SelectionOptionDialogController {
     }
 
     //TODO: Filter selectables based on enabled radio buttons
-    public TargetList<Card> getSelectables() {
+    public TargetList<ActiveCard> getSelectables() {
         if(costOnButton.isSelected())
         {
             selectables = selectables.filterCost(minCostChoice.getValue(),
@@ -147,7 +167,17 @@ public class SelectionOptionDialogController {
         return selectables;
     }
 
-    public class MyCell extends CheckBoxListCell<CardAttribute> {
+    public boolean isMultiple() {
+        return multiSelect && selectionCount.getValue() > 1;
+    }
+
+    public int getSelectionCount() {
+        if(!isMultiple())
+            return 1;
+        return selectionCount.getValue();
+    }
+
+    public static class MyCell extends CheckBoxListCell<CardAttribute> {
         public MyCell(Callback<CardAttribute, ObservableValue<Boolean>> getSelectedProperty){
             super(getSelectedProperty);
         }

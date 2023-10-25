@@ -59,4 +59,5 @@ module SnapMain {
     exports snapMain.model.helper;
     exports snapMain.view.pane.editor;
     exports snapMain.view.grabber;
+    opens snapMain.view.grabber;
 }

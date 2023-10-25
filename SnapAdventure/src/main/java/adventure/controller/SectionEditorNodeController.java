@@ -1,7 +1,7 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.thing.AdvLocation;
+import adventure.model.target.base.AdvLocation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;

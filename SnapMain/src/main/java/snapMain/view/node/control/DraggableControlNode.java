@@ -38,7 +38,8 @@ public class DraggableControlNode<T extends BaseObject> extends ControlNode<T> i
     {
         if (Objects.requireNonNull(getThingType()) == TargetType.CARD) {
             Card c = (Card) getSubject();
-            c.setWounded(!c.isWounded());
+            //c.setWounded(!c.isWounded());
+            //c.setCaptain(!c.isCaptain());
         }
         else if(Objects.requireNonNull(getThingType()) == TargetType.LOCATION)
         {

@@ -12,6 +12,7 @@ public class Location extends EffectBaseObject {
     {
         super();
         name = "Ruins";
+        id = SnapMainConstants.RUINS_ICON_ID;
         stationedAgents = new CardList(new ArrayList<>());
     }
 
@@ -23,12 +24,12 @@ public class Location extends EffectBaseObject {
     }
 
     @Override
-    public String[] toSaveStringArray() {
+    public String[] toCSVSaveStringArray() {
         return new String[]{String.valueOf(getID()), getName(), getEffect(), String.valueOf(isEnabled()), String.valueOf(isRuined())};
     }
 
     @Override
-    public void fromSaveStringArray(String[] vInfo) {
+    public void fromCSVSaveStringArray(String[] vInfo) {
         id = Integer.parseInt(vInfo[0]);
         name = vInfo[1];
         effect = vInfo[2];
@@ -41,7 +42,6 @@ public class Location extends EffectBaseObject {
     public boolean hasAttribute(String att) {
         return false;
     }
-
     public String toString()
     {
         return name;

@@ -1,6 +1,6 @@
 package adventure.controller;
 
-import adventure.model.thing.Enemy;
+import adventure.model.target.Enemy;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
@@ -12,7 +12,6 @@ public class HPDisplayNodeController {
     Label healthValue;
     @FXML
     ProgressBar healthBar;
-
     IntegerProperty hpIntegerProperty;
 
     Enemy boss;
@@ -40,5 +39,19 @@ public class HPDisplayNodeController {
 
     public IntegerProperty getHPProperty() {
         return hpIntegerProperty;
+    }
+
+    public void increaseHPByOne()
+    {
+        boss.gainHP(1);
+        hpIntegerProperty.set(boss.getCurrentHP());
+        refresh();
+    }
+
+    public void reduceHPByOne()
+    {
+        boss.loseHP(1);
+        hpIntegerProperty.set(boss.getCurrentHP());
+        refresh();
     }
 }

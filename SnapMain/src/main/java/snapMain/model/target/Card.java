@@ -6,35 +6,28 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Card extends EffectBaseObject implements Playable {
+public class Card extends EffectBaseObject implements Unit {
 
     int pool;
     int power;
     int cost;
     Map<CardAttribute, Boolean> cardAttributes;
-    boolean captain;
-    boolean wounded;
 
     public Card()
     {
         super();
-        name = "New Card";
+        name = "Random Mook";
         pool = 1;
         power = 0;
         cost = 1;
-        captain = false;
-        wounded = false;
         initializeCardAttributes();
     }
-
     public Card(Card c)
     {
         super(c);
         pool = c.getPool();
         power = c.getPower();
         cost = c.getCost();
-        captain = c.isCaptain();
-        wounded = c.isWounded();
         cardAttributes = c.getCardAttributes();
     }
 
@@ -50,20 +43,22 @@ public class Card extends EffectBaseObject implements Playable {
         }
     }
 
+
     @Override
-    public String[] toSaveStringArray() {
+    public String[] toCSVSaveStringArray() {
         StringBuilder attributeStrings = new StringBuilder();
         for(Map.Entry<CardAttribute, Boolean>entrySet : cardAttributes.entrySet())
         {
-            attributeStrings.append(entrySet.getKey()).append(SnapMainConstants.STRING_SEPARATOR).append(entrySet.getValue());
+            attributeStrings.append(entrySet.getKey()).append(SnapMainConstants.STRING_SEPARATOR)
+                    .append(entrySet.getValue());
             attributeStrings.append(SnapMainConstants.CATEGORY_SEPARATOR);
         }
-        attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
-        return new String[]{ getID()+"", getName(), getCost()+"", getPower()+"", getPool()+"", getEffect(), String.valueOf(isEnabled()), attributeStrings.toString(), String.valueOf(isWounded()), String.valueOf(isCaptain())};
+        return new String[]{ getID()+"", getName(), getCost()+"", getPower()+"", getPool()+"", getEffect(),
+                String.valueOf(isEnabled()), attributeStrings.toString()};
     }
 
     @Override
-    public void fromSaveStringArray(String[] mInfo) {
+    public void fromCSVSaveStringArray(String[] mInfo) {
         id = Integer.parseInt(mInfo[0]);
         name = mInfo[1];
         cost = Integer.parseInt(mInfo[2]);
@@ -77,15 +72,6 @@ public class Card extends EffectBaseObject implements Playable {
         {
             String[] attribute = attributeEntry.split(SnapMainConstants.STRING_SEPARATOR);
             cardAttributes.put(CardAttribute.parseString(attribute[0]), Boolean.parseBoolean(attribute[1]));
-        }
-        if(mInfo.length > 8) {
-            wounded = Boolean.parseBoolean(mInfo[8]);
-            captain = Boolean.parseBoolean(mInfo[9]);
-        }
-        else
-        {
-            wounded = false;
-            captain = false;
         }
     }
 
@@ -119,15 +105,6 @@ public class Card extends EffectBaseObject implements Playable {
     public int getPool() {
         return pool;
     }
-    public boolean isCaptain()
-    {
-        return captain;
-    }
-
-    public void setCaptain(boolean c)
-    {
-        captain = c;
-    }
 
     public String toString()
     {
@@ -148,13 +125,6 @@ public class Card extends EffectBaseObject implements Playable {
         return new Card(this);
     }
 
-    public boolean isWounded() {
-        return wounded;
-    }
-
-    public void setWounded(boolean w) {
-        wounded = w;
-    }
 
     public boolean hasAllAttributes(List<CardAttribute> cardAttributes) {
         for(CardAttribute c: cardAttributes)

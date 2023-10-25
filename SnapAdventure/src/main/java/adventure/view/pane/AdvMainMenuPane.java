@@ -1,13 +1,13 @@
 package adventure.view.pane;
 
-import adventure.controller.AdvMainMenuController;
+import adventure.controller.MainMenuController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.view.pane.FullViewPane;
 
 public class AdvMainMenuPane extends FullViewPane {
 
-    AdvMainMenuController controller;
+    MainMenuController controller;
     public AdvMainMenuPane()
     {
         FXMLAdventureGrabber fxmlAdventureGrabber = new FXMLAdventureGrabber();

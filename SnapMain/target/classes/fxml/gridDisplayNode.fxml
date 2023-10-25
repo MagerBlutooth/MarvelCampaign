@@ -8,6 +8,6 @@
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css/displayPane.css" fx:controller="snapMain.controller.grid.GridDisplayController" hbarPolicy="NEVER" vbarPolicy="ALWAYS" fitToHeight="true" fitToWidth="true">
     <StackPane id="groupPane">
-        <TilePane fx:id="groupList" prefColumns="4" alignment="CENTER"/>
+        <TilePane fx:id="groupList" prefColumns="6" alignment="CENTER"/>
     </StackPane>
 </fx:root>

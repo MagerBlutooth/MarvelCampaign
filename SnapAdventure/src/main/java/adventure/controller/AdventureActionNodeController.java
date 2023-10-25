@@ -1,14 +1,35 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.AdventureConstants;
 import adventure.model.adventure.Adventure;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.view.pane.AdventureControlPane;
+import adventure.view.pane.LogViewPane;
+import adventure.view.popup.CardDisplayPopup;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import snapMain.model.logger.MLogger;
+
+import java.io.*;
 
 public class AdventureActionNodeController {
 
+    @FXML
+    public Button randomCard;
     AdvMainDatabase mainDatabase;
     AdventureControlPane controlPane;
+    Adventure adventure;
+
+    MLogger logger = new MLogger(AdventureActionNodeController.class);
+
+    public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane cPane) {
+        mainDatabase = database;
+        adventure = a;
+        controlPane = cPane;
+    }
 
     @FXML
     public void draftCard()
@@ -17,10 +38,9 @@ public class AdventureActionNodeController {
     }
 
     @FXML
-    public void generateCard()
+    public void generateCards()
     {
-        controlPane.generateCard();
-
+        controlPane.generateCards();
     }
 
     @FXML
@@ -28,11 +48,54 @@ public class AdventureActionNodeController {
     {
         controlPane.searchCard();
     }
-    Adventure adventure;
+    @FXML
+    public void randomCard()
+    {
+        ActiveCardList cards = adventure.getActiveCards();
+        ActiveCard card = cards.getRandom();
+        CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, card,
+                    randomCard.localToScreen(100.0,50.0));
+        popup.show();
+        popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                popup.hide();
+            }
+        });
 
-    public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane cPane) {
-        mainDatabase = database;
-        adventure = a;
-        controlPane = cPane;
+    }
+
+    @FXML
+    public void showLog()
+    {
+        File file = getLogFile();
+        TextArea logArea = createLogText(file);
+        LogViewPane logViewPane = new LogViewPane();
+        logViewPane.initialize(logArea, controlPane);
+        controlPane.changeScene(logViewPane);
+    }
+
+    private TextArea createLogText(File f) {
+        TextArea logText = new TextArea();
+        logText.setWrapText(true);
+        logText.setEditable(false);
+        logText.setFocusTraversable(false);
+        StringBuilder stringBuffer = new StringBuilder();
+        BufferedReader bufferedReader;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(f));
+            String text;
+            while ((text = bufferedReader.readLine()) != null) {
+                stringBuffer.append(text).append("\n");
+            }
+
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+        }
+        logText.setText(stringBuffer.toString());
+        return logText;
+    }
+
+    private File getLogFile() {
+        return new File(adventure.getProfile().getLogFile());
     }
 }

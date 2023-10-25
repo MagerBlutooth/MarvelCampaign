@@ -1,8 +1,10 @@
 package snapMain.model.database;
 
+import snapMain.model.target.Playable;
 import snapMain.model.target.SnapTarget;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -76,4 +78,13 @@ public class TargetDatabase<T extends SnapTarget> extends ArrayList<T> {
     }
 
 
+    public List<T> getActualThings() {
+        List<T> actualItems = new ArrayList<>();
+        for(T t: this)
+        {
+            if(t.isActualThing())
+                actualItems.add(t);
+        }
+        return actualItems;
+    }
 }
