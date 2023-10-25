@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <fx:root type="AdvNewProfileOptionsPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvNewProfileOptionsPaneController"
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.NewProfileOptionsPaneController"
          maxHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>

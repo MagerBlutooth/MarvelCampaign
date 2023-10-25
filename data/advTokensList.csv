@@ -9,7 +9,7 @@
 "8","Soul Stone","true","If this enemy is defeated, it revives with half its original HP (rounded up)."
 "9","Space Stone","true","When one of your cards would be captured or wounded, it is sent away to a random world instead."
 "10","Squirrel","true","The first time you skip this section, draft a card. If you challenge this section, wound a random card on your team."
-"11","Symbiote","true","After the fourth match, stationed cards here are eliminated."
+"11","Symbiote","true","After the fourth match, if you have not completed this section, stationed cards here are eliminated."
 "12","Tiger Spirit","true","If this enemy wins a location using a token, one of your cards there is captured at the end of the match."
 "13","Time Stone","true","Each time you retreat, this enemy heals 1 HP."
 "14","Vibranium","true","If you defeat this enemy, you may heal a card on your team."

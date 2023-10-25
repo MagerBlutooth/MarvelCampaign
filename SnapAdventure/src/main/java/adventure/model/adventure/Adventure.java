@@ -18,7 +18,7 @@ import java.util.*;
 public class Adventure {
 
     String profileName;
-    String profileFile;
+    AdvProfile profile;
     AdventureDatabase adventureDatabase;
     AdventureSaver saver;
     AdventureLoader loader;
@@ -37,13 +37,13 @@ public class Adventure {
 
     MLogger logger = new MLogger(Adventure.class);
 
-    public Adventure(AdvMainDatabase mainDB, String proFile) {
+    public Adventure(AdvMainDatabase mainDB, AdvProfile profile) {
         //Initialize base objects
         team = new Team();
         availableBosses = new AdvCardList(new ArrayList<>());
         availableLocations = new AdvLocationList(new ArrayList<>());
         worlds = new WorldList(new ArrayList<>());
-        profileFile = proFile;
+        this.profile = profile;
         adventureDatabase = new AdventureDatabase();
         newProfileCheck = false;
         allInfinityStones = new ArrayList<>();
@@ -51,7 +51,7 @@ public class Adventure {
         miaCardTracker = new MIACardTracker();
         deckProfiles = new DeckProfileList(SnapMainConstants.DECK_PROFILE_DEFAULT);
         createInfinityStones();
-        loadAdventure(proFile, mainDB);
+        loadAdventure(mainDB);
     }
 
     public void initialize(AdvMainDatabase db, int numTeamMembers, int numTeamCaptains, Difficulty d) {
@@ -96,12 +96,12 @@ public class Adventure {
     }
 
     public void saveAdventure() {
-        saver = new AdventureSaver(profileFile, this);
+        saver = new AdventureSaver(profile.getProfileFile(), this);
         saver.writeFile();
     }
 
-    private void loadAdventure(String profile, AdvMainDatabase db) {
-        loader = new AdventureLoader(profile);
+    private void loadAdventure(AdvMainDatabase db) {
+        loader = new AdventureLoader(profile.getProfileFile());
         List<String> adventureFile = loader.readFile();
         List<String> adventureString = new ArrayList<>(adventureFile);
         convertFromString(db, adventureString);
@@ -161,8 +161,8 @@ public class Adventure {
     public String getProfileName() {
         return profileName;
     }
-    public String getProfileFile() {
-        return profileFile;
+    public AdvProfile getProfile() {
+        return profile;
     }
 
     public boolean isNewProfile() {

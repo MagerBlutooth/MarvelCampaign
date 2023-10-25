@@ -40,7 +40,7 @@ import snapMain.view.pane.FullViewPane;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class DeckConstructorPaneController extends AdvPaneController implements GridActionController<ActiveCard> {
+public class DeckConstructorPaneController extends FullViewPaneController implements GridActionController<ActiveCard> {
 
     @FXML
     ToggleButton deckProfile1;
@@ -66,7 +66,6 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     GridDisplayNode<ActiveCard> deckDisplay;
     DeckGridController deckGridController;
-    AdvMatchResult result;
     @FXML
     Button randomCardFromTeamButton;
     @FXML
@@ -97,7 +96,6 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         setButtonImages();
         ActiveCardList selectableCards = a.getActiveCards();
 
-        setWin();
         deckGridController = new DeckGridController();
         ActiveCardList verifiedDeck = verifyDeck(deckProfiles.getLatestProfile());
         deckGridController.initialize(db, deckDisplay, verifiedDeck, this);
@@ -178,7 +176,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         ActiveCardList cards = deckGridController.getDeck();
         CardList baseCards = cards.getBaseCards();
         codeConverter.encodeDeckToClipboard(baseCards);
-        deckButtonConfirmText.setText("Deck Code Pasted to Clipboard");
+        deckButtonConfirmText.setText("Deck copied to clipboard.");
     }
 
     @FXML
@@ -240,7 +238,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         return captureItem;
     }*/
 
-    private MenuItem createWoundItem(ControlNode<ActiveCard> n) {
+/*    private MenuItem createWoundItem(ControlNode<ActiveCard> n) {
         ActiveCard c = n.getSubject();
         MenuItem woundItem;
         ImageView icon;
@@ -264,7 +262,7 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         icon.setFitWidth(20);
         icon.setFitHeight(20);
         return woundItem;
-    }
+    }*/
 
     public void toggleNodeLight(ActiveCard c) {
         allSelectableCards.toggleNodeLight(c);
@@ -340,37 +338,17 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     }
 
     private String getResultString(AdvMatchResult result) {
-        switch (result) {
-            case FORCE_RETREAT:
-                return " forced the enemy to retreat.";
-            case WIN:
-                return " achieved a decisive victory.";
-            case LOSE:
-                return " suffered a humiliating defeat.";
-            default:
-                return " managed to get away safely.";
-        }
+        return switch (result) {
+            case FORCE_RETREAT -> " forced the enemy to retreat.";
+            case WIN -> " achieved a decisive victory.";
+            case LOSE -> " suffered a humiliating defeat.";
+            default -> " managed to get away safely.";
+        };
 
     }
 
     private int getProfileNum() {
         return profileNum;
-    }
-
-    public void setWin() {
-        result = AdvMatchResult.WIN;
-    }
-
-    public void setLose() {
-        result = AdvMatchResult.LOSE;
-    }
-
-    public void setForceRetreat() {
-        result = AdvMatchResult.FORCE_RETREAT;
-    }
-
-    public void setEscape() {
-        result = AdvMatchResult.ESCAPE;
     }
 
     public void pasteFromClipboard() {
@@ -430,7 +408,9 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
         return newProfileList;
     }
 
+    @FXML
     public void goBack() {
+        adventure.updateDeckProfiles(deckProfiles, getProfileNum());
         changeScene(backPane);
     }
 
@@ -451,7 +431,6 @@ public class DeckConstructorPaneController extends AdvPaneController implements 
     @FXML
     public void switchProfile1() {
         switchProfile(0);
-
     }
 
     @FXML

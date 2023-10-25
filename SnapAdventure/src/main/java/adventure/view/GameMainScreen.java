@@ -1,6 +1,6 @@
 package adventure.view;
 
-import adventure.controller.AdvMainMenuController;
+import adventure.controller.MainMenuController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import adventure.view.pane.AdvMainMenuPane;
@@ -13,7 +13,7 @@ import snapMain.view.SplashScreen;
 import static adventure.view.GameMain.isSplashLoaded;
 
 public class GameMainScreen extends GameStage {
-    AdvMainMenuController controller;
+    MainMenuController controller;
 
     AdvMainMenuPane mainPane;
 
@@ -52,13 +52,13 @@ public class GameMainScreen extends GameStage {
             fadeOut.play();
             FXMLAdventureGrabber grabber = new FXMLAdventureGrabber();
             grabber.grabFXML("mainMenu.fxml", mainPane);
-            AdvMainMenuController mainMenuController = grabber.getController();
+            MainMenuController mainMenuController = grabber.getController();
             AdvMainDatabase mainDatabase = new AdvMainDatabase(db);
             mainMenuController.initialize(mainDatabase);
         });
     }
 
-    public AdvMainMenuController getController()
+    public MainMenuController getController()
     {
         return controller;
     }

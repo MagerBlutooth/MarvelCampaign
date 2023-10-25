@@ -1,7 +1,6 @@
 package adventure.view.pane;
 
-import adventure.controller.AdvNewProfileOptionsPaneController;
-import adventure.controller.AdvNewProfilePaneController;
+import adventure.controller.NewProfileOptionsPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
@@ -9,7 +8,7 @@ import snapMain.view.pane.FullViewPane;
 
 public class AdvNewProfileOptionsPane extends FullViewPane {
 
-    AdvNewProfileOptionsPaneController controller;
+    NewProfileOptionsPaneController controller;
 
     public AdvNewProfileOptionsPane()
     {

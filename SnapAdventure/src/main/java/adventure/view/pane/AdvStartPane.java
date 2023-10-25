@@ -1,14 +1,13 @@
 package adventure.view.pane;
 
-import adventure.controller.AdvStartPaneController;
+import adventure.controller.StartPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.stage.Stage;
 import snapMain.view.pane.FullViewPane;
 
 public class AdvStartPane extends FullViewPane {
 
-    AdvStartPaneController controller;
+    StartPaneController controller;
 
     public AdvStartPane()
     {

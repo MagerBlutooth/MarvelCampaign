@@ -1,8 +1,8 @@
 package adventure.controller.manager;
 
-import adventure.controller.AdvStartPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
+import adventure.model.AdvProfile;
 import adventure.model.World;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.InfinityStoneDisplayNode;
@@ -16,14 +16,18 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import snapMain.model.logger.MLogger;
 import snapMain.view.grabber.IconConstant;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Optional;
 
+import static adventure.model.AdventureConstants.EMPTY_PROFILE;
+
 public class ProfileNodeController {
 
+    AdvMainDatabase mainDatabase;
     @FXML
     ProfileNode profileNode;
     @FXML
@@ -36,22 +40,27 @@ public class ProfileNodeController {
     Label profileText;
     @FXML
     Label worldLabel;
-    String profileFile;
-    AdvStartPaneController advStartPaneController;
+    AdvProfile profile;
+    Adventure adventure;
+    int profileNum;
+
+    MLogger logger = new MLogger(ProfileNodeController.class);
 
 
-    public void initialize(String profileName, String profileNum, String pFile)
+    public void initialize(String profileName, int pNum, AdvProfile p)
     {
-        initializeNewProfileNode(profileName, profileNum);
-        profileFile = pFile;
+        initializeNewProfileNode(profileName, profileNum+"");
+        profile = p;
+        profileNum = pNum;
     }
 
-    public void initialize(AdvMainDatabase mainDatabase, Adventure adventure, String profileNum, String pFile,
-                           AdvStartPaneController sController)
+    public void initialize(AdvMainDatabase md, Adventure adventure, int pNum, AdvProfile p)
     {
-        profileNumberLabel.setText(profileNum);
+        mainDatabase = md;
+        profileNum = pNum;
+        profileNumberLabel.setText(profileNum+"");
         profileText.setText(adventure.getProfileName());
-        profileFile = pFile;
+        profile = p;
         worldLabel.setOpacity(0.6);
         World w = adventure.getCurrentWorld();
         if(!w.isBossRevealed())
@@ -64,7 +73,6 @@ public class ProfileNodeController {
         contentBox.getChildren().add(infinityStoneDisplayNode);
         Button deleteButton = createDeleteButton(new ImageView(mainDatabase.grabIcon(IconConstant.CLEAR)));
         deleteButtonBar.getChildren().add(deleteButton);
-        advStartPaneController = sController;
     }
 
     private Button createDeleteButton(ImageView image) {
@@ -89,7 +97,6 @@ public class ProfileNodeController {
         profileText.setText(profileName);
         deleteButtonBar.getChildren().clear();
     }
-
     public void setText(String text) {
         profileText.setText(text);
     }
@@ -98,16 +105,54 @@ public class ProfileNodeController {
                 profileNumberLabel.getText()+"?");
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES) {
-            File file = new File(profileFile);
+            File file = new File(profile.getProfileFile());
             try {
                 PrintWriter printWriter = new PrintWriter(file);
                 printWriter.write("");
                 printWriter.close();
                 initializeNewProfileNode(AdventureConstants.EMPTY_PROFILE, profileNumberLabel.getText());
+                clearLog(profile);
+                generateAdventure(mainDatabase, profile, profileNum);
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
-            advStartPaneController.checkProfile(profileFile, profileNode, Integer.parseInt(profileNumberLabel.getText()));
+        }
+    }
+
+    private void clearLog(AdvProfile profile) {
+        File file = new File(profile.getLogFile());
+        if(file.exists())
+        {
+            try {
+                PrintWriter writer = new PrintWriter(file);
+                writer.print("");
+                writer.close();
+            }
+            catch(Exception e)
+            {
+                logger.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    public void setAdventure(Adventure a) {
+        adventure = a;
+    }
+
+    public Adventure getAdventure() {
+        return adventure;
+    }
+
+    public void generateAdventure(AdvMainDatabase mainDatabase, AdvProfile profile, int pNum) {
+        adventure = new Adventure(mainDatabase, profile);
+        profileNum = pNum;
+        String name = adventure.getProfileName();
+        if(name == null) {
+            adventure.setNewProfile(true);
+            initialize(EMPTY_PROFILE,profileNum, profile);
+        }
+        else {
+            initialize(mainDatabase, adventure, profileNum, profile);
         }
     }
 }

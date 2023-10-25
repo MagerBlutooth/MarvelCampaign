@@ -134,9 +134,4 @@ public class DeckGridController implements GridActionController<ActiveCard> {
         deckDisplay.refreshToMatch(chosenCards);
         toggleNodeLights();
     }
-
-    public void removeObject(ActiveCard c) {
-        chosenCards.remove(c);
-        deckDisplay.refresh();
-    }
 }

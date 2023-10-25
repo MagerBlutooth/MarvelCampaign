@@ -6,6 +6,7 @@ import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.Section;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import snapMain.view.pane.FullViewPane;
 import snapMain.view.pane.editor.EditorPane;
 
 public class AdventureControlPane extends EditorPane {
@@ -55,5 +56,9 @@ public class AdventureControlPane extends EditorPane {
 
     public AdventureDatabase getAdventureDatabase() {
         return controller.getAdventureDatabase();
+    }
+
+    public void changeScene(FullViewPane fullViewPane) {
+        controller.changeScene(fullViewPane);
     }
 }

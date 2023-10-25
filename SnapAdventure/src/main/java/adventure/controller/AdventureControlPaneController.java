@@ -3,6 +3,7 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
 import adventure.model.AdventureDatabase;
+import adventure.model.AdvProfile;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
@@ -21,17 +22,12 @@ import snapMain.model.logger.MFormatter;
 import snapMain.model.logger.MLogger;
 import snapMain.model.target.TargetList;
 import snapMain.view.button.ButtonToolBar;
-import snapMain.view.pane.FullViewPane;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Optional;
 import java.util.logging.FileHandler;
 
-public class AdventureControlPaneController extends AdvPaneController {
+public class AdventureControlPaneController extends FullViewPaneController {
 
     @FXML
     DiceNode diceNode;
@@ -50,6 +46,8 @@ public class AdventureControlPaneController extends AdvPaneController {
 
     FileHandler logHandler;
 
+    MLogger logger = new MLogger(AdventureControlPaneController.class);
+
     public void initialize(AdvMainDatabase database, Adventure a)
     {
         super.initialize(database);
@@ -62,33 +60,18 @@ public class AdventureControlPaneController extends AdvPaneController {
         adventureActionNode.initialize(database, adventure, adventureControlPane);
         diceNode.initialize(database);
         adventure.saveAdventure();
-        setLogHandler(a.getProfileFile());
+        setLogHandler(a.getProfile());
     }
 
-    private void setLogHandler(String profileFile) {
+    private void setLogHandler(AdvProfile profile) {
         try {
-            FileHandler logHandler = null;
-            if (profileFile.contains("1")) {
-                MLogger.LOGGER.info("Loading Profile 1...");
-                logHandler = new FileHandler(AdventureConstants.LOG_1, true);
-                MLogger.LOGGER.addHandler(logHandler);
-            }
-            else if (profileFile.contains("2")) {
-                MLogger.LOGGER.info("Loading Profile 2...");
-                logHandler = new FileHandler(AdventureConstants.LOG_2, true);
-                MLogger.LOGGER.addHandler(logHandler);
-            }
-            else if (profileFile.contains("3")) {
-                MLogger.LOGGER.info("Loading Profile 3...");
-                logHandler = new FileHandler(AdventureConstants.LOG_3, true);
-                MLogger.LOGGER.addHandler(logHandler);
-            }
-            assert logHandler != null;
+            FileHandler logHandler = new FileHandler(profile.getLogFile(), true);
+            MLogger.LOGGER.addHandler(logHandler);
             logHandler.setFormatter(new MFormatter());
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -128,6 +111,7 @@ public class AdventureControlPaneController extends AdvPaneController {
         teamDisplayNode.refresh();
         worldDisplayNode.refresh(adventure.getCurrentWorld());
         adventure.saveAdventure();
+        diceNode.refresh();
         failAdventureCheck();
     }
 
@@ -181,7 +165,7 @@ public class AdventureControlPaneController extends AdvPaneController {
                 else {
                     adventure.addFreeAgentToTemp(value);
                 }
-
+                refreshToMatch();
             });
         }
         else if(filteredSelectables.isPresent())

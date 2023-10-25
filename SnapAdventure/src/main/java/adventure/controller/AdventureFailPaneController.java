@@ -3,25 +3,19 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.stats.CardStats;
-import adventure.model.target.ActiveCard;
 import adventure.model.target.Enemy;
 import adventure.model.target.base.AdvCard;
 import adventure.view.pane.AdvMainMenuPane;
-import adventure.view.popup.AdvDialog;
 import adventure.view.popup.CardStatDisplayPopup;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import snapMain.controller.grid.GridActionController;
-import snapMain.model.target.TargetType;
-import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import snapMain.view.node.control.ControlNode;
 import snapMain.view.thing.CardView;
 
 import java.util.Map;
 
-public class AdventureFailPaneController extends AdvPaneController {
+public class AdventureFailPaneController extends FullViewPaneController {
 
     @FXML
     Label failureLabel;

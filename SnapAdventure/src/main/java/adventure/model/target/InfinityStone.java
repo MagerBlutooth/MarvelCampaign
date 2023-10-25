@@ -30,15 +30,6 @@ public class InfinityStone implements Playable<Token> {
         stoneID = sId;
     }
 
-    public static boolean checkToken(int id) {
-        for(InfinityStoneID sid: InfinityStoneID.values())
-        {
-           if(sid.getID() == id)
-               return true;
-        }
-        return false;
-    }
-
     @Override
     public TargetType getTargetType() {
         return TargetType.TOKEN;

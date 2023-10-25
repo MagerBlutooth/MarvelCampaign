@@ -1,7 +1,7 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdventureConstants;
+import adventure.model.AdvProfile;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.ProfileNode;
 import adventure.view.pane.*;
@@ -13,12 +13,13 @@ import snapMain.model.logger.MLogger;
 import snapMain.view.button.ButtonToolBar;
 import snapMain.view.pane.FullViewPane;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.FileHandler;
 
 import static adventure.model.AdventureConstants.EMPTY_PROFILE;
 
-public class AdvStartPaneController extends AdvPaneController {
+public class StartPaneController extends FullViewPaneController {
 
     @FXML
     AdvStartPane advStartPane;
@@ -31,13 +32,10 @@ public class AdvStartPaneController extends AdvPaneController {
     @FXML
     ProfileNode profile3;
 
-    ConcurrentHashMap<String, Adventure> adventureStorageMap;
-
     public void initialize(AdvMainDatabase dB)
     {
         mainDatabase = dB;
         initializeButtonToolBar();
-        adventureStorageMap = new ConcurrentHashMap<>();
         initializeProfiles();
     }
 
@@ -50,40 +48,29 @@ public class AdvStartPaneController extends AdvPaneController {
 
     private void initializeProfiles() {
         validateProfiles();
-        profile1.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_1));
-        profile2.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_2));
-        profile3.setOnMousePressed(mouseEvent -> startAdventure(AdventureConstants.PROFILE_3));
+        profile1.setOnMousePressed(mouseEvent -> startAdventure(profile1));
+        profile2.setOnMousePressed(mouseEvent -> startAdventure(profile2));
+        profile3.setOnMousePressed(mouseEvent -> startAdventure(profile3));
 
     }
 
     public void validateProfiles() {
-        checkProfile(AdventureConstants.PROFILE_1, profile1, 1);
-        checkProfile(AdventureConstants.PROFILE_2, profile2, 2);
-        checkProfile(AdventureConstants.PROFILE_3, profile3, 3);
+        checkProfile(AdvProfile.profile1, profile1, 1);
+        checkProfile(AdvProfile.profile2, profile2, 2);
+        checkProfile(AdvProfile.profile3, profile3, 3);
     }
 
-    public void checkProfile(String profile, ProfileNode proNode, int num) {
-        Adventure adventure = new Adventure(mainDatabase, profile);
-        adventureStorageMap.put(profile, adventure);
-        String name = adventure.getProfileName();
-        if(name == null) {
-            adventure.setNewProfile(true);
-            proNode.initialize(EMPTY_PROFILE,num+"", profile);
-        }
-        else {
-            proNode.initialize(mainDatabase, adventure, num+"", profile, this);
-        }
+    public void checkProfile(AdvProfile profile, ProfileNode proNode, int num) {
+        proNode.generateAdventure(mainDatabase, profile, num);
     }
 
-    private Adventure selectAdventure(String profile)
+    private Adventure selectAdventure(ProfileNode proNode)
     {
-        return adventureStorageMap.get(profile);
+        return proNode.getAdventure();
     }
 
-
-
-    private void startAdventure(String profile) {
-        Adventure adventure = selectAdventure(profile);
+    private void startAdventure(ProfileNode proNode) {
+        Adventure adventure = selectAdventure(proNode);
         buttonToolBar.setDisable(true);
         final FullViewPane[] newPane = new FullViewPane[1];
 

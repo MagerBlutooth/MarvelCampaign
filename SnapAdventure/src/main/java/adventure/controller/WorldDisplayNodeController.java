@@ -20,7 +20,7 @@ import snapMain.view.ViewSize;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorldDisplayNodeController extends AdvPaneController {
+public class WorldDisplayNodeController extends FullViewPaneController {
 
     @FXML
     EnemyControlNode bossControlNode;

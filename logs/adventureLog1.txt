@@ -1,116 +1,29 @@
-22/10/23 14:41: Section 1-1 skipped
-22/10/23 14:43: Section 1-1 skipped
-22/10/23 14:43: Section 1-2 skipped
-22/10/23 14:43: Section 1-3 completed
-22/10/23 14:51: Section 1-4 skipped
-22/10/23 14:56: Section 1-1 completed
-22/10/23 14:56: Section 1-2 skipped
-22/10/23 14:56: Section 1-3 skipped
-22/10/23 14:57: Section 1-4 completed
-22/10/23 15:49: Initializing Profile Logger...
-22/10/23 15:49: Initializing Profile 1 Log...
-22/10/23 16:00: Snowguard's squad achieved a decisive victory.
-22/10/23 16:01: Hawkeye's squad forced the enemy to retreat.
-22/10/23 16:01: Doctor Strange's squad managed to get away safely.
-22/10/23 16:02: Patriot's squad suffered a humiliating defeat.
-22/10/23 16:08: Hawkeye's wound Status set to true
-22/10/23 16:09: Carnage's wound Status set to true
-22/10/23 16:14: Deck: [Ant Man,Deadpool,Hawkeye,Angel,Human Torch,Snowguard,Zabu,Invisible Woman,Patriot,Punisher,Doctor Strange,Lady Sif] achieved a decisive victory.
-22/10/23 19:08: Deck: [Agent 13,Ghost-Spider,Quinjet,Wolverine,Colossus,Scarlet Witch,Bishop,Shanna,Absorbing Man,Jessica Jones,Strong Guy,Red Skull] achieved a decisive victory.
-22/10/23 19:49: Deck: [Bast,Deadpool,Agent 13,Ghost-Spider,Quinjet,Wolverine,Colossus,Scarlet Witch,Shanna,Juggernaut,Absorbing Man,Strong Guy] achieved a decisive victory.
-22/10/23 19:55: Okoye sent away to another world!
-22/10/23 19:57: Deck: [Elektra,Forge,Agent 13,Angel,Iceman,Snowguard,Kraven,Scorpion,Domino,Polaris,Mr. Negative,Ghost Rider] achieved a decisive victory.
-22/10/23 19:57: Section 1-1 completed
-22/10/23 19:57: Section 1-2 completed
-22/10/23 19:57: Section 1-3 completed
-22/10/23 20:01: Deck: [Elektra,Forge,Agent 13,Angel,Iceman,Snowguard,Kraven,Scorpion,Domino,Polaris,Mr. Negative,Ghost Rider] achieved a decisive victory.
-22/10/23 20:02: Deck: [Elektra,Forge,Agent 13,Angel,Goose,Domino,Mantis,Ironheart,Killmonger,Polaris,Mr. Negative,Ghost Rider] achieved a decisive victory.
-22/10/23 20:02: Section 2-1 completed
-22/10/23 20:02: Section 2-2 completed
-22/10/23 20:02: Section 2-3 skipped
-22/10/23 20:02: Section 2-4 completed
-22/10/23 20:03: Section 3-1 completed
-22/10/23 20:03: Section 3-2 completed
-22/10/23 20:04: Section 3-3 completed
-22/10/23 20:08: Deck: [Spider-Ham,Nightcrawler,Goose,Okoye,Shocker,Electro,Storm,Crystal,Deathlok,Jubilee,Captain Marvel,The Phoenix Force] forced the enemy to retreat.
-22/10/23 20:08: Section 2-1 completed
-22/10/23 20:08: Section 2-2 skipped
-22/10/23 20:08: Section 2-3 completed
-22/10/23 20:08: Section 2-4 skipped
-22/10/23 20:09: Section 2-1 completed
-22/10/23 20:09: Section 2-2 completed
-22/10/23 20:19: Section 1-1 skipped
-22/10/23 20:20: Section 1-2 completed
-22/10/23 20:20: Section 1-3 completed
-22/10/23 20:20: Section 1-4 completed
-22/10/23 20:21: Section 2-1 completed
-22/10/23 20:21: Section 2-2 completed
-22/10/23 20:24: Section 2-3 completed
-10/23/23 10:07: Section 2-4 completed
-10/23/23 11:30: Loading Profile 1...
-10/23/23 11:34: Loading Profile 1...
-10/23/23 15:01: Deck: [Human Torch,Maria Hill,Adam Warlock,The Collector,Wolverine,Invisible Woman,Swarm,Brood,Hit-Monkey,Rhino,Vulture,Shang-Chi] achieved a decisive victory.
-10/23/23 15:12: Deck: [Human Torch,Maria Hill,Adam Warlock,Wolverine,Invisible Woman,Swarm,Brood,Hit-Monkey,Rhino,Vulture,Shang-Chi,Agatha Harkness] managed to get away safely.
-10/23/23 15:14: Deck: [Maria Hill,Dagger,Elsa Bloodstone,Star-Lord,Invisible Woman,Swarm,Electro,Hit-Monkey,Rhino,Vulture,Shang-Chi,Agatha Harkness] achieved a decisive victory.
-10/23/23 15:57: Daken captured
-10/23/23 15:57: Deck: [Dagger,Elsa Bloodstone,Star-Lord,Invisible Woman,Brood,Electro,Hit-Monkey,Vulture,Daken,Hulkbuster,Shang-Chi,Agatha Harkness] forced the enemy to retreat.
-10/23/23 16:16: Ironheart moved to temp.
-10/23/23 16:16: Scarlet Witch moved to temp.
-10/23/23 16:16: Zero moved to temp.
-10/23/23 16:42: Drafted Cloak to temp.
-10/23/23 16:43: Drafted Forge to temp.
-10/23/23 16:43: Drafted Ghost-Spider to temp.
-10/23/23 16:43: Drafted Maria Hill to temp.
-10/23/23 16:43: Drafted Rocket Raccoon to temp.
-10/23/23 16:43: Drafted Titania to temp.
-10/23/23 16:43: Drafted The Collector to temp.
-10/23/23 16:43: Drafted Black Widow to temp.
-10/23/23 16:43: Drafted Bucky Barnes to temp.
-10/23/23 16:43: Drafted Goose to temp.
-10/23/23 16:43: Drafted Luke Cage to temp.
-10/23/23 16:43: Drafted Master Mold to temp.
-10/23/23 16:43: Drafted Mr. Sinister to temp.
-10/23/23 16:43: Drafted Mobius M. Mobius to temp.
-10/23/23 16:43: Drafted Multiple Man to temp.
-10/23/23 16:43: Drafted Shadow King to temp.
-10/23/23 16:43: Drafted Colleen Wing to temp.
-10/23/23 16:43: Drafted Morph to temp.
-10/23/23 16:43: Drafted Brood to temp.
-10/23/23 16:43: Drafted Magik to temp.
-10/23/23 16:43: Drafted Mr. Fantastic to temp.
-10/23/23 16:43: Drafted Silver Surfer to temp.
-10/23/23 16:43: Drafted Moon Knight to temp.
-10/23/23 16:43: Drafted Wave to temp.
-10/23/23 16:43: Drafted Lady Sif to temp.
-10/23/23 16:43: Drafted Dracula to temp.
-10/23/23 16:43: Drafted Jubilee to temp.
-10/23/23 16:43: Drafted Strong Guy to temp.
-10/23/23 16:43: Drafted Enchantress to temp.
-10/23/23 16:43: Drafted White Queen to temp.
-10/23/23 16:43: Drafted Iron Man to temp.
-10/23/23 16:43: Drafted Sandman to temp.
-10/23/23 16:43: Drafted Abomination to temp.
-10/23/23 16:43: Drafted Red Skull to temp.
-10/23/23 16:43: Drafted Apocalypse to temp.
-10/23/23 16:43: Drafted Helicarrier to temp.
-10/23/23 16:45: World Boss revealed to be true
-10/23/23 16:45: Mr. Negative escaped from world 1
-10/23/23 16:47: Iceman escaped from world 1
-10/23/23 16:48: Iceman escaped from world 1
-10/23/23 16:52: Deadpool escaped from world 1
-10/23/23 17:22: Loading Profile 1...
-10/23/23 17:22: Deck: [Spider-Ham,Ghost,Nightcrawler,Snowguard,X-23,Blade,Titania,Wave,Groot,Hulkbuster,Negasonic Teenage Warhead,Crossbones] achieved a decisive victory.
-10/23/23 17:23: Loading Profile 1...
-10/23/23 17:23: World Boss revealed to be Debrii
-10/23/23 17:24: Kang captured!
-10/23/23 17:30: Deck: [Human Torch,Invisible Woman,Mantis,Multiple Man,Morph,Lockjaw,Silver Surfer,Nakia,Deathlok,Lady Sif,Polaris,Nick Fury] achieved a decisive victory.
-10/23/23 17:31: World Boss revealed to be Crystal
-10/23/23 17:31: Drafted Angela to team.
-10/24/23 00:52: Crystal escaped from world 1
-10/24/23 00:53: Loading Profile 1...
-10/24/23 00:56: New Card escaped from world 1
-10/24/23 00:56: adventure.model.target.InfinityStone@70919a7 stolen by New Card
-10/24/23 00:59: New Card escaped from world 1
-10/24/23 00:59: PowerStone stolen by New Card
-10/24/23 01:04: New Card escaped from world 1
-10/24/23 01:04: MINDSTONE stolen by New Card
+10/24/23 17:07: Rolled d2: 1
+10/24/23 17:08: Rolled d100: 34
+10/24/23 17:08: Drafted Aero to temp.
+10/24/23 17:11: Aero moved to main team.
+10/24/23 18:20: Deck: [Ghost-Spider,Titania,Cloak,Storm,Jean Grey,Vulture,Groot,Spider-Man,Kang,Gamora,Vision,Heimdall] managed to get away safely.
+10/24/23 18:21: Jean Grey captured!
+10/24/23 18:27: Deck: [Ghost-Spider,Titania,Cloak,Lizard,Storm,Vulture,Groot,Spider-Man,Kang,Gamora,Vision,Heimdall] suffered a humiliating defeat.
+10/24/23 18:27: Storm's wound status set to true
+10/24/23 18:32: Deck: [Hood,Ghost-Spider,Yondu,Black Widow,Carnage,Wolverine,Rhino,Beast,Shuri,Vision,Red Skull,America Chavez] suffered a humiliating defeat.
+10/24/23 18:37: Rhino captured
+10/24/23 18:37: Deck: [Hood,Ghost-Spider,Yondu,Carnage,Okoye,Wolverine,Rhino,Beast,Shuri,Vision,Red Skull,America Chavez] managed to get away safely.
+10/24/23 18:42: Deck: [Hood,Ghost-Spider,Yondu,Carnage,Okoye,Wolverine,Lizard,Beast,Shuri,Taskmaster,Vision,Red Skull] achieved a decisive victory.
+10/24/23 18:43: Shuri sent away to another world!
+10/24/23 18:43: Drafted Multiple Man to team.
+10/24/23 18:44: Section 1-3 skipped
+10/24/23 18:50: Deck: [Hawkeye,Ghost-Spider,Yondu,Carnage,Okoye,Wolverine,Lizard,Vulture,Beast,Captain Marvel,Legion,Vision] achieved a decisive victory.
+10/24/23 18:55: Hawkeye captured
+10/24/23 18:56: Deck: [Hood,Hawkeye,Ghost-Spider,Carnage,Okoye,Wolverine,Lizard,Vulture,Beast,Captain Marvel,Legion,Heimdall] managed to get away safely.
+10/24/23 19:01: Deck: [Hood,Rocket Raccoon,Yondu,Carnage,Wolverine,Cloak,Lizard,Beast,Cable,Spider-Man,Wong,Vision] forced the enemy to retreat.
+10/24/23 19:02: World Boss revealed to be Onslaught
+10/24/23 19:02: Section 1-2 skipped
+10/24/23 19:10: Deck: [Ghost-Spider,Titania,Okoye,Zabu,Lizard,Captain Marvel,Man-Thing,The Thing,Kang,Professor X,Gamora,Spectrum] managed to get away safely.
+10/24/23 19:14: The Thing captured
+10/24/23 19:14: Deck: [Ghost-Spider,Titania,Okoye,Zabu,Lizard,Captain Marvel,Man-Thing,The Thing,Kang,Professor X,Gamora,Spectrum] managed to get away safely.
+10/24/23 19:14: Rocket Raccoon captured!
+10/24/23 19:21: Deck: [Ghost-Spider,Titania,Okoye,Zabu,Rockslide,Captain Marvel,Man-Thing,Kang,Professor X,Gamora,Aero,Spectrum] suffered a humiliating defeat.
+10/24/23 19:29: Deck: [Ghost,Ghost-Spider,Carnage,Okoye,Wolverine,Zabu,Lizard,Captain Marvel,Nick Fury,Kang,Aero,Red Skull] achieved a decisive victory.
+10/24/23 19:33: Cloak captured
+10/24/23 19:33: Deck: [Hood,Ghost,Carnage,Okoye,Cloak,Lizard,Beast,Captain Marvel,Man-Thing,Nick Fury,Aero,Red Skull] managed to get away safely.

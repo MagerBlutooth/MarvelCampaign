@@ -4,7 +4,6 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
 import adventure.view.pane.AdventureControlPane;
-import adventure.view.popup.CardChooserDialog;
 import adventure.view.popup.ConfirmationDialog;
 import adventure.view.popup.SimpleChooserDialog;
 import javafx.fxml.FXML;
@@ -20,7 +19,7 @@ import snapMain.view.thing.CardView;
 
 import java.util.Optional;
 
-public class WorldClearSelectNodeController extends AdvPaneController  {
+public class WorldClearSelectNodeController extends FullViewPaneController {
 
     @FXML
     Button bossButton;

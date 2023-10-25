@@ -19,4 +19,8 @@ public class DiceNode extends StackPane {
     public void initialize(MainDatabase mainDatabase) {
         controller.initialize(mainDatabase);
     }
+
+    public void refresh() {
+        controller.refresh();
+    }
 }

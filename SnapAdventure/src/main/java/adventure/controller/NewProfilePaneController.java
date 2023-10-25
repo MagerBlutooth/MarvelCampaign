@@ -19,7 +19,7 @@ import snapMain.view.button.ButtonToolBar;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 
-public class AdvNewProfilePaneController extends AdvPaneController implements GridActionController<ActiveCard> {
+public class NewProfilePaneController extends FullViewPaneController implements GridActionController<ActiveCard> {
 
     @FXML
     ButtonToolBar buttonToolBar;

@@ -1,24 +1,19 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdventureDatabase;
+import adventure.model.AdventureConstants;
 import adventure.model.adventure.Adventure;
-import adventure.model.stats.CardStats;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
-import adventure.view.node.CardStatDisplayNode;
-import adventure.view.node.CardStatEntryNode;
 import adventure.view.pane.AdventureControlPane;
-import adventure.view.popup.AdvDialog;
-import adventure.view.popup.AdvPopup;
+import adventure.view.pane.LogViewPane;
 import adventure.view.popup.CardDisplayPopup;
-import adventure.view.popup.CardStatDisplayPopup;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import snapMain.model.target.Card;
+import javafx.scene.control.TextArea;
+import snapMain.model.logger.MLogger;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.io.*;
 
 public class AdventureActionNodeController {
 
@@ -26,6 +21,15 @@ public class AdventureActionNodeController {
     public Button randomCard;
     AdvMainDatabase mainDatabase;
     AdventureControlPane controlPane;
+    Adventure adventure;
+
+    MLogger logger = new MLogger(AdventureActionNodeController.class);
+
+    public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane cPane) {
+        mainDatabase = database;
+        adventure = a;
+        controlPane = cPane;
+    }
 
     @FXML
     public void draftCard()
@@ -60,11 +64,38 @@ public class AdventureActionNodeController {
 
     }
 
-    Adventure adventure;
+    @FXML
+    public void showLog()
+    {
+        File file = getLogFile();
+        TextArea logArea = createLogText(file);
+        LogViewPane logViewPane = new LogViewPane();
+        logViewPane.initialize(logArea, controlPane);
+        controlPane.changeScene(logViewPane);
+    }
 
-    public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane cPane) {
-        mainDatabase = database;
-        adventure = a;
-        controlPane = cPane;
+    private TextArea createLogText(File f) {
+        TextArea logText = new TextArea();
+        logText.setWrapText(true);
+        logText.setEditable(false);
+        logText.setFocusTraversable(false);
+        StringBuilder stringBuffer = new StringBuilder();
+        BufferedReader bufferedReader;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(f));
+            String text;
+            while ((text = bufferedReader.readLine()) != null) {
+                stringBuffer.append(text).append("\n");
+            }
+
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+        }
+        logText.setText(stringBuffer.toString());
+        return logText;
+    }
+
+    private File getLogFile() {
+        return new File(adventure.getProfile().getLogFile());
     }
 }

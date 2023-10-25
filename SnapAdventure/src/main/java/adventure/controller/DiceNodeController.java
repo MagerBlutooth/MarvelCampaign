@@ -1,5 +1,6 @@
 package adventure.controller;
 
+import adventure.view.node.DiceNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,6 +8,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import snapMain.controller.MainDatabase;
+import snapMain.model.logger.MLogger;
 import snapMain.view.grabber.IconConstant;
 
 import java.util.Random;
@@ -31,6 +33,8 @@ public class DiceNodeController {
     Button d100Button;
     @FXML
     Label dieResult;
+
+    MLogger logger = new MLogger(DiceNodeController.class);
 
     public void rolld2() {rollDie(2); }
     public void rolld4()
@@ -96,7 +100,12 @@ public class DiceNodeController {
 
     private void rollDie(int i) {
         Random random = new Random();
-        int result = random.nextInt(i);
-        dieResult.setText(result+1+"");
+        int result = random.nextInt(i)+1;
+        dieResult.setText(result+"");
+        logger.info("Rolled d"+i+": "+result);
+    }
+
+    public void refresh() {
+        dieResult.setText("");
     }
 }

@@ -14,7 +14,7 @@
         <HBox alignment="CENTER" maxWidth="800">
             <VBox alignment="CENTER">
                 <Label text="Enemy" minWidth="100"/>
-                <Region minHeight="200.0"/>
+                <Region minHeight="240.0"/>
                 <Label text="Location" minWidth="100"/>
             </VBox>
             <VBox>
@@ -29,7 +29,7 @@
                     <VBox alignment="CENTER">
                         <Label styleClass="infoText" fx:id="enemyEffectText" minWidth="300" maxWidth="300"
                                minHeight="70" mouseTransparent="true" wrapText="true"/>
-                        <Region minHeight="50.0" VBox.vgrow="ALWAYS"/>
+                        <Region minHeight="100.0" VBox.vgrow="ALWAYS"/>
                         <Label styleClass="secondaryInfoText" fx:id="secondaryEffectText" minWidth="300" maxWidth="300"
                                minHeight="70" mouseTransparent="true" wrapText="true"/>
                         <Region minHeight="50.0" VBox.vgrow="ALWAYS"/>

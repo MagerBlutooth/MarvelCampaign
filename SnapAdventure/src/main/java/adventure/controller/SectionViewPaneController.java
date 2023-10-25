@@ -27,7 +27,7 @@ import snapMain.view.pane.FullViewPane;
 
 import java.util.Optional;
 
-public class SectionViewPaneController extends AdvPaneController {
+public class SectionViewPaneController extends FullViewPaneController {
 
     @FXML
     FullViewPane sectionViewPane;

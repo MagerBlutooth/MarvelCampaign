@@ -28,11 +28,11 @@
                     </VBox>
                 </HBox>
                 <HBox alignment="CENTER" spacing="30.0">
-                    <VBox alignment="CENTER_RIGHT">
+                    <VBox alignment="CENTER">
                         <Label text="Infinity Stones" alignment="CENTER"/>
                         <InfinityStoneDisplayNode fx:id="infinityStoneDisplay" spacing="5.0" alignment="CENTER_RIGHT"/>
                     </VBox>
-                    <Region prefWidth="75.0" HBox.hgrow="ALWAYS"/>
+                    <Region HBox.hgrow="ALWAYS"/>
                     <Button text="Disband All Temp" onAction="#defectAll"/>
                 </HBox>
             </VBox>

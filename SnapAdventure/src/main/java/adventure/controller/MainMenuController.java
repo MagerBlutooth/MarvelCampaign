@@ -7,9 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-public class AdvMainMenuController extends AdvPaneController {
+public class MainMenuController extends FullViewPaneController {
 
     @FXML
     StackPane mainPane;

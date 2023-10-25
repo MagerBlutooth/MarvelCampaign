@@ -18,7 +18,7 @@ import snapMain.view.button.ButtonToolBar;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 
-public class WorldClearPaneController extends AdvPaneController implements GridActionController<ActiveCard> {
+public class WorldClearPaneController extends FullViewPaneController implements GridActionController<ActiveCard> {
 
     @FXML
     Label worldClear;

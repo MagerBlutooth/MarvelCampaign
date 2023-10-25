@@ -6,7 +6,7 @@ import snapMain.controller.BasePaneController;
 import snapMain.view.pane.BasicStage;
 import snapMain.view.pane.FullViewPane;
 
-public abstract class AdvPaneController extends BasePaneController<AdvMainDatabase> {
+public abstract class FullViewPaneController extends BasePaneController<AdvMainDatabase> {
     protected AdvMainDatabase mainDatabase;
     public abstract Scene getCurrentScene();
 

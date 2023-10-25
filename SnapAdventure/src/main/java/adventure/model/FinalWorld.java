@@ -34,9 +34,11 @@ public class FinalWorld extends World {
         Collections.shuffle(agentsCopy.getThings());
         TargetDatabase<AdvCard> bosses = database.getAdvCards();
         ActiveCard card = agentsCopy.get(0);
-        AdvCard boss = bosses.get(card.getID());
-        Enemy enemy = new Enemy(boss, worldNum);
-        s.setEnemy(enemy);
-        freeAgents.remove(card);
+        AdvCard boss = bosses.lookup(card.getID());
+        if(boss != null) {
+            Enemy enemy = new Enemy(boss, worldNum);
+            s.setEnemy(enemy);
+            freeAgents.remove(card);
+        }
     }
 }

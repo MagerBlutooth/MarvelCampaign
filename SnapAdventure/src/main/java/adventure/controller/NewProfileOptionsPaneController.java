@@ -8,14 +8,13 @@ import adventure.view.pane.AdvNewProfilePane;
 import adventure.view.pane.AdvStartPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import snapMain.view.button.ButtonToolBar;
 
-public class AdvNewProfileOptionsPaneController extends AdvPaneController {
+public class NewProfileOptionsPaneController extends FullViewPaneController {
 
     @FXML
     ButtonToolBar buttonToolBar;

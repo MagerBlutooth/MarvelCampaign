@@ -20,7 +20,7 @@ public class World implements Cloneable{
     AdventureDatabase database;
     int worldNum;
     int currentSectionNum;
-    WorldBonusCalculator bonusCalculator;
+    EnemyHPCalculator bonusCalculator;
     WorldStatTracker worldStatTracker;
     boolean bossRevealed;
 
@@ -29,7 +29,7 @@ public class World implements Cloneable{
     public World(AdventureDatabase db)
     {
         database = db;
-        bonusCalculator = new WorldBonusCalculator();
+        bonusCalculator = new EnemyHPCalculator();
         worldStatTracker = new WorldStatTracker();
     }
 
@@ -88,10 +88,13 @@ public class World implements Cloneable{
         TargetDatabase<AdvCard> bosses = database.getAdvCards();
         ActiveCard card = agentsCopy.get(0);
         AdvCard boss = bosses.lookup(card.getID());
-        Enemy enemy = new Enemy(boss, bonusCalculator.calculateBoss(worldNum));
-        bossSection.setEnemy(enemy);
-        freeAgents.remove(card);
         bossRevealed = false;
+        if(boss != null)
+        {
+            Enemy enemy = new Enemy(boss, bonusCalculator.calculateBoss(worldNum));
+            bossSection.setEnemy(enemy);
+            freeAgents.remove(card);
+        }
     }
 
     public void fromSaveString(String saveString, AdvMainDatabase dB) {
