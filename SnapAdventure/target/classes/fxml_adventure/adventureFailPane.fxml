@@ -17,6 +17,7 @@
                 <CardView fx:id="enemyView"/>
             </HBox>
             <VBox spacing="50.0" alignment="CENTER">
+                <Label fx:id="playTimeLabel"/>
                 <Button text="Show Card Stats" onAction="#showCardStats"/>
                 <Button text="Return to Menu" onAction="#endGame"/>
             </VBox>

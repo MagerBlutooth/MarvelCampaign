@@ -14,6 +14,11 @@ import javafx.scene.control.TextArea;
 import snapMain.model.logger.MLogger;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdventureActionNodeController {
 
@@ -79,19 +84,20 @@ public class AdventureActionNodeController {
         logText.setWrapText(true);
         logText.setEditable(false);
         logText.setFocusTraversable(false);
-        StringBuilder stringBuffer = new StringBuilder();
+        List<String> logStrings = new ArrayList<>();
         BufferedReader bufferedReader;
         try {
             bufferedReader = new BufferedReader(new FileReader(f));
             String text;
             while ((text = bufferedReader.readLine()) != null) {
-                stringBuffer.append(text).append("\n");
+                logStrings.add(text);
             }
+            Collections.reverse(logStrings);
 
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
         }
-        logText.setText(stringBuffer.toString());
+        logText.setText(logStrings.stream().map(Object::toString).collect(Collectors.joining("\n")));
         return logText;
     }
 

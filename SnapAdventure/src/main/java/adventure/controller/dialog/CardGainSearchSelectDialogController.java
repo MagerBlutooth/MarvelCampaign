@@ -22,18 +22,12 @@ public class CardGainSearchSelectDialogController extends AdvSearchSelectDialogC
     ToggleGroup toggleGroup;
 
     @Override
-    public void initialize(MainDatabase md, Choosable<ActiveCard> searchDialog, TargetList<ActiveCard> selectableCards)
-    {
-        mainDatabase = md;
-        searchSelectDialog = searchDialog;
+    public void initialize(MainDatabase md, Choosable<ActiveCard> searchDialog, TargetList<ActiveCard> selectableCards,
+                           String header) {
+        super.initialize(md, searchDialog, selectableCards, header);
         toggleGroup = new ToggleGroup();
-        choices = selectableCards;
         toggleGroup.getToggles().addAll(toTeamButton, toTempButton);
         toTeamButton.setSelected(true);
-        initializeNodes("");
-        searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            initializeNodes(newValue);
-        });
     }
 
     public void initializeNodes(String text)

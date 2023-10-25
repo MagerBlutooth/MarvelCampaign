@@ -14,15 +14,10 @@ import java.util.ArrayList;
 public class CardSearchSelectDialogController extends AdvSearchSelectDialogController<ActiveCard> {
 
     @Override
-    public void initialize(MainDatabase md, Choosable<ActiveCard> searchDialog, TargetList<ActiveCard> selectableCards)
+    public void initialize(MainDatabase md, Choosable<ActiveCard> searchDialog, TargetList<ActiveCard> selectableCards,
+            String header)
     {
-        mainDatabase = md;
-        searchSelectDialog = searchDialog;
-        choices = selectableCards;
-        initializeNodes("");
-        searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            initializeNodes(newValue);
-        });
+        super.initialize(md, searchDialog, selectableCards, header);
     }
 
     public void initializeNodes(String text)

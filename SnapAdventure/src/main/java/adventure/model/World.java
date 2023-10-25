@@ -23,6 +23,8 @@ public class World implements Cloneable{
     EnemyHPCalculator bonusCalculator;
     WorldStatTracker worldStatTracker;
     boolean bossRevealed;
+    int availableSkips;
+    AdvTimekeeper timeKeeper;
 
     MLogger logger = new MLogger(World.class);
 
@@ -31,6 +33,8 @@ public class World implements Cloneable{
         database = db;
         bonusCalculator = new EnemyHPCalculator();
         worldStatTracker = new WorldStatTracker();
+        availableSkips = AdventureConstants.AVAILABLE_SKIPS;
+        timeKeeper = new AdvTimekeeper();
     }
 
     public World(AdventureDatabase db, List<AdvLocation> locations, int wNum)
@@ -48,6 +52,7 @@ public class World implements Cloneable{
 
     public World(World world) {
         database = world.database;
+        availableSkips = 1;
         section1 = world.section1;
         section2 = world.section2;
         section3 = world.section3;
@@ -58,11 +63,14 @@ public class World implements Cloneable{
         bossRevealed = world.bossRevealed;
         worldStatTracker = world.worldStatTracker;
         currentSectionNum = world.currentSectionNum;
+        timeKeeper = world.timeKeeper;
+        logger = world.logger;
     }
 
     public String toSaveString() {
         String result = worldNum + SnapMainConstants.CATEGORY_SEPARATOR +
-                currentSectionNum +
+                currentSectionNum + SnapMainConstants.CATEGORY_SEPARATOR +
+                availableSkips +
                 SnapMainConstants.CATEGORY_SEPARATOR +
                 section1.toSaveString() +
                 SnapMainConstants.CATEGORY_SEPARATOR +
@@ -75,13 +83,14 @@ public class World implements Cloneable{
                 bossSection.toSaveString() +
                 SnapMainConstants.CATEGORY_SEPARATOR +
                 bossRevealed + SnapMainConstants.CATEGORY_SEPARATOR +
-                worldStatTracker.toSaveString();
+                worldStatTracker.toSaveString() + SnapMainConstants.CATEGORY_SEPARATOR +
+                timeKeeper.toSaveString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
     //Initialize boss to be a card that the player doesn't currently own
     //Postpone initializing boss of future worlds so that boss is always a current free agent.
-    public void initializeBoss(ActiveCardList freeAgents) {
+    public void initialize(ActiveCardList freeAgents) {
         ActiveCardList agentsCopy = new ActiveCardList(new ArrayList<>());
         agentsCopy = agentsCopy.cloneNewList(freeAgents.getThings());
         Collections.shuffle(agentsCopy.getThings());
@@ -95,6 +104,7 @@ public class World implements Cloneable{
             bossSection.setEnemy(enemy);
             freeAgents.remove(card);
         }
+        timeKeeper = new AdvTimekeeper();
     }
 
     public void fromSaveString(String saveString, AdvMainDatabase dB) {
@@ -105,19 +115,22 @@ public class World implements Cloneable{
         String[] stringList = decodedString.split(SnapMainConstants.CATEGORY_SEPARATOR);
         worldNum = Integer.parseInt(stringList[0]);
         currentSectionNum = Integer.parseInt(stringList[1]);
+        availableSkips = Integer.parseInt(stringList[2]);
         section1 = new Section(database, 1, new Ruins(), new Enemy());
-        section1.fromSaveString(stringList[2].trim(), dB);
+        section1.fromSaveString(stringList[3].trim(), dB);
         section2 = new Section(database, 2,  new Ruins(), new Enemy());
-        section2.fromSaveString(stringList[3].trim(), dB);
+        section2.fromSaveString(stringList[4].trim(), dB);
         section3 = new Section( database, 3, new Ruins(), new Enemy());
-        section3.fromSaveString(stringList[4].trim(), dB);
+        section3.fromSaveString(stringList[5].trim(), dB);
         section4 = new Section(database, 4, new Ruins(), new Enemy());
-        section4.fromSaveString(stringList[5].trim(), dB);
+        section4.fromSaveString(stringList[6].trim(), dB);
         bossSection = new BossSection(database, new Enemy());
-        bossSection.fromSaveString(stringList[6].trim(), dB);
-        bossRevealed = Boolean.parseBoolean(stringList[7]);
+        bossSection.fromSaveString(stringList[7].trim(), dB);
+        bossRevealed = Boolean.parseBoolean(stringList[8]);
         worldStatTracker = new WorldStatTracker();
-        worldStatTracker.fromSaveString(stringList[8]);
+        worldStatTracker.fromSaveString(stringList[9]);
+        timeKeeper = new AdvTimekeeper();
+        timeKeeper.fromSaveString(stringList[10]);
     }
 
     @Override
@@ -277,5 +290,20 @@ public class World implements Cloneable{
 
     public int getCurrentSectionNum() {
         return currentSectionNum;
+    }
+
+    public void skipCurrentSection() {
+        availableSkips--;
+        revealNextSection(currentSectionNum);
+        incrementCurrentSectionNum();
+    }
+
+    public int getAvailableSkips() {
+        return availableSkips;
+    }
+
+    public String getWorldPlayTimeString()
+    {
+        return timeKeeper.getTotalPlayTime();
     }
 }

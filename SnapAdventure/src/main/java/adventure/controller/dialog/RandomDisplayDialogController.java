@@ -5,6 +5,7 @@ import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
@@ -18,6 +19,8 @@ import snapMain.view.node.control.ControlNode;
 
 public class RandomDisplayDialogController<T extends SnapTarget> {
 
+    @FXML
+    Label headerLabel;
     @FXML
     ButtonType okButton;
     @FXML
@@ -35,8 +38,10 @@ public class RandomDisplayDialogController<T extends SnapTarget> {
     ToggleButton toTempButton;
     ToggleGroup toggleGroup = new ToggleGroup();
 
-    public void initialize(MainDatabase md, Choosable<T> dialog, TargetList<T> selectables, TargetType targetType)
+    public void initialize(MainDatabase md, Choosable<T> dialog, TargetList<T> selectables, TargetType targetType,
+                           String header)
     {
+        headerLabel.setText(header);
         choices = selectables;
         mainDatabase = md;
         ChooserDialogGridActionController<T> gridActionController = new ChooserDialogGridActionController<>();

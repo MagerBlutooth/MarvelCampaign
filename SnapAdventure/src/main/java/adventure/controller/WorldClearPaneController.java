@@ -21,6 +21,8 @@ import snapMain.view.node.control.ControlNode;
 public class WorldClearPaneController extends FullViewPaneController implements GridActionController<ActiveCard> {
 
     @FXML
+    Label totalPlayTime;
+    @FXML
     Label worldClear;
     @FXML
     Label winCount;
@@ -46,6 +48,7 @@ public class WorldClearPaneController extends FullViewPaneController implements 
     public void initialize(AdvMainDatabase database, Adventure a, AdventureControlPane cPane)
     {
         mainDatabase = database;
+        totalPlayTime.setText(a.getCurrentWorldPlayTime());
         worldClearNode.initialize(database, a, cPane);
         worldClear.setText("World " + a.getCurrentWorldNum() +" Cleared!");
         matchCount.setText(a.getWorldMatchCount()+"");

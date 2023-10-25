@@ -62,4 +62,19 @@ public class MIACardTracker {
     public ActiveCardList lookup(int i) {
         return miaCardMap.get(i);
     }
+
+    public void removeCards(int world, ActiveCardList retrievedCards) {
+        ActiveCardList cards = lookup(world);
+        cards.removeAll(retrievedCards.getThings());
+    }
+
+    public void removeCard(ActiveCard card) {
+        for(Map.Entry<Integer, ActiveCardList> e: miaCardMap.entrySet())
+        {
+            if(e.getValue().contains(card.getID()))
+            {
+                e.getValue().remove(card);
+            }
+        }
+    }
 }

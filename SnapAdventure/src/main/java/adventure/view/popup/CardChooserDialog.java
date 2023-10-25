@@ -7,9 +7,9 @@ import snapMain.model.target.TargetType;
 
 public class CardChooserDialog extends ChooserDialog<ActiveCard> {
 
-    public void initialize(AdvMainDatabase mainDatabase, TargetList<ActiveCard> cards)
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<ActiveCard> cards, String header)
     {
-        super.initialize(mainDatabase, cards, TargetType.CARD);
+        super.initialize(mainDatabase, cards, TargetType.CARD, header);
     }
 
 }

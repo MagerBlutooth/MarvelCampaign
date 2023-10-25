@@ -6,7 +6,6 @@ import snapMain.model.database.TargetDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class FinalWorld extends World {
 
@@ -25,7 +24,7 @@ public class FinalWorld extends World {
                 bonusCalculator.calculateBoss(worldNum)));
         initializeMiniBoss(section4, freeAgents);
         bossSection = new BossSection(db, new Enemy(new Mook()));
-        initializeBoss(freeAgents);
+        initialize(freeAgents);
 
     }
     public void initializeMiniBoss(Section s, ActiveCardList freeAgents) {

@@ -5,6 +5,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.MainDatabase;
@@ -20,6 +21,8 @@ import snapMain.view.node.control.ControlNode;
 public class SimpleChooserDialogController<T extends SnapTarget> {
 
     @FXML
+    Label headerLabel;
+    @FXML
     ButtonType okButton;
     @FXML
     ButtonType cancelButton;
@@ -30,6 +33,7 @@ public class SimpleChooserDialogController<T extends SnapTarget> {
     MainDatabase mainDatabase;
     TargetList<T> choices;
     T selection;
+
     public void initialize(MainDatabase md, Choosable<T> dialog, TargetList<T> selectables, TargetType targetType)
     {
         choices = selectables;
@@ -40,6 +44,13 @@ public class SimpleChooserDialogController<T extends SnapTarget> {
                 false);
         choiceNodes.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         choiceNodes.setPrefColumns(6);
+    }
+
+    public void initialize(MainDatabase md, Choosable<T> dialog, TargetList<T> selectables, TargetType targetType,
+                           String header)
+    {
+        this.initialize(md, dialog, selectables, targetType);
+        headerLabel.setText(header);
     }
 
     public T getSelection() {

@@ -15,15 +15,10 @@ public class CardOrTokenSearchSelectDialogController extends AdvSearchSelectDial
     ToggleGroup toggleGroup;
 
     @Override
-    public void initialize(MainDatabase md, Choosable<Playable> searchDialog, TargetList<Playable> selectableCards)
+    public void initialize(MainDatabase md, Choosable<Playable> searchDialog, TargetList<Playable> selectableCards,
+                           String header)
     {
-        mainDatabase = md;
-        searchSelectDialog = searchDialog;
-        choices = selectableCards;
-        initializeNodes("");
-        searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            initializeNodes(newValue);
-        });
+        super.initialize(md, searchDialog, selectableCards, header);
     }
 
     public void initializeNodes(String text)

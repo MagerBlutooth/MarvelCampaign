@@ -1,9 +1,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import snapMain.view.node.GridDisplayNode?>
-<?import javafx.scene.layout.HBox?>
 <fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
@@ -17,16 +17,15 @@
                 <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
             </padding>
             <HBox alignment="CENTER" spacing="20.0">
-                <RadioButton fx:id="captureButton" text="Capture"/>
-                <RadioButton fx:id="woundButton" text="Wound"/>
-                <RadioButton fx:id="noneButton" text="None"/>
-                <Button fx:id="randomButton" onAction="#showRandom" id="imageButton"/>
-            </HBox>
+                    <RadioButton fx:id="captureButton" text="Capture" styleClass="captureStyle"/>
+                    <RadioButton fx:id="woundButton" text="Wound" styleClass="woundStyle"/>
+                    <Button fx:id="randomButton" onAction="#chooseRandom" id="imageButton"/>
+                </HBox>
         </VBox>
     </content>
     <padding>
         <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
     </padding>
     <ButtonType fx:constant="OK" fx:id="okButton"/>
-    <ButtonType fx:id="cancelButton" text="Skip" buttonData="CANCEL_CLOSE"/>
+    <ButtonType fx:id="cancelButton" text="No" buttonData="CANCEL_CLOSE"/>
 </fx:root>

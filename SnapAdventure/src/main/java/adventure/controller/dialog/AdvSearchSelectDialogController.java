@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.MainDatabase;
@@ -15,6 +16,8 @@ import snapMain.view.node.control.ControlNode;
 
 public abstract class AdvSearchSelectDialogController<T extends SnapTarget> {
 
+    @FXML
+    Label headerString;
     @FXML
     ButtonType okButton;
     @FXML
@@ -31,8 +34,9 @@ public abstract class AdvSearchSelectDialogController<T extends SnapTarget> {
     MainDatabase mainDatabase;
     Choosable<T> searchSelectDialog;
 
-    public void initialize(MainDatabase md, Choosable<T> searchDialog, TargetList<T> selectableCards)
+    public void initialize(MainDatabase md, Choosable<T> searchDialog, TargetList<T> selectableCards, String header)
     {
+        headerString.setText(header);
         mainDatabase = md;
         searchSelectDialog = searchDialog;
         choices = selectableCards;

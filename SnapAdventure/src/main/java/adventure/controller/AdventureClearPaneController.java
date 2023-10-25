@@ -18,6 +18,8 @@ import java.util.Map;
 public class AdventureClearPaneController extends FullViewPaneController {
 
     @FXML
+    Label totalPlayTime;
+    @FXML
     Label victoryLabel;
     @FXML
     CardView enemyView;
@@ -28,6 +30,7 @@ public class AdventureClearPaneController extends FullViewPaneController {
     {
         mainDatabase = database;
         adventure = a;
+        totalPlayTime.setText("Total Play Time: " + a.getTotalPlayTime());
         Enemy finalBoss = a.getFinalBoss();
         a.saveAdventure();
         if(finalBoss.getCurrentHP() > 0) {

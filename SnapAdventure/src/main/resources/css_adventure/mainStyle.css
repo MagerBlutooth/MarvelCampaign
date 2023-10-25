@@ -76,9 +76,18 @@
 -fx-fill:white;
  }
 
- .radio-button
+ .radio-button{
+ -fx-text-fill:white;
+ }
+
+ .woundStyle
  {
-    -fx-text-fill:white;
+    -fx-text-fill:crimson;
+ }
+
+ .captureStyle
+ {
+    -fx-text-fill:gold;
  }
 #imageButton
  {
