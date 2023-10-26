@@ -12,7 +12,7 @@
          fx:controller="adventure.controller.dialog.ChooserDialogController">
     <content>
         <VBox alignment="CENTER" spacing="10.0">
-            <Label fx:id="headerString" text="Choose"/>
+            <Label fx:id="headerLabel" text="Choose"/>
             <StackPane fx:id="displayPane" maxWidth="200" maxHeight="200"/>
             <GridDisplayNode fx:id="choiceNodes"/>
             <HBox alignment="CENTER" spacing="50.0">

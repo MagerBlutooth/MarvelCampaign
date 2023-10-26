@@ -3,7 +3,6 @@ package adventure.controller.dialog;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,8 +16,7 @@ import snapMain.view.node.control.ControlNode;
 public abstract class AdvSearchSelectDialogController<T extends SnapTarget> {
 
     @FXML
-    Label headerString;
-    @FXML
+    Label headerLabel;
     ButtonType okButton;
     @FXML
     ButtonType cancelButton;
@@ -36,7 +34,7 @@ public abstract class AdvSearchSelectDialogController<T extends SnapTarget> {
 
     public void initialize(MainDatabase md, Choosable<T> searchDialog, TargetList<T> selectableCards, String header)
     {
-        headerString.setText(header);
+        headerLabel.setText(header);
         mainDatabase = md;
         searchSelectDialog = searchDialog;
         choices = selectableCards;

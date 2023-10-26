@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.*;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
@@ -58,6 +59,8 @@ public class SectionViewPaneController extends FullViewPaneController {
     GridDisplayNode<ActiveCard> stationedDisplay;
     Enemy enemy;
     ContextMenu enemyMenu;
+
+    MLogger logger = new MLogger(SectionViewPaneController.class);
 
     public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Section s) {
         mainDatabase = dB;
@@ -146,7 +149,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         CardOrTokenSearchSelectDialog chooserDialog = new CardOrTokenSearchSelectDialog();
         AdventureDatabase aDatabase = adventure.getAdventureDatabase();
         TargetList<Playable> playableOptions = new PlayableList(aDatabase.getEnemySubjects());
-        chooserDialog.initialize(mainDatabase, playableOptions, "Choose secondary effect");
+        chooserDialog.initialize(mainDatabase, playableOptions, "Choose Secondary Effect");
         Optional<Playable> secondEffect = chooserDialog.showAndWait();
         if(secondEffect.isPresent())
         {
@@ -299,6 +302,8 @@ public class SectionViewPaneController extends FullViewPaneController {
                 adventure.stationCard(section, card);
                 initializeStations(section);
                 adventureControlPane.refreshToMatch();
+                logger.info(card + " stationed in section" +adventure.getCurrentWorldNum()+"-"
+                        +adventure.getCurrentSectionNum());
             });
 
         }

@@ -200,6 +200,8 @@ public class Adventure {
         }
         getCurrentWorld().revealNextSection(getCurrentSectionNum());
         getCurrentWorld().incrementCurrentSectionNum();
+        logInfo("Section " + getCurrentWorldNum() + "-" + getCurrentSectionNum()
+                + " completed");
     }
     public void skipCurrentSection() {
         getCurrentWorld().skipCurrentSection();
@@ -219,6 +221,8 @@ public class Adventure {
             currentWorldNum++;
             worlds.add(new World(adventureDatabase));
         }
+        logInfo("World" + getCurrentWorldNum()
+                + " completed!");
     }
 
     public ActiveCardList getActiveCards() {

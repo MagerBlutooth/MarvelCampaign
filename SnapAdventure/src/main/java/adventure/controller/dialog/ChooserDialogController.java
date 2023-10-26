@@ -19,7 +19,7 @@ import snapMain.view.node.control.ControlNode;
 public class ChooserDialogController<T extends SnapTarget> {
 
     @FXML
-    Label headerString;
+    Label headerLabel;
     @FXML
     ButtonType okButton;
     @FXML
@@ -39,7 +39,7 @@ public class ChooserDialogController<T extends SnapTarget> {
     public void initialize(MainDatabase md, Choosable<T> dialog, TargetList<T> selectables, TargetType targetType,
                            String header)
     {
-        headerString.setText(header);
+        headerLabel.setText(header);
         choices = selectables;
         mainDatabase = md;
         ChooserDialogGridActionController<T> gridActionController = new ChooserDialogGridActionController<>();

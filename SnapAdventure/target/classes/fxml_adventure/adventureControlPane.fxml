@@ -5,7 +5,6 @@
 <?import adventure.view.pane.AdventureControlPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import snapMain.view.button.ButtonToolBar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Region?>

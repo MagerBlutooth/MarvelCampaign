@@ -14,7 +14,7 @@
         <HBox alignment="CENTER" maxWidth="800">
             <VBox alignment="CENTER">
                 <Label text="Enemy" minWidth="100"/>
-                <Region minHeight="240.0"/>
+                <Region minHeight="280.0"/>
                 <Label text="Location" minWidth="100"/>
             </VBox>
             <VBox>
