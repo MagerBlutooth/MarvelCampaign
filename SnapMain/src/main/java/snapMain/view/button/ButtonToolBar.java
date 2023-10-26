@@ -23,11 +23,6 @@ public class ButtonToolBar extends HBox {
         controller.initialize(backPane);
     }
 
-    public void initialize(FullViewPane backPane, FileHandler fileHandler)
-    {
-        controller.initialize(backPane, fileHandler);
-    }
-
     public void removeBackButton() {
         controller.removeBackButton();
     }

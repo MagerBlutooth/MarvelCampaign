@@ -22,9 +22,9 @@ public class AdvLocationSearchSelectDialog extends AdvDialog<AdvLocation>
         fxmlMainGrabber.grabFXML("advLocationSearchSelectDialog.fxml", this.getDialogPane());
         controller = fxmlMainGrabber.getController();
     }
-    public void initialize(MainDatabase cd, TargetList<AdvLocation> selectableLocs)
+    public void initialize(MainDatabase cd, TargetList<AdvLocation> selectableLocs, String header)
     {
-        controller.initialize(cd, this, selectableLocs);
+        controller.initialize(cd, this, selectableLocs, header);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
         setResultConverter(dialogButton -> {

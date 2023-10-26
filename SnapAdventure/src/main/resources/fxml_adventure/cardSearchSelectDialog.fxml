@@ -12,7 +12,7 @@
          fx:controller="adventure.controller.dialog.CardSearchSelectDialogController">
     <content>
         <VBox alignment="CENTER" spacing="10.0">
-            <Label text="Choose"/>
+            <Label fx:id="headerLabel" text="Choose"/>
             <StackPane fx:id="displayPane"/>
             <TextField fx:id="searchBar"/>
             <GridDisplayNode fx:id="choiceNodes"/>

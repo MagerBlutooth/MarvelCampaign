@@ -25,11 +25,11 @@ public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Ch
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, ActiveCard selection)
+    public void initialize(MainDatabase cd, ActiveCard selection, String header)
     {
         ActiveCardList selectionArray = new ActiveCardList(new ArrayList<>());
         selectionArray.add(selection);
-        controller.initialize(cd, this, selectionArray, TargetType.CARD);
+        controller.initialize(cd, this, selectionArray, TargetType.CARD, header);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 return controller.getSelection();

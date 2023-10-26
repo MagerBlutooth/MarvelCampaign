@@ -16,12 +16,16 @@ import adventure.view.pane.AdvMainMenuPane;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.AdventureFailPane;
 import adventure.view.popup.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import snapMain.model.logger.MFormatter;
 import snapMain.model.logger.MLogger;
 import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
 import snapMain.view.button.ButtonToolBar;
+import snapMain.view.pane.FullViewPane;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -32,7 +36,9 @@ public class AdventureControlPaneController extends FullViewPaneController {
     @FXML
     DiceNode diceNode;
     @FXML
-    ButtonToolBar buttonToolBar;
+    Button backButton;
+    @FXML
+    Button exitButton;
     @FXML
     TeamDisplayNode teamDisplayNode;
     @FXML
@@ -87,14 +93,11 @@ public class AdventureControlPaneController extends FullViewPaneController {
 
     @Override
     public Scene getCurrentScene() {
-        return buttonToolBar.getScene();
+        return backButton.getScene();
     }
 
     @Override
     public void initializeButtonToolBar() {
-        AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
-        mainMenuPane.initialize(mainDatabase);
-        buttonToolBar.initialize(mainMenuPane, logHandler);
     }
 
     public Adventure getAdventure() {
@@ -102,6 +105,20 @@ public class AdventureControlPaneController extends FullViewPaneController {
     }
 
     public void skipSection(Section section) {
+        if(!adventure.hasAvailableSkips())
+        {
+            CardChooserDialog chooserDialog = new CardChooserDialog();
+            chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD,
+                    "Choose a decoy to give you time to escape");
+            Optional<ActiveCard> capturedCard = chooserDialog.showAndWait();
+            if(capturedCard.isPresent())
+            {
+                ActiveCard card = capturedCard.get();
+                adventure.captureCard(card);
+            }
+            else
+                return;
+        }
         adventure.skipCurrentSection();
         worldDisplayNode.revealNextSection(section.getSectionNum());
         refreshToMatch();
@@ -155,7 +172,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
         if(filteredSelectables.isPresent() && !optionsDialog.isMutiple())
         {
             RandomCardDisplayDialog randomDialog = new RandomCardDisplayDialog();
-            randomDialog.initialize(mainDatabase, filteredSelectables.get().getRandom());
+            randomDialog.initialize(mainDatabase, filteredSelectables.get().getRandom(), "Generated Cards:");
             Optional<ActiveCard> card = randomDialog.showAndWait();
             card.ifPresent(value ->
             {
@@ -192,7 +209,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
 
     public void searchFreeAgent() {
         CardGainSearchSelectDialog cardSearchSelectDialog = new CardGainSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents());
+        cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Choose Free Agent");
         Optional<ActiveCard> selection = cardSearchSelectDialog.showAndWait();
         if(selection.isPresent())
         {
@@ -207,7 +224,25 @@ public class AdventureControlPaneController extends FullViewPaneController {
             }
             refreshToMatch();
         }
+    }
 
+    @FXML
+    public void goBack()
+    {
+        adventure.saveAdventure();
+        MLogger.LOGGER.removeHandler(logHandler);
+        AdvMainMenuPane mainMenuPane = new AdvMainMenuPane();
+        mainMenuPane.initialize(mainDatabase);
+        changeScene(mainMenuPane);
+    }
+
+    @FXML
+    public void exit()
+    {
+        adventure.saveAdventure();
+        logger.info("Client closed");
+        MLogger.LOGGER.removeHandler(logHandler);
+        Platform.exit();
     }
 
     public AdventureDatabase getAdventureDatabase() {

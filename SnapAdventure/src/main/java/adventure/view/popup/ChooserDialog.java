@@ -25,9 +25,9 @@ public class ChooserDialog<T extends SnapTarget> extends AdvDialog<T> implements
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<T> selectables, TargetType tType)
+    public void initialize(MainDatabase cd, TargetList<T> selectables, TargetType tType, String header)
     {
-        controller.initialize(cd, this, selectables, tType);
+        controller.initialize(cd, this, selectables, tType, header);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
         setResultConverter(dialogButton -> {

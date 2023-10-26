@@ -24,10 +24,6 @@ public class CardGeneratorDialogController {
     @FXML
     ToggleButton none;
     @FXML
-    SortMenuButton<ActiveCard> sortButton;
-    @FXML
-    FilterMenuButton<ActiveCard> filterButton;
-    @FXML
     GridDisplayNode<ActiveCard> choiceNodes;
     MainDatabase mainDatabase;
     ActiveCardList choices;
@@ -37,17 +33,13 @@ public class CardGeneratorDialogController {
     public void initialize(AdvMainDatabase md, CardGeneratorDialog dialog, ActiveCardList selectables)
     {
         choices = selectables;
-        BaseGridActionController<ActiveCard> cardChoiceActionController = new BaseGridActionController();
+        BaseGridActionController<ActiveCard> cardChoiceActionController = new BaseGridActionController<>();
         cardChoiceActionController.initialize(md);
         mainDatabase = md;
         CardGeneratorDialogGridActionController gridActionController =
                 new CardGeneratorDialogGridActionController();
         gridActionController.initialize(mainDatabase, dialog);
         choiceNodes.initialize(selectables, TargetType.CARD, gridActionController, ViewSize.SMALL, false);
-        if(sortButton != null && filterButton != null) {
-            sortButton.initialize(choiceNodes.getController());
-            filterButton.initialize(choiceNodes.getController());
-        }
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(toTeamButton, toTempButton);
         toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {

@@ -38,7 +38,7 @@ public class ActiveCardControlNode extends ControlNode<ActiveCard> {
         if (statusVisible) {
             setDamage(c.hasStatus(StatusEffect.WOUND));
             setCaptain(c.hasStatus(StatusEffect.CAPTAIN));
-            setExhausted(c.hasStatus(StatusEffect.EXHAUSTED));
+            setExhausted(c.hasStatus(StatusEffect.EXHAUSTED) || c.hasStatus(StatusEffect.RECOVERING));
             setPig(c.hasStatus(StatusEffect.PIG));
             setRaptor(c.hasStatus(StatusEffect.RAPTOR));
         }

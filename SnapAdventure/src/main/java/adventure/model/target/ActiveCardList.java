@@ -144,7 +144,7 @@ public class ActiveCardList extends TargetList<ActiveCard> {
         for(ActiveCard c: this)
         {
             if(!c.hasStatus(StatusEffect.EXHAUSTED) && !c.hasStatus(StatusEffect.PIG) &&
-                    !c.hasStatus(StatusEffect.RAPTOR))
+                    !c.hasStatus(StatusEffect.RAPTOR) && !c.hasStatus(StatusEffect.RECOVERING))
                 activeCards.add(c);
         }
         return activeCards;

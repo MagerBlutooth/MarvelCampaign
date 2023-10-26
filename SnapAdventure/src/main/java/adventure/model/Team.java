@@ -8,7 +8,6 @@ import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 import java.util.Random;
 
 public class Team {
@@ -257,16 +256,16 @@ public class Team {
         return allCards;
     }
 
-    public ActiveCardList retrieveMIACards(MIACardTracker miaCardTracker, int i) {
-        ActiveCardList retrievedCards = miaCardTracker.lookup(i);
+    public ActiveCardList retrieveMIACards(MIACardTracker miaCardTracker, int world) {
+        ActiveCardList retrievedCards = miaCardTracker.lookup(world);
         teamCards.addAll(miaCards.getThings());
         miaCards.removeAll(miaCards.getThings());
+        miaCardTracker.removeCards(world, retrievedCards);
         return retrievedCards;
     }
 
     public void sendCapturedCardsAway(MIACardTracker miaCardTracker, int world) {
-        for(ActiveCard c: capturedCards)
-        {
+        for (ActiveCard c : capturedCards) {
             miaCards.add(c);
             miaCardTracker.addCard(world, c);
         }
@@ -274,9 +273,9 @@ public class Team {
     }
 
     public void exhaustedCardsRecover() {
-        for(ActiveCard c: teamCards)
-        {
+        for (ActiveCard c : teamCards) {
             c.setStatus(StatusEffect.EXHAUSTED, false);
+            c.setStatus(StatusEffect.RECOVERING, false);
         }
     }
 

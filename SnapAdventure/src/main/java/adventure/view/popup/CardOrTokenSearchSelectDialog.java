@@ -21,9 +21,9 @@ public class CardOrTokenSearchSelectDialog extends AdvDialog<Playable> implement
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<Playable> selectableCards)
+    public void initialize(MainDatabase cd, TargetList<Playable> selectableCards, String header)
     {
-        controller.initialize(cd, this, selectableCards);
+        controller.initialize(cd, this, selectableCards, header);
 
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {

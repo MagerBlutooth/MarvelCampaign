@@ -16,6 +16,8 @@ import snapMain.controller.MainDatabase;
 import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
+import snapMain.view.menu.FilterMenuButton;
+import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.GridDisplayNode;
 
 import java.util.Optional;
@@ -40,6 +42,10 @@ public class TeamDisplayNodeController {
     TempGridActionController tempController;
     @FXML
     LostCardGridActionController lostCardController;
+    @FXML
+    SortMenuButton<ActiveCard> sortMenuButton;
+    @FXML
+    FilterMenuButton<ActiveCard> filterMenuButton;
 
     Team team;
     Adventure adventure;
@@ -66,6 +72,8 @@ public class TeamDisplayNodeController {
         teamCardDisplay.initialize(t.getTeamCards(), TargetType.CARD, cardController, ViewSize.SMALL, true);
         teamCardDisplay.setPrefColumns(6);
         tempCardDisplay.initialize(t.getTempCards(), TargetType.CARD, tempController, ViewSize.SMALL, true);
+        sortMenuButton.initialize(teamCardDisplay.getController());
+        filterMenuButton.initialize(teamCardDisplay.getController());
     }
 
     public void showCaptured()
@@ -163,14 +171,16 @@ public class TeamDisplayNodeController {
 
     public void sendAway(ActiveCard card)
     {
-        team.sendAway(card);
         if(adventure.getCurrentWorldNum() < 8) {
             IntegerPromptDialog integerPromptDialog = new IntegerPromptDialog();
             integerPromptDialog.initialize("Send Away to Which World?",
                     adventure.getCurrentWorldNum() + 1,
                     AdventureConstants.NUMBER_OF_WORLDS);
             Optional<Integer> worldToSend = integerPromptDialog.showAndWait();
-            worldToSend.ifPresent(w -> adventure.sendAway(w, card));
+            worldToSend.ifPresent(w -> {
+                team.sendAway(card);
+                adventure.sendAway(w, card);
+            });
             adventureControlPane.refreshToMatch();
         }
         else {

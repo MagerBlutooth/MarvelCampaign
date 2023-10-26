@@ -1,7 +1,6 @@
 package adventure.controller.dialog;
 
 import adventure.model.target.ActiveCard;
-import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -24,8 +23,6 @@ public class WoundCaptureChoiceDialogController extends SimpleChooserDialogContr
     RadioButton woundButton;
     @FXML
     RadioButton captureButton;
-    @FXML
-    RadioButton noneButton;
 
     ToggleGroup toggleGroup = new ToggleGroup();
 
@@ -34,19 +31,21 @@ public class WoundCaptureChoiceDialogController extends SimpleChooserDialogContr
         super.initialize(md, dialog, selectables, TargetType.CARD);
         choices = selectables;
         mainDatabase = md;
-        toggleGroup.getToggles().addAll(woundButton, captureButton, noneButton);
+        toggleGroup.getToggles().addAll(woundButton, captureButton);
         toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null)
                 oldVal.setSelected(true);
         });
         ImageView diceView = new ImageView(md.grabIcon(IconConstant.DICE));
         setRandomButtonGraphic(diceView);
-        noneButton.setSelected(true);
+        captureButton.setSelected(true);
         ChooserDialogGridActionController<ActiveCard> gridActionController = new ChooserDialogGridActionController<>();
         gridActionController.initialize(mainDatabase, dialog);
         choiceNodes.initialize(selectables, TargetType.CARD, gridActionController, ViewSize.SMALL,
                 false);
         choiceNodes.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        woundButton.setOpacity(0.5);
+        captureButton.setOpacity(0.5);
     }
 
     public void setRandomButtonGraphic(ImageView image)
@@ -75,16 +74,9 @@ public class WoundCaptureChoiceDialogController extends SimpleChooserDialogContr
     }
 
     @FXML
-    public void showRandom()
+    public void chooseRandom()
     {
-        CardDisplayPopup cardDisplayPopup = new CardDisplayPopup(mainDatabase, choices.getRandom(),
-                randomButton.localToScreen(100.0,50.0));
-        cardDisplayPopup.show();
-        cardDisplayPopup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                cardDisplayPopup.hide();
-            }
-        });
+        setChoice(choices.getRandom());
     }
 
     @Override
@@ -97,5 +89,7 @@ public class WoundCaptureChoiceDialogController extends SimpleChooserDialogContr
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());
         selection = c;
+        woundButton.setOpacity(1.0);
+        captureButton.setOpacity(1.0);
     }
 }

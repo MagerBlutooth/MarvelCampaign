@@ -82,7 +82,7 @@
 "81","The Sacred Timeline","true","Roll a d4. You must station that many cards here."
 "82","The Space Throne","true","Station a card here. That card becomes a captain when it returns to your team."
 "83","The Superflow","true","The first time you skip this section, draft a card. "
-"84","The Triskelion","true","Gain 7 random cards for this section. At the end of the section, choose one to add to your team permanently. The rest defect."
+"84","The Triskelion","true","Generate 7 random cards for this section. At the end of the section, choose one to add to your team. The rest defect."
 "85","The Vault","true","Send a card away."
 "86","Throne Room","true","Station a captain here."
 "87","Tinkerer's Workshop","true","Receive 5 energy. You may spend energy equal to a free agent’s cost to add it to your temp this section."

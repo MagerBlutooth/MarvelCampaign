@@ -15,15 +15,10 @@ public class AdvLocationSearchSelectDialogController
         extends AdvSearchSelectDialogController<AdvLocation> {
 
     @Override
-    public void initialize(MainDatabase md, Choosable<AdvLocation> searchDialog, TargetList<AdvLocation> selectableCards)
+    public void initialize(MainDatabase md, Choosable<AdvLocation> searchDialog, TargetList<AdvLocation> selectableCards,
+                           String header)
     {
-        mainDatabase = md;
-        searchSelectDialog = searchDialog;
-        choices = selectableCards;
-        initializeNodes("");
-        searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            initializeNodes(newValue);
-        });
+        super.initialize(md, searchDialog, selectableCards, header);
     }
 
     public void initializeNodes(String text)

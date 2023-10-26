@@ -87,7 +87,6 @@ public class WorldClearSelectNodeController extends FullViewPaneController {
         ActiveCard draftedCard = collectCard(draftCardDisplay);
         if(draftedCard != null && draftedCard.isActualThing())
             adventure.addCardToTeam(draftedCard);
-
         ActiveCard bossCard = collectCard(bossDisplay);
         if(bossCard != null && bossCard.isActualThing())
             adventure.addCardToTeam(bossCard);

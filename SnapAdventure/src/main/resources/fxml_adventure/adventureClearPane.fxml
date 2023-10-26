@@ -9,12 +9,12 @@
          stylesheets="@../css_adventure/editorStyle.css"
          fx:controller="adventure.controller.AdventureClearPaneController"
          prefWidth="1200" prefHeight="800">
-
     <VBox alignment="CENTER" spacing="40.0"/>
         <VBox alignment="CENTER" spacing="10.0">
             <Label fx:id="victoryLabel" wrapText="true" id="info"/>
             <CardView fx:id="enemyView"/>
             <VBox spacing="50.0" alignment="CENTER">
+                <Label fx:id="totalPlayTime"/>
                 <Button text="Show Card Stats" onAction="#showCardStats"/>
                 <Button text="Return to Menu" onAction="#endGame"/>
             </VBox>

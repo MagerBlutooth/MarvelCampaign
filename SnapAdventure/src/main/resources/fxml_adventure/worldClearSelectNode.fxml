@@ -13,16 +13,16 @@
         <Label text="Rewards"/>
         <HBox alignment="CENTER" spacing="20.0">
             <VBox alignment="CENTER">
-                <CardView fx:id="bossDisplay" minHeight="200" maxHeight="200"/>
-                <Button fx:id="bossButton" text="Gain Boss" onAction="#gainBoss"/>
+                <CardView fx:id="bossDisplay" minWidth="200" maxWidth="200" minHeight="200" maxHeight="200"/>
+                <Button fx:id="bossButton" text="Gain Boss" onAction="#gainBoss" id="smallButton"/>
             </VBox>
             <VBox alignment="CENTER">
-                <CardView fx:id="draftCardDisplay" minHeight="200" maxHeight="200"/>
-                <Button fx:id="draftButton" text="Draft Card" onAction="#draftCard"/>
+                <CardView fx:id="draftCardDisplay" minWidth="200" maxWidth="200" minHeight="200" maxHeight="200"/>
+                <Button fx:id="draftButton" text="Draft Card" onAction="#draftCard" id="smallButton"/>
             </VBox>
             <VBox alignment="CENTER">
-                <CardView fx:id="healCardDisplay" minHeight="200" maxHeight="200"/>
-                <Button fx:id="healButton" text="Heal Card" onAction="#healCard"/>
+                <CardView fx:id="healCardDisplay" minWidth="200" maxWidth="200" minHeight="200" maxHeight="200"/>
+                <Button fx:id="healButton" text="Heal Card" onAction="#healCard" id="smallButton"/>
             </VBox>
         </HBox>
         <Button text="Next World" onAction="#completeWorld"/>

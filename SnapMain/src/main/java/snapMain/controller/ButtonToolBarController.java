@@ -34,20 +34,12 @@ public class ButtonToolBarController {
         HBox.setHgrow(spacerPane, Priority.ALWAYS);
     }
 
-    public void initialize(FullViewPane bP, FileHandler f)
-    {
-        this.initialize(bP);
-        fileHandler = f;
-    }
-
     public void removeBackButton()
     {
         buttonToolBar.getChildren().remove(backButton);
     }
 
     public void goBack() {
-        if(fileHandler != null)
-            MLogger.LOGGER.removeHandler(fileHandler);
         changeScene(backPane);
     }
 

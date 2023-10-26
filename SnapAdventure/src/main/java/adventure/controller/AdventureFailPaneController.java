@@ -18,6 +18,9 @@ import java.util.Map;
 public class AdventureFailPaneController extends FullViewPaneController {
 
     @FXML
+    Label playTimeLabel;
+
+    @FXML
     Label failureLabel;
 
     @FXML
@@ -28,6 +31,7 @@ public class AdventureFailPaneController extends FullViewPaneController {
     {
         mainDatabase = database;
         adventure = a;
+        playTimeLabel.setText("Total Play Time: " + a.getTotalPlayTime());
         Enemy finalBoss = a.getFinalBoss();
         a.saveAdventure();
         failureLabel.setText("You have failed. Your team was no match for the diabolical mastermind " + finalBoss +

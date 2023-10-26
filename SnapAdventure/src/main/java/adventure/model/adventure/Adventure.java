@@ -34,6 +34,7 @@ public class Adventure {
     DeckProfileList deckProfiles;
     List<InfinityStone> allInfinityStones;
     Difficulty difficulty;
+    AdvTimekeeper timekeeper;
 
     MLogger logger = new MLogger(Adventure.class);
 
@@ -50,6 +51,7 @@ public class Adventure {
         cardStatTracker = new CardStatTracker();
         miaCardTracker = new MIACardTracker();
         deckProfiles = new DeckProfileList(SnapMainConstants.DECK_PROFILE_DEFAULT);
+        timekeeper = new AdvTimekeeper();
         createInfinityStones();
         loadAdventure(mainDB);
     }
@@ -72,6 +74,7 @@ public class Adventure {
         adventureString.add(difficulty.toString());
         adventureString.add(adventureDatabase.toSaveString());
         adventureString.add(miaCardTracker.toSaveString());
+        adventureString.add(timekeeper.toSaveString());
         return adventureString;
     }
 
@@ -93,6 +96,7 @@ public class Adventure {
         deckProfiles.fromSaveString(splitString[7], adventureDatabase);
         difficulty = Difficulty.valueOf(splitString[8]);
         miaCardTracker.fromSaveString(splitString[10], team.getAllCards());
+        timekeeper.fromSaveString(splitString[11]);
     }
 
     public void saveAdventure() {
@@ -118,7 +122,7 @@ public class Adventure {
         currentWorldNum = 1;
         cardStatTracker.initialize(getAllCards());
         World w = worlds.get(currentWorldNum);
-        w.initializeBoss(getFreeAgents());
+        w.initialize(getFreeAgents());
         placeInfinityStones();
     }
 
@@ -195,31 +199,30 @@ public class Adventure {
             getCurrentWorld().setBossRevealed(true);
         }
         getCurrentWorld().revealNextSection(getCurrentSectionNum());
-        incrementCurrentSectionNum();
+        getCurrentWorld().incrementCurrentSectionNum();
+        logInfo("Section " + getCurrentWorldNum() + "-" + getCurrentSectionNum()
+                + " completed");
     }
     public void skipCurrentSection() {
-        getCurrentWorld().revealNextSection(getCurrentSectionNum());
-        incrementCurrentSectionNum();
+        getCurrentWorld().skipCurrentSection();
         logInfo("Section " + getCurrentWorldNum() + "-" + getCurrentSectionNum()
                 + " skipped");
     }
 
-    public void incrementCurrentSectionNum() {
-        getCurrentWorld().incrementCurrentSectionNum();
-    }
-
     public void completeCurrentWorld() {
-        team.retrieveCapturedCards();
-        reclaimCards();
         team.exhaustedCardsRecover();
+        reclaimCards();
+
         team.tempCardsExpire();
         if (currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
             currentWorldNum++;
-            getCurrentWorld().initializeBoss(team.getFreeAgents());
+            getCurrentWorld().initialize(team.getFreeAgents());
         } else if (currentWorldNum == AdventureConstants.NUMBER_OF_WORLDS && allInfinityStones.size() == 6) {
             currentWorldNum++;
             worlds.add(new World(adventureDatabase));
         }
+        logInfo("World" + getCurrentWorldNum()
+                + " completed!");
     }
 
     public ActiveCardList getActiveCards() {
@@ -236,7 +239,7 @@ public class Adventure {
         return active;
     }
 
-    public TargetList<ActiveCard> getTeamCards() {
+    public ActiveCardList getTeamCards() {
         return team.getTeamCards();
     }
 
@@ -402,8 +405,10 @@ public class Adventure {
                 reclaimed = s.removeStationedCard(card, team);
             }
         }
-        if (!reclaimed)
+        if (!reclaimed) {
             reclaimed = team.returnCard(card);
+            miaCardTracker.removeCard(card);
+        }
         return reclaimed;
     }
 
@@ -451,7 +456,7 @@ public class Adventure {
         return newlyExhaustedCards;
     }
 
-    public ActiveCardList recoverCards(ActiveCardList deck) {
+    public ActiveCardList recoverExhaustedCards(ActiveCardList deck) {
         ActiveCardList recovered = new ActiveCardList();
         for (ActiveCard c : getTeamAndTempCards()) {
             if (c.hasStatus(StatusEffect.EXHAUSTED) && !deck.contains(c)) {
@@ -467,8 +472,6 @@ public class Adventure {
     }
 
 
-    //TODO: Make it so this method can be called without actually reclaiming the cards, in case user closes program
-    // before confirming the WorldClearPane.
     public ActiveCardList reclaimCards() {
         ActiveCardList reclaimedCards = new ActiveCardList();
         reclaimedCards.addAll(team.retrieveMIACards(miaCardTracker, getCurrentWorldNum() + 1).getThings());
@@ -489,8 +492,9 @@ public class Adventure {
     }
 
     public boolean failStateCheck() {
+        ActiveCardList teamCards = getTeamCards();
         ActiveCardList activeCards = getActiveCards();
-        return activeCards.size() < SnapMainConstants.DECK_SIZE || activeCards.hasNoCaptains();
+        return activeCards.size() < SnapMainConstants.DECK_SIZE || teamCards.hasNoCaptains();
     }
 
     private void createFinalWorld() {
@@ -530,5 +534,17 @@ public class Adventure {
 
     public boolean hasInfinityStone() {
         return !allInfinityStones.isEmpty();
+    }
+
+    public boolean hasAvailableSkips() {
+        return getCurrentWorld().getAvailableSkips() > 0;
+    }
+
+    public String getTotalPlayTime() {
+        return timekeeper.getTotalPlayTime();
+    }
+
+    public String getCurrentWorldPlayTime() {
+        return getCurrentWorld().getWorldPlayTimeString();
     }
 }

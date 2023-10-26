@@ -24,9 +24,9 @@ public class CardGainSearchSelectDialog extends AdvDialog<ActiveCard> implements
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectableCards)
+    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectableCards, String header)
     {
-        controller.initialize(cd, this, selectableCards);
+        controller.initialize(cd, this, selectableCards, header);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
         setResultConverter(dialogButton -> {

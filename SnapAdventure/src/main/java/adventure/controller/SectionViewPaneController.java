@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.*;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
@@ -58,6 +59,8 @@ public class SectionViewPaneController extends FullViewPaneController {
     GridDisplayNode<ActiveCard> stationedDisplay;
     Enemy enemy;
     ContextMenu enemyMenu;
+
+    MLogger logger = new MLogger(SectionViewPaneController.class);
 
     public void initialize(AdvMainDatabase dB, AdventureControlPane cP, Section s) {
         mainDatabase = dB;
@@ -146,7 +149,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         CardOrTokenSearchSelectDialog chooserDialog = new CardOrTokenSearchSelectDialog();
         AdventureDatabase aDatabase = adventure.getAdventureDatabase();
         TargetList<Playable> playableOptions = new PlayableList(aDatabase.getEnemySubjects());
-        chooserDialog.initialize(mainDatabase, playableOptions);
+        chooserDialog.initialize(mainDatabase, playableOptions, "Choose Secondary Effect");
         Optional<Playable> secondEffect = chooserDialog.showAndWait();
         if(secondEffect.isPresent())
         {
@@ -160,7 +163,7 @@ public class SectionViewPaneController extends FullViewPaneController {
     private void changeEnemyClone() {
         AdventureDatabase adb = adventure.getAdventureDatabase();
         CardOrTokenSearchSelectDialog cardSearchSelectDialog = new CardOrTokenSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(adb.getEnemySubjects()));
+        cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(adb.getEnemySubjects()), "Ch");
         Optional<Playable> playable = cardSearchSelectDialog.showAndWait();
         if(playable.isPresent())
         {
@@ -174,7 +177,8 @@ public class SectionViewPaneController extends FullViewPaneController {
 
     private void changeEnemy() {
         CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, new ActiveCardList(adventure.getFreeAgents()));
+        cardSearchSelectDialog.initialize(mainDatabase, new ActiveCardList(adventure.getFreeAgents()),
+                "Choose new enemy");
         Optional<ActiveCard> card = cardSearchSelectDialog.showAndWait();
         if(card.isPresent())
         {
@@ -196,7 +200,8 @@ public class SectionViewPaneController extends FullViewPaneController {
     private void changeLocation()
     {
         AdvLocationSearchSelectDialog locationSearchSelectDialog = new AdvLocationSearchSelectDialog();
-        locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()));
+        locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()),
+                "Choose new location");
         Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
         if(location.isPresent() && location.get().isActualThing()) {
             AdvLocation newLoc = location.get();
@@ -290,12 +295,15 @@ public class SectionViewPaneController extends FullViewPaneController {
     {
         if(section.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             CardChooserDialog chooserDialog = new CardChooserDialog();
-            chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD);
+            chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD,
+                    "Station which card?");
             Optional<ActiveCard> cardSelect = chooserDialog.showAndWait();
             cardSelect.ifPresent(card -> {
                 adventure.stationCard(section, card);
                 initializeStations(section);
                 adventureControlPane.refreshToMatch();
+                logger.info(card + " stationed in section" +adventure.getCurrentWorldNum()+"-"
+                        +adventure.getCurrentSectionNum());
             });
 
         }

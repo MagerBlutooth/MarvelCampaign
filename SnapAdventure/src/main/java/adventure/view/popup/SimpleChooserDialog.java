@@ -24,9 +24,20 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
         fxmlAdventureGrabber.grabFXML("simpleChooserDialog.fxml", this.getDialogPane());
         controller = fxmlAdventureGrabber.getController();
     }
+
     public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type)
     {
         controller.initialize(mainDatabase, this, things, type);
+        primeOKButton();
+    }
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type, String header)
+    {
+        controller.initialize(mainDatabase, this, things, type, header);
+        primeOKButton();
+
+    }
+
+    private void primeOKButton() {
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
         setResultConverter(dialogButton -> {
