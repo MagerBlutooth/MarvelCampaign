@@ -31,8 +31,10 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
         controller.initialize(mainDatabase, this, things, type);
         primeOKButton();
     }
-    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type, String header)
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type, String header,
+                           Window owner)
     {
+        super.initialize(owner);
         controller.initialize(mainDatabase, this, things, type, header);
         primeOKButton();
 
@@ -48,15 +50,6 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
             return null;
         });
     }
-
-    @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/8;
-        this.setX(x);
-        this.setY(y);
-    }
-
     @Override
     public void setChoice(T subject) {
         controller.setChoice(subject);

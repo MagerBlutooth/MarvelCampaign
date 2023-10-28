@@ -1,5 +1,8 @@
 package snapMain.view.pane;
 
+import javafx.beans.value.ChangeListener;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,7 +41,7 @@ public class BasicStage extends Stage{
         setScene(scene);
     }
 
-    private void makeDraggable(Parent root) {
+    public void makeDraggable(Parent root) {
         root.setOnMousePressed(event -> {
             xOffset = this.getX() - event.getScreenX();
             yOffset = this.getY() - event.getScreenY();
@@ -48,5 +51,4 @@ public class BasicStage extends Stage{
             setY(event.getScreenY() + yOffset);
         });
     }
-
 }

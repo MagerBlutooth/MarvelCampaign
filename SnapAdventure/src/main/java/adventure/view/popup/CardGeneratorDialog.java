@@ -22,9 +22,9 @@ public class CardGeneratorDialog extends AdvDialog<ActiveCardList> {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase cd, ActiveCardList selectables, Parent root)
+    public void initialize(AdvMainDatabase cd, ActiveCardList selectables, Window window)
     {
-        super.initialize(root);
+        super.initialize(window);
         controller.initialize(cd, this, selectables);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
@@ -32,14 +32,6 @@ public class CardGeneratorDialog extends AdvDialog<ActiveCardList> {
             }
             return null;
         });
-    }
-
-    @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/8;
-        this.setX(x);
-        this.setY(y);
     }
 
     public boolean isTeam() {

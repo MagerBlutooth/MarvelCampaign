@@ -45,14 +45,6 @@ public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Ch
     }
 
     @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/8;
-        this.setX(x);
-        this.setY(y);
-    }
-
-    @Override
     public void setChoice(ActiveCard card) {
         controller.setChoice(card);
         enableOKButton();

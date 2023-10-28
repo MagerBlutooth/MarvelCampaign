@@ -10,9 +10,6 @@ import java.util.Objects;
 
 public class GameStage extends BasicStage {
 
-    private double xOffset;
-    private double yOffset;
-
     public GameStage() {
         getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png"))));
         initStyle(StageStyle.UNDECORATED);
@@ -30,17 +27,6 @@ public class GameStage extends BasicStage {
             setScene(root.getScene());
         else
             setScene(new Scene(root));
-    }
-
-    private void makeDraggable(Parent root) {
-        root.setOnMousePressed(event -> {
-            xOffset = this.getX() - event.getScreenX();
-            yOffset = this.getY() - event.getScreenY();
-        });
-        root.setOnMouseDragged(event -> {
-            setX(event.getScreenX() + xOffset);
-            setY(event.getScreenY() + yOffset);
-        });
     }
 
 }

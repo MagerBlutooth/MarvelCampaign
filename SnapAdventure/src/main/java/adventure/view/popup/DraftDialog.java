@@ -27,8 +27,9 @@ public class DraftDialog extends AdvDialog<ActiveCard> implements Choosable<Acti
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectables)
+    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectables, Window owner)
     {
+        super.initialize(owner);
         controller.initialize(cd, this, selectables, TargetType.CARD);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
@@ -38,14 +39,6 @@ public class DraftDialog extends AdvDialog<ActiveCard> implements Choosable<Acti
             }
             return null;
         });
-    }
-
-    @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/8;
-        this.setX(x);
-        this.setY(y);
     }
 
     @Override

@@ -29,9 +29,9 @@ public class WoundCaptureChoiceDialog extends AdvDialog<ActiveCard> implements C
         fxmlAdventureGrabber.grabFXML("woundCaptureChoiceDialog.fxml", this.getDialogPane());
         controller = fxmlAdventureGrabber.getController();
     }
-    public void initialize(AdvMainDatabase mainDatabase, TargetList<ActiveCard> things, Parent root)
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<ActiveCard> things, Window window)
     {
-        super.initialize(root);
+        super.initialize(window);
         controller.initialize(mainDatabase, this, things);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
@@ -41,14 +41,6 @@ public class WoundCaptureChoiceDialog extends AdvDialog<ActiveCard> implements C
             }
             return null;
         });
-    }
-
-    @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/16;
-        this.setX(x);
-        this.setY(y);
     }
 
     @Override

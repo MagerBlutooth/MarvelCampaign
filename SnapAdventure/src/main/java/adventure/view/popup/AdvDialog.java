@@ -1,5 +1,6 @@
 package adventure.view.popup;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,27 +22,8 @@ public class AdvDialog<T extends Object> extends Dialog<T> {
         this.initStyle(StageStyle.UNDECORATED);
     }
 
-    protected void initialize(Parent root)
+    protected void initialize(Window ownerWindow)
     {
-        centerToParent(root.getScene().getWindow());
-        makeDraggable(root);
-    }
-
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/4;
-        double y = window.getY() + window.getHeight()/3;
-        this.setX(x);
-        this.setY(y);
-    }
-
-    private void makeDraggable(Parent root) {
-        root.setOnMousePressed(event -> {
-            xOffset = this.getX() - event.getScreenX();
-            yOffset = this.getY() - event.getScreenY();
-        });
-        root.setOnMouseDragged(event -> {
-            setX(event.getScreenX() + xOffset);
-            setY(event.getScreenY() + yOffset);
-        });
+        initOwner(ownerWindow);
     }
 }

@@ -5,6 +5,7 @@ import adventure.model.stats.AdvMatchResult;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonBar;
+import javafx.stage.Window;
 
 public class AdvMatchResultPopup extends AdvDialog<AdvMatchResult> {
 
@@ -18,9 +19,9 @@ public class AdvMatchResultPopup extends AdvDialog<AdvMatchResult> {
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(boolean hasCaptain, Parent root)
+    public void initialize(boolean hasCaptain, Window owner)
     {
-        super.initialize(root);
+        super.initialize(owner);
         controller.initialize(hasCaptain);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {

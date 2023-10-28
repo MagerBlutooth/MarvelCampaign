@@ -22,9 +22,9 @@ public class SelectionOptionsDialog extends AdvDialog<TargetList<ActiveCard>> {
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(TargetList<ActiveCard> freeAgents, boolean multiSelect, Parent root)
+    public void initialize(TargetList<ActiveCard> freeAgents, boolean multiSelect, Window owner)
     {
-        super.initialize(root);
+        super.initialize(owner);
         controller.initialize(freeAgents, multiSelect);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
@@ -32,14 +32,6 @@ public class SelectionOptionsDialog extends AdvDialog<TargetList<ActiveCard>> {
             }
             return null;
         });
-    }
-
-    @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/8;
-        this.setX(x);
-        this.setY(y);
     }
 
     public boolean isMutiple() {

@@ -109,19 +109,23 @@ public class AdventureControlPaneController extends FullViewPaneController {
         {
             CardChooserDialog chooserDialog = new CardChooserDialog();
             chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD,
-                    "Choose a decoy to give you time to escape", getCurrentScene().getRoot());
+                    "Choose a decoy to give you time to escape", getCurrentScene().getWindow());
             Optional<ActiveCard> capturedCard = chooserDialog.showAndWait();
             if(capturedCard.isPresent())
             {
                 ActiveCard card = capturedCard.get();
                 adventure.captureCard(card);
+                refocusWindow();
             }
-            else
+            else {
+                refocusWindow();
                 return;
+            }
         }
         adventure.skipCurrentSection();
         worldDisplayNode.revealNextSection(section.getSectionNum());
         refreshToMatch();
+
     }
 
     public void refreshToMatch() {
@@ -142,12 +146,13 @@ public class AdventureControlPaneController extends FullViewPaneController {
     @FXML
     public void draftCard() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
-        optionsDialog.initialize(adventure.getFreeAgents(), false, getCurrentScene().getRoot());
+        optionsDialog.initialize(adventure.getFreeAgents(), false, getCurrentScene().getWindow());
         Optional<TargetList<ActiveCard>> filteredSelectables = optionsDialog.showAndWait();
         if(filteredSelectables.isPresent() && !filteredSelectables.get().isEmpty())
         {
             DraftDialog draftCardDialog = new DraftDialog();
-            draftCardDialog.initialize(mainDatabase, adventure.draftCards(filteredSelectables.get()));
+            draftCardDialog.initialize(mainDatabase, adventure.draftCards(filteredSelectables.get()),
+                    getCurrentScene().getWindow());
             Optional<ActiveCard> card = draftCardDialog.showAndWait();
             card.ifPresent(value ->
             {
@@ -157,17 +162,16 @@ public class AdventureControlPaneController extends FullViewPaneController {
                 else {
                     adventure.addFreeAgentToTemp(value);
                 }
-                refreshToMatch();
             });
+            refreshToMatch();
         }
-
-
+        refocusWindow();
     }
 
     //TODO: Output a message if there are no valid cards to generate
     public void generateCards() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
-        optionsDialog.initialize(adventure.getFreeAgents(), true, getCurrentScene().getRoot());
+        optionsDialog.initialize(adventure.getFreeAgents(), true, getCurrentScene().getWindow());
         Optional<TargetList<ActiveCard>> filteredSelectables = optionsDialog.showAndWait();
         if(filteredSelectables.isPresent() && !optionsDialog.isMutiple())
         {
@@ -191,7 +195,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
             ActiveCardList freeAgents = new ActiveCardList(adventure.getFreeAgents());
             Collections.shuffle(freeAgents.getThings());
             ActiveCardList randomCards = new ActiveCardList(freeAgents.getRandom(optionsDialog.getNumber()));
-            chooseDialog.initialize(mainDatabase, randomCards, getCurrentScene().getRoot());
+            chooseDialog.initialize(mainDatabase, randomCards, getCurrentScene().getWindow());
             Optional<ActiveCardList> chosenCards = chooseDialog.showAndWait();
             if(chosenCards.isPresent() && !chosenCards.get().isEmpty())
             {
@@ -204,13 +208,13 @@ public class AdventureControlPaneController extends FullViewPaneController {
                 refreshToMatch();
             }
         }
-
+        refocusWindow();
     }
 
     public void searchFreeAgent() {
         CardGainSearchSelectDialog cardSearchSelectDialog = new CardGainSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Choose Free Agent",
-                getCurrentScene().getRoot());
+                getCurrentScene().getWindow());
         Optional<ActiveCard> selection = cardSearchSelectDialog.showAndWait();
         if(selection.isPresent())
         {
@@ -225,6 +229,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
             }
             refreshToMatch();
         }
+        refocusWindow();
     }
 
     @FXML

@@ -21,18 +21,10 @@ public class CardExhaustionConfirmationDialog extends AdvDialog<Boolean> {
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase md, ActiveCardList exhaustedCards, ActiveCardList recoveredCards, Parent root)
+    public void initialize(MainDatabase md, ActiveCardList exhaustedCards, ActiveCardList recoveredCards, Window window)
     {
-        super.initialize(root);
+        super.initialize(window);
         controller.initialize(md, exhaustedCards, recoveredCards);
-    }
-
-    @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/8;
-        this.setX(x);
-        this.setY(y);
     }
 
 }

@@ -150,7 +150,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         AdventureDatabase aDatabase = adventure.getAdventureDatabase();
         TargetList<Playable> playableOptions = new PlayableList(aDatabase.getEnemySubjects());
         chooserDialog.initialize(mainDatabase, playableOptions, "Choose Secondary Effect",
-                getCurrentScene().getRoot());
+                getCurrentScene().getWindow());
         Optional<Playable> secondEffect = chooserDialog.showAndWait();
         if(secondEffect.isPresent())
         {
@@ -159,13 +159,14 @@ public class SectionViewPaneController extends FullViewPaneController {
             setSecondaryEffect();
             secondaryEffectText.setText(enemy.getSecondaryEffect());
         }
+        refocusWindow();
     }
 
     private void changeEnemyClone() {
         AdventureDatabase adb = adventure.getAdventureDatabase();
         CardOrTokenSearchSelectDialog cardSearchSelectDialog = new CardOrTokenSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(adb.getEnemySubjects()),
-                "Make enemy clone of which card?", getCurrentScene().getRoot());
+                "Make enemy clone of which card?", getCurrentScene().getWindow());
         Optional<Playable> playable = cardSearchSelectDialog.showAndWait();
         if(playable.isPresent())
         {
@@ -174,13 +175,14 @@ public class SectionViewPaneController extends FullViewPaneController {
             enemyView.refresh(enemy, true);
             enemyEffectText.setText(p.getEffect());
         }
+        refocusWindow();
         adventureControlPane.refreshToMatch();
     }
 
     private void changeEnemy() {
         CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, new ActiveCardList(adventure.getFreeAgents()),
-                "Choose new enemy", getCurrentScene().getRoot());
+                "Choose new enemy", getCurrentScene().getWindow());
         Optional<ActiveCard> card = cardSearchSelectDialog.showAndWait();
         if(card.isPresent())
         {
@@ -191,6 +193,7 @@ public class SectionViewPaneController extends FullViewPaneController {
             enemyView.refresh(enemy, true);
             enemyEffectText.setText(boss.getEffect());
         }
+        refocusWindow();
         adventureControlPane.refreshToMatch();
     }
 
@@ -203,7 +206,7 @@ public class SectionViewPaneController extends FullViewPaneController {
     {
         AdvLocationSearchSelectDialog locationSearchSelectDialog = new AdvLocationSearchSelectDialog();
         locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()),
-                "Choose new location", getCurrentScene().getRoot());
+                "Choose new location", getCurrentScene().getWindow());
         Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
         if(location.isPresent() && location.get().isActualThing()) {
             AdvLocation newLoc = location.get();
@@ -211,6 +214,7 @@ public class SectionViewPaneController extends FullViewPaneController {
             locationView.update(newLoc);
             locationEffectText.setText(newLoc.getEffect());
         }
+        refocusWindow();
         adventureControlPane.refreshToMatch();
     }
 
@@ -287,8 +291,11 @@ public class SectionViewPaneController extends FullViewPaneController {
         HPDialog dialog = new HPDialog();
         dialog.initialize(enemy.getBaseHP());
         Optional<Integer> newHP = dialog.showAndWait();
-        newHP.ifPresent(integer -> enemy.setBaseHP(integer));
-        hpDisplay.update();
+        newHP.ifPresent(integer -> {
+            enemy.setBaseHP(integer);
+            hpDisplay.update();
+        });
+        refocusWindow();
         adventure.saveAdventure();
     }
 
@@ -298,7 +305,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         if(section.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             CardChooserDialog chooserDialog = new CardChooserDialog();
             chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD,
-                    "Station which card?", getCurrentScene().getRoot());
+                    "Station which card?", getCurrentScene().getWindow());
             Optional<ActiveCard> cardSelect = chooserDialog.showAndWait();
             cardSelect.ifPresent(card -> {
                 adventure.stationCard(section, card);
@@ -307,7 +314,7 @@ public class SectionViewPaneController extends FullViewPaneController {
                 logger.info(card + " stationed in section" +adventure.getCurrentWorldNum()+"-"
                         +adventure.getCurrentSectionNum());
             });
-
+            refocusWindow();
         }
     }
 

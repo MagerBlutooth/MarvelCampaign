@@ -26,9 +26,9 @@ public class CardOrTokenSearchSelectDialog extends AdvDialog<Playable> implement
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<Playable> selectableCards, String header, Parent root)
+    public void initialize(MainDatabase cd, TargetList<Playable> selectableCards, String header, Window window)
     {
-        super.initialize(root);
+        super.initialize(window);
         controller.initialize(cd, this, selectableCards, header);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
@@ -38,14 +38,6 @@ public class CardOrTokenSearchSelectDialog extends AdvDialog<Playable> implement
             }
             return null;
         });
-    }
-
-    @Override
-    protected void centerToParent(Window window) {
-        double x = window.getX() + window.getWidth()/8;
-        double y = window.getY() + window.getHeight()/8;
-        this.setX(x);
-        this.setY(y);
     }
 
     @Override

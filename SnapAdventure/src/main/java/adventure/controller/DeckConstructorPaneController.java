@@ -291,7 +291,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         ActiveCardList deck = deckGridController.getDeck();
         adventure.updateDeckProfiles(deckProfiles, getProfileNum());
         AdvMatchResultPopup resultPopup = new AdvMatchResultPopup();
-        resultPopup.initialize(!deck.hasNoCaptains(), getCurrentScene().getRoot());
+        resultPopup.initialize(!deck.hasNoCaptains(), getCurrentScene().getWindow());
         Optional<AdvMatchResult> result = resultPopup.showAndWait();
         if (result.isPresent()) {
             adventure.updateStats(deck, result.get());
@@ -307,25 +307,29 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
             ActiveCardList recoveredCards = adventure.recoverExhaustedCards(deck);
             ActiveCardList exhaustedCards = adventure.exhaustCards(deck);
             if (!(exhaustedCards.isEmpty() && recoveredCards.isEmpty())) {
-                CardExhaustionConfirmationDialog cardDisplayConfirmationDialog = new CardExhaustionConfirmationDialog();
+                CardExhaustionConfirmationDialog cardDisplayConfirmationDialog =
+                        new CardExhaustionConfirmationDialog();
                 cardDisplayConfirmationDialog.initialize(mainDatabase, exhaustedCards,
-                        recoveredCards, getCurrentScene().getRoot());
+                        recoveredCards, getCurrentScene().getWindow());
                 cardDisplayConfirmationDialog.showAndWait();
             }
             logger.info(deck + getResultString(result.get()));
             changeScene(backPane);
         }
+        else
+            refocusWindow();
+
     }
 
     private ActiveCard captainCaptureOption(ActiveCardList deck) {
         SimpleChooserDialog<ActiveCard> captainChoice = new SimpleChooserDialog<>();
         captainChoice.initialize(mainDatabase, deck.getCaptains(), TargetType.CARD,
-                "Which captain performed a capture?");
+                "Which captain performed a capture?", getCurrentScene().getWindow());
         Optional<ActiveCard> capturingCaptain = captainChoice.showAndWait();
         if (capturingCaptain.isPresent()) {
             CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
             cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Which card was captured?",
-                    getCurrentScene().getRoot());
+                    getCurrentScene().getWindow());
             Optional<ActiveCard> capturedCard = cardSearchSelectDialog.showAndWait();
             if(capturedCard.isPresent())
             {
@@ -340,7 +344,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
 
     private void captureOrWoundCardOption(ActiveCardList deck) {
         WoundCaptureChoiceDialog woundCaptureChoice = new WoundCaptureChoiceDialog();
-        woundCaptureChoice.initialize(mainDatabase, deck, getCurrentScene().getRoot());
+        woundCaptureChoice.initialize(mainDatabase, deck, getCurrentScene().getWindow());
         Optional<ActiveCard> targetCard = woundCaptureChoice.showAndWait();
         if (woundCaptureChoice.captureOptionSelected() && targetCard.isPresent()) {
             adventure.captureCard(targetCard.get());
@@ -465,8 +469,4 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         deckProfiles.setProfile(profileNum, deckGridController.getDeck());
     }
 
-    @Override
-    public void changeScene(FullViewPane pane) {
-        super.changeScene(pane);
-    }
 }
