@@ -40,4 +40,9 @@ public class AdvLocationSearchSelectDialog extends AdvDialog<AdvLocation>
         okButton.setDisable(false);
     }
 
+    @Override
+    public void enableOKButton() {
+        okButton.setDisable(false);
+    }
+
 }

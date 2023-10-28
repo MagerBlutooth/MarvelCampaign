@@ -40,6 +40,11 @@ public class CardSearchSelectDialog extends AdvDialog<ActiveCard> implements Cho
     @Override
     public void setChoice(ActiveCard card) {
         controller.setChoice(card);
+        enableOKButton();
+    }
+
+    @Override
+    public void enableOKButton() {
         okButton.setDisable(false);
     }
 }

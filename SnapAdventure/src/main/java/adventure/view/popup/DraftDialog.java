@@ -42,6 +42,11 @@ public class DraftDialog extends AdvDialog<ActiveCard> implements Choosable<Acti
     @Override
     public void setChoice(ActiveCard card) {
         controller.setChoice(card);
+        enableOKButton();
+    }
+
+    @Override
+    public void enableOKButton() {
         okButton.setDisable(false);
     }
 

@@ -175,7 +175,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         ActiveCardList cards = deckGridController.getDeck();
         CardList baseCards = cards.getBaseCards();
-        codeConverter.encodeDeckToClipboard(baseCards);
+        codeConverter.encodeDeckToClipboard(adventure.getProfileName(), baseCards);
         deckButtonConfirmText.setText("Deck copied to clipboard.");
     }
 

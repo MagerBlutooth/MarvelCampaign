@@ -120,7 +120,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         escapeEnemyOption.setOnAction(e -> enemyEscape());
         enemyMenu.getItems().add(escapeEnemyOption);
         if(adventure.hasInfinityStone()) {
-            MenuItem stealInfinityStoneOption = new MenuItem("Steal Infinity Stone");
+            MenuItem stealInfinityStoneOption = new MenuItem("Enemy Steals Infinity Stone");
             stealInfinityStoneOption.setOnAction(e -> enemyStealsInfinityStone(section));
             enemyMenu.getItems().add(stealInfinityStoneOption);
         }

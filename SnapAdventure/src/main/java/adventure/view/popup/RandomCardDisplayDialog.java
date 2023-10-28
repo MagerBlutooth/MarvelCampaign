@@ -4,7 +4,9 @@ import adventure.controller.dialog.RandomDisplayDialogController;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Choosable<ActiveCard> {
 
     RandomDisplayDialogController<ActiveCard> controller;
+    Button okButton;
 
     public RandomCardDisplayDialog()
     {
@@ -28,6 +31,8 @@ public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Ch
     public void initialize(MainDatabase cd, ActiveCard selection, String header)
     {
         ActiveCardList selectionArray = new ActiveCardList(new ArrayList<>());
+        okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setDisable(true);
         selectionArray.add(selection);
         controller.initialize(cd, this, selectionArray, TargetType.CARD, header);
         setResultConverter(dialogButton -> {
@@ -41,6 +46,12 @@ public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Ch
     @Override
     public void setChoice(ActiveCard card) {
         controller.setChoice(card);
+        enableOKButton();
+    }
+
+    @Override
+    public void enableOKButton() {
+        okButton.setDisable(false);
     }
 
     public boolean isTeam() {

@@ -6,7 +6,7 @@
 "5","Power Stone","true","If this enemy snaps (and the snap takes effect), a random card in your deck is wounded."
 "6","Reality Stone","true","After each match, randomize the current location, capturing all stationed cards."
 "7","Rock","true","This enemy's primary effect is negated."
-"8","Soul Stone","true","If this enemy is defeated, it revives with half its original HP (rounded up)."
+"8","Soul Stone","true","The first time this enemy is defeated, it revives with half its original HP (rounded up)."
 "9","Space Stone","true","When one of your cards would be captured or wounded, it is sent away to a random world instead."
 "10","Squirrel","true","The first time you skip this section, draft a card. If you challenge this section, wound a random card on your team."
 "11","Symbiote","true","After the fourth match, if you have not completed this section, stationed cards here are eliminated."

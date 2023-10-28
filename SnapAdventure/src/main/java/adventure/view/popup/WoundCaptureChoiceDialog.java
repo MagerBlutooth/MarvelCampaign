@@ -43,6 +43,11 @@ public class WoundCaptureChoiceDialog extends AdvDialog<ActiveCard> implements C
     @Override
     public void setChoice(ActiveCard subject) {
         controller.setChoice(subject);
+        enableOKButton();
+    }
+
+    @Override
+    public void enableOKButton() {
         okButton.setDisable(false);
     }
 

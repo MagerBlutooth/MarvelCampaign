@@ -17,6 +17,7 @@ public abstract class AdvSearchSelectDialogController<T extends SnapTarget> {
 
     @FXML
     Label headerLabel;
+    @FXML
     ButtonType okButton;
     @FXML
     ButtonType cancelButton;

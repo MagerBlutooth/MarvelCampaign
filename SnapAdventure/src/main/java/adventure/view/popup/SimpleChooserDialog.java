@@ -51,6 +51,11 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
     @Override
     public void setChoice(T subject) {
         controller.setChoice(subject);
+        enableOKButton();
+    }
+
+    @Override
+    public void enableOKButton() {
         okButton.setDisable(false);
     }
 }

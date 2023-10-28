@@ -25,12 +25,14 @@ public class WoundCaptureChoiceDialogController extends SimpleChooserDialogContr
     RadioButton captureButton;
 
     ToggleGroup toggleGroup = new ToggleGroup();
+    Choosable<ActiveCard> dialog;
 
-    public void initialize(MainDatabase md, Choosable<ActiveCard> dialog, TargetList<ActiveCard> selectables)
+    public void initialize(MainDatabase md, Choosable<ActiveCard> d, TargetList<ActiveCard> selectables)
     {
         super.initialize(md, dialog, selectables, TargetType.CARD);
         choices = selectables;
         mainDatabase = md;
+        dialog = d;
         toggleGroup.getToggles().addAll(woundButton, captureButton);
         toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
             if (newVal == null)
@@ -77,6 +79,7 @@ public class WoundCaptureChoiceDialogController extends SimpleChooserDialogContr
     public void chooseRandom()
     {
         setChoice(choices.getRandom());
+        dialog.enableOKButton();
     }
 
     @Override
