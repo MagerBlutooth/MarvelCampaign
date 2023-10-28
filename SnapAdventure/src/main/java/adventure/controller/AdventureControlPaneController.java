@@ -109,7 +109,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
         {
             CardChooserDialog chooserDialog = new CardChooserDialog();
             chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD,
-                    "Choose a decoy to give you time to escape");
+                    "Choose a decoy to give you time to escape", getCurrentScene().getRoot());
             Optional<ActiveCard> capturedCard = chooserDialog.showAndWait();
             if(capturedCard.isPresent())
             {
@@ -142,7 +142,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
     @FXML
     public void draftCard() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
-        optionsDialog.initialize(adventure.getFreeAgents(), false);
+        optionsDialog.initialize(adventure.getFreeAgents(), false, getCurrentScene().getRoot());
         Optional<TargetList<ActiveCard>> filteredSelectables = optionsDialog.showAndWait();
         if(filteredSelectables.isPresent() && !filteredSelectables.get().isEmpty())
         {
@@ -167,7 +167,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
     //TODO: Output a message if there are no valid cards to generate
     public void generateCards() {
         SelectionOptionsDialog optionsDialog = new SelectionOptionsDialog();
-        optionsDialog.initialize(adventure.getFreeAgents(), true);
+        optionsDialog.initialize(adventure.getFreeAgents(), true, getCurrentScene().getRoot());
         Optional<TargetList<ActiveCard>> filteredSelectables = optionsDialog.showAndWait();
         if(filteredSelectables.isPresent() && !optionsDialog.isMutiple())
         {
@@ -191,7 +191,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
             ActiveCardList freeAgents = new ActiveCardList(adventure.getFreeAgents());
             Collections.shuffle(freeAgents.getThings());
             ActiveCardList randomCards = new ActiveCardList(freeAgents.getRandom(optionsDialog.getNumber()));
-            chooseDialog.initialize(mainDatabase, randomCards);
+            chooseDialog.initialize(mainDatabase, randomCards, getCurrentScene().getRoot());
             Optional<ActiveCardList> chosenCards = chooseDialog.showAndWait();
             if(chosenCards.isPresent() && !chosenCards.get().isEmpty())
             {
@@ -209,7 +209,8 @@ public class AdventureControlPaneController extends FullViewPaneController {
 
     public void searchFreeAgent() {
         CardGainSearchSelectDialog cardSearchSelectDialog = new CardGainSearchSelectDialog();
-        cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Choose Free Agent");
+        cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Choose Free Agent",
+                getCurrentScene().getRoot());
         Optional<ActiveCard> selection = cardSearchSelectDialog.showAndWait();
         if(selection.isPresent())
         {

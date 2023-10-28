@@ -2,12 +2,14 @@ package adventure.view.popup;
 
 import adventure.controller.dialog.CardOrTokenSearchSelectDialogController;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.Playable;
 import snapMain.model.target.TargetList;
@@ -24,8 +26,9 @@ public class CardOrTokenSearchSelectDialog extends AdvDialog<Playable> implement
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<Playable> selectableCards, String header)
+    public void initialize(MainDatabase cd, TargetList<Playable> selectableCards, String header, Parent root)
     {
+        super.initialize(root);
         controller.initialize(cd, this, selectableCards, header);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
@@ -35,6 +38,14 @@ public class CardOrTokenSearchSelectDialog extends AdvDialog<Playable> implement
             }
             return null;
         });
+    }
+
+    @Override
+    protected void centerToParent(Window window) {
+        double x = window.getX() + window.getWidth()/8;
+        double y = window.getY() + window.getHeight()/8;
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override

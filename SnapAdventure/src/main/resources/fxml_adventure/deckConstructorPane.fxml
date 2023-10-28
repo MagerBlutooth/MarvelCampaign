@@ -8,7 +8,7 @@
 <?import adventure.view.sortFilter.DeckLinkedSortMenuButton?>
 <?import adventure.view.sortFilter.DeckLinkedFilterMenuButton?>
 <?import adventure.view.AdvTooltip?>
-<fx:root type="DeckConstructorPane"
+<fx:root type="DeckConstructorPane" fx:id="mainPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefHeight="900"
          fx:controller="adventure.controller.DeckConstructorPaneController">

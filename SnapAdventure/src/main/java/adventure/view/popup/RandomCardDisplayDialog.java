@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 
@@ -41,6 +42,14 @@ public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Ch
             }
             return null;
         });
+    }
+
+    @Override
+    protected void centerToParent(Window window) {
+        double x = window.getX() + window.getWidth()/8;
+        double y = window.getY() + window.getHeight()/8;
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override

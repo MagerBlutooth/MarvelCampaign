@@ -80,6 +80,7 @@ public class WorldClearSelectNodeController extends FullViewPaneController {
         {
             ConfirmationDialog dialog = new ConfirmationDialog("You have uncollected rewards. Proceed anyway?");
             Optional<ButtonType> result = dialog.showAndWait();
+            dialog.centerToParent(getCurrentScene().getWindow());
             if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.NO)
                 return;
         }

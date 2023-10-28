@@ -6,6 +6,7 @@ import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.Card;

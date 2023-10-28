@@ -7,6 +7,7 @@ import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import snapMain.model.target.Card;
 import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
@@ -46,6 +47,14 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
             }
             return null;
         });
+    }
+
+    @Override
+    protected void centerToParent(Window window) {
+        double x = window.getX() + window.getWidth()/8;
+        double y = window.getY() + window.getHeight()/8;
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override

@@ -7,6 +7,7 @@ import adventure.model.stats.AdvMatchResult;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.node.DeckItemControlNode;
+import adventure.view.pane.DeckConstructorPane;
 import adventure.view.popup.*;
 import adventure.view.sortFilter.DeckLinkedFilterMenuButton;
 import adventure.view.sortFilter.DeckLinkedSortMenuButton;
@@ -42,6 +43,8 @@ import java.util.Optional;
 
 public class DeckConstructorPaneController extends FullViewPaneController implements GridActionController<ActiveCard> {
 
+    @FXML
+    DeckConstructorPane mainPane;
     @FXML
     ToggleButton deckProfile1;
     @FXML
@@ -288,8 +291,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         ActiveCardList deck = deckGridController.getDeck();
         adventure.updateDeckProfiles(deckProfiles, getProfileNum());
         AdvMatchResultPopup resultPopup = new AdvMatchResultPopup();
-        resultPopup.initialize(!deck.hasNoCaptains());
-        resultPopup.centerToParent(getCurrentScene().getWindow());
+        resultPopup.initialize(!deck.hasNoCaptains(), getCurrentScene().getRoot());
         Optional<AdvMatchResult> result = resultPopup.showAndWait();
         if (result.isPresent()) {
             adventure.updateStats(deck, result.get());
@@ -307,7 +309,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
             if (!(exhaustedCards.isEmpty() && recoveredCards.isEmpty())) {
                 CardExhaustionConfirmationDialog cardDisplayConfirmationDialog = new CardExhaustionConfirmationDialog();
                 cardDisplayConfirmationDialog.initialize(mainDatabase, exhaustedCards,
-                        recoveredCards);
+                        recoveredCards, getCurrentScene().getRoot());
                 cardDisplayConfirmationDialog.showAndWait();
             }
             logger.info(deck + getResultString(result.get()));
@@ -322,7 +324,8 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         Optional<ActiveCard> capturingCaptain = captainChoice.showAndWait();
         if (capturingCaptain.isPresent()) {
             CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
-            cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Which card was captured?");
+            cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Which card was captured?",
+                    getCurrentScene().getRoot());
             Optional<ActiveCard> capturedCard = cardSearchSelectDialog.showAndWait();
             if(capturedCard.isPresent())
             {
@@ -337,7 +340,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
 
     private void captureOrWoundCardOption(ActiveCardList deck) {
         WoundCaptureChoiceDialog woundCaptureChoice = new WoundCaptureChoiceDialog();
-        woundCaptureChoice.initialize(mainDatabase, deck);
+        woundCaptureChoice.initialize(mainDatabase, deck, getCurrentScene().getRoot());
         Optional<ActiveCard> targetCard = woundCaptureChoice.showAndWait();
         if (woundCaptureChoice.captureOptionSelected() && targetCard.isPresent()) {
             adventure.captureCard(targetCard.get());

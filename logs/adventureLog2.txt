@@ -1,0 +1,8 @@
+10/28/23 00:35: Deck: [Deadpool,Ghost,Quicksilver,Uatu the Watcher,Quake,Swarm,Mystique,Kingpin,Wong,Shang-Chi,Ka-Zar,Moon Girl] managed to get away safely.
+10/28/23 00:51: Deck: [Deadpool,Ghost,Quicksilver,Uatu the Watcher,Quake,Swarm,Mystique,Kingpin,Wong,Shang-Chi,Ka-Zar,Moon Girl] achieved a decisive victory.
+10/28/23 00:53: Deck: [Deadpool,Ghost,Quicksilver,Uatu the Watcher,Quake,Swarm,Mystique,Kingpin,Wong,Shang-Chi,Ka-Zar,Moon Girl] achieved a decisive victory.
+10/28/23 00:55: Deck: [Deadpool,Ghost,Quicksilver,Uatu the Watcher,Quake,Swarm,Mystique,Kingpin,Wong,Shang-Chi,Ka-Zar,Moon Girl] achieved a decisive victory.
+10/28/23 01:00: Random Mook escaped from world 1
+10/28/23 01:00: Shang-Chi captured
+10/28/23 01:00: Deck: [Deadpool,Ghost,Quicksilver,Uatu the Watcher,Quake,Swarm,Viper,Mystique,Kingpin,Wong,Shang-Chi,Ka-Zar] managed to get away safely.
+10/28/23 01:10: Deck: [Deadpool,Ghost,Quicksilver,Uatu the Watcher,Quake,Swarm,Viper,Mystique,Kingpin,Wong,Shang-Chi,Ka-Zar] achieved a decisive victory.
