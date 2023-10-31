@@ -1,6 +1,7 @@
 package adventure.view.popup;
 
 import adventure.controller.dialog.AdvLocationSearchSelectDialogController;
+import adventure.model.AdventureConstants;
 import adventure.model.target.base.AdvLocation;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.Parent;

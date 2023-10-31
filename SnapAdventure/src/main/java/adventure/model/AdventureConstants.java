@@ -29,4 +29,6 @@ public class AdventureConstants {
     public static final String EMPTY_PROFILE = "Empty";
     public static final String TEMP_FILTER_STRING = "Temp";
     public static final int AVAILABLE_SKIPS = 1;
+
+    public static final int LIMBO_ID = 36;
 }

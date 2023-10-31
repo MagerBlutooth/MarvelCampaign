@@ -176,15 +176,6 @@ public class Section implements Cloneable, SnapTarget {
         rewards.add(infinityStone);
     }
 
-    public boolean hasStationedCards() {
-        return !stationedCards.isEmpty();
-    }
-
-    public boolean hasPickups()
-    {
-        return !getRewards().isEmpty();
-    }
-
     public Enemy getEnemy() {
         return enemy;
     }
@@ -214,8 +205,17 @@ public class Section implements Cloneable, SnapTarget {
 
     public ActiveCardList unstationCards() {
         ActiveCardList unstationingCards = new ActiveCardList();
-        unstationingCards.addAll(stationedCards.getThings());
+        unstationingCards.addAll(stationedCards);
         stationedCards.clear();
         return unstationingCards;
+    }
+
+    public String toString()
+    {
+        if(this instanceof BossSection)
+            return "Boss Section";
+        if(advLocation.isActualThing())
+            return advLocation.toString();
+        return "Section " + sectionNum;
     }
 }

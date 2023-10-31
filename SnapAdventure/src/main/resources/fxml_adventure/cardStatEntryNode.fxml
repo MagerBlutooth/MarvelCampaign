@@ -36,6 +36,10 @@
                 </VBox>
                 <Label fx:id="forceRetreatLabel" styleClass="forceRetreatStyle"/>
             </HBox>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Ties:" id="info"/>
+                <Label fx:id="tieLabel" styleClass="tieStyle"/>
+            </HBox>
         </HBox>
     </VBox>
     <padding>

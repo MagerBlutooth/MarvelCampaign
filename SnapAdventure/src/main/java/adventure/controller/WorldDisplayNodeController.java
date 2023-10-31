@@ -2,8 +2,8 @@ package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.World;
+import adventure.model.adventure.Adventure;
 import adventure.model.target.Enemy;
-import adventure.model.target.BossSection;
 import adventure.model.target.Section;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.SectionControlNode;
@@ -110,8 +110,8 @@ public class WorldDisplayNodeController extends FullViewPaneController {
         bossNode.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY && world.isBossRevealed()) {
                 SectionViewPane bossViewPane = new SectionViewPane();
-                bossViewPane.initialize(mainDatabase, aPane, new BossSection(aPane.getAdventureDatabase(),
-                        bossNode.getSubject()));
+                Adventure adventure = adventurePane.getAdventure();
+                bossViewPane.initialize(mainDatabase, aPane, adventure.getCurrentBossSection());
                 changeScene(bossViewPane);
             }
         });

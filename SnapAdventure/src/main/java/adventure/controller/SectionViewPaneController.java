@@ -202,10 +202,16 @@ public class SectionViewPaneController extends FullViewPaneController {
         changeScene(adventureControlPane);
     }
 
-    private void changeLocation()
-    {
+    private void changeLocation() {
         AdvLocationSearchSelectDialog locationSearchSelectDialog = new AdvLocationSearchSelectDialog();
-        locationSearchSelectDialog.initialize(mainDatabase, new AdvLocationList(adventure.getAvailableLocations()),
+        AdvLocationList selectableLocations = new AdvLocationList(adventure.getAvailableLocations());
+        if (!selectableLocations.contains(AdventureConstants.LIMBO_ID)) {
+            TargetDatabase<AdvLocation> locs = mainDatabase.lookupDatabase(TargetType.LOCATION);
+            AdvLocation l = locs.lookup(AdventureConstants.LIMBO_ID);
+            selectableLocations.add(l);
+        }
+
+        locationSearchSelectDialog.initialize(mainDatabase, selectableLocations,
                 "Choose new location", getCurrentScene().getWindow());
         Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
         if(location.isPresent() && location.get().isActualThing()) {
@@ -311,8 +317,11 @@ public class SectionViewPaneController extends FullViewPaneController {
                 adventure.stationCard(section, card);
                 initializeStations(section);
                 adventureControlPane.refreshToMatch();
-                logger.info(card + " stationed in section" +adventure.getCurrentWorldNum()+"-"
-                        +adventure.getCurrentSectionNum());
+                if(section instanceof BossSection)
+                    logger.info(card +" stationed in world " + adventure.getCurrentWorldNum() + " boss section.");
+                else
+                    logger.info(card + " stationed in section " +adventure.getCurrentWorldNum()+"-"
+                        + adventure.getCurrentSectionNum());
             });
             refocusWindow();
         }

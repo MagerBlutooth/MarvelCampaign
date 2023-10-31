@@ -299,6 +299,8 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
                 ActiveCard captain = captainCaptureOption(deck);
                 if(captain != null) {
                     deck.remove(captain);
+                    captain.setStatus(StatusEffect.EXHAUSTED, false);
+                    captain.setStatus(StatusEffect.RECOVERING, true);
                 }
             }
             captureOrWoundCardOption(deck);
@@ -348,7 +350,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         if (woundCaptureChoice.captureOptionSelected() && targetCard.isPresent()) {
             adventure.captureCard(targetCard.get());
         } else if (woundCaptureChoice.woundOptionSelected() && targetCard.isPresent()) {
-            targetCard.get().setStatus(StatusEffect.WOUND, true);
+            adventure.woundCard(targetCard.get());
         }
     }
 

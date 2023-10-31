@@ -3,6 +3,7 @@ package adventure.model.target;
 import adventure.model.AdventureConstants;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.*;
 
 import java.util.Base64;
@@ -15,6 +16,8 @@ public class ActiveCard implements Playable<Card> {
     Card card;
     ConcurrentHashMap<StatusEffect, Boolean> statusEffectMap;
     boolean temp;
+
+    MLogger logger = new MLogger(ActiveCard.class);
     public ActiveCard()
     {
         statusEffectMap = new ConcurrentHashMap<>();
@@ -50,6 +53,8 @@ public class ActiveCard implements Playable<Card> {
     public void toggleStatus(StatusEffect s)
     {
         statusEffectMap.replace(s, !statusEffectMap.get(s));
+        logger.info(s + " status for " + this + "set to "
+                + hasStatus(s));
     }
 
     public String toSaveString()

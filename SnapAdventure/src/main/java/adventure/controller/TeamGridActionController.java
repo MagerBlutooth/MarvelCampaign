@@ -21,8 +21,6 @@ public class TeamGridActionController implements GridActionController<ActiveCard
     MainDatabase mainDatabase;
     TeamDisplayNodeController teamDisplayNodeController;
 
-    final static MLogger logger = new MLogger(TeamGridActionController.class);
-
     @Override
     public ControlNode<ActiveCard> createControlNode(ActiveCard card, IconImage i, ViewSize v, boolean statusVisible) {
         ActiveCardControlNode node = new ActiveCardControlNode();
@@ -82,43 +80,23 @@ public class TeamGridActionController implements GridActionController<ActiveCard
         setGraphic(tempItem, new ImageView(mainDatabase.grabIcon(IconConstant.TEMP)));
         setGraphic(pigItem, new ImageView(mainDatabase.grabIcon(IconConstant.PIG)));
         setGraphic(raptorItem, new ImageView(mainDatabase.grabIcon(IconConstant.RAPTOR)));
-        eliminateItem.setOnAction(actionEvent -> {
-            teamDisplayNodeController.eliminate(n.getSubject());
-            logger.info(n.getSubject()+ " eliminated!");
-        });
-        captureItem.setOnAction(actionEvent -> { teamDisplayNodeController.capture(n.getSubject());
-            logger.info(n.getSubject()+ " captured!");
-        });
-        miaItem.setOnAction(actionEvent -> {
-            teamDisplayNodeController.sendAway(n.getSubject());
-            logger.info(n.getSubject()+ " sent away to another world!");
-        });
-        tempItem.setOnAction(actionEvent -> {
-            teamDisplayNodeController.teamToTemp(n.getSubject());
-            logger.info(n.getSubject()+ " moved to temp.");
-        });
+        eliminateItem.setOnAction(actionEvent -> teamDisplayNodeController.eliminate(n.getSubject()));
+        captureItem.setOnAction(actionEvent -> teamDisplayNodeController.capture(n.getSubject()));
+        miaItem.setOnAction(actionEvent -> teamDisplayNodeController.sendAway(n.getSubject()));
+        tempItem.setOnAction(actionEvent -> teamDisplayNodeController.teamToTemp(n.getSubject()));
         captainItem.setOnAction(actionEvent -> {
             teamDisplayNodeController.toggleCaptain(n.getSubject());
             createContextMenu(n);
-            logger.info(n.getSubject()+ "'s captain status set to "
-                    + n.getSubject().hasStatus(StatusEffect.CAPTAIN));
         });
         pigItem.setOnAction(actionEvent -> {
             teamDisplayNodeController.togglePig(n.getSubject());
             createContextMenu(n);
-            logger.info(n.getSubject()+ "'s pig status set to "
-                    + n.getSubject().hasStatus(StatusEffect.PIG));
         });
         raptorItem.setOnAction(actionEvent -> {
             teamDisplayNodeController.toggleRaptor(n.getSubject());
             createContextMenu(n);
-            logger.info(n.getSubject()+ "'s raptor status set to "
-                    + n.getSubject().hasStatus(StatusEffect.RAPTOR));
         });
-        defectItem.setOnAction(actionEvent -> {
-            teamDisplayNodeController.makeCardFreeAgent(n.getSubject());
-            logger.info(n.getSubject()+ " defected to the enemy side!");
-        });
+        defectItem.setOnAction(actionEvent -> teamDisplayNodeController.makeCardFreeAgent(n.getSubject()));
         contextMenu.getItems().add(woundItem);
         contextMenu.getItems().add(eliminateItem);
         contextMenu.getItems().add(captureItem);
@@ -146,8 +124,6 @@ public class TeamGridActionController implements GridActionController<ActiveCard
         woundItem.setOnAction(actionEvent -> {
             teamDisplayNodeController.toggleWound(c);
             setWoundItem(n);
-            logger.info(n.getSubject()+ "'s wound status set to "
-                    + n.getSubject().hasStatus(StatusEffect.WOUND));
         });
         return woundItem;
     }

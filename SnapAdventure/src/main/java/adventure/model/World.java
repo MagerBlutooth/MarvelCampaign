@@ -166,19 +166,13 @@ public class World implements Cloneable{
     }
 
     public Section getSection(int sectionNum) {
-        switch(sectionNum)
-        {
-            case 1:
-                return section1;
-            case 2:
-                return section2;
-            case 3:
-                return section3;
-            case 4:
-                return section4;
-            default:
-                return bossSection;
-        }
+        return switch (sectionNum) {
+            case 1 -> section1;
+            case 2 -> section2;
+            case 3 -> section3;
+            case 4 -> section4;
+            default -> bossSection;
+        };
     }
 
     public void clearSection(int sectionNum)
@@ -305,5 +299,9 @@ public class World implements Cloneable{
     public String getWorldPlayTimeString()
     {
         return timeKeeper.getTotalPlayTime();
+    }
+
+    public Section getBossSection() {
+        return bossSection;
     }
 }
