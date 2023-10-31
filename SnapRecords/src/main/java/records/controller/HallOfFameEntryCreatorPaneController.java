@@ -164,7 +164,7 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
     public void convertDeckCodeToClipboard()
     {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
-        codeConverter.encodeDeckToClipboard(hallOfFameEntry.getCards());
+        codeConverter.encodeDeckToClipboard(nameBar.getText(), hallOfFameEntry.getCards());
     }
 
 

@@ -103,6 +103,7 @@ public class ProfileNodeController {
     public void deleteProfile() {
         ConfirmationDialog dialog = new ConfirmationDialog("Are you sure you want to delete Profile " +
                 profileNumberLabel.getText()+"?");
+        dialog.centerToParent(worldLabel.getScene().getWindow());
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES) {
             File file = new File(profile.getProfileFile());

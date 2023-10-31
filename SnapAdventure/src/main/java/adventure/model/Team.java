@@ -2,6 +2,7 @@ package adventure.model;
 
 import adventure.model.target.*;
 import snapMain.model.constants.SnapMainConstants;
+import snapMain.model.logger.MLogger;
 import snapMain.model.target.Card;
 import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetList;
@@ -20,6 +21,8 @@ public class Team {
     ActiveCardList miaCards;
     ActiveCardList eliminatedCards;
     InfinityStoneList infinityStones;
+
+    MLogger logger = new MLogger(Team.class);
 
     public Team() {
         teamCards = new ActiveCardList();
@@ -82,10 +85,12 @@ public class Team {
         if (teamCards.contains(card)) {
             capturedCards.add(card);
             teamCards.remove(card);
+            logger.info(card + " captured!");
         }
         if (tempCards.contains(card)) {
             makeCardFreeAgent(card);
             tempCards.remove(card);
+            logger.info(card + " captured!");
         }
     }
 
@@ -93,6 +98,7 @@ public class Team {
         if (capturedCards.contains(card)) {
             teamCards.add(card);
             capturedCards.remove(card);
+            logger.info(card + " freed!");
         }
     }
 
@@ -101,6 +107,7 @@ public class Team {
             freeAgentCards.add(card);
             teamCards.remove(card);
             tempCards.remove(card);
+            logger.info(card+ " defected to the enemy side!");
         }
     }
 
@@ -111,6 +118,7 @@ public class Team {
             eliminatedCards.add(card);
             teamCards.remove(card);
             tempCards.remove(card);
+            logger.info(card+ " eliminated!");
         }
     }
 
@@ -118,6 +126,7 @@ public class Team {
         if (eliminatedCards.contains(card)) {
             teamCards.add(card);
             eliminatedCards.remove(card);
+            logger.info(card+ " revived!");
         }
     }
 
@@ -127,6 +136,7 @@ public class Team {
             miaCards.remove(card);
             capturedCards.remove(card);
             eliminatedCards.remove(card);
+            logger.info(card+ " returned to team");
             return true;
         }
         return false;
@@ -137,6 +147,7 @@ public class Team {
         if (teamCards.contains(card)) {
             miaCards.add(card);
             teamCards.remove(card);
+            logger.info(card+ " sent away!");
         }
     }
 
@@ -173,6 +184,7 @@ public class Team {
         ActiveCard card = teamCards.get(c);
         if (card != null) {
             card.setStatus(StatusEffect.WOUND, false);
+            logger.info(card+ "'s wounds healed!");
         }
     }
 
@@ -188,6 +200,7 @@ public class Team {
     public void stationCard(Section s, ActiveCard c) {
         if (s.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             s.stationCard(c);
+            logger.info(c+ " stationed in "+s);
             teamCards.remove(c);
         }
     }
@@ -249,6 +262,7 @@ public class Team {
         if (removed) {
             c.setTemp(true);
             tempCards.add(c);
+            logger.info(c+ " moved to temp.");
         }
     }
 
@@ -287,5 +301,13 @@ public class Team {
         Random random = new Random();
         int i = random.nextInt(infinityStones.size());
         return infinityStones.get(i);
+    }
+
+    public void woundCard(ActiveCard c) {
+        ActiveCard woundedCard;
+        woundedCard = getTeamCards().lookupActiveCard(c.getID());
+        if(!woundedCard.isActualThing())
+            woundedCard = getTempCards().lookupActiveCard(c.getID());
+        woundedCard.setStatus(StatusEffect.WOUND, true);
     }
 }

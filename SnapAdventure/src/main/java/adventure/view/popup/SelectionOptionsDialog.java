@@ -3,9 +3,11 @@ package adventure.view.popup;
 import adventure.controller.SelectionOptionDialogController;
 import adventure.model.target.ActiveCard;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import snapMain.model.target.TargetList;
 
 public class SelectionOptionsDialog extends AdvDialog<TargetList<ActiveCard>> {
@@ -20,8 +22,9 @@ public class SelectionOptionsDialog extends AdvDialog<TargetList<ActiveCard>> {
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(TargetList<ActiveCard> freeAgents, boolean multiSelect)
+    public void initialize(TargetList<ActiveCard> freeAgents, boolean multiSelect, Window owner)
     {
+        super.initialize(owner);
         controller.initialize(freeAgents, multiSelect);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {

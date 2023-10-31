@@ -4,10 +4,12 @@ import adventure.controller.dialog.CardGeneratorDialogController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class CardGeneratorDialog extends AdvDialog<ActiveCardList> {
 
@@ -20,8 +22,9 @@ public class CardGeneratorDialog extends AdvDialog<ActiveCardList> {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase cd, ActiveCardList selectables)
+    public void initialize(AdvMainDatabase cd, ActiveCardList selectables, Window window)
     {
+        super.initialize(window);
         controller.initialize(cd, this, selectables);
         setResultConverter(dialogButton -> {
             if (dialogButton.getButtonData() == ButtonBar.ButtonData.OK_DONE) {

@@ -29,6 +29,8 @@ public class CardStatEntryNode extends StackPane {
     Label escapeLabel;
     @FXML
     Label forceRetreatLabel;
+    @FXML
+    Label tieLabel;
 
     public CardStatEntryNode() {
         FXMLAdventureGrabber adventureGrabber = new FXMLAdventureGrabber();
@@ -46,6 +48,7 @@ public class CardStatEntryNode extends StackPane {
         lossLabel.setText(stats.lookupStat(AdvMatchResult.LOSE) + "");
         escapeLabel.setText(stats.lookupStat(AdvMatchResult.ESCAPE) + "");
         forceRetreatLabel.setText(stats.lookupStat(AdvMatchResult.FORCE_RETREAT) + "");
+        tieLabel.setText(stats.lookupStat(AdvMatchResult.TIE)+"");
     }
 
 }

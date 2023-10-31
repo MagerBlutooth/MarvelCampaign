@@ -7,6 +7,7 @@ import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import snapMain.model.target.Card;
 import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
@@ -30,8 +31,10 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
         controller.initialize(mainDatabase, this, things, type);
         primeOKButton();
     }
-    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type, String header)
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type, String header,
+                           Window owner)
     {
+        super.initialize(owner);
         controller.initialize(mainDatabase, this, things, type, header);
         primeOKButton();
 
@@ -47,10 +50,14 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
             return null;
         });
     }
-
     @Override
     public void setChoice(T subject) {
         controller.setChoice(subject);
+        enableOKButton();
+    }
+
+    @Override
+    public void enableOKButton() {
         okButton.setDisable(false);
     }
 }

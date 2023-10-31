@@ -17,6 +17,11 @@ public abstract class FullViewPaneController extends BasePaneController<AdvMainD
         primaryWindow.centerOnScreen();
     }
 
+    protected void refocusWindow() {
+        BasicStage thisWindow = (BasicStage) getCurrentScene().getWindow();
+        thisWindow.makeDraggable(getCurrentScene().getRoot());
+    }
+
     public void initialize(AdvMainDatabase controllerDatabase)
     {
         this.mainDatabase = controllerDatabase;

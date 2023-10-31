@@ -5,19 +5,11 @@ import adventure.model.AdvProfile;
 import adventure.model.adventure.Adventure;
 import adventure.view.node.ProfileNode;
 import adventure.view.pane.*;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import snapMain.model.logger.MLogger;
 import snapMain.view.button.ButtonToolBar;
 import snapMain.view.pane.FullViewPane;
-
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.concurrent.ConcurrentHashMap;
-
-import static adventure.model.AdventureConstants.EMPTY_PROFILE;
 
 public class StartPaneController extends FullViewPaneController {
 
@@ -32,8 +24,7 @@ public class StartPaneController extends FullViewPaneController {
     @FXML
     ProfileNode profile3;
 
-    public void initialize(AdvMainDatabase dB)
-    {
+    public void initialize(AdvMainDatabase dB) {
         mainDatabase = dB;
         initializeButtonToolBar();
         initializeProfiles();
@@ -64,59 +55,26 @@ public class StartPaneController extends FullViewPaneController {
         proNode.generateAdventure(mainDatabase, profile, num);
     }
 
-    private Adventure selectAdventure(ProfileNode proNode)
-    {
+    private Adventure selectAdventure(ProfileNode proNode) {
         return proNode.getAdventure();
     }
 
     private void startAdventure(ProfileNode proNode) {
         Adventure adventure = selectAdventure(proNode);
-        buttonToolBar.setDisable(true);
-        final FullViewPane[] newPane = new FullViewPane[1];
 
-        if(!adventure.isNewProfile() && adventure.failStateCheck())
-        {
+        if (!adventure.isNewProfile() && adventure.failStateCheck()) {
             AdventureFailPane adventureFailPane = new AdventureFailPane();
             adventureFailPane.initialize(mainDatabase, adventure);
             changeScene(adventureFailPane);
-            return;
+        } else if (adventure.isNewProfile()) {
+            AdvNewProfileOptionsPane profileOptionsPane = new AdvNewProfileOptionsPane();
+            profileOptionsPane.initialize(mainDatabase, adventure, advStartPane);
+            changeScene(profileOptionsPane);
+        } else {
+            AdventureControlPane adventureControlPane = new AdventureControlPane();
+            adventureControlPane.initialize(mainDatabase, adventure);
+            changeScene(adventureControlPane);
         }
-        Task<FullViewPane> task = new Task<>() {
-            @Override
-            public boolean isCancelled() {
-                return super.isCancelled();
-            }
-
-            @Override
-            public FullViewPane call() {
-                if(adventure.isNewProfile())
-                {
-                    AdvNewProfileOptionsPane profileOptionsPane = new AdvNewProfileOptionsPane();
-                    profileOptionsPane.initialize(mainDatabase, adventure, advStartPane);
-                    newPane[0] = profileOptionsPane;
-                }
-                else
-                {
-                    AdventureControlPane adventureControlPane = new AdventureControlPane();
-                    adventureControlPane.initialize(mainDatabase, adventure);
-                    newPane[0] = adventureControlPane;
-                }
-                return newPane[0];
-            }
-
-        };
-        getCurrentScene().setCursor(Cursor.WAIT);
-        task.setOnSucceeded(t -> {
-            newPane[0] = task.getValue();
-            changeScene(newPane[0]);
-            newPane[0].setCursor(Cursor.DEFAULT);
-        });
-        task.setOnFailed(t -> {
-            System.out.println("Help");
-            if(task.isRunning())
-                task.cancel();
-        });
-        new Thread(task).start();
     }
 
     @Override

@@ -1,0 +1,4 @@
+10/31/23 00:55: Drafted Mister Fantastic to team.
+10/31/23 01:19: Bucky Barnes captured
+10/31/23 01:19: Deck: [Nebula,Nightcrawler,Bucky Barnes,Carnage,Mister Fantastic,Daken,Negasonic Teenage Warhead,Maximus,Hobgoblin,Nimrod,Arnim Zola,Death] managed to get away safely.
+10/31/23 01:19: Client closed

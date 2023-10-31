@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
@@ -26,8 +27,9 @@ public class DraftDialog extends AdvDialog<ActiveCard> implements Choosable<Acti
         controller = adventureGrabber.getController();
     }
 
-    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectables)
+    public void initialize(MainDatabase cd, TargetList<ActiveCard> selectables, Window owner)
     {
+        super.initialize(owner);
         controller.initialize(cd, this, selectables, TargetType.CARD);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
@@ -42,6 +44,11 @@ public class DraftDialog extends AdvDialog<ActiveCard> implements Choosable<Acti
     @Override
     public void setChoice(ActiveCard card) {
         controller.setChoice(card);
+        enableOKButton();
+    }
+
+    @Override
+    public void enableOKButton() {
         okButton.setDisable(false);
     }
 

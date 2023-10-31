@@ -211,7 +211,8 @@ public class Adventure {
 
     public void completeCurrentWorld() {
         team.exhaustedCardsRecover();
-        reclaimCards();
+        //reclaimCards(); Don't need this second call since the cards are relcaimed as part of a different method.
+        //Might need the call if completeCurrentWorld is called by another method.
 
         team.tempCardsExpire();
         if (currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
@@ -221,7 +222,7 @@ public class Adventure {
             currentWorldNum++;
             worlds.add(new World(adventureDatabase));
         }
-        logInfo("World" + getCurrentWorldNum()
+        logInfo("World " + getCurrentWorldNum()
                 + " completed!");
     }
 
@@ -234,8 +235,8 @@ public class Adventure {
 
     public ActiveCardList getTeamAndTempCards() {
         ActiveCardList active = new ActiveCardList(new ArrayList<>());
-        active.addAll(team.getTeamCards().getThings());
-        active.addAll(team.getTempCards().getThings());
+        active.addAll(team.getTeamCards());
+        active.addAll(team.getTempCards());
         return active;
     }
 
@@ -246,7 +247,7 @@ public class Adventure {
     public ActiveCardList getStationedCards() {
         ActiveCardList stationedCards = new ActiveCardList(new ArrayList<>());
         for (Section s : getCurrentWorld().getSections()) {
-            stationedCards.addAll(s.getStationedCards().getThings());
+            stationedCards.addAll(s.getStationedCards());
         }
         return stationedCards;
     }
@@ -453,6 +454,7 @@ public class Adventure {
             if (e.getValue() && deck.contains(e.getKey()))
                 newlyExhaustedCards.add(e.getKey());
         }
+        logger.info(newlyExhaustedCards + " exhausted.");
         return newlyExhaustedCards;
     }
 
@@ -474,8 +476,8 @@ public class Adventure {
 
     public ActiveCardList reclaimCards() {
         ActiveCardList reclaimedCards = new ActiveCardList();
-        reclaimedCards.addAll(team.retrieveMIACards(miaCardTracker, getCurrentWorldNum() + 1).getThings());
-        reclaimedCards.addAll(team.retrieveCapturedCards().getThings());
+        reclaimedCards.addAll(team.retrieveMIACards(miaCardTracker, getCurrentWorldNum() + 1));
+        reclaimedCards.addAll(team.retrieveCapturedCards());
         reclaimedCards.addAll(getCurrentWorld().retrieveStationedCards());
         return reclaimedCards;
     }
@@ -494,19 +496,35 @@ public class Adventure {
     public boolean failStateCheck() {
         ActiveCardList teamCards = getTeamCards();
         ActiveCardList activeCards = getActiveCards();
-        return activeCards.size() < SnapMainConstants.DECK_SIZE || teamCards.hasNoCaptains();
+        if(activeCards.size() < SnapMainConstants.DECK_SIZE) {
+            logger.info("Adventure Failed. Not enough active cards to continue.");
+            return true;
+        }
+        if(teamCards.hasNoCaptains())
+        {
+            logger.info("Adventure failed! No captains remaining on team.");
+            return true;
+        }
+        return false;
     }
 
-    private void createFinalWorld() {
-        if(worlds.size() == AdventureConstants.NUMBER_OF_WORLDS)
+    private void initializeFinalWorld() {
+        if(getCurrentWorldNum() == AdventureConstants.NUMBER_OF_WORLDS)
         {
             worlds.add(new FinalWorld(adventureDatabase, team.getFreeAgents(), availableLocations));
+            logger.info("Final World unlocked.");
+        }
+        else if(getCurrentWorldNum() < AdventureConstants.NUMBER_OF_WORLDS)
+        {
+            World finalWorld = worlds.get(AdventureConstants.NUMBER_OF_WORLDS);
+            finalWorld.initialize(team.getFreeAgents());
         }
     }
 
     public Enemy getFinalBoss() {
-        if(worlds.size() == AdventureConstants.NUMBER_OF_WORLDS)
-            createFinalWorld();
+        Enemy enemy = worlds.get(AdventureConstants.NUMBER_OF_WORLDS).getBoss();
+        if(!enemy.isActualThing())
+            initializeFinalWorld();
         return worlds.get(AdventureConstants.NUMBER_OF_WORLDS).getBoss();
     }
 
@@ -546,5 +564,14 @@ public class Adventure {
 
     public String getCurrentWorldPlayTime() {
         return getCurrentWorld().getWorldPlayTimeString();
+    }
+
+    public void woundCard(ActiveCard c)
+    {
+        team.woundCard(c);
+    }
+
+    public Section getCurrentBossSection() {
+        return getCurrentWorld().getBossSection();
     }
 }

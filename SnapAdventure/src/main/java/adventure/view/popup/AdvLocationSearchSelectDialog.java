@@ -1,11 +1,14 @@
 package adventure.view.popup;
 
 import adventure.controller.dialog.AdvLocationSearchSelectDialogController;
+import adventure.model.AdventureConstants;
 import adventure.model.target.base.AdvLocation;
 import adventure.view.fxml.FXMLAdventureGrabber;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.*;
 
@@ -22,8 +25,9 @@ public class AdvLocationSearchSelectDialog extends AdvDialog<AdvLocation>
         fxmlMainGrabber.grabFXML("advLocationSearchSelectDialog.fxml", this.getDialogPane());
         controller = fxmlMainGrabber.getController();
     }
-    public void initialize(MainDatabase cd, TargetList<AdvLocation> selectableLocs, String header)
+    public void initialize(MainDatabase cd, TargetList<AdvLocation> selectableLocs, String header, Window owner)
     {
+        super.initialize(owner);
         controller.initialize(cd, this, selectableLocs, header);
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
@@ -37,6 +41,11 @@ public class AdvLocationSearchSelectDialog extends AdvDialog<AdvLocation>
 
     public void setChoice(AdvLocation loc) {
         controller.setChoice(loc);
+        okButton.setDisable(false);
+    }
+
+    @Override
+    public void enableOKButton() {
         okButton.setDisable(false);
     }
 
