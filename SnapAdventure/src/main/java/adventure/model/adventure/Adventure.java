@@ -58,7 +58,6 @@ public class Adventure {
 
     public void initialize(AdvMainDatabase db, int numTeamMembers, int numTeamCaptains, Difficulty d) {
         difficulty = d;
-        generateAdventure(db, numTeamMembers, numTeamCaptains);
     }
 
     public List<String> convertToString() {

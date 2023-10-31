@@ -231,5 +231,4 @@ public class TeamDisplayNodeController {
         team.fromTeamToTemp(subject);
         adventureControlPane.refreshToMatch();
     }
-
 }

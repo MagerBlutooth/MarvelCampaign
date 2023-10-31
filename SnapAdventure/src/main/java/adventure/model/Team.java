@@ -92,6 +92,11 @@ public class Team {
             tempCards.remove(card);
             logger.info(card + " captured!");
         }
+        if(tempCards.contains(card))
+        {
+            makeCardFreeAgent(card);
+            tempCards.remove(card);
+        }
     }
 
     public void freeCapturedCard(ActiveCard card) {
@@ -111,9 +116,17 @@ public class Team {
         }
     }
 
+    public void makeCardFreeAgent(Card card)
+    {
+        if(activeCards.contains(card) || tempCards.contains(card)) {
+            freeAgentCards.add(card);
+            activeCards.remove(card);
+            tempCards.remove(card);
+        }
+    }
+
 
     public void eliminateCard(ActiveCard card) {
-
         if (teamCards.contains(card) || tempCards.contains(card)) {
             eliminatedCards.add(card);
             teamCards.remove(card);

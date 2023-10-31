@@ -37,7 +37,11 @@ public class BasicStage extends Stage{
 
     private void setRoot(Parent root)
     {
-        Scene scene = new Scene(root);
+        Scene scene;
+        if(root.getScene() != null)
+            scene = root.getScene();
+        else
+            scene = new Scene(root);
         setScene(scene);
     }
 
