@@ -33,7 +33,6 @@ public class RandomCardDisplayDialog extends AdvDialog<ActiveCard> implements Ch
     {
         ActiveCardList selectionArray = new ActiveCardList(new ArrayList<>());
         okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
-        okButton.setDisable(true);
         selectionArray.add(selection);
         controller.initialize(cd, this, selectionArray, TargetType.CARD, header);
         setResultConverter(dialogButton -> {

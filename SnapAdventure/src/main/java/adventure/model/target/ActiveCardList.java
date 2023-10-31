@@ -171,7 +171,8 @@ public class ActiveCardList extends TargetList<ActiveCard> {
             stringBuilder.append(c);
             stringBuilder.append(",");
         }
-        stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(","));
+        if(!this.isEmpty())
+            stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(","));
         stringBuilder.append("]");
         return stringBuilder.toString();
     }

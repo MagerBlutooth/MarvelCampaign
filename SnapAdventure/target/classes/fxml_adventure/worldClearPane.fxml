@@ -39,7 +39,7 @@
                 </HBox>
                 <HBox alignment="BOTTOM_CENTER" spacing="10.0">
                     <Label fx:id="tieCount" styleClass="tieStyle"/>
-                    <Label text="  escapes" id="info"/>
+                    <Label text="  ties" id="info"/>
                 </HBox>
             </HBox>
         </VBox>

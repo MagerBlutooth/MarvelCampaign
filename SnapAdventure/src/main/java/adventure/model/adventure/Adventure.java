@@ -211,7 +211,8 @@ public class Adventure {
 
     public void completeCurrentWorld() {
         team.exhaustedCardsRecover();
-        reclaimCards();
+        //reclaimCards(); Don't need this second call since the cards are relcaimed as part of a different method.
+        //Might need the call if completeCurrentWorld is called by another method.
 
         team.tempCardsExpire();
         if (currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
@@ -221,7 +222,7 @@ public class Adventure {
             currentWorldNum++;
             worlds.add(new World(adventureDatabase));
         }
-        logInfo("World" + getCurrentWorldNum()
+        logInfo("World " + getCurrentWorldNum()
                 + " completed!");
     }
 

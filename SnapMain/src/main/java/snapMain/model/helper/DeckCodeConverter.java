@@ -11,6 +11,8 @@ import java.util.Base64;
 
 public class DeckCodeConverter {
 
+    CardNameTranslator cardNameTranslator = new CardNameTranslator();
+
     public CardList convertDeckCodeToDeck(TargetDatabase<Card> cardDatabase, String deckCode)
     {
         CardList cards = new CardList(new ArrayList<>());
@@ -34,7 +36,7 @@ public class DeckCodeConverter {
         {
             stringBuilder.append("# (").append(card.getCost()).append(") ").append(card.getName()).append("\n");
         }
-        stringBuilder.append("# \n");
+        stringBuilder.append("#\n");
         stringBuilder.append(createEncodedString(name, deck)).append("\n");
         stringBuilder.append("#\n");
         stringBuilder.append("# To use this deck, copy it to your clipboard and paste it from the deck editing menu in Snap.");
@@ -46,11 +48,10 @@ public class DeckCodeConverter {
 
     private String createEncodedString(String name, CardList deck) {
         StringBuilder encodedString = new StringBuilder();
-        encodedString.append("{\"Name\":\""+name+"\",");
-        encodedString.append("\"Cards\":[");
+        encodedString.append("{\"Cards\":[");
         for(Card card: deck)
         {
-            String cardSimpleName = StringHelper.displayFormat(card.getName());
+            String cardSimpleName = cardNameTranslator.translateName(card.getName());
             encodedString.append("{\"CardDefId\":\"").append(cardSimpleName).append("\"},");
         }
         encodedString.replace(encodedString.length()-1, encodedString.length(), "");

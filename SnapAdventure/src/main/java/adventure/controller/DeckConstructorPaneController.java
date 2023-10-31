@@ -299,7 +299,6 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
                 ActiveCard captain = captainCaptureOption(deck);
                 if(captain != null) {
                     deck.remove(captain);
-                    captain.setStatus(StatusEffect.RECOVERING, true);
                 }
             }
             captureOrWoundCardOption(deck);
