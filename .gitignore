@@ -1,3 +1,9 @@
 logs/
 profiles/
 target/
+bin/
+.idea
+*.iws
+*.iml
+*.ipr
+*.class
