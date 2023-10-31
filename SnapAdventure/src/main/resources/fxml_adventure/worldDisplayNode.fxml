@@ -1,17 +1,17 @@
+<?import adventure.view.node.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import adventure.view.node.WorldDisplayNode?>
 <?import javafx.scene.control.Label?>
-<?import adventure.view.node.SectionControlNode?>
-<?import adventure.view.node.BossControlNode?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <fx:root type="WorldDisplayNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.WorldDisplayNodeController">
     <VBox alignment="CENTER">
         <VBox alignment="CENTER">
-            <Label fx:id="worldLabel" text="" alignment="CENTER"/>
-            <BossControlNode fx:id="bossNode"/>
+            <Label fx:id="worldLabel" alignment="CENTER" id="subtitle"/>
+            <HBox alignment="CENTER">
+                <EnemyControlNode fx:id="bossControlNode"/>
+            </HBox>
             <HBox spacing="20.0" alignment="CENTER">
                 <SectionControlNode fx:id="section1Node"/>
                 <SectionControlNode fx:id="section2Node"/>

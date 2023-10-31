@@ -1,0 +1,25 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import snapMain.view.node.GridDisplayNode?>
+<fx:root type="DialogPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
+         fx:controller="adventure.controller.dialog.SimpleChooserDialogController">
+    <content>
+        <VBox alignment="CENTER" spacing="10.0">
+            <Label fx:id="headerLabel" text="Choose"/>
+            <StackPane fx:id="displayPane" maxWidth="200" maxHeight="200"/>
+            <GridDisplayNode fx:id="choiceNodes"/>
+            <padding>
+                <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
+            </padding>
+        </VBox>
+    </content>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+    <ButtonType fx:constant="OK" fx:id="okButton"/>
+    <ButtonType fx:id="cancelButton" text="Skip" buttonData="CANCEL_CLOSE"/>
+</fx:root>

@@ -1,0 +1,33 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextField?>
+<?import snapMain.view.node.GridDisplayNode?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Label?>
+<fx:root type="DialogPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"
+         fx:controller="adventure.controller.dialog.CardGainSearchSelectDialogController">
+    <content>
+        <VBox alignment="CENTER" spacing="10.0">
+            <Label fx:id="headerLabel"/>
+            <StackPane fx:id="displayPane"/>
+            <TextField fx:id="searchBar"/>
+            <GridDisplayNode fx:id="choiceNodes"/>
+            <HBox alignment="CENTER">
+                <ToggleButton fx:id="toTeamButton" text="To Team"/>
+                <ToggleButton fx:id="toTempButton" text="To Temp"/>
+            </HBox>
+            <padding>
+                <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
+            </padding>
+        </VBox>
+    </content>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+    <ButtonType fx:constant="OK" fx:id="okButton"/>
+    <ButtonType fx:id="cancelButton" text="Cancel" buttonData="CANCEL_CLOSE"/>
+</fx:root>

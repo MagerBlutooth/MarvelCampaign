@@ -1,43 +1,76 @@
 package adventure.view.node;
 
-import adventure.model.Section;
-import campaign.controller.MainDatabase;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.control.ControlNode;
+import adventure.model.target.Section;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
+import javafx.scene.paint.Color;
+import snapMain.controller.MainDatabase;
+import snapMain.model.target.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 
 public class SectionControlNode extends ControlNode<Section> {
 
-    boolean revealed;
-
     @Override
-        public void initialize(MainDatabase db, Section s, IconImage i, ViewSize v, boolean revealed) {
+        public void initialize(MainDatabase db, Section s, IconImage i, ViewSize v, boolean isCurrent) {
             mainDatabase = db;
-            thingType = ThingType.LOCATION;
+            targetType = TargetType.LOCATION;
             subject = s;
             imageView.setImage(i);
             imageView.setFitWidth(v.getSizeVal());
             imageView.setFitHeight(v.getSizeVal());
-            setEnabled(s.isEnabled());
-            if(!revealed)
+            if(!s.isRevealed())
                 unreveal();
-        }
-        public void toggleReveal()
-        {
-            if(revealed)
-                unreveal();
+            if(s.isCompleted())
+                complete();
             else
-                reveal();
+                incomplete();
+            setCurrentGlow(isCurrent);
         }
 
     public void unreveal() {
-        imageView.setImage(mainDatabase.grabBlankImage(ThingType.LOCATION));
-        revealed = false;
+        imageView.setImage(mainDatabase.grabBlankImage(TargetType.LOCATION));
     }
 
+    private void complete()
+    {
+        lowlight();
+    }
+
+    private void incomplete() {
+        highlight();
+    }
+
+
     public void reveal() {
-        imageView.setImage(mainDatabase.grabImage(subject, ThingType.LOCATION));
-        revealed = true;
+        imageView.setImage(mainDatabase.grabImage(subject.getLocation()));
+    }
+
+    public void refresh(Section s, boolean current) {
+        IconImage i = mainDatabase.grabImage(s.getLocation());
+        subject = s;
+        imageView.setImage(i);
+        if(!subject.isRevealed())
+            unreveal();
+        else
+            reveal();
+        if(subject.isCompleted())
+            complete();
+        else
+            incomplete();
+        setCurrentGlow(current);
+    }
+
+    public void setCurrentGlow(boolean isCurrent)
+    {
+        if(isCurrent) {
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.WHITE);
+            glow.setRadius(50.0);
+            setEffect(glow);
+        }
+        else
+            setEffect(null);
     }
 }

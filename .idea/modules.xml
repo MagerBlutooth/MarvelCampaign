@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SnapCampaign/SnapCampaign.iml" filepath="$PROJECT_DIR$/SnapCampaign/SnapCampaign.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SnapMain/SnapMain.iml" filepath="$PROJECT_DIR$/SnapMain/SnapMain.iml" />
     </modules>
   </component>
 </project>

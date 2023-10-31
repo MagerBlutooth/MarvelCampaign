@@ -1,0 +1,48 @@
+<?import adventure.view.node.CardStatEntryNode?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import snapMain.view.thing.CardView?>
+<?import javafx.geometry.Insets?>
+<fx:root type="CardStatEntryNode"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/editorStyle.css" id="selectBox" minWidth="800">
+    <VBox spacing="20.0" alignment="CENTER_LEFT">
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label fx:id="rankLabel" id="subtitle"/>
+            <Label fx:id="nameLabel" id="info"/>
+            <CardView fx:id="cardView"/>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Matches: " id="info"/>
+                <Label fx:id="matchLabel"/>
+            </HBox>
+        </HBox>
+        <HBox spacing="30.0" alignment="CENTER_LEFT">
+            <HBox spacing="10.0">
+                <Label text="Wins: " id="info"/>
+                <Label fx:id="winLabel" styleClass="winStyle"/>
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Escapes: " id="info"/>
+                <Label fx:id="escapeLabel" styleClass="escapeStyle"/>
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Losses: " id="info"/>
+                <Label fx:id="lossLabel" styleClass="lossStyle"/>
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <VBox spacing="5.0">
+                    <Label text="Forced" id="info"/>
+                    <Label text="Retreats:" id="info"/>
+                </VBox>
+                <Label fx:id="forceRetreatLabel" styleClass="forceRetreatStyle"/>
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Ties:" id="info"/>
+                <Label fx:id="tieLabel" styleClass="tieStyle"/>
+            </HBox>
+        </HBox>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+    </padding>
+</fx:root>

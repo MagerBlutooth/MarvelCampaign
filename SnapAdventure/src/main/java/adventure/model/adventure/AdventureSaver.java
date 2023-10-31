@@ -1,7 +1,6 @@
 package adventure.model.adventure;
 
-import campaign.model.constants.CampaignConstants;
-import com.opencsv.CSVWriter;
+import snapMain.model.constants.SnapMainConstants;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -30,7 +29,7 @@ public class AdventureSaver {
             writer = new FileWriter(saveFile);
             List<String> adventureString = adventure.convertToString();
             for(String s: adventureString) {
-                writer.write(s+ CampaignConstants.CSV_SEPARATOR);
+                writer.write(s+ SnapMainConstants.CSV_SEPARATOR);
             }
             writer.close();
         } catch (IOException e) {

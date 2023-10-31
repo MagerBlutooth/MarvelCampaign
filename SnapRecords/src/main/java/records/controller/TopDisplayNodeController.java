@@ -1,12 +1,11 @@
 package records.controller;
 
-import campaign.controller.MainDatabase;
+import snapMain.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
 import javafx.util.Pair;
-import campaign.model.thing.Card;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
+import snapMain.model.target.Card;
+import snapMain.view.IconImage;
 import records.model.HallOfFameEntry;
 import records.view.TopDisplayEntry;
 
@@ -14,8 +13,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import static campaign.model.constants.CampaignConstants.BASIC_COST_MAX;
-import static campaign.model.constants.CampaignConstants.BASIC_COST_MIN;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MAX;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MIN;
 
 public class TopDisplayNodeController {
 
@@ -65,7 +64,7 @@ public class TopDisplayNodeController {
         List<Pair<IconImage, Integer>> iconImages = new ArrayList<>();
         for (Map.Entry<Card,Integer> e : cards)
         {
-            IconImage iconImage = mainDatabase.grabImage(e.getKey(), ThingType.CARD);
+            IconImage iconImage = mainDatabase.grabImage(e.getKey());
             iconImages.add(new Pair<>(iconImage, e.getValue()));
         }
         entry.initialize(cost, iconImages);

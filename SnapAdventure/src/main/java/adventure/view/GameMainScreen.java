@@ -1,21 +1,19 @@
 package adventure.view;
 
+import adventure.controller.MainMenuController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.model.database.MasterThingDatabase;
-import campaign.view.GameStage;
-import campaign.view.SplashScreen;
-import campaign.view.fxml.FXMLCampaignGrabber;
-import campaign.view.fxml.FXMLGrabber;
+import adventure.view.pane.AdvMainMenuPane;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
-import adventure.controller.AdvMainMenuController;
-import adventure.view.pane.AdvMainMenuPane;
+import snapMain.model.database.MasterThingDatabase;
+import snapMain.view.GameStage;
+import snapMain.view.SplashScreen;
 
 import static adventure.view.GameMain.isSplashLoaded;
 
 public class GameMainScreen extends GameStage {
-    AdvMainMenuController controller;
+    MainMenuController controller;
 
     AdvMainMenuPane mainPane;
 
@@ -33,6 +31,7 @@ public class GameMainScreen extends GameStage {
     public void loadSplashScreen()
     {
         MasterThingDatabase db = new MasterThingDatabase();
+
         SplashScreen splash = new SplashScreen();
         mainPane.getChildren().setAll(splash);
 
@@ -53,13 +52,13 @@ public class GameMainScreen extends GameStage {
             fadeOut.play();
             FXMLAdventureGrabber grabber = new FXMLAdventureGrabber();
             grabber.grabFXML("mainMenu.fxml", mainPane);
-            AdvMainMenuController mainMenuController = grabber.getController();
+            MainMenuController mainMenuController = grabber.getController();
             AdvMainDatabase mainDatabase = new AdvMainDatabase(db);
             mainMenuController.initialize(mainDatabase);
         });
     }
 
-    public AdvMainMenuController getController()
+    public MainMenuController getController()
     {
         return controller;
     }

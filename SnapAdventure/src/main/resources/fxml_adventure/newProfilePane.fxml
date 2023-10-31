@@ -1,15 +1,12 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
 <?import adventure.view.pane.AdvNewProfilePane?>
-<?import adventure.view.node.ProfileNode?>
-<?import campaign.view.button.ButtonToolBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
-<?import campaign.view.node.GridDisplayNode?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import snapMain.view.node.GridDisplayNode?>
 <fx:root type="AdvNewProfilePane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdvNewProfilePaneController" maxHeight="800">
+         stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.NewProfilePaneController" maxHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
         <VBox alignment="CENTER">
@@ -18,8 +15,9 @@
                 <Label text="Enter New Profile"/>
                 <TextField fx:id="profileField"/>
                 <Label text="Starting Team:"/>
-                    <GridDisplayNode fx:id="teamIntro" minHeight="300"/>
-                    <GridDisplayNode fx:id="captainIntro" minHeight="150"/>
+                <GridDisplayNode fx:id="teamIntro" minHeight="300"/>
+                <Label text="Starting Captains:"/>
+                <GridDisplayNode fx:id="captainIntro" minHeight="150"/>
                 <Button fx:id="startButton" text="Start Adventure" onAction="#startAdventure"/>
             </VBox>
         </VBox>

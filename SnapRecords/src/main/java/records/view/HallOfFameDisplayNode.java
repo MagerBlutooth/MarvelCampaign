@@ -1,10 +1,10 @@
 package records.view;
 
-import campaign.controller.grid.GridActionController;
-import campaign.model.thing.ThingList;
-import campaign.model.thing.ThingType;
-import campaign.view.ViewSize;
-import campaign.view.node.GridDisplayNode;
+import snapMain.controller.grid.GridActionController;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
+import snapMain.view.ViewSize;
+import snapMain.view.node.GridDisplayNode;
 import records.controller.HallOfFameDisplayController;
 import records.model.HallOfFameEntry;
 import records.view.fxml.FXMLRecordGrabber;
@@ -20,9 +20,9 @@ public class HallOfFameDisplayNode extends GridDisplayNode<HallOfFameEntry> {
     }
 
     @Override
-    public void initialize(ThingList<HallOfFameEntry> things, ThingType tType, GridActionController<HallOfFameEntry> actionController, ViewSize viewSize, boolean blind)
+    public void initialize(TargetList<HallOfFameEntry> things, TargetType tType, GridActionController<HallOfFameEntry> actionController, ViewSize viewSize, boolean statusVisible)
     {
-        controller.initialize(things, tType, actionController, viewSize, blind);
+        controller.initialize(things, tType, actionController, viewSize, statusVisible);
     }
 
     public String toString()
@@ -39,7 +39,7 @@ public class HallOfFameDisplayNode extends GridDisplayNode<HallOfFameEntry> {
         controller.sort(c);
     }
 
-    public ThingType getThingType()
+    public TargetType getThingType()
     {
         return controller.getThingType();
     }

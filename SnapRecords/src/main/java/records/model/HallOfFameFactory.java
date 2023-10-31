@@ -1,22 +1,22 @@
 package records.model;
 
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.Card;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.Card;
 
 import java.util.List;
 
 public class HallOfFameFactory {
 
-    public ThingDatabase<HallOfFameEntry> loadHallOfFame(ThingDatabase<Card> allCards)
+    public TargetDatabase<HallOfFameEntry> loadHallOfFame(TargetDatabase<Card> allCards)
     {
         HallOfFameLoader hLoader = new HallOfFameLoader();
         List<String[]> csvContents = hLoader.readCSV();
-        ThingDatabase<HallOfFameEntry> entries = new ThingDatabase<>();
+        TargetDatabase<HallOfFameEntry> entries = new TargetDatabase<>();
         for(int i = 0; i < csvContents.size(); i++)
         {
             String[] vInfo = csvContents.get(i);
             HallOfFameEntry e = new HallOfFameEntry(allCards);
-            e.fromSaveStringArray(vInfo);
+            e.fromCSVSaveStringArray(vInfo);
             entries.add(e);
         }
         return entries;

@@ -1,0 +1,28 @@
+<?import adventure.view.pane.AdventureFailPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import snapMain.view.thing.CardView?>
+<?import javafx.scene.layout.HBox?>
+<fx:root type="AdventureFailPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/editorStyle.css"
+         fx:controller="adventure.controller.AdventureFailPaneController"
+         prefWidth="1200" prefHeight="800">
+    <VBox alignment="CENTER" spacing="40.0"/>
+        <VBox alignment="CENTER" spacing="10.0">
+            <Label fx:id="failureLabel" wrapText="true" id="info"/>
+            <HBox alignment="CENTER">
+                <CardView fx:id="enemyView"/>
+            </HBox>
+            <VBox spacing="50.0" alignment="CENTER">
+                <Label fx:id="playTimeLabel"/>
+                <Button text="Show Card Stats" onAction="#showCardStats"/>
+                <Button text="Return to Menu" onAction="#endGame"/>
+            </VBox>
+        </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+    </padding>
+</fx:root>

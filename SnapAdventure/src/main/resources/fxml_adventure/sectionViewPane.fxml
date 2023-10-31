@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import adventure.view.node.AdvLocationControlNode?>
+<?import adventure.view.node.EnemyControlNode?>
+<?import adventure.view.node.HPDisplayNode?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import snapMain.view.pane.FullViewPane?>
+<fx:root fx:id="sectionViewPane" prefHeight="800" prefWidth="1200" stylesheets="@../css_adventure/editorStyle.css"
+         type="FullViewPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="adventure.controller.SectionViewPaneController">
+    <VBox alignment="CENTER" spacing="40.0">
+        <HBox alignment="CENTER" maxWidth="800">
+            <VBox alignment="CENTER">
+                <Label text="Enemy" minWidth="100"/>
+                <Region minHeight="280.0"/>
+                <Label text="Location" minWidth="100"/>
+            </VBox>
+            <VBox>
+                <VBox alignment="CENTER">
+                    <EnemyControlNode fx:id="enemyView"/>
+                    <HPDisplayNode fx:id="hpDisplay"/>
+                </VBox>
+                <AdvLocationControlNode fx:id="locationView"/>
+            </VBox>
+            <VBox alignment="CENTER">
+                <HBox alignment="CENTER">
+                    <VBox alignment="CENTER">
+                        <Label styleClass="infoText" fx:id="enemyEffectText" minWidth="300" maxWidth="300"
+                               minHeight="70" mouseTransparent="true" wrapText="true"/>
+                        <Region minHeight="100.0" VBox.vgrow="ALWAYS"/>
+                        <Label styleClass="secondaryInfoText" fx:id="secondaryEffectText" minWidth="300" maxWidth="300"
+                               minHeight="70" mouseTransparent="true" wrapText="true"/>
+                        <Region minHeight="50.0" VBox.vgrow="ALWAYS"/>
+                        <Label styleClass="infoText" fx:id="locationEffectText" minWidth="300"
+                               maxWidth="300" mouseTransparent="true" wrapText="true"/>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </HBox>
+
+        <HBox alignment="CENTER" spacing="40.0">
+            <VBox alignment="CENTER" spacing="20.0">
+                <Label text="Stationed Cards"/>
+                <StackPane fx:id="stationedDisplayBox"/>
+            </VBox>
+            <VBox alignment="CENTER" spacing="20.0">
+                <Label text="Rewards"/>
+                <StackPane fx:id="rewardDisplayBox"/>
+            </VBox>
+        </HBox>
+
+        <VBox alignment="CENTER" spacing="10.0">
+            <Button onAction="#createDeck" text="Create Deck"/>
+            <HBox alignment="CENTER" spacing="20.0">
+                <Button onAction="#goBack" text="Back"/>
+                <Button fx:id="completeButton" onAction="#completeSection" text="Complete"/>
+                <Button fx:id="skipButton" onAction="#skipSection" text="Skip"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <padding>
+        <Insets bottom="50.0" left="20.0" right="20.0" top="50.0"/>
+    </padding>
+</fx:root>

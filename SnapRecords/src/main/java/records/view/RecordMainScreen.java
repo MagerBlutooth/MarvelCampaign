@@ -1,15 +1,15 @@
 package records.view;
 
-import campaign.controller.MainDatabase;
-import campaign.view.SplashScreen;
+import snapMain.controller.MainDatabase;
+import snapMain.view.SplashScreen;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
-import campaign.model.database.MasterThingDatabase;
-import campaign.view.GameStage;
+import snapMain.model.database.MasterThingDatabase;
+import snapMain.view.GameStage;
 import records.controller.HallOfFameManagerController;
 import records.view.fxml.FXMLRecordGrabber;
 
-import static campaign.view.main.GameApplication.isSplashLoaded;
+import static snapMain.view.main.GameApplication.isSplashLoaded;
 
 public class RecordMainScreen extends GameStage {
 
@@ -42,8 +42,8 @@ public class RecordMainScreen extends GameStage {
         fadeIn.play();
 
         fadeIn.setOnFinished((e) -> {
-            db.loadDatabase();
             fadeOut.play();
+            db.loadDatabase();
             FXMLRecordGrabber grabber = new FXMLRecordGrabber();
             grabber.grabFXML("hallOfFameManager.fxml", hallOfFameManagerPane);
             HallOfFameManagerController hallOfFameManagerController = grabber.getController();

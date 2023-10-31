@@ -2,7 +2,7 @@ package adventure.view.node;
 
 import adventure.controller.SectionEditorNodeController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.Section;
+import adventure.model.target.base.AdvLocation;
 
 public class SectionEditorNode extends AdvNode {
 
@@ -14,12 +14,12 @@ public class SectionEditorNode extends AdvNode {
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase d, Section s)
+    public void initialize(AdvMainDatabase d, AdvLocation s)
     {
         controller.initialize(d, s);
     }
 
-    public Section generateSection()
+    public AdvLocation generateSection()
     {
         return controller.generateSection();
     }

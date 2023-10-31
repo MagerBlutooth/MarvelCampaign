@@ -1,34 +1,36 @@
 package records.model;
 
-import campaign.model.constants.CampaignConstants;
-import campaign.model.database.ThingDatabase;
-import campaign.model.helper.ListHelper;
-import campaign.model.thing.Card;
-import campaign.model.thing.CardList;
-import campaign.model.thing.Thing;
-import campaign.model.thing.ThingType;
+import snapMain.model.constants.SnapMainConstants;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.helper.ListHelper;
+import snapMain.model.target.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class HallOfFameEntry extends Thing {
+public class HallOfFameEntry extends BaseObject {
 
-    private static final int MAX_SIZE = 12;
     private static final int MAX_SHARED_CARDS = 3;
     Card captain;
     CardList cards;
-    ThingDatabase<Card> cardDatabase;
+    TargetDatabase<Card> cardDatabase;
     SnapMonth month;
     int year;
 
-    public HallOfFameEntry(ThingDatabase<Card> db)
+    public HallOfFameEntry()
     {
+        super();
         cards = new CardList(new ArrayList<>());
-        cardDatabase = db;
+        captain = new Card();
         month = SnapMonth.JANUARY;
         year = Calendar.getInstance().get(Calendar.YEAR);
-        captain = new Card();
+    }
+
+    public HallOfFameEntry(TargetDatabase<Card> db)
+    {
+        this();
+        cardDatabase = db;
     }
     public HallOfFameEntry(HallOfFameEntry e)
     {
@@ -39,28 +41,23 @@ public class HallOfFameEntry extends Thing {
         month = e.getMonth();
         year = e.getYear();
     }
-    public HallOfFameEntry(ArrayList<Card> c, Card cpt, ThingDatabase<Card> db) {
+    public HallOfFameEntry(ArrayList<Card> c, Card cpt, TargetDatabase<Card> db) {
         cards = new CardList(c);
         cardDatabase = db;
         month = SnapMonth.JANUARY;
-        year = CampaignConstants.STARTING_YEAR;
+        year = SnapMainConstants.STARTING_YEAR;
         captain = cpt;
     }
 
     @Override
-    public String[] toSaveStringArray() {
+    public String[] toCSVSaveStringArray() {
         StringBuilder attributeStrings = new StringBuilder();
         attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
         return new String[]{String.valueOf(getID()), getName(), getMonth().toString(), getYear()+"", cards.toCSVSaveString(), String.valueOf(cards.getCardIndex(captain))};
     }
 
     @Override
-    public ThingType getThingType() {
-        return ThingType.HALL_OF_FAME;
-    }
-
-    @Override
-    public void fromSaveStringArray(String[] mInfo) {
+    public void fromCSVSaveStringArray(String[] mInfo) {
         setID(Integer.parseInt(mInfo[0]));
         setName(mInfo[1]);
         month = SnapMonth.valueOf(mInfo[2]);
@@ -108,7 +105,7 @@ public class HallOfFameEntry extends Thing {
 
     public boolean addCard(Card c, List<HallOfFameEntry> otherEntries)
     {
-        if(cards.size() < MAX_SIZE && deckValidWithNewCard(c, otherEntries)) {
+        if(cards.size() < SnapMainConstants.DECK_SIZE && deckValidWithNewCard(c, otherEntries)) {
             cards.add(c);
             cards.sort();
             return true;
@@ -157,7 +154,7 @@ public class HallOfFameEntry extends Thing {
 
 
     public boolean isValid() {
-        return captain!=null && cards.size()==MAX_SIZE;
+        return captain!=null && cards.size()==SnapMainConstants.DECK_SIZE;
     }
 
     public SnapMonth getMonth() {
@@ -175,5 +172,10 @@ public class HallOfFameEntry extends Thing {
     public void setYear(int y)
     {
         year = y;
+    }
+
+    @Override
+    public TargetType getTargetType() {
+        return TargetType.HALL_OF_FAME;
     }
 }

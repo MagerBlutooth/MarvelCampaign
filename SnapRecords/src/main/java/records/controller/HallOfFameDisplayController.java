@@ -1,12 +1,12 @@
 package records.controller;
 
-import campaign.controller.grid.GridActionController;
-import campaign.controller.grid.GridDisplayController;
-import campaign.model.logger.MLogger;
-import campaign.model.thing.*;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.control.ControlNode;
+import snapMain.controller.grid.GridActionController;
+import snapMain.controller.grid.GridDisplayController;
+import snapMain.model.logger.MLogger;
+import snapMain.model.target.*;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,9 +23,9 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     HallOfFameDisplayNode hallOfFameDisplayNode;
 
     @Override
-    public void initialize(ThingList<HallOfFameEntry> entries, ThingType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean blind)
+    public void initialize(TargetList<HallOfFameEntry> entries, TargetType tType, GridActionController<HallOfFameEntry> controller, ViewSize v, boolean statusVisible)
     {
-        super.initialize(entries, tType, controller, v, blind);
+        super.initialize(entries, tType, controller, v, statusVisible);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     {
         groupList.getChildren().clear();
         List<ControlNode<HallOfFameEntry>> listOfObjects = new ArrayList<>();
-        thingList.sort();
-        if(thingList.isEmpty())
+        targetList.sort();
+        if(targetList.isEmpty())
         {
             HallOfFameEntry blankObject = null;
-                HallOfFameEntry h = new HallOfFameEntry(mainDatabase.lookupDatabase(ThingType.CARD));
+                HallOfFameEntry h = new HallOfFameEntry(mainDatabase.lookupDatabase(TargetType.CARD));
                 try {
                     blankObject = h.getClass().getDeclaredConstructor().newInstance();
                 }
@@ -47,7 +47,7 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
             addNewNode(blankObject, listOfObjects);
         }
 
-        for(HallOfFameEntry h: thingList)
+        for(HallOfFameEntry h: targetList)
         {
             addNewNode(h, listOfObjects);
         }
@@ -58,8 +58,8 @@ public class HallOfFameDisplayController extends GridDisplayController<HallOfFam
     @Override
     protected void addNewNode(HallOfFameEntry t, List<ControlNode<HallOfFameEntry>> listOfObjects)
     {
-        IconImage i = mainDatabase.grabImage(t.getCaptain(), ThingType.CARD);
-        ControlNode<HallOfFameEntry> n = getGridActionController().createControlNode(t, i, getViewSize(), isBlind());
+        IconImage i = mainDatabase.grabImage(t.getCaptain());
+        ControlNode<HallOfFameEntry> n = getGridActionController().createControlNode(t, i, getViewSize(), isStatusVisible());
         listOfObjects.add(n);
     }
 

@@ -7,16 +7,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.fxml.FXMLCampaignGrabber;
-import campaign.view.thing.CardView;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.thing.CardView;
 import records.view.fxml.FXMLRecordGrabber;
 
 import java.util.List;
 
-import static campaign.model.constants.CampaignConstants.BASIC_COST_MAX;
-import static campaign.model.constants.CampaignConstants.BASIC_COST_MIN;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MAX;
+import static snapMain.model.constants.SnapMainConstants.BASIC_COST_MIN;
 
 public class TopDisplayEntry extends StackPane {
     @FXML
@@ -34,8 +33,8 @@ public class TopDisplayEntry extends StackPane {
         for(Pair<IconImage, Integer> imagePair: images) {
             CardView cardView = new CardView();
             cardView.setImage(imagePair.getKey(), ViewSize.TINY);
-            Label timesUsed = new Label(imagePair.getValue()+"");
-            cardBox.getChildren().add(timesUsed);
+            //Label timesUsed = new Label(imagePair.getValue()+"");
+            //cardBox.getChildren().add(timesUsed);
             cardBox.getChildren().add(cardView);
         }
     }

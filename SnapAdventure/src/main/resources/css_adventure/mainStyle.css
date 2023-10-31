@@ -3,7 +3,7 @@
     -fx-font-size: 32px;
     -fx-selection-bar-text: white;
     -fx-background-color:black;
-    -fx-faction-color:dodgerblue
+    -fx-faction-color: ghostwhite;
 }
 
 .label {
@@ -21,6 +21,13 @@
     -fx-border-color: white;
 }
 
+#subtitle
+{
+-fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 48px;
+    -fx-text-fill: ghostwhite;
+}
+
 #title
 {
     -fx-font-family: "Komika Slick";
@@ -28,10 +35,22 @@
     -fx-text-fill: white;
 }
 
+#info {
+    -fx-font-family: "Ubuntu";
+    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-font-size: 16px;
+}
 #smallButton
 {
     -fx-font-family: "Avengeance Heroic Avenger";
     -fx-font-size: 24px;
+}
+
+#tinyButton
+{
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 8px;
 }
 
 /* Set scroll object to default colors*/
@@ -53,17 +72,45 @@
 -fx-alignment: center;
 }
 
-.text {
-}
-
 .button .text {
 -fx-fill:white;
  }
 
+ .radio-button{
+ -fx-text-fill:white;
+ }
+
+ .woundStyle
+ {
+    -fx-text-fill:crimson;
+ }
+
+ .captureStyle
+ {
+    -fx-text-fill:gold;
+ }
+#imageButton
+ {
+   -fx-border-width: 3 3 3 3;
+   -fx-border-color:black;
+ }
+
+#imageButton:hover {
+   -fx-background-color: black;
+ }
+
+.button:hover {
+ -fx-background-color: -fx-faction-color;
+  }
+
+.button:hover .text{
+  -fx-fill:black;
+}
+
 .text-area {
     -fx-text-fill: white;
     -fx-font-family: "Ubuntu";
-    -fx-font-size: 24px;
+    -fx-font-size: 16px;
     -fx-border-color:white;
     -fx-border-width: 3 3 3 3;
 }
@@ -81,10 +128,17 @@
 .list-cell{
     -fx-background-color: black;
     -fx-text-fill: white;
+    -fx-font-size: 12.0;
+    -fx-font-family: "Ubuntu";
 }
 
 .list-cell:even {
     -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: -fx-faction-color;
     -fx-text-fill: white;
 }
 
@@ -98,13 +152,6 @@
  -fx-alignment: center;
   }
 
-.button:hover {
--fx-background-color: -fx-faction-color;
- }
-
-.button:hover .text{
- -fx-fill:black;
- }
  .choice-box {
  -fx-border-color:white;
  -fx-border-width: 3 3 3 3 ;
@@ -128,7 +175,7 @@
 
 .choice-box .label:hover
 {
-   -fx-background-color: -fx-faction-color;
+   -fx-background-color: dodgerblue;
    -fx-text-fill: black;
 }
 
@@ -139,11 +186,11 @@
 }
 
 .menu-item:focused > .label {
-    -fx-text-fill: -fx-faction-color;
+    -fx-text-fill: dodgerblue;
 }
 
 .radio-menu-item:focused:checked > .left-container > .radio {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .scroll-bar > corner {
@@ -179,12 +226,21 @@
     -fx-background-color:white;
 }
 
+.dialog-pane {
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-border-color: white;
+    -fx-background-color: black;
+}
+
 .dialog-pane > .content.label {
     -fx-text-fill: white;
+    -fx-font-family: "Ubuntu";
 }
 
 .context-menu {
     -fx-background-color: black;
+    -fx-border-color: lightslategray;
 }
 
 .scroll-pane {
@@ -206,7 +262,7 @@
 
 .menu-button:hover
 {
-   -fx-background-color: -fx-faction-color;
+   -fx-background-color: dodgerblue;
 }
 
 .menu-item
@@ -225,7 +281,7 @@
 .check-menu-item .label {
 {
     -fx-font-family: "Ubuntu";
-    -fx-font-size: 12px;
+    -fx-font-size: 18px;
 }
 
 .check-menu-item:focused
@@ -238,7 +294,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .menu-item:focused .label {
@@ -257,7 +313,7 @@
 
 .tab-pane .tab:selected
 {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .tab-label {
@@ -268,3 +324,85 @@
     -fx-border-color: transparent;
 }
 
+.toggle-button {
+    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-border-color: white;
+    -fx-border-width: 4;
+}
+
+.toggle-button:selected {
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-width: 4;
+}
+
+.winButtonStyle {
+-fx-border-color:#4bdb39;
+}
+.winButtonStyle .text {
+-fx-fill:#4bdb39;
+ }
+ .winButtonStyle .text:hover, .winStyle .text:selected{
+ -fx-fill:#4bdb39;
+ }
+.wwinButtonStyle:hover, .winStyle:selected {
+  -fx-background-color: #0d4828;
+  -fx-border-color: #4bdb39;
+}
+
+.loseButtonStyle {
+ -fx-border-color:#F54A4A;
+ }
+.loseButtonStyle .text {
+ -fx-fill:#F54A4A;
+ }
+  .loseStyle .text:hover, .loseStyle .text:selected{
+  -fx-fill:#F54A4A;
+  }
+ .loseButtonStyle:hover, .loseStyle:selected {
+   -fx-background-color: #530815;
+   -fx-border-color: #F54A4A;
+ }
+ .escapeButtonStyle {
+  -fx-border-color:#E1DD4E;
+ }
+ .escapeButtonStyle .text {
+  -fx-fill:#E1DD4E;
+ }
+.escapeButtonStyle .text:hover, .escapeStyle .text:selected{
+  -fx-fill:#E1DD4E;
+  }
+
+.escapeButtonStyle:hover, .escapeStyle:selected {
+    -fx-background-color: #615c08;
+    -fx-border-color:#E1DD4E;
+  }
+
+.forcedRetreatButtonStyle {
+   -fx-border-color:mediumpurple;
+  }
+.forcedRetreatButtonStyle .text {
+   -fx-fill:mediumpurple;
+  }
+.forcedRetreatButtonStyle:hover, .forcedRetreatStyle:active, .forcedRetreatStyle:focus, .forcedRetreatStyle:selected {
+      -fx-background-color: darkslateblue;
+      -fx-border-color: mediumpurple;
+}
+.forcedRetreatButtonStyle .text:hover, .forcedRetreatStyle .text:selected{
+  -fx-fill:mediumpurple;
+  }
+.tieButtonStyle {
+     -fx-border-color:lightsteelblue;
+    }
+.tieButtonStyle .text {
+     -fx-fill:lightsteelblue;
+    }
+.tieButtonStyle:hover, .tieStyle:active, .tieStyle:focus, .tieStyle:selected {
+        -fx-background-color: lightslategray;
+        -fx-border-color: lightsteelblue;
+  }
+   .tieStyle .text:hover, .tieStyle .text:selected{
+    -fx-fill:lightsteelblue;
+    }

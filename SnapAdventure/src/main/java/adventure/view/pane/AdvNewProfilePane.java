@@ -1,15 +1,14 @@
 package adventure.view.pane;
 
-import adventure.controller.AdvNewProfilePaneController;
+import adventure.controller.NewProfilePaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.view.pane.BasicPane;
+import snapMain.view.pane.FullViewPane;
 
-public class AdvNewProfilePane extends BasicPane {
+public class AdvNewProfilePane extends FullViewPane {
 
-    AdvNewProfilePaneController controller;
+    NewProfilePaneController controller;
 
     public AdvNewProfilePane()
     {

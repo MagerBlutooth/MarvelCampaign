@@ -1,13 +1,11 @@
 package records.model;
 
-import campaign.model.database.Saver;
-import campaign.model.database.ThingDatabase;
-import campaign.model.database.ThingSaver;
-import campaign.model.thing.Card;
+import snapMain.model.database.Saver;
+import snapMain.model.database.TargetDatabase;
 
 public class HallOfFameSaver extends Saver<HallOfFameEntry>{
 
-    public HallOfFameSaver(String file, ThingDatabase<HallOfFameEntry> database) {
+    public HallOfFameSaver(String file, TargetDatabase<HallOfFameEntry> database) {
         super(file, database);
     }
 }

@@ -1,7 +1,8 @@
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
-<?import campaign.view.thing.LocationView?>
+<?import snapMain.view.thing.LocationView?>
 <fx:root type="javafx.scene.layout.StackPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css"
@@ -14,7 +15,7 @@
             </VBox>
         </HBox>
         <VBox fx:id="effectBox" spacing="10.0">
-            <Label fx:id="effectLabel" text="Task:" textFill="white" alignment="CENTER" id="info"/>
+            <Label fx:id="effectLabel" text="Effect:" textFill="white" alignment="CENTER" id="info"/>
             <TextArea fx:id="effectField" wrapText="true" minHeight="200"/>
         </VBox>
     </VBox>

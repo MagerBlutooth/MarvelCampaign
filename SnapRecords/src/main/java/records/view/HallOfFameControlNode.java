@@ -1,13 +1,13 @@
 package records.view;
 
-import campaign.controller.MainDatabase;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.control.ControlNode;
+import snapMain.controller.MainDatabase;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.control.ControlNode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import campaign.model.thing.ThingType;
+import snapMain.model.target.TargetType;
 import records.model.HallOfFameEntry;
 
 public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {
@@ -18,7 +18,7 @@ public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {
 
     ImageView imageView;
 
-    ThingType thingType;
+    TargetType targetType;
     AnchorPane starPane;
 
     public Image getImage() {
@@ -36,7 +36,7 @@ public class HallOfFameControlNode extends ControlNode<HallOfFameEntry> {
     public void initialize(MainDatabase db, HallOfFameEntry entry, IconImage i, ViewSize v, boolean blind) {
 
         mainDatabase = db;
-        thingType = ThingType.HALL_OF_FAME;
+        targetType = TargetType.HALL_OF_FAME;
         subject = entry;
         imageView.setImage(i);
         imageView.setFitWidth(v.getSizeVal());

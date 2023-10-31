@@ -1,6 +1,6 @@
 package adventure.model.sorter;
 
-import adventure.model.Section;
+import adventure.model.target.base.AdvLocation;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,13 +15,13 @@ public class SectionSorter {
         SectionSortMode = adventure.model.sorter.SectionSortMode.NAME;
     }
 
-    public List<Section> sort(List<Section> sections)
+    public List<AdvLocation> sort(List<AdvLocation> advLocations)
     {
-        List<Section> sortedCards = new ArrayList<>(sections);
+        List<AdvLocation> sortedCards = new ArrayList<>(advLocations);
         switch(SectionSortMode)
         {
             case NAME:
-                sortedCards.sort((o1, o2) -> Comparator.comparing(Section::getName).compare(o1, o2));
+                sortedCards.sort((o1, o2) -> Comparator.comparing(AdvLocation::getName).compare(o1, o2));
                 break;
         }
         return sortedCards;

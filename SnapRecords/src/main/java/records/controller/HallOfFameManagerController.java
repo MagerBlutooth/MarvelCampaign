@@ -1,8 +1,8 @@
 package records.controller;
 
-import campaign.controller.BasePaneController;
-import campaign.controller.MainDatabase;
-import campaign.controller.grid.GridActionController;
+import snapMain.controller.BasePaneController;
+import snapMain.controller.MainDatabase;
+import snapMain.controller.grid.GridActionController;
 import records.view.HallOfFameControlNode;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,14 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.ThingList;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
 import records.view.HallOfFameDisplayNode;
 import records.view.TopDisplayNode;
-import campaign.view.node.control.ControlNode;
+import snapMain.view.node.control.ControlNode;
 import records.model.HallOfFameFactory;
 import records.view.HallOfFameCreatorPane;
 import records.model.HallOfFameEntry;
@@ -36,7 +37,7 @@ public class HallOfFameManagerController extends BasePaneController implements G
     @FXML
     TopDisplayNode topDisplay;
 
-    ThingDatabase<HallOfFameEntry> hallOfFameEntries;
+    TargetDatabase<HallOfFameEntry> hallOfFameEntries;
 
     HallOfFameFactory thingFactory = new HallOfFameFactory();
     @Override
@@ -47,10 +48,10 @@ public class HallOfFameManagerController extends BasePaneController implements G
     @Override
     public void initialize(MainDatabase db) {
 
-        hallOfFameEntries = thingFactory.loadHallOfFame(db.lookupDatabase(ThingType.CARD));
+        hallOfFameEntries = thingFactory.loadHallOfFame(db.lookupDatabase(TargetType.CARD));
         mainDatabase = db;
-        ThingList<HallOfFameEntry> entriesList = new HallOfFameEntryList(hallOfFameEntries);
-        hallOfFameDisplay.initialize(entriesList, ThingType.HALL_OF_FAME, this, ViewSize.MEDIUM, false);
+        TargetList<HallOfFameEntry> entriesList = new HallOfFameEntryList(hallOfFameEntries);
+        hallOfFameDisplay.initialize(entriesList, TargetType.HALL_OF_FAME, this, ViewSize.MEDIUM, false);
         topDisplay.initialize(mainDatabase, hallOfFameEntries);
     }
 
@@ -61,6 +62,15 @@ public class HallOfFameManagerController extends BasePaneController implements G
         setMouseEvents(c);
         return c;
     }
+
+    @Override
+    public ControlNode<HallOfFameEntry> createEmptyNode(ViewSize v) {
+        ControlNode<HallOfFameEntry> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new HallOfFameEntry(), mainDatabase.grabBlankImage(TargetType.HALL_OF_FAME),
+                v,false);
+        return cardNode;
+    }
+
     @Override
     public void saveGridNode(ControlNode<HallOfFameEntry> node) {
 
@@ -122,7 +132,7 @@ public class HallOfFameManagerController extends BasePaneController implements G
     public void addNewEntry()
     {
         HallOfFameCreatorPane hallOfFameCreatorPane = new HallOfFameCreatorPane();
-        hallOfFameCreatorPane.initialize(mainDatabase, new HallOfFameEntry(mainDatabase.lookupDatabase(ThingType.CARD)), new ArrayList<>(hallOfFameEntries));
+        hallOfFameCreatorPane.initialize(mainDatabase, new HallOfFameEntry(mainDatabase.lookupDatabase(TargetType.CARD)), new ArrayList<>(hallOfFameEntries));
         changeScene(hallOfFameCreatorPane);
     }
 

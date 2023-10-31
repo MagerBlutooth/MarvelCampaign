@@ -1,0 +1,55 @@
+<?import adventure.view.node.WorldClearSelectNode?>
+<?import adventure.view.pane.WorldClearPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import snapMain.view.node.GridDisplayNode?>
+<?import javafx.scene.layout.HBox?>
+<fx:root type="WorldClearPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.WorldClearPaneController"
+         prefWidth="1200" prefHeight="800">
+
+    <VBox alignment="CENTER" spacing="20.0">
+        <VBox alignment="CENTER" spacing="10.0">
+            <Label fx:id="worldClear"/>
+            <Label fx:id="totalPlayTime"/>
+            <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+                <Label fx:id="matchCount"/>
+                <Label text="  total matches"/>
+             </HBox>
+            <HBox alignment="CENTER" spacing ="30.0">
+                <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+                    <Label fx:id="winCount" styleClass="winStyle"/>
+                    <Label text="  wins" id="info"/>
+                </HBox>
+                <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+                    <Label fx:id="forcedRetreatCount" styleClass="forceRetreatStyle"/>
+                    <Label text="  forced retreats" id="info"/>
+                </HBox>
+            </HBox>
+            <HBox alignment="CENTER" spacing ="30.0">
+                <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+                    <Label fx:id="lossCount" styleClass="loseStyle"/>
+                    <Label text="  losses" id="info" styleClass="loseStyle"/>
+                </HBox>
+                <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+                    <Label fx:id="escapeCount" styleClass="escapeStyle"/>
+                    <Label text="  escapes" id="info"/>
+                </HBox>
+                <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+                    <Label fx:id="tieCount" styleClass="tieStyle"/>
+                    <Label text="  ties" id="info"/>
+                </HBox>
+            </HBox>
+        </VBox>
+        <WorldClearSelectNode fx:id="worldClearNode"/>
+        <VBox spacing="10.0">
+            <Label text="Reclaimed Cards"/>
+            <GridDisplayNode fx:id="reclaimedCards" minHeight="150.0"/>
+        </VBox>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+    </padding>
+</fx:root>

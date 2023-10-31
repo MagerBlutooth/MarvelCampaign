@@ -1,16 +1,17 @@
 package records.controller;
 
-import campaign.controller.MainDatabase;
-import campaign.controller.grid.GridActionController;
+import snapMain.controller.MainDatabase;
+import snapMain.controller.grid.GridActionController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import campaign.model.thing.Card;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.node.GridDisplayNode;
-import campaign.view.node.control.ControlNode;
-import campaign.view.thing.CardView;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetType;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.node.GridDisplayNode;
+import snapMain.view.node.control.ControlNode;
+import snapMain.view.thing.CardView;
 import records.model.HallOfFameEntry;
 
 import java.util.List;
@@ -30,8 +31,6 @@ public class HallOfFameGridController implements GridActionController<Card> {
         deckDisplay = deck;
         otherEntries = other;
         captainDisplay = cDisplay;
-        captainDisplay.disableTooltip();
-        deckDisplay.setPrefColumns(6);
         deckDisplay.setMaxHeight(250.0);
         deckDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
@@ -42,6 +41,14 @@ public class HallOfFameGridController implements GridActionController<Card> {
         controlNode.initialize(mainDatabase, card, i, v, blind);
         setMouseEvents(controlNode);
         return controlNode;
+    }
+
+    @Override
+    public ControlNode<Card> createEmptyNode(ViewSize v) {
+        ControlNode<Card> cardNode = new ControlNode<>();
+        cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.CARD),
+                v,false);
+        return cardNode;
     }
 
     @Override

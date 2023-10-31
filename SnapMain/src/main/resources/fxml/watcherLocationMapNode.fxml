@@ -1,0 +1,24 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import snapMain.view.node.WatcherLocationMapNode?>
+<?import snapMain.view.node.DroppableLocationDisplayNode?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<fx:root type="WatcherLocationMapNode"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" id="selectBox"
+         stylesheets="@../css/editorStyle.css" fx:controller="snapMain.controller.grid.WatcherLocationMapNodeController">
+    <VBox alignment="CENTER">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER">
+            <Label text="Map"/>
+            <VBox spacing="20.0" alignment="CENTER">
+                <DroppableLocationDisplayNode fx:id="locationGrid"/>
+            </VBox>
+        </ScrollPane>
+        <Label text="Influence: "/>
+        <TextField fx:id="influenceVal" text="0" maxWidth="100"/>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+</fx:root>

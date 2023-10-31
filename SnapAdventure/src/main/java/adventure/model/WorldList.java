@@ -1,11 +1,11 @@
 package adventure.model;
 
-import campaign.model.constants.CampaignConstants;
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.ThingList;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvLocationList;
+import snapMain.model.constants.SnapMainConstants;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -16,18 +16,20 @@ public class WorldList extends ArrayList<World> {
     public WorldList(AdventureDatabase database)
     {
         super(new ArrayList<>());
-        BossList bosses = new BossList(database.getBosses());
-        SectionList sections = new SectionList(database.getSections());
-        bosses.shuffle();
+        AdvLocationList sections = new AdvLocationList(database.getSections());
         sections.shuffle();
         for(int i = 0; i < NUMBER_OF_WORLDS; i++)
         {
-            Section s1 = sections.get(4*i);
-            Section s2 = sections.get(4*i+1);
-            Section s3 = sections.get(4*i+2);
-            Section s4 = sections.get(4*i+3);
-            Boss b = bosses.get(i);
-            World world = new World(database, s1, s2, s3, s4, b);
+            AdvLocation s1 = sections.get(4*i);
+            AdvLocation s2 = sections.get(4*i+1);
+            AdvLocation s3 = sections.get(4*i+2);
+            AdvLocation s4 = sections.get(4*i+3);
+            List<AdvLocation> locations = new ArrayList<>();
+            locations.add(s1);
+            locations.add(s2);
+            locations.add(s3);
+            locations.add(s4);
+            World world = new World(database, locations, i+1);
             add(world);
         }
 
@@ -42,8 +44,8 @@ public class WorldList extends ArrayList<World> {
         StringBuilder stringBuilder = new StringBuilder();
         for(World w: this)
         {
-            stringBuilder.append(Arrays.toString(w.toSaveStringArray()));
-            stringBuilder.append(CampaignConstants.STRING_SEPARATOR);
+            stringBuilder.append(w.toSaveString());
+            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
         }
         if(!stringBuilder.isEmpty())
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -51,19 +53,43 @@ public class WorldList extends ArrayList<World> {
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
-    public void fromSaveString(AdventureDatabase db, String cardString)
+    public void fromSaveString(AdventureDatabase db, AdvMainDatabase mainDB, String cardString)
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
-        String[] worldsList = decodedString.split(CampaignConstants.STRING_SEPARATOR);
-        for(int i = 0; i < worldsList.length; i++)
-        {
+        String[] worldsList = decodedString.split(SnapMainConstants.STRING_SEPARATOR);
+        for (String s : worldsList) {
             World w = new World(db);
-            String[] worldString = worldsList[i].split(CampaignConstants.CSV_SEPARATOR);
-            worldString[0] = worldString[0].replace("[","");
-            worldString[worldString.length-1] = worldString[worldString.length-1].replace("]", "");
-            w.fromSaveStringArray(worldString);
+            w.fromSaveString(s, mainDB);
             this.add(w);
         }
+    }
+
+    public List<AdvLocation> getAllLocations() {
+        List<AdvLocation> allLocations = new ArrayList<>();
+        for(World w: this)
+        {
+            allLocations.add(w.getFirstSection().getLocation());
+            allLocations.add(w.getSecondSection().getLocation());
+            allLocations.add(w.getThirdSection().getLocation());
+            allLocations.add(w.getFourthSection().getLocation());
+        }
+        return allLocations;
+    }
+
+    public List<AdvCard> getAllBosses() {
+        List<AdvCard> allBosses = new ArrayList<>();
+        for(World w: this)
+        {
+            if(w.getBoss().getSubject() instanceof AdvCard)
+                allBosses.add((AdvCard) w.getBoss().getSubject());
+        }
+        return allBosses;
+    }
+
+    @Override
+    public World get(int worldNum)
+    {
+        return super.get(worldNum-1);
     }
 }

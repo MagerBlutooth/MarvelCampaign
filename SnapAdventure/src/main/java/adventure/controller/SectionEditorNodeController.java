@@ -1,16 +1,15 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.Section;
-import campaign.controller.editor.BasicNodeController;
-import campaign.model.thing.Location;
-import campaign.model.thing.ThingType;
-import campaign.view.IconImage;
-import campaign.view.ViewSize;
-import campaign.view.thing.LocationView;
+import adventure.model.target.base.AdvLocation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import snapMain.controller.editor.BasicNodeController;
+import snapMain.model.target.Location;
+import snapMain.view.IconImage;
+import snapMain.view.ViewSize;
+import snapMain.view.thing.LocationView;
 
 public class SectionEditorNodeController extends BasicNodeController<AdvMainDatabase, Location> {
 
@@ -23,7 +22,7 @@ public class SectionEditorNodeController extends BasicNodeController<AdvMainData
     AdvMainDatabase database;
     Location location;
 
-    public void initialize(AdvMainDatabase d, Section s) {
+    public void initialize(AdvMainDatabase d, AdvLocation s) {
         database = d;
         location = s.getLocation();
         nameLabel.setText(s.getName());
@@ -32,13 +31,13 @@ public class SectionEditorNodeController extends BasicNodeController<AdvMainData
     }
 
     private void setImages() {
-        IconImage i = database.grabImage(location, ThingType.LOCATION);
+        IconImage i = database.grabImage(location);
         imageView.setImage(i, ViewSize.LARGE);
     }
 
-    public Section generateSection()
+    public AdvLocation generateSection()
     {
-        Section s = new Section(location);
+        AdvLocation s = new AdvLocation(location);
         s.setEffect(effectField.getText());
         return s;
     }

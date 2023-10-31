@@ -3,20 +3,46 @@
     -fx-font-size: 32px;
     -fx-selection-bar-text: white;
     -fx-background-color:black;
-    -fx-faction-color:dodgerblue
+    -fx-faction-color: ghostwhite;
 }
 
 .label {
     -fx-font-family: "Avengeance Heroic Avenger";
     -fx-font-size: 32px;
+    -fx-text-fill: white;
 }
-
 
 #info {
     -fx-font-family: "Ubuntu";
     -fx-text-fill: white;
     -fx-background-color: black;
     -fx-font-size: 16px;
+}
+
+.winStyle {
+   -fx-text-fill: limegreen;
+}
+
+.lossStyle {
+   -fx-text-fill: crimson;
+}
+
+.escapeStyle {
+   -fx-text-fill: gold;
+}
+
+.tieStyle {
+    -fx-text-fill: lightsteelblue;
+}
+
+.forceRetreatStyle {
+    -fx-text-fill: mediumpurple;
+}
+
+#smallButton
+{
+    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-size: 24px;
 }
 
 .text-field {
@@ -28,8 +54,26 @@
     -fx-text-box-border: white;
 }
 
+.infoText
+{
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20;
+    -fx-display-caret: false;
+    -fx-font-alignment: center;
+}
+
+.secondaryInfoText
+{
+    -fx-text-fill: gold;
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20;
+    -fx-display-caret: false;
+    -fx-font-alignment: center;
+}
+
 .text-area{
     -fx-text-fill: white;
+    -fx-font-size: 16px;
  }
 
  .text-area .content{
@@ -81,6 +125,11 @@
  #selectBox {
  -fx-border-color:white;
  -fx-border-width: 3 3 3 3 ;
+ }
+
+.context-menu {
+     -fx-background-color: black;
+     -fx-border-color: lightslategray;
  }
 
 .choice-box .context-menu
@@ -181,7 +230,7 @@
 
 .menu-button:hover
 {
-   -fx-background-color: -fx-faction-color;
+   -fx-background-color: dodgerblue;
 }
 
 .check-menu-item .label {
@@ -196,7 +245,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }
 
 .menu-item:focused .label {
@@ -210,5 +259,5 @@
 
 .tab-pane .tab:selected
 {
-    -fx-background-color: -fx-faction-color;
+    -fx-background-color: dodgerblue;
 }

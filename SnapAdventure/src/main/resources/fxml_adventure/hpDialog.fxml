@@ -1,0 +1,29 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="DialogPane" fx:id="dialogPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" prefWidth="600" prefHeight="600"
+         fx:controller="adventure.controller.dialog.HPDialogController">
+    <content>
+        <VBox alignment="CENTER" spacing="20.0">
+            <HBox alignment="CENTER" spacing="20.0">
+                <ToggleButton fx:id="gainButton" text="Gain"/>
+                <ToggleButton fx:id="loseButton" text="Lose"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+                <TextField fx:id="hpValue" maxWidth="100"/>
+                <Label text="HP"/>
+            </HBox>
+            <padding>
+                <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
+            </padding>
+        </VBox>
+    </content>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+    <ButtonType fx:id="okButton" text="OK" buttonData="OK_DONE"/>
+    <ButtonType fx:id="cancelButton" text="Cancel" buttonData="CANCEL_CLOSE"/>
+</fx:root>

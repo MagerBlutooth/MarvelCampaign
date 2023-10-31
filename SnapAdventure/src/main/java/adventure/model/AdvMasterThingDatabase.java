@@ -1,16 +1,18 @@
 package adventure.model;
 
-import campaign.model.database.DatabaseContext;
-import campaign.model.database.MasterThingDatabase;
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.*;
+import adventure.model.target.base.*;
+import snapMain.model.database.DatabaseContext;
+import snapMain.model.database.MasterThingDatabase;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.*;
 
 public class AdvMasterThingDatabase extends MasterThingDatabase {
     AdvThingFactory vFactory;
     AdvThingSaver vSaver;
     DatabaseContext dBContext;
-    ThingDatabase<Card> cards;
-    ThingDatabase<Location> locations;
+    TargetDatabase<Card> cards;
+    TargetDatabase<Location> locations;
+    TargetDatabase<Token> tokens;
     public AdvMasterThingDatabase(MasterThingDatabase database)
     {
         vFactory = new AdvThingFactory();
@@ -18,100 +20,135 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         dBContext = new DatabaseContext();
         cards = database.getCards();
         locations = database.getLocations();
+        tokens = database.getTokens();
     }
+    @Override
     public void loadDatabase()
     {
-        dBContext.register(ThingType.BOSS, vFactory.loadBosses(cards));
-        dBContext.register(ThingType.CARD, cards);
-        dBContext.register(ThingType.LOCATION, vFactory.loadSections(locations));
+        dBContext.register(TargetType.ADV_CARD, vFactory.loadBosses(cards));
+        dBContext.register(TargetType.CARD, cards);
+        dBContext.register(TargetType.LOCATION, vFactory.loadSections(locations));
+        dBContext.register(TargetType.TOKEN, vFactory.loadAdvTokens(tokens));
     }
 
-    public ThingDatabase<Boss> getBosses() {
-        ThingDatabase<Boss> lookup = dBContext.lookup(ThingType.BOSS);
+    public TargetDatabase<AdvCard> getAdvCards() {
+        TargetDatabase<AdvCard> lookup = dBContext.lookup(TargetType.ADV_CARD);
         return lookup;
     }
 
-    public ThingDatabase<Section> getSections() {
-        ThingDatabase<Section> locs = new ThingDatabase<>();
-        locs.addAll(dBContext.lookup(ThingType.LOCATION));
+    public TargetDatabase<AdvLocation> getAdvLocations() {
+        TargetDatabase<AdvLocation> locs = new TargetDatabase<>();
+        locs.addAll(dBContext.lookup(TargetType.LOCATION));
         return locs;
     }
 
-    public <T extends Thing> ThingDatabase<T> lookupDatabase(ThingType t)
+    public TargetDatabase<AdvToken> getAdvTokens() {
+        TargetDatabase<AdvToken> tokens = new TargetDatabase<>();
+        tokens.addAll(dBContext.lookup(TargetType.TOKEN));
+        return tokens;
+    }
+
+    public <T extends SnapTarget> TargetDatabase<T> lookupDatabase(TargetType t)
     {
         return dBContext.lookup(t);
     }
 
-    public void saveDatabase(ThingType type) {
+    public void saveDatabase(TargetType type) {
         vSaver.saveDatabase(type, this);
     }
 
-    public ThingDatabase<Card> getCards() {
-        return dBContext.lookup(ThingType.CARD);
+    public TargetDatabase<Card> getCards() {
+        return dBContext.lookup(TargetType.CARD);
     }
 
-    public ThingDatabase<Boss> getEnabledBosses() {
-        ThingDatabase<Boss> enabled = new ThingDatabase<>();
-        for(Boss b: getBosses())
+    public void modifyBoss(AdvCard b) {
+        TargetDatabase<AdvCard> lookup = dBContext.lookup(TargetType.ADV_CARD);
+        lookup.addNewEntry(b);
+        vSaver.saveBosses(getAdvCards());
+    }
+
+    public void modifySection(AdvLocation s)
+    {
+        TargetDatabase<AdvLocation> lookup = dBContext.lookup(TargetType.LOCATION);
+        lookup.addNewEntry(s);
+        vSaver.saveSections(getAdvLocations());
+    }
+
+    public void modifyAdvToken(AdvToken a) {
+        TargetDatabase<AdvToken> lookup = dBContext.lookup(TargetType.ADV_TOKEN);
+        lookup.addNewEntry(a);
+        vSaver.saveAdvTokens(getAdvTokens());
+    }
+
+    public TargetDatabase<AdvCard> getEnabledAdvCards() {
+        TargetDatabase<AdvCard> enabled = new TargetDatabase<>();
+        for(AdvCard b: getAdvCards())
         {
-            if(b.isEnabled())
+            if(b.isEnabled() && b.isActualThing())
                 enabled.add(b);
         }
         return enabled;
     }
 
-    public ThingDatabase<Section> getEnabledSections() {
-        ThingDatabase<Section> enabled = new ThingDatabase<>();
-        for(Section s: getSections())
+    public TargetDatabase<AdvLocation> getEnabledAdvLocations() {
+        TargetDatabase<AdvLocation> enabled = new TargetDatabase<>();
+        for(AdvLocation s: getAdvLocations())
         {
-            if(s.isEnabled())
+            if(s.isEnabled() && s.isActualThing())
                 enabled.add(s);
         }
         return enabled;
     }
 
-    public ThingDatabase<Card> getEnabledCards()
+    @Override
+    public TargetDatabase<Card> getEnabledCards()
     {
-        ThingDatabase<Card> enabled = new ThingDatabase<>();
+        TargetDatabase<Card> enabled = new TargetDatabase<>();
         for(Card c: getCards())
         {
-            Boss b = getBoss(c);
-            if(b.isEnabled())
+            AdvCard b = getAdvCard(c);
+            if(b.isEnabled() && b.isActualThing())
                 enabled.add(c);
         }
         return enabled;
     }
 
-    public void modifyBoss(Boss b) {
-        ThingDatabase<Boss> lookup = dBContext.lookup(ThingType.CARD);
-        lookup.addNewEntry(b);
-        vSaver.saveBosses(getBosses());
+    public TargetDatabase<AdvToken> getEnabledAdvTokens() {
+        TargetDatabase<AdvToken> enabled = new TargetDatabase<>();
+        for(AdvToken a: getAdvTokens())
+        {
+            if(a.isEnabled() && a.isActualThing())
+                enabled.add(a);
+        }
+        return enabled;
     }
 
-    public void modifySection(Section s)
+    public AdvCard getAdvCard(Card card)
     {
-        ThingDatabase<Section> lookup = dBContext.lookup(ThingType.LOCATION);
-        lookup.addNewEntry(s);
-        vSaver.saveSections(getSections());
+        return getAdvCards().lookup(card.getID());
     }
 
-    public Boss getBoss(Card card)
+    public AdvLocation getAdvLocation(Location loc)
     {
-        return getBosses().lookup(card.getID());
+        return getAdvLocations().lookup(loc.getID());
     }
 
-    public Section getSection(Location loc)
-    {
-        return getSections().lookup(loc.getID());
+    private AdvToken getAdvToken(AdvToken token) {
+        return getAdvTokens().lookup(token.getID());
     }
 
-    public void toggleBoss(Card card) {
-        Boss boss = getBoss(card);
-        boss.setEnabled(!boss.isEnabled());
+    public void toggleAdvCard(Card card) {
+        AdvCard advCard = getAdvCard(card);
+        advCard.setEnabled(!advCard.isEnabled());
     }
 
     public void toggleSection(Location loc) {
-        Section s = getSection(loc);
+        AdvLocation s = getAdvLocation(loc);
         s.setEnabled(!loc.isEnabled());
+    }
+
+    public void toggleAdvToken(AdvToken token) {
+        AdvToken t = getAdvToken(token);
+        t.setEnabled(!t.isEnabled());
     }
 }

@@ -1,23 +1,23 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.*?>
 <?import adventure.view.node.DiceNode?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
-<fx:root fx:id="mainPane" type="adventure.view.node.DiceNode"
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="adventure.view.node.DiceNode"
          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.DiceNodeController">
     <VBox spacing="10.0" alignment="CENTER">
         <Label text="Dice Roller"/>
     <HBox spacing="10.0" alignment="CENTER">
-        <Button fx:id="d2Button" text="d2" onAction="#rolld2"/>
-        <Button fx:id="d4Button" text="d4" onAction="#rolld4"/>
-        <Button fx:id="d6Button" text="d6" onAction="#rolld6"/>
+        <Button fx:id="d2Button" onAction="#rolld2" id="smallButton"/>
+        <Button fx:id="d4Button" onAction="#rolld4" id="smallButton"/>
+        <Button fx:id="d6Button" onAction="#rolld6" id="smallButton"/>
+        <Button fx:id="d8Button" onAction="#rolld8" id="smallButton"/>
     </HBox>
       <HBox spacing="10.0" alignment="CENTER">
-          <Button fx:id="d8Button" text="d8" onAction="#rolld8"/>
-          <Button fx:id="d12Button" text="d12" onAction="#rolld12"/>
-          <Button fx:id="d20Button" text="d20" onAction="#rolld20"/>
-          <Button fx:id="d100Button" text="d100" onAction="#rolld100"/>
+          <Button fx:id="d10Button" onAction="#rolld10" id="smallButton"/>
+          <Button fx:id="d12Button" onAction="#rolld12" id="smallButton"/>
+          <Button fx:id="d20Button" onAction="#rolld20" id="smallButton"/>
+          <Button fx:id="d100Button" onAction="#rolld100" id="smallButton"/>
       </HBox>
         <Label fx:id="dieResult" alignment="CENTER"/>
   </VBox>

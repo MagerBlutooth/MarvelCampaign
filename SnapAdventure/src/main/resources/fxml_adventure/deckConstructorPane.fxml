@@ -1,0 +1,69 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import snapMain.view.node.GridDisplayNode?>
+<?import snapMain.view.manager.CardManager?>
+<?import adventure.view.pane.DeckConstructorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import adventure.view.sortFilter.DeckLinkedSortMenuButton?>
+<?import adventure.view.sortFilter.DeckLinkedFilterMenuButton?>
+<?import adventure.view.AdvTooltip?>
+<fx:root type="DeckConstructorPane" fx:id="mainPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_adventure/mainStyle.css" prefHeight="900"
+         fx:controller="adventure.controller.DeckConstructorPaneController">
+            <VBox alignment="CENTER" spacing="10.0">
+                <HBox alignment="CENTER" spacing="20.0">
+                    <GridDisplayNode fx:id="deckDisplay" minHeight="200"/>
+                    <VBox alignment="CENTER" spacing="10.0">
+                        <Button fx:id="randomCardFromDeckButton" onAction="#randomCardFromDeck"
+                        id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Get Random Card in Deck"/>
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="copyButton" onAction="#copyToClipboard" id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Copy Deck to Clipboard"/>
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="pasteButton" onAction="#pasteFromClipboard" id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Paste Deck from Clipboard"/>
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="clearButton" onAction="#clearDeck" id="imageButton">
+                            <tooltip>
+                                <AdvTooltip text="Clear Deck"/>
+                            </tooltip>
+                        </Button>
+                    </VBox>
+                    <Label fx:id="deckButtonConfirmText" minHeight="40" minWidth="200" maxWidth="200" wrapText="true"
+                           alignment="CENTER"/>
+                </HBox>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <ToggleButton fx:id="deckProfile1" text="Profile 1" onAction="#switchProfile1" id="smallButton"/>
+                    <ToggleButton fx:id="deckProfile2" text="Profile 2" onAction="#switchProfile2" id="smallButton"/>
+                    <ToggleButton fx:id="deckProfile3" text="Profile 3" onAction="#switchProfile3" id="smallButton"/>
+                    <ToggleButton fx:id="deckProfile4" text="Profile 4" onAction="#switchProfile4" id="smallButton"/>
+                </HBox>
+                <CardManager fx:id="allSelectableCards" minHeight="400" maxHeight="400"/>
+                <HBox spacing="20.0" alignment="CENTER">
+                    <DeckLinkedSortMenuButton text="Sort" fx:id="sortButton"/>
+                    <DeckLinkedFilterMenuButton text="Filter" fx:id="filterButton"/>
+                    <Button fx:id="randomCardFromTeamButton" onAction="#randomCardFromTeam"
+                            id="imageButton">
+                        <tooltip>
+                            <AdvTooltip text="Get Random Card from Team"/>
+                        </tooltip>
+                    </Button>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Button text="Back" id="smallButton" onAction="#goBack"/>
+                    <Button fx:id="confirmButton" text="Confirm" id="smallButton" onAction="#confirmDeck"/>
+                </HBox>
+            </VBox>
+    <padding>
+        <Insets top="40.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

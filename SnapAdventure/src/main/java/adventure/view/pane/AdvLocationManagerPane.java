@@ -1,13 +1,13 @@
 package adventure.view.pane;
 
-import adventure.controller.manager.AdvSectionManagerPaneController;
+import adventure.controller.manager.AdvLocationManagerPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import campaign.view.pane.manager.ManagerPane;
+import snapMain.view.pane.manager.ManagerPane;
 
 public class AdvLocationManagerPane extends ManagerPane {
 
-    AdvSectionManagerPaneController controller;
+    AdvLocationManagerPaneController controller;
     public AdvLocationManagerPane()
     {
 

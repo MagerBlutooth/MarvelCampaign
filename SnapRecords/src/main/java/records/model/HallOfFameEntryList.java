@@ -1,15 +1,15 @@
 package records.model;
 
-import campaign.model.database.ThingDatabase;
-import campaign.model.thing.ThingList;
+import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.TargetList;
 
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import static campaign.model.constants.CampaignConstants.STRING_SEPARATOR;
+import static snapMain.model.constants.SnapMainConstants.STRING_SEPARATOR;
 
-public class HallOfFameEntryList extends ThingList<HallOfFameEntry> {
+public class HallOfFameEntryList extends TargetList<HallOfFameEntry> {
 
     HallOfFameSorter hallOfFameSorter;
 
@@ -49,7 +49,7 @@ public class HallOfFameEntryList extends ThingList<HallOfFameEntry> {
         return stringBuilder.toString();
     }
 
-    public void fromCSVSaveString(String cardString, ThingDatabase<HallOfFameEntry> database)
+    public void fromCSVSaveString(String cardString, TargetDatabase<HallOfFameEntry> database)
     {
         String[] entriesList = cardString.split(STRING_SEPARATOR);
 
@@ -72,7 +72,7 @@ public class HallOfFameEntryList extends ThingList<HallOfFameEntry> {
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
-    public void fromSaveString(String cardString, ThingDatabase<HallOfFameEntry> database)
+    public void fromSaveString(String cardString, TargetDatabase<HallOfFameEntry> database)
     {
         byte[] decodedBytes = Base64.getDecoder().decode(cardString);
         String decodedString = new String(decodedBytes);
@@ -101,7 +101,7 @@ public class HallOfFameEntryList extends ThingList<HallOfFameEntry> {
         return stringBuilder.toString();
     }
 
-    public HallOfFameEntryList fromCardList(String cardList, ThingDatabase<HallOfFameEntry> database)
+    public HallOfFameEntryList fromCardList(String cardList, TargetDatabase<HallOfFameEntry> database)
     {
         String[] cardsList = cardList.split("\n");
         HallOfFameEntryList entries = new HallOfFameEntryList(new ArrayList<>());

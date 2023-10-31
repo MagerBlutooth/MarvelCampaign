@@ -1,11 +1,11 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import campaign.controller.ButtonToolBarPaneController;
-import campaign.model.thing.Thing;
-import campaign.view.pane.editor.EditorPane;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
+import snapMain.controller.ButtonToolBarPaneController;
+import snapMain.model.target.BaseObject;
+import snapMain.view.pane.editor.EditorPane;
 
 
 public abstract class AdvEditorPaneController extends ButtonToolBarPaneController<AdvMainDatabase> {
@@ -16,11 +16,11 @@ public abstract class AdvEditorPaneController extends ButtonToolBarPaneControlle
     @FXML
     EditorPane editorPane;
 
-    Thing thing;
+    BaseObject baseObject;
 
-    public void initialize(AdvMainDatabase database, Thing t)
+    public void initialize(AdvMainDatabase database, BaseObject t)
     {
         super.initialize(database);
-        thing = t;
+        baseObject = t;
     }
 }
