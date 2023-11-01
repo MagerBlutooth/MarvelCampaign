@@ -2,26 +2,32 @@ package adventure.controller.dialog;
 
 import adventure.controller.dialog.ChooserDialogController;
 import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
+import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import snapMain.controller.MainDatabase;
+import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
 public class DraftCardDialogController extends SimpleChooserDialogController<ActiveCard> {
 
     @FXML
+    Button viewTeamButton;
+    @FXML
     ToggleButton toTeamButton;
     @FXML
     ToggleButton toTempButton;
     ToggleGroup toggleGroup = new ToggleGroup();
 
-    @Override
-    public void initialize(MainDatabase md, Choosable<ActiveCard> dialog, TargetList<ActiveCard> selectables, TargetType targetType)
+    public void initialize(MainDatabase md, Choosable<ActiveCard> dialog, TargetList<ActiveCard> selectables,
+                           ActiveCardList team, TargetType targetType)
     {
-        super.initialize(md, dialog, selectables, targetType);
+        super.initialize(md, dialog, selectables, team, targetType);
         selection = selectables.get(0);
         toTeamButton.setSelected(true);
         toggleGroup.getToggles().addAll(toTeamButton, toTempButton);

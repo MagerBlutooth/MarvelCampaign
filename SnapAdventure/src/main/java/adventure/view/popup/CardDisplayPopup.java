@@ -59,10 +59,19 @@ public class CardDisplayPopup extends AdvPopup {
     public void initialize(GridActionController<ActiveCard> controller)
     {
         cardGridDisplayNode.initialize(cards, TargetType.CARD, controller, ViewSize.TINY, true);
+        cardGridDisplayNode.setMaxSize(800, 400);
     }
 
     public GridDisplayController<ActiveCard> getGridDisplayController() {
         return cardGridDisplayNode.getController();
     }
 
+    public void setPrefCols(int prefCols)
+    {
+        cardGridDisplayNode.setPrefColumns(prefCols);
+    }
+
+    public void enableVBar() {
+        cardGridDisplayNode.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+    }
 }

@@ -3,16 +3,16 @@ package adventure.controller.dialog;
 import adventure.model.AdvMainDatabase;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
+import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.CardGeneratorDialog;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.*;
 import snapMain.view.ViewSize;
-import snapMain.view.menu.FilterMenuButton;
-import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.GridDisplayNode;
 
 public class CardGeneratorDialogController {
@@ -21,8 +21,6 @@ public class CardGeneratorDialogController {
     ToggleButton toTempButton;
     @FXML
     ToggleButton toTeamButton;
-    @FXML
-    ToggleButton none;
     @FXML
     GridDisplayNode<ActiveCard> choiceNodes;
     MainDatabase mainDatabase;
@@ -53,7 +51,6 @@ public class CardGeneratorDialogController {
     public ActiveCardList getChosen() {
         return choices;
     }
-
 
     public boolean isTeam() {
         return toTeamButton.isSelected();

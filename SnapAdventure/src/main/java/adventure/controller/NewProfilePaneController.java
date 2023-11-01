@@ -76,7 +76,9 @@ public class NewProfilePaneController extends FullViewPaneController implements 
 
     @Override
     public ControlNode<ActiveCard> createEmptyNode(ViewSize v) {
-        return null;
+        ControlNode<ActiveCard> emptyNode = new ControlNode<>();
+        emptyNode.initialize(mainDatabase.grabBlankImage(TargetType.CARD), v);
+        return emptyNode;
     }
 
     @FXML

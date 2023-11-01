@@ -9,6 +9,8 @@ import javafx.scene.control.ScrollPane;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 
+import java.util.List;
+
 public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
 
     private final GridDisplayController<T> gridDisplayController;
@@ -77,4 +79,11 @@ public class GridDisplayNode<T extends SnapTarget> extends ScrollPane {
         gridDisplayController.clear();
     }
 
+    public boolean isEmpty() {
+        return gridDisplayController.isEmpty();
+    }
+
+    public TargetList<T> getThings() {
+        return gridDisplayController.getThings();
+    }
 }

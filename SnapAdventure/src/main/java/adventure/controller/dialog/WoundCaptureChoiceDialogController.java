@@ -1,6 +1,7 @@
 package adventure.controller.dialog;
 
 import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -27,9 +28,10 @@ public class WoundCaptureChoiceDialogController extends SimpleChooserDialogContr
     ToggleGroup toggleGroup = new ToggleGroup();
     Choosable<ActiveCard> dialog;
 
-    public void initialize(MainDatabase md, Choosable<ActiveCard> d, TargetList<ActiveCard> selectables)
+    public void initialize(MainDatabase md, Choosable<ActiveCard> d, ActiveCardList team,
+                           TargetList<ActiveCard> selectables)
     {
-        super.initialize(md, dialog, selectables, TargetType.CARD);
+        super.initialize(md, dialog, selectables, team, TargetType.CARD);
         choices = selectables;
         mainDatabase = md;
         dialog = d;

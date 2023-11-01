@@ -3,6 +3,7 @@ package adventure.view.popup;
 import adventure.controller.dialog.SimpleChooserDialogController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -26,16 +27,16 @@ public class SimpleChooserDialog<T extends SnapTarget> extends AdvDialog<T> impl
         controller = fxmlAdventureGrabber.getController();
     }
 
-    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type)
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, ActiveCardList team, TargetType type)
     {
-        controller.initialize(mainDatabase, this, things, type);
+        controller.initialize(mainDatabase, this, things, team, type);
         primeOKButton();
     }
-    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, TargetType type, String header,
-                           Window owner)
+    public void initialize(AdvMainDatabase mainDatabase, TargetList<T> things, ActiveCardList team,
+                           TargetType type, String header, Window owner)
     {
         super.initialize(owner);
-        controller.initialize(mainDatabase, this, things, type, header);
+        controller.initialize(mainDatabase, this, things, team, type, header);
         primeOKButton();
 
     }

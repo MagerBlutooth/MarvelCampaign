@@ -1,5 +1,6 @@
 package adventure.controller.dialog;
 
+import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;

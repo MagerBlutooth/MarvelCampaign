@@ -20,6 +20,7 @@
                     <RadioButton fx:id="captureButton" text="Capture" styleClass="captureStyle"/>
                     <RadioButton fx:id="woundButton" text="Wound" styleClass="woundStyle"/>
                     <Button fx:id="randomButton" onAction="#chooseRandom" id="imageButton"/>
+                    <Button fx:id="viewTeamButton" text="View Team" onAction="#viewTeam"/>
                 </HBox>
         </VBox>
     </content>

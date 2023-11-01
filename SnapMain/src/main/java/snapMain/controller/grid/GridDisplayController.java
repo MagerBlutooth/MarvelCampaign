@@ -208,4 +208,12 @@ public class GridDisplayController<T extends SnapTarget>  {
         groupList.getChildren().clear();
         populateDisplay();
     }
+
+    public boolean isEmpty() {
+        return targetList.isEmpty();
+    }
+
+    public TargetList<T> getThings() {
+        return targetList;
+    }
 }

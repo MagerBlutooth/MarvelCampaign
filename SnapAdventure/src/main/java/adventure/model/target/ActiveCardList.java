@@ -163,17 +163,16 @@ public class ActiveCardList extends TargetList<ActiveCard> {
 
     public String toString()
     {
+        if(isEmpty())
+            return "";
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Deck: ");
-        stringBuilder.append("[");
-        for(ActiveCard c: this)
+        for(int i = 0; i < size()-1; i++)
         {
-            stringBuilder.append(c);
-            stringBuilder.append(",");
+            stringBuilder.append(get(i));
+            stringBuilder.append(", ");
         }
-        if(!this.isEmpty())
-            stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(","));
-        stringBuilder.append("]");
+        stringBuilder.append("and ");
+        stringBuilder.append(get(size()-1));
         return stringBuilder.toString();
     }
 

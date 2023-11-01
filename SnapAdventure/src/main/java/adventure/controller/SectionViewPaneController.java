@@ -48,7 +48,6 @@ public class SectionViewPaneController extends FullViewPaneController {
     AdvLocationControlNode locationView;
     @FXML
     Label locationEffectText;
-
     @FXML
     Button skipButton;
     @FXML
@@ -124,11 +123,20 @@ public class SectionViewPaneController extends FullViewPaneController {
             stealInfinityStoneOption.setOnAction(e -> enemyStealsInfinityStone(section));
             enemyMenu.getItems().add(stealInfinityStoneOption);
         }
+        initializeStationContext();
 
+    }
+
+    private void initializeStationContext() {
         ContextMenu stationMenu = new ContextMenu();
         MenuItem stationCardItem = new MenuItem("Station");
-        stationCardItem.setOnAction(e -> stationCard());
         stationMenu.getItems().add(stationCardItem);
+        stationCardItem.setOnAction(e -> stationCard());
+        if(!stationedDisplay.isEmpty()) {
+            MenuItem unstationCardItem = new MenuItem("Unstation");
+            unstationCardItem.setOnAction(e -> unstationCard());
+            stationMenu.getItems().add(unstationCardItem);
+        }
         stationedDisplayBox.setOnMouseClicked(e -> stationMenu.show(stationedDisplayBox, e.getScreenX(),
                 e.getScreenY()));
     }
@@ -317,14 +325,22 @@ public class SectionViewPaneController extends FullViewPaneController {
                 adventure.stationCard(section, card);
                 initializeStations(section);
                 adventureControlPane.refreshToMatch();
-                if(section instanceof BossSection)
-                    logger.info(card +" stationed in world " + adventure.getCurrentWorldNum() + " boss section.");
-                else
-                    logger.info(card + " stationed in section " +adventure.getCurrentWorldNum()+"-"
-                        + adventure.getCurrentSectionNum());
+                initializeStationContext();
             });
             refocusWindow();
         }
+    }
+    private void unstationCard() {
+        SimpleChooserDialog<ActiveCard> chooserDialog = new SimpleChooserDialog<>();
+        chooserDialog.initialize(mainDatabase, stationedDisplay.getThings(), adventure.getTeamCards(), TargetType.CARD);
+        Optional<ActiveCard> chosenCard = chooserDialog.showAndWait();
+        chosenCard.ifPresent(activeCard -> {
+            adventure.unstationCard(section, activeCard);
+            initializeStations(section);
+            adventureControlPane.refreshToMatch();
+            initializeStationContext();
+        });
+        refocusWindow();
     }
 
     @FXML

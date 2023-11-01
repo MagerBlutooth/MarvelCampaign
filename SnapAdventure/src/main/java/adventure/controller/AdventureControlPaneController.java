@@ -152,6 +152,7 @@ public class AdventureControlPaneController extends FullViewPaneController {
         {
             DraftDialog draftCardDialog = new DraftDialog();
             draftCardDialog.initialize(mainDatabase, adventure.draftCards(filteredSelectables.get()),
+                    adventure.getTeamCards(),
                     getCurrentScene().getWindow());
             Optional<ActiveCard> card = draftCardDialog.showAndWait();
             card.ifPresent(value ->

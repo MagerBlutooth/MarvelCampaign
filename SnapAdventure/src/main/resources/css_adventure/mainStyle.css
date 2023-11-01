@@ -344,10 +344,10 @@
 .winButtonStyle .text {
 -fx-fill:#4bdb39;
  }
- .winButtonStyle .text:hover, .winStyle .text:selected{
+.winButtonStyle .text:hover, .winStyle .text:selected{
  -fx-fill:#4bdb39;
  }
-.wwinButtonStyle:hover, .winStyle:selected {
+.winButtonStyle:hover, .winButtonStyle:selected {
   -fx-background-color: #0d4828;
   -fx-border-color: #4bdb39;
 }
@@ -358,10 +358,11 @@
 .loseButtonStyle .text {
  -fx-fill:#F54A4A;
  }
-  .loseStyle .text:hover, .loseStyle .text:selected{
+  .loseStyle .text:hover, .loseButtonStyle .text:selected{
   -fx-fill:#F54A4A;
   }
- .loseButtonStyle:hover, .loseStyle:selected {
+
+ .loseButtonStyle:hover, .loseButtonStyle:selected {
    -fx-background-color: #530815;
    -fx-border-color: #F54A4A;
  }
@@ -371,11 +372,11 @@
  .escapeButtonStyle .text {
   -fx-fill:#E1DD4E;
  }
-.escapeButtonStyle .text:hover, .escapeStyle .text:selected{
+.escapeButtonStyle .text:hover, .escapeButtonStyle .text:selected{
   -fx-fill:#E1DD4E;
   }
 
-.escapeButtonStyle:hover, .escapeStyle:selected {
+.escapeButtonStyle:hover, .escapeButtonStyle:selected {
     -fx-background-color: #615c08;
     -fx-border-color:#E1DD4E;
   }
@@ -386,11 +387,12 @@
 .forcedRetreatButtonStyle .text {
    -fx-fill:mediumpurple;
   }
-.forcedRetreatButtonStyle:hover, .forcedRetreatStyle:active, .forcedRetreatStyle:focus, .forcedRetreatStyle:selected {
+.forcedRetreatButtonStyle:hover, .forcedRetreatButtonStyle:active,
+.forcedRetreatButtonStyle:focus, .forcedRetreatButtonStyle:selected {
       -fx-background-color: darkslateblue;
       -fx-border-color: mediumpurple;
 }
-.forcedRetreatButtonStyle .text:hover, .forcedRetreatStyle .text:selected{
+.forcedRetreatButtonStyle .text:hover, .forcedRetreatButtonStyle .text:selected{
   -fx-fill:mediumpurple;
   }
 .tieButtonStyle {
@@ -399,7 +401,7 @@
 .tieButtonStyle .text {
      -fx-fill:lightsteelblue;
     }
-.tieButtonStyle:hover, .tieStyle:active, .tieStyle:focus, .tieStyle:selected {
+.tieButtonStyle:hover, .tieButtonStyle:active, .tieButtonStyle:focus, .tieButtonStyle:selected {
         -fx-background-color: lightslategray;
         -fx-border-color: lightsteelblue;
   }

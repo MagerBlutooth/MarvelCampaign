@@ -35,7 +35,7 @@ public class DraggableThingDisplayNode<T extends BaseObject> extends GridDisplay
         controller.remove(t);
     }
 
-    public List<T> getThings()
+    public TargetList<T> getThings()
     {
         return controller.getThings();
     }

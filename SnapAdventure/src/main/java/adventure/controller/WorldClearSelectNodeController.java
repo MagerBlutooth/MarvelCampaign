@@ -49,9 +49,10 @@ public class WorldClearSelectNodeController extends FullViewPaneController {
     public void draftCard()
     {
         SimpleChooserDialog<ActiveCard> chooserDialog = new SimpleChooserDialog<>();
-        chooserDialog.initialize(mainDatabase, adventure.draftCards(), TargetType.CARD);
+        chooserDialog.initialize(mainDatabase, adventure.draftCards(), adventure.getTeamCards(), TargetType.CARD);
         Optional<ActiveCard> card = chooserDialog.showAndWait();
-        card.ifPresent(value -> draftCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM, false));
+        card.ifPresent(value -> draftCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM,
+                false));
         draftButton.setDisable(true);
     }
 
@@ -59,9 +60,10 @@ public class WorldClearSelectNodeController extends FullViewPaneController {
     public void healCard()
     {
         SimpleChooserDialog<ActiveCard> chooserDialog = new SimpleChooserDialog<>();
-        chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), TargetType.CARD);
+        chooserDialog.initialize(mainDatabase, adventure.getWoundedCards(), adventure.getTeamCards(), TargetType.CARD);
         Optional<ActiveCard> card = chooserDialog.showAndWait();
-        card.ifPresent(value -> healCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM, false));
+        card.ifPresent(value -> healCardDisplay.initialize(mainDatabase, card.get().getCard(), ViewSize.MEDIUM,
+                false));
         healButton.setDisable(true);
 
     }

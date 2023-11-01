@@ -12,6 +12,7 @@
             <Label fx:id="headerLabel" text="Choose"/>
             <StackPane fx:id="displayPane" maxWidth="200" maxHeight="200"/>
             <GridDisplayNode fx:id="choiceNodes"/>
+            <Button fx:id="viewTeamButton" text="View Team" onAction="#viewTeam"/>
             <padding>
                 <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
             </padding>

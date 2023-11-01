@@ -85,17 +85,12 @@ public class Team {
         if (teamCards.contains(card)) {
             capturedCards.add(card);
             teamCards.remove(card);
-            logger.info(card + " captured!");
+            logger.info(card + " was captured!");
         }
-        if (tempCards.contains(card)) {
+        else if (tempCards.contains(card)) {
             makeCardFreeAgent(card);
             tempCards.remove(card);
-            logger.info(card + " captured!");
-        }
-        if(tempCards.contains(card))
-        {
-            makeCardFreeAgent(card);
-            tempCards.remove(card);
+            logger.info(card + " was captured!");
         }
     }
 
@@ -103,7 +98,7 @@ public class Team {
         if (capturedCards.contains(card)) {
             teamCards.add(card);
             capturedCards.remove(card);
-            logger.info(card + " freed!");
+            logger.info(card + " was freed!");
         }
     }
 
@@ -121,7 +116,7 @@ public class Team {
             eliminatedCards.add(card);
             teamCards.remove(card);
             tempCards.remove(card);
-            logger.info(card+ " eliminated!");
+            logger.info(card+ " was eliminated!");
         }
     }
 
@@ -129,7 +124,7 @@ public class Team {
         if (eliminatedCards.contains(card)) {
             teamCards.add(card);
             eliminatedCards.remove(card);
-            logger.info(card+ " revived!");
+            logger.info(card+ " was revived!");
         }
     }
 
@@ -150,7 +145,7 @@ public class Team {
         if (teamCards.contains(card)) {
             miaCards.add(card);
             teamCards.remove(card);
-            logger.info(card+ " sent away!");
+            logger.info(card+ " was sent away!");
         }
     }
 
@@ -203,9 +198,15 @@ public class Team {
     public void stationCard(Section s, ActiveCard c) {
         if (s.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             s.stationCard(c);
-            logger.info(c+ " stationed in "+s);
+            logger.info(c+ " was stationed in " + s);
             teamCards.remove(c);
         }
+    }
+
+    public void unstationCard(Section s, ActiveCard c) {
+        s.unstationCard(c);
+        teamCards.add(c);
+        logger.info(c+ " was unstationed from " + s);
     }
 
     public boolean hasInfinityStone(InfinityStoneID id) {
@@ -265,7 +266,7 @@ public class Team {
         if (removed) {
             c.setTemp(true);
             tempCards.add(c);
-            logger.info(c+ " moved to temp.");
+            logger.info(c+ " was moved to temp.");
         }
     }
 

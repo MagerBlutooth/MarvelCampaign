@@ -109,10 +109,6 @@ public class DraggableThingDisplayController<T extends BaseObject> extends GridD
             targetList.add(t);
         populateDisplay();
     }
-
-    public List<T> getThings() {
-        return targetList.getThings();
-    }
 }
 
 

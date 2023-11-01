@@ -203,6 +203,11 @@ public class Section implements Cloneable, SnapTarget {
         return escapingEnemy;
     }
 
+    public ActiveCard unstationCard(ActiveCard c) {
+        stationedCards.remove(c);
+        return c;
+    }
+
     public ActiveCardList unstationCards() {
         ActiveCardList unstationingCards = new ActiveCardList();
         unstationingCards.addAll(stationedCards);
@@ -214,8 +219,6 @@ public class Section implements Cloneable, SnapTarget {
     {
         if(this instanceof BossSection)
             return "Boss Section";
-        if(advLocation.isActualThing())
-            return advLocation.toString();
         return "Section " + sectionNum;
     }
 }

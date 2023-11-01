@@ -93,7 +93,12 @@ public abstract class TargetList<T extends SnapTarget> implements Iterable<T>, C
     }
 
     public boolean isEmpty() {
-        return things.isEmpty();
+        for (T t : this)
+        {
+            if(t.isActualThing())
+                return false;
+        }
+        return true;
     }
 
     public boolean remove(T t) {

@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
-import snapMain.model.target.CardList;
-import snapMain.model.target.Faction;
-import snapMain.model.target.TargetType;
+import snapMain.model.target.*;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
 import snapMain.view.dragdrop.Draggable;
@@ -134,7 +131,7 @@ public class AgentSelectorGridController extends ThingActionController<Card> {
         agentDisplay.filterBy(s, notSelected);
     }
 
-    public List<Card> getAgents() {
+    public TargetList<Card> getAgents() {
         return agentDisplay.getThings();
     }
 

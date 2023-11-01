@@ -17,6 +17,7 @@
                 <ToggleButton fx:id="toTeamButton" text="To Team"/>
                 <ToggleButton fx:id="toTempButton" text="To Temp"/>
             </HBox>
+            <Button fx:id="viewTeamButton" text="View Team" onAction="#viewTeam"/>
             <padding>
                 <Insets top="40.0" bottom="40.0" left="20.0" right="20.0"/>
             </padding>

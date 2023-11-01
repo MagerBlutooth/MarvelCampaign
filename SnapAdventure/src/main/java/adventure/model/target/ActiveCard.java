@@ -3,6 +3,7 @@ package adventure.model.target;
 import adventure.model.AdventureConstants;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.helper.StringHelper;
 import snapMain.model.logger.MLogger;
 import snapMain.model.target.*;
 
@@ -53,7 +54,7 @@ public class ActiveCard implements Playable<Card> {
     public void toggleStatus(StatusEffect s)
     {
         statusEffectMap.replace(s, !statusEffectMap.get(s));
-        logger.info(s + " status for " + this + "set to "
+        logger.info(StringHelper.camelCase(s.toString()) + " status for " + this + " set to "
                 + hasStatus(s));
     }
 

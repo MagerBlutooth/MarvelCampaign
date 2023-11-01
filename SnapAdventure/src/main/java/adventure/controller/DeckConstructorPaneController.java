@@ -293,6 +293,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         AdvMatchResultPopup resultPopup = new AdvMatchResultPopup();
         resultPopup.initialize(!deck.hasNoCaptains(), getCurrentScene().getWindow());
         Optional<AdvMatchResult> result = resultPopup.showAndWait();
+        String deckString = deck.toString();
         if (result.isPresent()) {
             adventure.updateStats(deck, result.get());
             if (resultPopup.doesCapture()) {
@@ -314,7 +315,8 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
                         recoveredCards, getCurrentScene().getWindow());
                 cardDisplayConfirmationDialog.showAndWait();
             }
-            logger.info(deck + getResultString(result.get()));
+            logger.info(deckString + getResultString(result.get()));
+            adventure.saveAdventure();
             changeScene(backPane);
         }
         else
@@ -324,7 +326,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
 
     private ActiveCard captainCaptureOption(ActiveCardList deck) {
         SimpleChooserDialog<ActiveCard> captainChoice = new SimpleChooserDialog<>();
-        captainChoice.initialize(mainDatabase, deck.getCaptains(), TargetType.CARD,
+        captainChoice.initialize(mainDatabase, deck.getCaptains(), adventure.getTeamCards(), TargetType.CARD,
                 "Which captain performed a capture?", getCurrentScene().getWindow());
         Optional<ActiveCard> capturingCaptain = captainChoice.showAndWait();
         if (capturingCaptain.isPresent()) {
@@ -345,7 +347,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
 
     private void captureOrWoundCardOption(ActiveCardList deck) {
         WoundCaptureChoiceDialog woundCaptureChoice = new WoundCaptureChoiceDialog();
-        woundCaptureChoice.initialize(mainDatabase, deck, getCurrentScene().getWindow());
+        woundCaptureChoice.initialize(mainDatabase, deck, adventure.getTeamCards(), getCurrentScene().getWindow());
         Optional<ActiveCard> targetCard = woundCaptureChoice.showAndWait();
         if (woundCaptureChoice.captureOptionSelected() && targetCard.isPresent()) {
             adventure.captureCard(targetCard.get());

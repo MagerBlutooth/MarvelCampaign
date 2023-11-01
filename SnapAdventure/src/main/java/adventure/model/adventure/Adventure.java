@@ -58,6 +58,7 @@ public class Adventure {
 
     public void initialize(AdvMainDatabase db, int numTeamMembers, int numTeamCaptains, Difficulty d) {
         difficulty = d;
+        generateAdventure(db, numTeamMembers, numTeamCaptains);
     }
 
     public List<String> convertToString() {
@@ -287,6 +288,10 @@ public class Adventure {
         team.stationCard(s, card);
     }
 
+    public void unstationCard(Section s, ActiveCard card) {
+        team.unstationCard(s, card);
+    }
+
     public void addFreeAgentToTemp(ActiveCard card) {
         team.getTempCards().add(card);
         team.getFreeAgents().remove(card);
@@ -453,7 +458,8 @@ public class Adventure {
             if (e.getValue() && deck.contains(e.getKey()))
                 newlyExhaustedCards.add(e.getKey());
         }
-        logger.info(newlyExhaustedCards + " exhausted.");
+        if(!deck.isEmpty())
+            logger.info(newlyExhaustedCards + " exhausted.");
         return newlyExhaustedCards;
     }
 
@@ -533,7 +539,6 @@ public class Adventure {
 
     public void captureCard(ActiveCard c) {
         team.captureCard(c);
-        logInfo(c + " captured");
     }
 
     public void logInfo(String string)
@@ -568,9 +573,12 @@ public class Adventure {
     public void woundCard(ActiveCard c)
     {
         team.woundCard(c);
+        logger.info(c + " wounded!");
     }
 
     public Section getCurrentBossSection() {
         return getCurrentWorld().getBossSection();
     }
+
+
 }

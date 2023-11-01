@@ -4,6 +4,7 @@ import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.AgentSelectorGridController;
 import snapMain.model.target.Card;
 import snapMain.model.target.Faction;
+import snapMain.model.target.TargetList;
 import snapMain.view.fxml.FXMLMainGrabber;
 import snapMain.view.pane.FullViewPane;
 
@@ -35,7 +36,7 @@ public class AgentSelectorGrid extends FullViewPane {
         controller.filterBy(s, notSelected);
     }
 
-    public List<? super Card> getAgents() {
+    public TargetList<? super Card> getAgents() {
         return controller.getAgents();
     }
 
