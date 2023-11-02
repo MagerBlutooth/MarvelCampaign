@@ -19,10 +19,16 @@ import snapMain.controller.grid.ManagerPaneController;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
+import snapMain.view.menu.FilterMenuButton;
+import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.control.ControlNode;
 
 
 public class AdvLocationManagerPaneController extends ManagerPaneController<AdvLocation, AdvMainDatabase> implements GridActionController<AdvLocation> {
+    @FXML
+    SortMenuButton<AdvLocation> sortButton;
+    @FXML
+    FilterMenuButton<AdvLocation> filterButton;
     @FXML
     AdvLocationManager advLocationManager;
 
@@ -44,6 +50,9 @@ public class AdvLocationManagerPaneController extends ManagerPaneController<AdvL
         super.initialize(m);
         AdvLocationList sections = new AdvLocationList(m.getActualAdvLocations());
         advLocationManager.initialize(sections, TargetType.LOCATION, this, ViewSize.MEDIUM, true);
+        sortButton.initialize(advLocationManager.getListNodeController());
+        filterButton.initialize(advLocationManager.getListNodeController());
+
     }
 
     @Override

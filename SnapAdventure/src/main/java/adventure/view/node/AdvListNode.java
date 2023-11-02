@@ -1,5 +1,6 @@
 package adventure.view.node;
 
+import adventure.model.target.base.AdvToken;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
@@ -40,5 +41,9 @@ public abstract class AdvListNode<T extends BaseObject> extends StackPane {
     public GridDisplayNode<T> getList()
     {
         return list;
+    }
+
+    public GridDisplayController<T> getListNodeController() {
+        return list.getController();
     }
 }

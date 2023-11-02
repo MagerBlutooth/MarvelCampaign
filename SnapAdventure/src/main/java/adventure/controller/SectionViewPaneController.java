@@ -9,10 +9,11 @@ import adventure.model.target.base.*;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.HPDisplayNode;
+import adventure.view.pane.AdventureClearPane;
 import adventure.view.pane.AdventureControlPane;
+import adventure.view.pane.DeckConstructorPane;
 import adventure.view.pane.WorldClearPane;
 import adventure.view.popup.*;
-import adventure.view.pane.DeckConstructorPane;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -21,7 +22,9 @@ import javafx.scene.layout.StackPane;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.logger.MLogger;
-import snapMain.model.target.*;
+import snapMain.model.target.Playable;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.pane.FullViewPane;
@@ -65,7 +68,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         mainDatabase = dB;
         adventureControlPane = cP;
         section = s;
-        if(s instanceof BossSection)
+        if (s instanceof BossSection)
             skipButton.setDisable(true);
         enemy = s.getEnemy();
         adventure = cP.getAdventure();
@@ -78,14 +81,14 @@ public class SectionViewPaneController extends FullViewPaneController {
                 ViewSize.MEDIUM, false);
         setSecondaryEffect();
         hpDisplay.initialize(enemy);
-        completeButton.disableProperty().bind(Bindings.lessThan(0,hpDisplay.getHPProperty()));
+        completeButton.disableProperty().bind(Bindings.lessThan(0, hpDisplay.getHPProperty()));
         initializeRewards(s);
         initializeStations(s);
         initializeContextMenus();
     }
 
     private void setSecondaryEffect() {
-        if(enemy.getSecondarySubject().isActualThing()) {
+        if (enemy.getSecondarySubject().isActualThing()) {
             enemyView.setSecondary(enemy.getSecondarySubject());
             secondaryEffectText.setText(enemy.getSecondaryEffect());
         }
@@ -118,7 +121,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         MenuItem escapeEnemyOption = new MenuItem("Enemy Escapes");
         escapeEnemyOption.setOnAction(e -> enemyEscape());
         enemyMenu.getItems().add(escapeEnemyOption);
-        if(adventure.hasInfinityStone()) {
+        if (adventure.hasInfinityStone()) {
             MenuItem stealInfinityStoneOption = new MenuItem("Enemy Steals Infinity Stone");
             stealInfinityStoneOption.setOnAction(e -> enemyStealsInfinityStone(section));
             enemyMenu.getItems().add(stealInfinityStoneOption);
@@ -132,7 +135,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         MenuItem stationCardItem = new MenuItem("Station");
         stationMenu.getItems().add(stationCardItem);
         stationCardItem.setOnAction(e -> stationCard());
-        if(!stationedDisplay.isEmpty()) {
+        if (!stationedDisplay.isEmpty()) {
             MenuItem unstationCardItem = new MenuItem("Unstation");
             unstationCardItem.setOnAction(e -> unstationCard());
             stationMenu.getItems().add(unstationCardItem);
@@ -160,8 +163,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         chooserDialog.initialize(mainDatabase, playableOptions, "Choose Secondary Effect",
                 getCurrentScene().getWindow());
         Optional<Playable> secondEffect = chooserDialog.showAndWait();
-        if(secondEffect.isPresent())
-        {
+        if (secondEffect.isPresent()) {
             Playable enemyEffect = secondEffect.get();
             enemy.setSecondarySubject(enemyEffect);
             setSecondaryEffect();
@@ -176,8 +178,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         cardSearchSelectDialog.initialize(mainDatabase, new PlayableList(adb.getEnemySubjects()),
                 "Make enemy clone of which card?", getCurrentScene().getWindow());
         Optional<Playable> playable = cardSearchSelectDialog.showAndWait();
-        if(playable.isPresent())
-        {
+        if (playable.isPresent()) {
             Playable p = playable.get();
             Enemy enemy = adventure.replaceEnemy(p, section.getSectionNum(), true);
             enemyView.refresh(enemy, true);
@@ -192,8 +193,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         cardSearchSelectDialog.initialize(mainDatabase, new ActiveCardList(adventure.getFreeAgents()),
                 "Choose new enemy", getCurrentScene().getWindow());
         Optional<ActiveCard> card = cardSearchSelectDialog.showAndWait();
-        if(card.isPresent())
-        {
+        if (card.isPresent()) {
             ActiveCard c = card.get();
             TargetDatabase<AdvCard> bosses = mainDatabase.lookupDatabase(TargetType.ADV_CARD);
             AdvCard boss = bosses.lookup(c.getID());
@@ -205,8 +205,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         adventureControlPane.refreshToMatch();
     }
 
-    public void goBack()
-    {
+    public void goBack() {
         changeScene(adventureControlPane);
     }
 
@@ -222,7 +221,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         locationSearchSelectDialog.initialize(mainDatabase, selectableLocations,
                 "Choose new location", getCurrentScene().getWindow());
         Optional<AdvLocation> location = locationSearchSelectDialog.showAndWait();
-        if(location.isPresent() && location.get().isActualThing()) {
+        if (location.isPresent() && location.get().isActualThing()) {
             AdvLocation newLoc = location.get();
             adventure.updateSection(newLoc, section.getSectionNum());
             locationView.update(newLoc);
@@ -232,8 +231,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         adventureControlPane.refreshToMatch();
     }
 
-    private void destroyLocation()
-    {
+    private void destroyLocation() {
         AdvLocation destroyedLoc = new Ruins();
         adventure.destroySection(section.getSectionNum());
         locationView.update(destroyedLoc);
@@ -242,24 +240,24 @@ public class SectionViewPaneController extends FullViewPaneController {
 
     private void initializeStations(Section s) {
         stationedDisplay = new GridDisplayNode<>();
-            BaseGridActionController<ActiveCard> gridActionController = new BaseGridActionController<>();
-            gridActionController.initialize(mainDatabase);
-             stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD, gridActionController,
-                    ViewSize.TINY, false);
-             stationedDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-             stationedDisplay.setMinHeight(120);
-             stationedDisplayBox.getChildren().add(stationedDisplay);
+        BaseGridActionController<ActiveCard> gridActionController = new BaseGridActionController<>();
+        gridActionController.initialize(mainDatabase);
+        stationedDisplay.initialize(s.getStationedCards(), TargetType.CARD, gridActionController,
+                ViewSize.TINY, false);
+        stationedDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        stationedDisplay.setMinHeight(120);
+        stationedDisplayBox.getChildren().add(stationedDisplay);
     }
 
     private void initializeRewards(Section s) {
-            GridDisplayNode<Playable> pickupDisplay = new GridDisplayNode<>();
-            BaseGridActionController<Playable> gridActionController = new BaseGridActionController<>();
-            gridActionController.initialize(mainDatabase);
-            pickupDisplay.initialize(s.getRewards(), TargetType.CARD_OR_TOKEN, gridActionController,
-                    ViewSize.TINY, false);
-            pickupDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            pickupDisplay.setMinHeight(120);
-            rewardDisplayBox.getChildren().add(pickupDisplay);
+        GridDisplayNode<Playable> pickupDisplay = new GridDisplayNode<>();
+        BaseGridActionController<Playable> gridActionController = new BaseGridActionController<>();
+        gridActionController.initialize(mainDatabase);
+        pickupDisplay.initialize(s.getRewards(), TargetType.CARD_OR_TOKEN, gridActionController,
+                ViewSize.TINY, false);
+        pickupDisplay.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        pickupDisplay.setMinHeight(120);
+        rewardDisplayBox.getChildren().add(pickupDisplay);
     }
 
     @Override
@@ -273,22 +271,28 @@ public class SectionViewPaneController extends FullViewPaneController {
     }
 
     @FXML
-    public void completeSection()
-    {
+    public void completeSection() {
         section.complete();
         adventure.collectPickups(section);
-        if(!(section instanceof BossSection)) {
+        if (!(section instanceof BossSection)) {
             adventureControlPane.completeCurrentSection();
+            defeatEnemy();
             changeScene(adventureControlPane);
-        }
-        else {
+        } else {
+            logger.info(enemy + " defeated!");
             defeatBoss();
         }
     }
 
+    private void defeatEnemy() {
+        if(enemy.getObtainableCard() != null) {
+            adventure.addCardToTeam(new ActiveCard(enemy.getObtainableCard()));
+        }
+        section.setEnemy(adventure.createNewMook());
+    }
+
     @FXML
-    public void skipSection()
-    {
+    public void skipSection() {
         adventureControlPane.skipSection(section);
         changeScene(adventureControlPane);
     }
@@ -300,8 +304,7 @@ public class SectionViewPaneController extends FullViewPaneController {
     }
 
     @FXML
-    public void changeBaseHP()
-    {
+    public void changeBaseHP() {
         HPDialog dialog = new HPDialog();
         dialog.initialize(enemy.getBaseHP());
         Optional<Integer> newHP = dialog.showAndWait();
@@ -314,9 +317,8 @@ public class SectionViewPaneController extends FullViewPaneController {
     }
 
     @FXML
-    public void stationCard()
-    {
-        if(section.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
+    public void stationCard() {
+        if (section.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             CardChooserDialog chooserDialog = new CardChooserDialog();
             chooserDialog.initialize(mainDatabase, adventure.getTeamCards(), TargetType.CARD,
                     "Station which card?", getCurrentScene().getWindow());
@@ -330,6 +332,7 @@ public class SectionViewPaneController extends FullViewPaneController {
             refocusWindow();
         }
     }
+
     private void unstationCard() {
         SimpleChooserDialog<ActiveCard> chooserDialog = new SimpleChooserDialog<>();
         chooserDialog.initialize(mainDatabase, stationedDisplay.getThings(), adventure.getTeamCards(), TargetType.CARD);
@@ -344,16 +347,14 @@ public class SectionViewPaneController extends FullViewPaneController {
     }
 
     @FXML
-    public void createDeck()
-    {
+    public void createDeck() {
         DeckConstructorPane deckConstructorPane = new DeckConstructorPane();
         deckConstructorPane.initialize(mainDatabase, sectionViewPane, adventure);
         changeScene(deckConstructorPane);
     }
 
     @FXML
-    public void changeScene(FullViewPane pane)
-    {
+    public void changeScene(FullViewPane pane) {
         adventureControlPane.refreshToMatch();
         super.changeScene(pane);
     }

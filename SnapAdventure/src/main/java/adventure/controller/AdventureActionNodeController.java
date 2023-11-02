@@ -8,16 +8,15 @@ import adventure.model.target.ActiveCardList;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.LogViewPane;
 import adventure.view.popup.CardDisplayPopup;
+import adventure.view.popup.CardSearchSelectDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import snapMain.model.logger.MLogger;
+import snapMain.model.target.Card;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AdventureActionNodeController {
@@ -77,6 +76,20 @@ public class AdventureActionNodeController {
         LogViewPane logViewPane = new LogViewPane();
         logViewPane.initialize(logArea, controlPane);
         controlPane.changeScene(logViewPane);
+    }
+
+    @FXML
+    public void injectCard()
+    {
+        CardSearchSelectDialog searchSelectDialog = new CardSearchSelectDialog();
+        ActiveCardList missingCards = adventure.getMissingCards(mainDatabase);
+        searchSelectDialog.initialize(mainDatabase, missingCards, "Add a card to the game",
+                controlPane.getScene().getWindow());
+        Optional<ActiveCard> injectedCard = searchSelectDialog.showAndWait();
+        if(injectedCard.isPresent()) {
+            adventure.injectCard(injectedCard.get());
+            adventure.saveAdventure();
+        }
     }
 
     private TextArea createLogText(File f) {

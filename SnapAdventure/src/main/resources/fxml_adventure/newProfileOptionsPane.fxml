@@ -22,6 +22,10 @@
                     <Label text="Starting Captains:"/>
                     <ChoiceBox fx:id="teamCaptainOptions"/>
                 </HBox>
+                <HBox spacing="10.0">
+                    <Label text="Number of Worlds:"/>
+                    <ChoiceBox fx:id="worldCountOptions"/>
+                </HBox>
                 <HBox fx:id="difficultyBox" spacing="10.0"/>
             </VBox>
             <Button text="Accept" onAction="#showNewProfile"/>

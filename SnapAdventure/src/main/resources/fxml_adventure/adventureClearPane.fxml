@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import snapMain.view.thing.CardView?>
+<?import javafx.scene.layout.HBox?>
 <fx:root type="AdventureClearPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css"
@@ -12,7 +13,10 @@
     <VBox alignment="CENTER" spacing="40.0"/>
         <VBox alignment="CENTER" spacing="10.0">
             <Label fx:id="victoryLabel" wrapText="true" id="info"/>
-            <CardView fx:id="enemyView"/>
+            <HBox alignment="CENTER">
+                <CardView fx:id="enemyView"/>
+                <CardView fx:id="trueEnemyView"/>
+            </HBox>
             <VBox spacing="50.0" alignment="CENTER">
                 <Label fx:id="totalPlayTime"/>
                 <Button text="Show Card Stats" onAction="#showCardStats"/>

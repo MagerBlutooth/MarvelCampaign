@@ -4,10 +4,12 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureDatabase;
 import adventure.model.Team;
 import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvToken;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -220,5 +222,15 @@ public class Section implements Cloneable, SnapTarget {
         if(this instanceof BossSection)
             return "Boss Section";
         return "Section " + sectionNum;
+    }
+
+    public AdvToken getInfinityStone() {
+        for(Playable p: getRewards())
+        {
+            TargetDatabase<AdvToken> advTokens = adventureDatabase.getAdvTokens();
+            if(p instanceof InfinityStone)
+                return advTokens.lookup(p.getID());
+        }
+        return null;
     }
 }

@@ -37,6 +37,10 @@ public class World implements Cloneable{
         timeKeeper = new AdvTimekeeper();
     }
 
+    public World(int num) {
+        worldNum = num;
+    }
+
     public World(AdventureDatabase db, List<AdvLocation> locations, int wNum)
     {
         this(db);
@@ -98,6 +102,13 @@ public class World implements Cloneable{
         ActiveCard card = agentsCopy.get(0);
         AdvCard boss = bosses.lookup(card.getID());
         bossRevealed = false;
+        for(Section s: getSections())
+        {
+            if(s.getInfinityStone() != null)
+            {
+                s.getEnemy().setSecondarySubject(s.getInfinityStone());
+            }
+        }
         if(boss != null)
         {
             Enemy enemy = new Enemy(boss, bonusCalculator.calculateBoss(worldNum));

@@ -60,6 +60,12 @@ public abstract class AdvSearchSelectDialogController<T extends SnapTarget> {
         displayPane.setAlignment(Pos.CENTER);
         displayPane.getChildren().add(new ControlNode<>());
         choice = t;
+    }
 
+    public void selectRandom()
+    {
+        T t = choices.getRandom();
+        searchSelectDialog.enableOKButton();
+        setChoice(t);
     }
 }

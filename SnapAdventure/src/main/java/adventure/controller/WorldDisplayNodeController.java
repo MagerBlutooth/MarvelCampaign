@@ -1,6 +1,7 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
+import adventure.model.FinalWorld;
 import adventure.model.World;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.Enemy;
@@ -160,7 +161,11 @@ public class WorldDisplayNodeController extends FullViewPaneController {
     }
 
     private void setWorldLabel(World w) {
-        worldLabel.setText("World " + w.getWorldNum());
+        if(world instanceof FinalWorld)
+            worldLabel.setText("Final World");
+        else
+            worldLabel.setText("World " + w.getWorldNum());
+
     }
 
     @Override

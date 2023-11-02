@@ -19,9 +19,9 @@ public class CardManagerPaneController extends ManagerPaneController<Card, MainD
     @FXML
     CardManager cardManager;
     @FXML
-    SortMenuButton sortButton;
+    SortMenuButton<Card> sortButton;
     @FXML
-    FilterMenuButton filterButton;
+    FilterMenuButton<Card> filterButton;
 
     @Override
     public Scene getCurrentScene() {

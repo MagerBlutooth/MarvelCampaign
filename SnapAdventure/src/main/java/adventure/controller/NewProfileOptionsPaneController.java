@@ -4,6 +4,7 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.AdventureConstants;
 import adventure.model.Difficulty;
 import adventure.model.adventure.Adventure;
+import adventure.view.AdvTooltip;
 import adventure.view.pane.AdvNewProfilePane;
 import adventure.view.pane.AdvStartPane;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import snapMain.view.button.ButtonToolBar;
 
@@ -22,6 +24,8 @@ public class NewProfileOptionsPaneController extends FullViewPaneController {
     ChoiceBox<Integer> teamMemberOptions;
     @FXML
     ChoiceBox<Integer> teamCaptainOptions;
+    @FXML
+    ChoiceBox<Integer> worldCountOptions;
     @FXML
     HBox difficultyBox;
     Difficulty difficulty;
@@ -40,7 +44,17 @@ public class NewProfileOptionsPaneController extends FullViewPaneController {
         initializeTeamMemberOptions();
         initializeTeamCaptainOptions();
         initializeDifficultyBox();
+        initializeWorldCountBox();
     }
+
+    private void initializeWorldCountBox() {
+        for(Integer i: AdventureConstants.WORLD_NUMBER_CHOICES)
+        {
+            worldCountOptions.getItems().add(i);
+        }
+        worldCountOptions.setValue(worldCountOptions.getItems().get(3));
+    }
+
     private void initializeDifficultyBox() {
         ToggleGroup toggleGroup = new ToggleGroup();
         for(Difficulty d: Difficulty.values())
@@ -49,6 +63,9 @@ public class NewProfileOptionsPaneController extends FullViewPaneController {
             t.setOnAction(e -> setDifficulty(t.getText()));
             toggleGroup.getToggles().add(t);
             difficultyBox.getChildren().add(t);
+            AdvTooltip diffTooltip = new AdvTooltip();
+            diffTooltip.setText(d.getTooltip());
+            Tooltip.install(t, diffTooltip);
         }
         toggleGroup.getToggles().get(1).setSelected(true);
         setDifficulty(Difficulty.NORMAL.toString());
@@ -82,7 +99,7 @@ public class NewProfileOptionsPaneController extends FullViewPaneController {
     public void showNewProfile()
     {
         adventure.initialize(mainDatabase, teamMemberOptions.getValue(), teamCaptainOptions.getValue(),
-                difficulty);
+                worldCountOptions.getValue(), difficulty);
         AdvNewProfilePane advNewProfilePane = new AdvNewProfilePane();
         advNewProfilePane.initialize(mainDatabase, adventure, backPane);
         changeScene(advNewProfilePane);

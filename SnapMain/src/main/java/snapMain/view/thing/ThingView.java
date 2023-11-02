@@ -89,4 +89,8 @@ public class ThingView<T extends BaseObject> extends StackPane {
     public void setViewSize(ViewSize s) {
         viewSize = s;
     }
+
+    public void lowlight() {
+        setOpacity(0.5);
+    }
 }

@@ -6,10 +6,10 @@ import java.util.List;
 
 public class AdventureConstants {
 
-    public static final int NUMBER_OF_WORLDS = 8;
     public static final int SECTIONS_PER_WORLD = 4;
     public static final int NUM_DRAFT_CARDS = 3;
     public static final int MAX_STATIONS = 4;
+    public static final int INFINITY_STONE_COUNT = 6;
     public static final String BOSS_FILE = "data/bossList.csv";
     public static final String SECTION_FILE = "data/sectionsList.csv";
     public static final String ADV_TOKEN_FILE = "data/advTokensList.csv";
@@ -25,7 +25,7 @@ public class AdventureConstants {
     public static final List<Integer> TEAM_MEMBER_START_CHOICES = Arrays.asList(40, 50, 60, 100);
 
     public static final List<Integer> TEAM_CAPTAIN_START_CHOICES = Arrays.asList(1, 3, 4, 6);
-
+    public static final List<Integer> WORLD_NUMBER_CHOICES = Arrays.asList(2, 4, 6, 8);
     public static final String EMPTY_PROFILE = "Empty";
     public static final String TEMP_FILTER_STRING = "Temp";
     public static final int AVAILABLE_SKIPS = 1;

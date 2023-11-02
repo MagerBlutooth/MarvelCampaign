@@ -3,6 +3,7 @@ package adventure.controller;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
+import adventure.view.pane.AdventureClearPane;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.ConfirmationDialog;
 import adventure.view.popup.SimpleChooserDialog;
@@ -85,6 +86,13 @@ public class WorldClearSelectNodeController extends FullViewPaneController {
             dialog.centerToParent(getCurrentScene().getWindow());
             if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.NO)
                 return;
+        }
+
+        if (adventure.completeStateCheck()) {
+            AdventureClearPane clearPane = new AdventureClearPane();
+            clearPane.initialize(mainDatabase, adventure);
+            changeScene(clearPane);
+            return;
         }
         adventure.completeCurrentWorld();
         ActiveCard draftedCard = collectCard(draftCardDisplay);

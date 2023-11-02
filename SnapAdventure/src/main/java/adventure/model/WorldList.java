@@ -9,16 +9,14 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import static adventure.model.AdventureConstants.NUMBER_OF_WORLDS;
-
 public class WorldList extends ArrayList<World> {
 
-    public WorldList(AdventureDatabase database)
+    public WorldList(int numWorlds, AdventureDatabase database)
     {
         super(new ArrayList<>());
         AdvLocationList sections = new AdvLocationList(database.getSections());
         sections.shuffle();
-        for(int i = 0; i < NUMBER_OF_WORLDS; i++)
+        for(int i = 0; i < numWorlds+1; i++)
         {
             AdvLocation s1 = sections.get(4*i);
             AdvLocation s2 = sections.get(4*i+1);
@@ -32,9 +30,7 @@ public class WorldList extends ArrayList<World> {
             World world = new World(database, locations, i+1);
             add(world);
         }
-
     }
-
     public WorldList(List<World> t) {
         super(t);
     }
@@ -85,11 +81,5 @@ public class WorldList extends ArrayList<World> {
                 allBosses.add((AdvCard) w.getBoss().getSubject());
         }
         return allBosses;
-    }
-
-    @Override
-    public World get(int worldNum)
-    {
-        return super.get(worldNum-1);
     }
 }

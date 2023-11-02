@@ -18,7 +18,8 @@
 
             </HBox>
             <HBox spacing="10.0" alignment="CENTER">
-                <Button fx:id="logButton" text="Adventure Log" id="smallButton" onAction="#showLog"/>
+                <Button text="Adventure Log" id="smallButton" onAction="#showLog"/>
+                <Button text="Inject Card" id="smallButton" onAction="#injectCard"/>
             </HBox>
         </VBox>
     </VBox>

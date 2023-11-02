@@ -25,7 +25,7 @@ public class AdvTimekeeper {
     public String getTotalPlayTime()
     {
         long totalSecs = recordedTime.getSeconds();
-        return String.format("%d:%02d:%02d", totalSecs / 3600, (totalSecs % 3600) / 60, (totalSecs % 60));
+        return String.format("%02d:%02d:%02d", totalSecs / 3600, (totalSecs % 3600) / 60, (totalSecs % 60));
     }
 
     public String toSaveString()

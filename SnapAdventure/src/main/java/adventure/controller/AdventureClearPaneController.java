@@ -17,12 +17,15 @@ import java.util.Map;
 
 public class AdventureClearPaneController extends FullViewPaneController {
 
+
     @FXML
     Label totalPlayTime;
     @FXML
     Label victoryLabel;
     @FXML
     CardView enemyView;
+    @FXML
+    CardView trueEnemyView;
 
     Adventure adventure;
 
@@ -33,17 +36,21 @@ public class AdventureClearPaneController extends FullViewPaneController {
         totalPlayTime.setText("Total Play Time: " + a.getTotalPlayTime());
         Enemy finalBoss = a.getFinalBoss();
         a.saveAdventure();
-        if(finalBoss.getCurrentHP() > 0) {
+        int currentWorldNum = a.getCurrentWorldNum();
+        if(currentWorldNum == a.getNumberOfWorlds()) {
+            Enemy trueFinalBoss = a.getTrueFinalBoss();
+            enemyView.lowlight();
+            trueEnemyView.initialize(mainDatabase, trueFinalBoss.getObtainableCard().getCard(), ViewSize.LARGE, false);
             victoryLabel.setText("Congratulations! You have stopped the mastermind " + finalBoss +
-                    " from retrieving the Infinity Stones. Perhaps if you had obtained all of them, you may have been "
-                    + "able" + "to confront them directly. They escaped back into the multiverse and your world is " +
-                    "safe...for now.");
-
+                    " from retrieving the Infinity Stones. However, it turns out "+ finalBoss + " was only a puppet. " +
+                    "The true mastermind " + trueFinalBoss + " has escaped into the multiverse. Perhaps if you had " +
+                    "collected all the Infinity Stones, you could have confronted this diabolical genius directly. " +
+                    "At the very least, the world is safe...for now.");
         }
         else{
             victoryLabel.setText("Oh, snap! You have defeated the evil mastermind " + finalBoss +
                     " using the combined power of the Infinity Stones and put an end to their reign of terror. " +
-                    "You have" + "saved not only your universe, but the entire multiverse from this great evil.");
+                    " You have saved not only your universe, but the entire multiverse from this great evil.");
         }
         enemyView.initialize(database, ((AdvCard) finalBoss.getSubject()).getCard(), ViewSize.LARGE, false);
     }

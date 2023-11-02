@@ -16,15 +16,22 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.ManagerPaneController;
+import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
+import snapMain.view.menu.FilterMenuButton;
+import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.control.ControlNode;
 
 
 public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard, AdvMainDatabase> implements GridActionController<AdvCard> {
     @FXML
     BossManager bossManager;
+    @FXML
+    SortMenuButton<AdvCard> sortButton;
+    @FXML
+    FilterMenuButton<AdvCard> filterButton;
 
     @Override
     public void initializeButtonToolBar() {
@@ -44,6 +51,8 @@ public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard,
         super.initialize(m);
         AdvCardList cards = new AdvCardList(m.getActualAdvCards());
         bossManager.initialize(cards, TargetType.CARD, this, ViewSize.MEDIUM, true);
+        sortButton.initialize(bossManager.getListNodeController());
+        filterButton.initialize(bossManager.getListNodeController());
     }
 
     @Override

@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import snapMain.view.button.ButtonToolBar?>
 <?import adventure.view.manager.AdvTokenManager?>
+<?import snapMain.view.menu.FilterMenuButton?>
+<?import snapMain.view.menu.SortMenuButton?>
 <fx:root type="AdvTokenManagerPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css"
@@ -11,11 +13,13 @@
          prefWidth="1200" prefHeight="800">
     <VBox alignment="CENTER">
         <ButtonToolBar fx:id="buttonToolBar"/>
-    <HBox spacing="30.0" alignment="CENTER">
+        <HBox spacing="30.0" alignment="CENTER">
+            <SortMenuButton text="Sort" fx:id="sortButton"/>
+            <FilterMenuButton text="Filter" fx:id="filterButton"/>
+        </HBox>
         <VBox alignment="CENTER">
             <AdvTokenManager fx:id="advTokenManager"/>
         </VBox>
-    </HBox>
     </VBox>
     <padding>
         <Insets top="20.0" bottom="20.0" left="20.0" right="10.0"/>

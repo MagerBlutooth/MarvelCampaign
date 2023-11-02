@@ -179,4 +179,9 @@ public class ActiveCard implements Playable<Card> {
     public void setTemp(boolean t) {
         temp = t;
     }
+
+    public void clearExhaustion() {
+        setStatus(StatusEffect.EXHAUSTED, false);
+        setStatus(StatusEffect.RECOVERING, false);
+    }
 }

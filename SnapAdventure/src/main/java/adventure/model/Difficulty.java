@@ -13,4 +13,8 @@ public enum Difficulty {
     public int getSectionsRequiredToClear() {
         return requiredSectionsToClear;
     }
+
+    public String getTooltip() {
+        return "Complete " + requiredSectionsToClear + " sections each world.";
+    }
 }

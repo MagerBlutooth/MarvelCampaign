@@ -85,11 +85,13 @@ public class Team {
         if (teamCards.contains(card)) {
             capturedCards.add(card);
             teamCards.remove(card);
+            card.clearExhaustion();
             logger.info(card + " was captured!");
         }
         else if (tempCards.contains(card)) {
             makeCardFreeAgent(card);
             tempCards.remove(card);
+            card.clearExhaustion();
             logger.info(card + " was captured!");
         }
     }
@@ -107,6 +109,7 @@ public class Team {
             freeAgentCards.add(card);
             teamCards.remove(card);
             tempCards.remove(card);
+            card.clearExhaustion();
             logger.info(card+ " defected to the enemy side!");
         }
     }
@@ -116,6 +119,7 @@ public class Team {
             eliminatedCards.add(card);
             teamCards.remove(card);
             tempCards.remove(card);
+            card.clearExhaustion();
             logger.info(card+ " was eliminated!");
         }
     }
@@ -124,6 +128,7 @@ public class Team {
         if (eliminatedCards.contains(card)) {
             teamCards.add(card);
             eliminatedCards.remove(card);
+            card.clearExhaustion();
             logger.info(card+ " was revived!");
         }
     }
@@ -145,6 +150,7 @@ public class Team {
         if (teamCards.contains(card)) {
             miaCards.add(card);
             teamCards.remove(card);
+            card.clearExhaustion();
             logger.info(card+ " was sent away!");
         }
     }
@@ -200,6 +206,7 @@ public class Team {
             s.stationCard(c);
             logger.info(c+ " was stationed in " + s);
             teamCards.remove(c);
+            c.clearExhaustion();
         }
     }
 
@@ -313,5 +320,19 @@ public class Team {
         if(!woundedCard.isActualThing())
             woundedCard = getTempCards().lookupActiveCard(c.getID());
         woundedCard.setStatus(StatusEffect.WOUND, true);
+    }
+
+    public ActiveCardList getMissingCards(AdvMainDatabase database) {
+        ActiveCardList missingCards = new ActiveCardList();
+        for(Card c: database.getCards())
+        {
+            if(!getAllCards().contains(c.getID()))
+                missingCards.add(new ActiveCard(c));
+        }
+        return  missingCards;
+    }
+
+    public boolean hasAllInfinityStones() {
+        return infinityStones.size() == AdventureConstants.INFINITY_STONE_COUNT;
     }
 }

@@ -137,4 +137,8 @@ public class AdventureDatabase {
         db.addAll(advTokens.getActualThings());
         return db;
     }
+
+    public TargetDatabase<AdvToken> getAdvTokens() {
+        return advTokens;
+    }
 }

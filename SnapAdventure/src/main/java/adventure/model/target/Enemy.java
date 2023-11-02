@@ -175,4 +175,12 @@ public class Enemy implements SnapTarget {
     public String getSecondaryEffect() {
         return getSecondarySubject().getEffect();
     }
+
+    public ActiveCard getObtainableCard() {
+        if(subject instanceof AdvCard && subject.isActualThing())
+        {
+            return new ActiveCard(((AdvCard) subject).getCard());
+        }
+        return null;
+    }
 }

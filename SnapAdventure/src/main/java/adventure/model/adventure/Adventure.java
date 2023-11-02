@@ -1,14 +1,11 @@
 package adventure.model.adventure;
 
 import adventure.model.*;
+import adventure.model.stats.AdvMatchResult;
 import adventure.model.stats.CardStatTracker;
 import adventure.model.stats.CardStats;
-import adventure.model.stats.AdvMatchResult;
 import adventure.model.target.*;
-import adventure.model.target.base.AdvCard;
-import adventure.model.target.base.AdvCardList;
-import adventure.model.target.base.AdvLocation;
-import adventure.model.target.base.AdvLocationList;
+import adventure.model.target.base.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.logger.MLogger;
 import snapMain.model.target.*;
@@ -26,6 +23,7 @@ public class Adventure {
     AdvCardList availableBosses;
     AdvLocationList availableLocations;
     WorldList worlds;
+    int numberOfWorlds;
     int currentWorldNum;
     boolean newProfileCheck;
     CardStatTracker cardStatTracker;
@@ -35,6 +33,7 @@ public class Adventure {
     List<InfinityStone> allInfinityStones;
     Difficulty difficulty;
     AdvTimekeeper timekeeper;
+    boolean finalWorldUnlocked;
 
     MLogger logger = new MLogger(Adventure.class);
 
@@ -52,19 +51,21 @@ public class Adventure {
         miaCardTracker = new MIACardTracker();
         deckProfiles = new DeckProfileList(SnapMainConstants.DECK_PROFILE_DEFAULT);
         timekeeper = new AdvTimekeeper();
+        finalWorldUnlocked = false;
         createInfinityStones();
         loadAdventure(mainDB);
     }
 
-    public void initialize(AdvMainDatabase db, int numTeamMembers, int numTeamCaptains, Difficulty d) {
+    public void initialize(AdvMainDatabase db, int numTeamMembers, int numTeamCaptains, int numWorlds, Difficulty d) {
         difficulty = d;
-        generateAdventure(db, numTeamMembers, numTeamCaptains);
+        generateAdventure(db, numTeamMembers, numTeamCaptains, numWorlds);
     }
 
     public List<String> convertToString() {
         List<String> adventureString = new ArrayList<>();
         adventureString.add(profileName);
         adventureString.add(currentWorldNum + "");
+        adventureString.add(numberOfWorlds + "");
         adventureString.add(team.toSaveString());
         adventureString.add(availableBosses.toSaveString());
         adventureString.add(availableLocations.toSaveString());
@@ -75,6 +76,7 @@ public class Adventure {
         adventureString.add(adventureDatabase.toSaveString());
         adventureString.add(miaCardTracker.toSaveString());
         adventureString.add(timekeeper.toSaveString());
+        adventureString.add(finalWorldUnlocked + "");
         return adventureString;
     }
 
@@ -87,16 +89,19 @@ public class Adventure {
 
         profileName = splitString[0];
         currentWorldNum = Integer.parseInt(splitString[1]);
-        adventureDatabase.fromSaveString(splitString[9], mainDB);
-        team.convertFromString(splitString[2], adventureDatabase);
-        availableBosses.fromSaveString(splitString[3], adventureDatabase.getAdvCards());
-        availableLocations.fromSaveString(splitString[4], adventureDatabase.getSections());
-        worlds.fromSaveString(adventureDatabase, mainDB, splitString[5]);
-        cardStatTracker.fromSaveString(splitString[6]);
-        deckProfiles.fromSaveString(splitString[7], adventureDatabase);
-        difficulty = Difficulty.valueOf(splitString[8]);
-        miaCardTracker.fromSaveString(splitString[10], team.getAllCards());
-        timekeeper.fromSaveString(splitString[11]);
+        numberOfWorlds = Integer.parseInt(splitString[2]);
+        adventureDatabase.fromSaveString(splitString[10], mainDB);
+        team.convertFromString(splitString[3], adventureDatabase);
+        availableBosses.fromSaveString(splitString[4], adventureDatabase.getAdvCards());
+        availableLocations.fromSaveString(splitString[5], adventureDatabase.getSections());
+        worlds.fromSaveString(adventureDatabase, mainDB, splitString[6]);
+        cardStatTracker.fromSaveString(splitString[7]);
+        deckProfiles.fromSaveString(splitString[8], adventureDatabase);
+        difficulty = Difficulty.valueOf(splitString[9]);
+        miaCardTracker.initialize(numberOfWorlds);
+        miaCardTracker.fromSaveString(splitString[11], team.getAllCards());
+        timekeeper.fromSaveString(splitString[12]);
+        finalWorldUnlocked = Boolean.parseBoolean(splitString[13]);
     }
 
     public void saveAdventure() {
@@ -111,19 +116,21 @@ public class Adventure {
         convertFromString(db, adventureString);
     }
 
-    private void generateAdventure(AdvMainDatabase db, int numTeamMembers, int numCaptains) {
+    private void generateAdventure(AdvMainDatabase db, int numTeamMembers, int numCaptains, int numWorlds) {
         adventureDatabase.createNewDatabase(db);
         availableBosses = new AdvCardList(adventureDatabase.getAdvCards());
         availableLocations = new AdvLocationList(adventureDatabase.getSections());
         team = new Team(adventureDatabase, numTeamMembers, numCaptains);
-        worlds = new WorldList(adventureDatabase);
+        worlds = new WorldList(numWorlds, adventureDatabase);
         availableBosses.removeAll(worlds.getAllBosses());
         availableLocations.removeAll(worlds.getAllLocations());
         currentWorldNum = 1;
+        numberOfWorlds = numWorlds;
+        miaCardTracker.initialize(numWorlds);
         cardStatTracker.initialize(getAllCards());
-        World w = worlds.get(currentWorldNum);
-        w.initialize(getFreeAgents());
+        World w = getCurrentWorld();
         placeInfinityStones();
+        w.initialize(getFreeAgents());
     }
 
     private void createInfinityStones() {
@@ -136,7 +143,7 @@ public class Adventure {
     private void placeInfinityStones() {
 
         List<Integer> possibleSections = new ArrayList<>();
-        for (int i = 0; i < AdventureConstants.NUMBER_OF_WORLDS * AdventureConstants.SECTIONS_PER_WORLD; i++) {
+        for (int i = 0; i < getNumberOfWorlds() * AdventureConstants.SECTIONS_PER_WORLD; i++) {
             possibleSections.add(i);
         }
         Collections.shuffle(possibleSections);
@@ -144,14 +151,14 @@ public class Adventure {
             int choice = possibleSections.get(i);
             int worldNum = (int) Math.floor((double) choice / AdventureConstants.SECTIONS_PER_WORLD) + 1;
             int secNum = choice % AdventureConstants.SECTIONS_PER_WORLD + 1;
-            World w = worlds.get(worldNum);
+            World w = worlds.get(worldNum - 1);
             Section s = w.getSection(secNum);
             s.addReward(allInfinityStones.get(i));
         }
     }
 
     public World getCurrentWorld() {
-        return worlds.get(currentWorldNum);
+        return worlds.get(currentWorldNum - 1);
     }
 
     public int getCurrentSectionNum() {
@@ -165,6 +172,7 @@ public class Adventure {
     public String getProfileName() {
         return profileName;
     }
+
     public AdvProfile getProfile() {
         return profile;
     }
@@ -188,7 +196,7 @@ public class Adventure {
 
     private int getFutureWorldNum() {
         Random random = new Random();
-        int worldChosen = random.nextInt(getCurrentWorldNum()+1,worlds.size()) + 1;
+        int worldChosen = random.nextInt(getCurrentWorldNum() + 1, worlds.size()) + 1;
         return worldChosen;
     }
 
@@ -199,10 +207,12 @@ public class Adventure {
             getCurrentWorld().setBossRevealed(true);
         }
         getCurrentWorld().revealNextSection(getCurrentSectionNum());
-        getCurrentWorld().incrementCurrentSectionNum();
         logInfo("Section " + getCurrentWorldNum() + "-" + getCurrentSectionNum()
                 + " completed");
+        getCurrentWorld().incrementCurrentSectionNum();
+
     }
+
     public void skipCurrentSection() {
         getCurrentWorld().skipCurrentSection();
         logInfo("Section " + getCurrentWorldNum() + "-" + getCurrentSectionNum()
@@ -211,19 +221,14 @@ public class Adventure {
 
     public void completeCurrentWorld() {
         team.exhaustedCardsRecover();
-        //reclaimCards(); Don't need this second call since the cards are relcaimed as part of a different method.
+        //reclaimCards(); Don't need this second call since the cards are reclaimed as part of a different method.
         //Might need the call if completeCurrentWorld is called by another method.
-
         team.tempCardsExpire();
-        if (currentWorldNum < AdventureConstants.NUMBER_OF_WORLDS) {
-            currentWorldNum++;
-            getCurrentWorld().initialize(team.getFreeAgents());
-        } else if (currentWorldNum == AdventureConstants.NUMBER_OF_WORLDS && allInfinityStones.size() == 6) {
-            currentWorldNum++;
-            worlds.add(new World(adventureDatabase));
-        }
         logInfo("World " + getCurrentWorldNum()
                 + " completed!");
+        currentWorldNum++;
+        if (currentWorldNum <= getNumberOfWorlds())
+            getCurrentWorld().initialize(team.getFreeAgents());
     }
 
     public ActiveCardList getActiveCards() {
@@ -346,6 +351,7 @@ public class Adventure {
             team.getTeamCards().add(card);
         }
     }
+
     public Card getBossCard() {
         World w = getCurrentWorld();
         AdvCard boss = (AdvCard) w.getBoss().getSubject();
@@ -458,7 +464,7 @@ public class Adventure {
             if (e.getValue() && deck.contains(e.getKey()))
                 newlyExhaustedCards.add(e.getKey());
         }
-        if(!deck.isEmpty())
+        if (!deck.isEmpty())
             logger.info(newlyExhaustedCards + " exhausted.");
         return newlyExhaustedCards;
     }
@@ -488,49 +494,74 @@ public class Adventure {
     }
 
     public Section enemyEscapes(int sectionNum) {
-       Enemy enemy =  worlds.get(getCurrentWorldNum()).enemyEscapes(sectionNum);
-       int futureWorld = getFutureWorldNum();
-       World world = worlds.get(futureWorld);
-       Section escapedSection = world.getRandomSection();
-       escapedSection.setEnemy(enemy);
-       team.sendCapturedCardsAway(miaCardTracker, futureWorld+1);
-       logger.info(enemy + " escaped from world " + getCurrentWorldNum());
-       return escapedSection;
+        Enemy enemy = getCurrentWorld().enemyEscapes(sectionNum);
+        int futureWorld = getFutureWorldNum();
+        World world = worlds.get(futureWorld - 1);
+        Section escapedSection = world.getRandomSection();
+        escapedSection.setEnemy(enemy);
+        team.sendCapturedCardsAway(miaCardTracker, futureWorld + 1);
+        logger.info(enemy + " escaped from world " + getCurrentWorldNum());
+        return escapedSection;
     }
 
     public boolean failStateCheck() {
         ActiveCardList teamCards = getTeamCards();
         ActiveCardList activeCards = getActiveCards();
-        if(activeCards.size() < SnapMainConstants.DECK_SIZE) {
+        if (activeCards.size() < SnapMainConstants.DECK_SIZE) {
             logger.info("Adventure Failed. Not enough active cards to continue.");
             return true;
         }
-        if(teamCards.hasNoCaptains())
-        {
+        if (teamCards.hasNoCaptains()) {
             logger.info("Adventure failed! No captains remaining on team.");
             return true;
         }
         return false;
     }
 
-    private void initializeFinalWorld() {
-        if(getCurrentWorldNum() == AdventureConstants.NUMBER_OF_WORLDS)
-        {
-            worlds.add(new FinalWorld(adventureDatabase, team.getFreeAgents(), availableLocations));
-            logger.info("Final World unlocked.");
+    public boolean completeStateCheck() {
+        if (getCurrentWorldNum() == getNumberOfWorlds() && !team.hasAllInfinityStones()) {
+            logger.info("Adventure complete!");
+            return true;
         }
-        else if(getCurrentWorldNum() < AdventureConstants.NUMBER_OF_WORLDS)
-        {
-            World finalWorld = worlds.get(AdventureConstants.NUMBER_OF_WORLDS);
+        if (getCurrentWorldNum() == getNumberOfWorlds() && team.hasAllInfinityStones()) {
+            initializeFinalWorld();
+            return false;
+        }
+        if (getFinalBoss().getCurrentHP() == 0) {
+            logger.info("True Adventure complete!");
+            return true;
+        }
+        return false;
+    }
+
+    private void initializeFinalWorld() {
+        if (getCurrentWorldNum() > getNumberOfWorlds()) {
+            World w = new FinalWorld(adventureDatabase, getCurrentWorldNum() + 1,
+                    team.getFreeAgents(), availableLocations);
+            worlds.set(getCurrentWorldNum(), w);
+            logger.info("Final World unlocked.");
+            finalWorldUnlocked = true;
+        } else if (getCurrentWorldNum() == getNumberOfWorlds()) {
+            World finalWorld = worlds.get(worlds.size() - 1);
             finalWorld.initialize(team.getFreeAgents());
         }
     }
 
     public Enemy getFinalBoss() {
-        Enemy enemy = worlds.get(AdventureConstants.NUMBER_OF_WORLDS).getBoss();
-        if(!enemy.isActualThing())
+        if(!finalWorldUnlocked)
+            return worlds.get(worlds.size() - 2).getBoss();
+        return worlds.get(worlds.size() - 1).getBoss();
+    }
+
+    public Enemy getTrueFinalBoss()
+    {
+        if(!finalWorldUnlocked)
             initializeFinalWorld();
-        return worlds.get(AdventureConstants.NUMBER_OF_WORLDS).getBoss();
+        return worlds.get(worlds.size() - 1).getBoss();
+    }
+
+    public int getNumberOfWorlds() {
+        return numberOfWorlds;
     }
 
     public Map<Integer, CardStats> getRankedCardStats() {
@@ -541,8 +572,7 @@ public class Adventure {
         team.captureCard(c);
     }
 
-    public void logInfo(String string)
-    {
+    public void logInfo(String string) {
         logger.info(string);
     }
 
@@ -570,8 +600,7 @@ public class Adventure {
         return getCurrentWorld().getWorldPlayTimeString();
     }
 
-    public void woundCard(ActiveCard c)
-    {
+    public void woundCard(ActiveCard c) {
         team.woundCard(c);
         logger.info(c + " wounded!");
     }
@@ -581,4 +610,18 @@ public class Adventure {
     }
 
 
+    public void injectCard(ActiveCard activeCard) {
+        team.addCardToFreeAgents(activeCard);
+    }
+
+    public ActiveCardList getMissingCards(AdvMainDatabase database) {
+        return team.getMissingCards(database);
+    }
+
+    public Enemy createNewMook() {
+        Mook mook = new Mook();
+        Enemy enemy = new Enemy(mook);
+        enemy.setBaseHP(getCurrentWorld().calculateMookBonus());
+        return enemy;
+    }
 }

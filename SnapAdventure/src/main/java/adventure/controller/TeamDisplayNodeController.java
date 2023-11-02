@@ -175,7 +175,7 @@ public class TeamDisplayNodeController {
             IntegerPromptDialog integerPromptDialog = new IntegerPromptDialog();
             integerPromptDialog.initialize("Send Away to Which World?",
                     adventure.getCurrentWorldNum() + 1,
-                    AdventureConstants.NUMBER_OF_WORLDS);
+                    adventure.getNumberOfWorlds());
             Optional<Integer> worldToSend = integerPromptDialog.showAndWait();
             worldToSend.ifPresent(w -> {
                 team.sendAway(card);

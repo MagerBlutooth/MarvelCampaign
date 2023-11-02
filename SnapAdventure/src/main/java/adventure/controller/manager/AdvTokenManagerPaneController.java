@@ -2,6 +2,7 @@ package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.target.ActiveCard;
+import adventure.model.target.base.AdvCard;
 import adventure.model.target.base.AdvToken;
 import adventure.model.target.base.AdvTokenList;
 import adventure.view.manager.AdvTokenManager;
@@ -19,11 +20,17 @@ import snapMain.controller.grid.ManagerPaneController;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
+import snapMain.view.menu.FilterMenuButton;
+import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.control.ControlNode;
 
 
 public class AdvTokenManagerPaneController extends ManagerPaneController<AdvToken, AdvMainDatabase>
         implements GridActionController<AdvToken> {
+    @FXML
+    SortMenuButton<AdvToken> sortButton;
+    @FXML
+    FilterMenuButton<AdvToken> filterButton;
     @FXML
     AdvTokenManager advTokenManager;
 
@@ -45,6 +52,8 @@ public class AdvTokenManagerPaneController extends ManagerPaneController<AdvToke
         super.initialize(m);
         AdvTokenList tokens = new AdvTokenList(m.getActualAdvTokens());
         advTokenManager.initialize(tokens, TargetType.ADV_TOKEN, this, ViewSize.MEDIUM, true);
+        sortButton.initialize(advTokenManager.getListNodeController());
+        filterButton.initialize(advTokenManager.getListNodeController());
     }
 
     @Override

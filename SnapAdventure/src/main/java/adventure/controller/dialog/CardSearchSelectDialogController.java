@@ -46,6 +46,7 @@ public class CardSearchSelectDialogController extends AdvSearchSelectDialogContr
         ActiveCardList cards = new ActiveCardList(new ArrayList<>());
         cards = cards.cloneNewList(choices.getThings());
         cards.shuffle();
+        searchSelectDialog.enableOKButton();
         setChoice(cards.get(0));
     }
 
