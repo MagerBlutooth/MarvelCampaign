@@ -7,10 +7,6 @@ import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;
 

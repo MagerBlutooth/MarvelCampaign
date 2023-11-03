@@ -4,7 +4,6 @@ import adventure.controller.DeckGridController;
 import adventure.model.AdventureConstants;
 import adventure.model.target.ActiveCard;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import snapMain.controller.grid.GridDisplayController;

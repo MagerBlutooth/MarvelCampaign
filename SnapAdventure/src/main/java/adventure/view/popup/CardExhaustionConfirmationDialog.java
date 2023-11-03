@@ -3,10 +3,6 @@ package adventure.view.popup;
 import adventure.controller.dialog.CardExhaustionConfirmationDialogController;
 import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.scene.Parent;
-import javafx.scene.control.Dialog;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 

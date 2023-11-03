@@ -1,7 +1,9 @@
 package adventure.model;
 
 import adventure.model.target.*;
-import adventure.model.target.base.*;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvLocationList;
+import adventure.model.target.base.Mook;
 import snapMain.model.database.TargetDatabase;
 
 import java.util.ArrayList;

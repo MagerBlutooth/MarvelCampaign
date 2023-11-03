@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import snapMain.view.button.ButtonToolBar?>
-<?import snapMain.view.menu.SortMenuButton?>
 <?import snapMain.view.menu.FilterMenuButton?>
+<?import snapMain.view.menu.SortMenuButton?>
 <fx:root type="adventure.view.pane.AdvLocationManagerPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvLocationManagerPaneController"

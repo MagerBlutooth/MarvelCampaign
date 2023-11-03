@@ -1,7 +1,6 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdventureConstants;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
@@ -13,10 +12,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import snapMain.model.logger.MLogger;
-import snapMain.model.target.Card;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AdventureActionNodeController {
@@ -83,7 +86,8 @@ public class AdventureActionNodeController {
     {
         CardSearchSelectDialog searchSelectDialog = new CardSearchSelectDialog();
         ActiveCardList missingCards = adventure.getMissingCards(mainDatabase);
-        searchSelectDialog.initialize(mainDatabase, missingCards, "Add a card to the game",
+        searchSelectDialog.initialize(mainDatabase, missingCards, adventure.getTeamCards(),
+                "Add a card to the game",
                 controlPane.getScene().getWindow());
         Optional<ActiveCard> injectedCard = searchSelectDialog.showAndWait();
         if(injectedCard.isPresent()) {

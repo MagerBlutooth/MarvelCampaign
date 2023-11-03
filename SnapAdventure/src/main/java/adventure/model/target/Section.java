@@ -9,7 +9,6 @@ import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.*;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -174,8 +173,8 @@ public class Section implements Cloneable, SnapTarget {
         return completed;
     }
 
-    public void addReward(InfinityStone infinityStone) {
-        rewards.add(infinityStone);
+    public void addReward(Playable playable) {
+        rewards.add(playable);
     }
 
     public Enemy getEnemy() {
@@ -199,9 +198,10 @@ public class Section implements Cloneable, SnapTarget {
         return removed;
     }
 
-    public Enemy enemyEscapes() {
+    public Enemy enemyEscapes(int hpCount) {
         Enemy escapingEnemy = new Enemy(enemy);
         enemy = new Enemy();
+        enemy.setBaseHP(hpCount);
         return escapingEnemy;
     }
 

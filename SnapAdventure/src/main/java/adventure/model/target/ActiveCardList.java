@@ -1,6 +1,5 @@
 package adventure.model.target;
 
-import adventure.model.Team;
 import adventure.model.sorter.ActiveCardFilter;
 import adventure.model.sorter.ActiveCardSorter;
 import snapMain.model.constants.SnapMainConstants;
@@ -171,8 +170,9 @@ public class ActiveCardList extends TargetList<ActiveCard> {
             stringBuilder.append(get(i));
             stringBuilder.append(", ");
         }
-        stringBuilder.append("and ");
-        stringBuilder.append(get(size()-1));
+        if(size() > 1)
+            stringBuilder.append("and ");
+        stringBuilder.append(get(size() - 1));
         return stringBuilder.toString();
     }
 

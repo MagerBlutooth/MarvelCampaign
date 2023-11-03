@@ -2,7 +2,7 @@ package adventure.model.target;
 
 import adventure.model.AdvMainDatabase;
 import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.*;
+import snapMain.model.target.TargetList;
 
 import java.util.Base64;
 import java.util.List;

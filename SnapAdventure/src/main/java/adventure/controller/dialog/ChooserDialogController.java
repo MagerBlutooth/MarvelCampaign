@@ -1,6 +1,5 @@
 package adventure.controller.dialog;
 
-import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -45,7 +44,7 @@ public class ChooserDialogController<T extends SnapTarget> {
         mainDatabase = md;
         ChooserDialogGridActionController<T> gridActionController = new ChooserDialogGridActionController<>();
         gridActionController.initialize(mainDatabase, dialog);
-        choiceNodes.initialize(selectables, targetType, gridActionController, ViewSize.SMALL, false);
+        choiceNodes.initialize(selectables, targetType, gridActionController, ViewSize.SMALL, true);
         sortButton.initialize(choiceNodes.getController());
         filterButton.initialize(choiceNodes.getController());
     }

@@ -2,7 +2,6 @@ package adventure.view.node;
 
 import adventure.model.target.Section;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.paint.Color;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.TargetType;

@@ -3,9 +3,6 @@ package adventure.view.popup;
 import adventure.controller.dialog.HPDialogController;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Dialog;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 
 public class HPDialog extends AdvDialog<Integer> {
 

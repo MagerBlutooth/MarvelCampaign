@@ -1,8 +1,10 @@
 package adventure.model.target.base;
 
-import snapMain.model.constants.SnapMainConstants;
-import snapMain.model.target.*;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.Card;
+import snapMain.model.target.Playable;
+import snapMain.model.target.TargetType;
 
 public class AdvCard extends BaseObject implements Playable<Card> {
     Card card;

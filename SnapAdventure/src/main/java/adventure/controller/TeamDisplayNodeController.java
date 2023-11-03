@@ -5,17 +5,19 @@ import adventure.model.AdventureConstants;
 import adventure.model.Team;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
 import adventure.view.node.InfinityStoneDisplayNode;
-import adventure.view.pane.AdventureClearPane;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.IntegerPromptDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.StatusEffect;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
+import snapMain.view.grabber.IconConstant;
 import snapMain.view.menu.FilterMenuButton;
 import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.GridDisplayNode;
@@ -24,6 +26,8 @@ import java.util.Optional;
 
 public class TeamDisplayNodeController {
 
+    @FXML
+    Button randomButton;
     @FXML
     Button captureButton;
     @FXML
@@ -50,17 +54,21 @@ public class TeamDisplayNodeController {
     Team team;
     Adventure adventure;
 
-    AdvMainDatabase database;
+    AdvMainDatabase mainDatabase;
     AdventureControlPane adventureControlPane;
 
     public void initialize(AdvMainDatabase d, Team t, AdventureControlPane aPane)
     {
-        database = d;
+        mainDatabase = d;
         team = t;
         adventureControlPane = aPane;
         adventure = aPane.getAdventure();
         initControllers(d, t);
-        infinityStoneDisplay.initialize(database, t);
+        infinityStoneDisplay.initialize(mainDatabase, t);
+        ImageView diceImage = new ImageView(mainDatabase.grabIcon(IconConstant.DICE));
+        diceImage.setFitWidth(30);
+        diceImage.setFitHeight(30);
+        randomButton.setGraphic(diceImage);
     }
 
     private void initControllers(MainDatabase d, Team t) {
@@ -80,7 +88,7 @@ public class TeamDisplayNodeController {
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getCapturedCards(),
                 captureButton.localToScreen(0.0,0.0));
-        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        lostCardController.initialize(mainDatabase, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
@@ -94,7 +102,7 @@ public class TeamDisplayNodeController {
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getMIACards(),
                 miaButton.localToScreen(0.0,0.0));
-        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        lostCardController.initialize(mainDatabase, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
@@ -108,7 +116,7 @@ public class TeamDisplayNodeController {
     {
         CardDisplayPopup popup = new CardDisplayPopup(team.getEliminatedCards(),
                 eliminateButton.localToScreen(0.0,0.0));
-        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        lostCardController.initialize(mainDatabase, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
@@ -122,7 +130,7 @@ public class TeamDisplayNodeController {
     {
         CardDisplayPopup popup = new CardDisplayPopup(adventure.getStationedCards(),
                 stationedButton.localToScreen(0.0,0.0));
-        lostCardController.initialize(database, this, popup.getGridDisplayController());
+        lostCardController.initialize(mainDatabase, this, popup.getGridDisplayController());
         popup.initialize(lostCardController);
         popup.show();
         popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
@@ -171,7 +179,7 @@ public class TeamDisplayNodeController {
 
     public void sendAway(ActiveCard card)
     {
-        if(adventure.getCurrentWorldNum() < 8) {
+        if(adventure.getCurrentWorldNum() < adventure.getNumberOfWorlds()) {
             IntegerPromptDialog integerPromptDialog = new IntegerPromptDialog();
             integerPromptDialog.initialize("Send Away to Which World?",
                     adventure.getCurrentWorldNum() + 1,
@@ -181,11 +189,11 @@ public class TeamDisplayNodeController {
                 team.sendAway(card);
                 adventure.sendAway(w, card);
             });
-            adventureControlPane.refreshToMatch();
         }
         else {
-            adventure.sendAway(9, card);
+            adventure.sendAway(adventure.getNumberOfWorlds()+1, card);
         }
+        adventureControlPane.refreshToMatch();
     }
     public void returnCard(ActiveCard card)
     {
@@ -230,5 +238,19 @@ public class TeamDisplayNodeController {
     public void teamToTemp(ActiveCard subject) {
         team.fromTeamToTemp(subject);
         adventureControlPane.refreshToMatch();
+    }
+
+    public void showRandomTeamCard()
+    {
+        ActiveCardList cards = adventure.getActiveCards();
+        ActiveCard randomCard = cards.getRandom();
+        CardDisplayPopup popup = new CardDisplayPopup(mainDatabase, randomCard,
+                randomButton.localToScreen(80.0,0));
+        popup.show();
+        popup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused) {
+                popup.hide();
+            }
+        });
     }
 }

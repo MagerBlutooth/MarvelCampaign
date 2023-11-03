@@ -3,7 +3,10 @@ package adventure.model;
 import adventure.model.stats.AdvMatchResult;
 import adventure.model.stats.WorldStatTracker;
 import adventure.model.target.*;
-import adventure.model.target.base.*;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.Mook;
+import adventure.model.target.base.Ruins;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.logger.MLogger;
@@ -264,7 +267,7 @@ public class World implements Cloneable{
     }
 
     public Enemy enemyEscapes(int sectionNum) {
-        return getSection(sectionNum).enemyEscapes();
+        return getSection(sectionNum).enemyEscapes(calculateMookBonus());
     }
 
     public Section getRandomSection() {

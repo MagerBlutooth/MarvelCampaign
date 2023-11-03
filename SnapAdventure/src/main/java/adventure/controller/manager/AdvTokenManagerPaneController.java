@@ -1,8 +1,6 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.ActiveCard;
-import adventure.model.target.base.AdvCard;
 import adventure.model.target.base.AdvToken;
 import adventure.model.target.base.AdvTokenList;
 import adventure.view.manager.AdvTokenManager;

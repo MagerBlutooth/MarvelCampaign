@@ -1,8 +1,11 @@
 package adventure.model.target.base;
 
-import snapMain.model.target.*;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
+import snapMain.model.target.BaseObject;
+import snapMain.model.target.Playable;
+import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 
 public class AdvToken extends BaseObject implements Playable<Token> {
     Token token;

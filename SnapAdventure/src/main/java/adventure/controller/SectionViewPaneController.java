@@ -9,7 +9,6 @@ import adventure.model.target.base.*;
 import adventure.view.node.AdvLocationControlNode;
 import adventure.view.node.EnemyControlNode;
 import adventure.view.node.HPDisplayNode;
-import adventure.view.pane.AdventureClearPane;
 import adventure.view.pane.AdventureControlPane;
 import adventure.view.pane.DeckConstructorPane;
 import adventure.view.pane.WorldClearPane;
@@ -107,27 +106,57 @@ public class SectionViewPaneController extends FullViewPaneController {
         enemyMenu = new ContextMenu();
         MenuItem changeHPItem = new MenuItem("Change Base HP");
         changeHPItem.setOnAction(e -> changeBaseHP());
-        MenuItem changeEnemy = new MenuItem("Change Enemy");
-        changeEnemy.setOnAction(e -> changeEnemy());
         enemyMenu.getItems().add(changeHPItem);
-        enemyMenu.getItems().add(changeEnemy);
         MenuItem changeEnemyClone = new MenuItem("Change Enemy to Clone");
         changeEnemyClone.setOnAction(e -> changeEnemyClone());
         enemyMenu.getItems().add(changeEnemyClone);
         MenuItem addSecondaryEffectIem = new MenuItem("Add Secondary Effect");
         addSecondaryEffectIem.setOnAction(e -> addSecondaryEffect());
         enemyMenu.getItems().add(addSecondaryEffectIem);
-        enemyView.setOnMouseClicked(e -> enemyMenu.show(enemyView, e.getScreenX(), e.getScreenY()));
+        MenuItem eliminateEnemyOption = new MenuItem("Eliminate Enemy");
+        enemyMenu.getItems().add(eliminateEnemyOption);
+        eliminateEnemyOption.setOnAction(e -> eliminateEnemy());
         MenuItem escapeEnemyOption = new MenuItem("Enemy Escapes");
         escapeEnemyOption.setOnAction(e -> enemyEscape());
         enemyMenu.getItems().add(escapeEnemyOption);
+        enemyView.setOnMouseClicked(e -> enemyMenu.show(enemyView, e.getScreenX(), e.getScreenY()));
         if (adventure.hasInfinityStone()) {
             MenuItem stealInfinityStoneOption = new MenuItem("Enemy Steals Infinity Stone");
             stealInfinityStoneOption.setOnAction(e -> enemyStealsInfinityStone(section));
             enemyMenu.getItems().add(stealInfinityStoneOption);
         }
         initializeStationContext();
+        initializeRewardContext();
 
+    }
+
+    private void eliminateEnemy() {
+        adventure.eliminateCard(enemy.getObtainableCard());
+        Enemy newEnemy = new Enemy(new Mook());
+        newEnemy.setBaseHP(1);
+        newEnemy.loseHP(1);
+        enemyView.refresh(newEnemy, true);
+    }
+
+    private void initializeRewardContext() {
+        ContextMenu rewardMenu = new ContextMenu();
+        MenuItem addRewardItem = new MenuItem("Add Reward from Team");
+        rewardMenu.getItems().add(addRewardItem);
+        addRewardItem.setOnAction(e -> addRewardFromTeam());
+        rewardDisplayBox.setOnMouseClicked(e -> rewardMenu.show(stationedDisplayBox, e.getScreenX(),
+                e.getScreenY()));
+    }
+
+    private void addRewardFromTeam() {
+        CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
+        cardSearchSelectDialog.initialize(mainDatabase, adventure.getTeamCards(), adventure.getTeamCards(),
+                "Choose a card to add to rewards", getCurrentScene().getWindow());
+        Optional<ActiveCard> chosenCard = cardSearchSelectDialog.showAndWait();
+        if(chosenCard.isPresent())
+        {
+            adventure.addRewardToSection(section, chosenCard.get());
+            initializeRewards(section);
+        }
     }
 
     private void initializeStationContext() {
@@ -188,7 +217,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         adventureControlPane.refreshToMatch();
     }
 
-    private void changeEnemy() {
+/*    private void changeEnemy() {
         CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
         cardSearchSelectDialog.initialize(mainDatabase, new ActiveCardList(adventure.getFreeAgents()),
                 "Choose new enemy", getCurrentScene().getWindow());
@@ -203,7 +232,7 @@ public class SectionViewPaneController extends FullViewPaneController {
         }
         refocusWindow();
         adventureControlPane.refreshToMatch();
-    }
+    }*/
 
     public void goBack() {
         changeScene(adventureControlPane);
@@ -273,7 +302,7 @@ public class SectionViewPaneController extends FullViewPaneController {
     @FXML
     public void completeSection() {
         section.complete();
-        adventure.collectPickups(section);
+        adventure.collectRewards(section);
         if (!(section instanceof BossSection)) {
             adventureControlPane.completeCurrentSection();
             defeatEnemy();
@@ -285,7 +314,7 @@ public class SectionViewPaneController extends FullViewPaneController {
     }
 
     private void defeatEnemy() {
-        if(enemy.getObtainableCard() != null) {
+        if(enemy.getObtainableCard() != null && !enemy.isClone()) {
             adventure.addCardToTeam(new ActiveCard(enemy.getObtainableCard()));
         }
         section.setEnemy(adventure.createNewMook());
@@ -316,7 +345,6 @@ public class SectionViewPaneController extends FullViewPaneController {
         adventure.saveAdventure();
     }
 
-    @FXML
     public void stationCard() {
         if (section.getStationedCards().size() < AdventureConstants.MAX_STATIONS) {
             CardChooserDialog chooserDialog = new CardChooserDialog();

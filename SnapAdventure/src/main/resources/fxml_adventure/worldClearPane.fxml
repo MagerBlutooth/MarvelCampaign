@@ -1,10 +1,9 @@
 <?import adventure.view.node.WorldClearSelectNode?>
 <?import adventure.view.pane.WorldClearPane?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import snapMain.view.node.GridDisplayNode?>
-<?import javafx.scene.layout.HBox?>
 <fx:root type="WorldClearPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css" fx:controller="adventure.controller.WorldClearPaneController"

@@ -214,9 +214,9 @@ public class Adventure {
     }
 
     public void skipCurrentSection() {
-        getCurrentWorld().skipCurrentSection();
         logInfo("Section " + getCurrentWorldNum() + "-" + getCurrentSectionNum()
                 + " skipped");
+        getCurrentWorld().skipCurrentSection();
     }
 
     public void completeCurrentWorld() {
@@ -308,14 +308,15 @@ public class Adventure {
         return team.getFreeAgents();
     }
 
-    public void collectPickups(Section section) {
+    public void collectRewards(Section section) {
         TargetList<Playable> pickups = section.getRewards();
         for (Playable p : pickups) {
             if (p instanceof ActiveCard) {
                 team.addCardToTeam((ActiveCard) p);
-                team.getMIACards().remove((ActiveCard) p);
+                logger.info("Collected " + p);
             } else if (p instanceof InfinityStone) {
                 team.gainInfinityStone((InfinityStone) p);
+                logger.info("Collected " + p);
             }
         }
         pickups.clear();
@@ -390,11 +391,12 @@ public class Adventure {
             enemy = new Enemy(p, getCurrentWorld().calculateBossBonus());
         else
             enemy = new Enemy(p, getCurrentWorld().calculateMookBonus());
+        enemy.setAsClone();
         SnapTarget oldEnemy = s.replaceEnemy(enemy);
 
         if (oldEnemy instanceof AdvCard) {
             Card oldEnemyCard = ((AdvCard) oldEnemy).getCard();
-            if (oldEnemyCard.getID() != SnapMainConstants.NO_ICON_ID && !clone)
+            if (oldEnemyCard.isActualThing())
                 team.addCardToFreeAgents(new ActiveCard(oldEnemyCard));
         }
         if (p instanceof AdvCard && !clone) {
@@ -464,7 +466,7 @@ public class Adventure {
             if (e.getValue() && deck.contains(e.getKey()))
                 newlyExhaustedCards.add(e.getKey());
         }
-        if (!deck.isEmpty())
+        if (!newlyExhaustedCards.isEmpty())
             logger.info(newlyExhaustedCards + " exhausted.");
         return newlyExhaustedCards;
     }
@@ -489,7 +491,7 @@ public class Adventure {
         ActiveCardList reclaimedCards = new ActiveCardList();
         reclaimedCards.addAll(team.retrieveMIACards(miaCardTracker, getCurrentWorldNum() + 1));
         reclaimedCards.addAll(team.retrieveCapturedCards());
-        reclaimedCards.addAll(getCurrentWorld().retrieveStationedCards());
+        reclaimedCards.addAll(team.retrieveStationedCards(getCurrentWorld()));
         return reclaimedCards;
     }
 
@@ -499,7 +501,6 @@ public class Adventure {
         World world = worlds.get(futureWorld - 1);
         Section escapedSection = world.getRandomSection();
         escapedSection.setEnemy(enemy);
-        team.sendCapturedCardsAway(miaCardTracker, futureWorld + 1);
         logger.info(enemy + " escaped from world " + getCurrentWorldNum());
         return escapedSection;
     }
@@ -623,5 +624,14 @@ public class Adventure {
         Enemy enemy = new Enemy(mook);
         enemy.setBaseHP(getCurrentWorld().calculateMookBonus());
         return enemy;
+    }
+
+    public void addRewardToSection(Section section, ActiveCard activeCard) {
+        team.addRewardToSection(section,activeCard);
+    }
+
+    public void eliminateCard(ActiveCard card) {
+        if(card != null)
+            team.eliminateCard(card);
     }
 }

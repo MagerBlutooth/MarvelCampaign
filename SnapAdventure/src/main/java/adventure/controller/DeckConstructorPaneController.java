@@ -14,7 +14,10 @@ import adventure.view.sortFilter.DeckLinkedSortMenuButton;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
@@ -331,8 +334,8 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         Optional<ActiveCard> capturingCaptain = captainChoice.showAndWait();
         if (capturingCaptain.isPresent()) {
             CardSearchSelectDialog cardSearchSelectDialog = new CardSearchSelectDialog();
-            cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), "Which card was captured?",
-                    getCurrentScene().getWindow());
+            cardSearchSelectDialog.initialize(mainDatabase, adventure.getFreeAgents(), adventure.getTeamCards(),
+                    "Which card was captured?", getCurrentScene().getWindow());
             Optional<ActiveCard> capturedCard = cardSearchSelectDialog.showAndWait();
             if(capturedCard.isPresent())
             {

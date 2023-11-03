@@ -5,7 +5,6 @@ import adventure.model.target.ActiveCardList;
 import snapMain.model.constants.SnapMainConstants;
 
 import java.util.Base64;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

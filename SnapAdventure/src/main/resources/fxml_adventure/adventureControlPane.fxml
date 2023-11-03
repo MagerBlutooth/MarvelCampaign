@@ -3,11 +3,9 @@
 <?import adventure.view.node.TeamDisplayNode?>
 <?import adventure.view.node.WorldDisplayNode?>
 <?import adventure.view.pane.AdventureControlPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.*?>
 <fx:root type="AdventureControlPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.AdventureControlPaneController" prefWidth="1600"

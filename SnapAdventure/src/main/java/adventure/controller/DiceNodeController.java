@@ -1,12 +1,9 @@
 package adventure.controller;
 
-import adventure.view.node.DiceNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import snapMain.controller.MainDatabase;
 import snapMain.model.logger.MLogger;
 import snapMain.view.grabber.IconConstant;

@@ -1,13 +1,12 @@
+<?import adventure.view.*?>
+<?import adventure.view.pane.DeckConstructorPane?>
+<?import adventure.view.sortFilter.DeckLinkedFilterMenuButton?>
+<?import adventure.view.sortFilter.DeckLinkedSortMenuButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.HBox?>
-<?import snapMain.view.node.GridDisplayNode?>
+<?import javafx.scene.layout.*?>
 <?import snapMain.view.manager.CardManager?>
-<?import adventure.view.pane.DeckConstructorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import adventure.view.sortFilter.DeckLinkedSortMenuButton?>
-<?import adventure.view.sortFilter.DeckLinkedFilterMenuButton?>
-<?import adventure.view.AdvTooltip?>
+<?import snapMain.view.node.GridDisplayNode?>
 <fx:root type="DeckConstructorPane" fx:id="mainPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefHeight="900"

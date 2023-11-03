@@ -2,7 +2,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
 <fx:root type="adventure.view.node.CardStatDisplayNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" id="selectBox"
          stylesheets="@../css_adventure/editorStyle.css"

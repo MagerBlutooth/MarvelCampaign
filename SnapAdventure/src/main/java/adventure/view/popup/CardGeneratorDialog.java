@@ -4,11 +4,7 @@ import adventure.controller.dialog.CardGeneratorDialogController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.scene.Parent;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Dialog;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 public class CardGeneratorDialog extends AdvDialog<ActiveCardList> {

@@ -1,6 +1,5 @@
 package adventure.view.pane;
 
-import adventure.controller.AdventureClearPaneController;
 import adventure.controller.AdventureFailPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;

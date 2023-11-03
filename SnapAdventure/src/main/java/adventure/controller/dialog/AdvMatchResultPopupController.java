@@ -1,8 +1,6 @@
 package adventure.controller.dialog;
 
 import adventure.model.stats.AdvMatchResult;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;

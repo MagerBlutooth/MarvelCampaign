@@ -4,9 +4,7 @@ import adventure.model.AdvMainDatabase;
 import adventure.model.stats.CardStats;
 import adventure.view.node.CardStatEntryNode;
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.TilePane;
-import snapMain.controller.ScrollSetup;
 
 import java.util.Map;
 

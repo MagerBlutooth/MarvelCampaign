@@ -1,11 +1,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import snapMain.view.node.GridDisplayNode?>
-<?import javafx.scene.layout.HBox?>
-<?import snapMain.view.menu.SortMenuButton?>
 <?import snapMain.view.menu.FilterMenuButton?>
+<?import snapMain.view.menu.SortMenuButton?>
+<?import snapMain.view.node.GridDisplayNode?>
 <fx:root type="DialogPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" prefWidth="900" prefHeight="900"

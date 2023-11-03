@@ -1,11 +1,11 @@
+<?import adventure.view.node.InfinityStoneDisplayNode?>
 <?import adventure.view.node.TeamDisplayNode?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import snapMain.view.node.GridDisplayNode?>
-<?import adventure.view.node.InfinityStoneDisplayNode?>
 <?import snapMain.view.menu.FilterMenuButton?>
 <?import snapMain.view.menu.SortMenuButton?>
+<?import snapMain.view.node.GridDisplayNode?>
 <fx:root type="TeamDisplayNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.TeamDisplayNodeController">
@@ -36,6 +36,7 @@
                     </VBox>
                     <SortMenuButton text="Sort Team By:" fx:id="sortMenuButton"/>
                     <FilterMenuButton text="Filter Team By:" fx:id="filterMenuButton"/>
+                    <Button fx:id="randomButton" id="imageButton" onAction="#showRandomTeamCard"/>
                     <Region HBox.hgrow="ALWAYS"/>
                     <Button text="Disband All Temp" onAction="#defectAll"/>
                 </HBox>
