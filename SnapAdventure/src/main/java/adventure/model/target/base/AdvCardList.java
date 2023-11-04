@@ -39,28 +39,6 @@ public class AdvCardList extends TargetList<AdvCard> {
         return getThings();
     }
 
-    public String toCSVSaveString()
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(AdvCard b: getBosses())
-        {
-            stringBuilder.append(b.getID());
-            stringBuilder.append(SnapMainConstants.STRING_SEPARATOR);
-        }
-        stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        return stringBuilder.toString();
-    }
-
-    public void fromCSVSaveString(String bossString, TargetDatabase<AdvCard> database)
-    {
-        String[] bossList = bossString.split(SnapMainConstants.STRING_SEPARATOR);
-
-        for(String c: bossList)
-        {
-            this.add(database.lookup(Integer.parseInt(c)));
-        }
-    }
-
     public String toSaveString()
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -92,29 +70,4 @@ public class AdvCardList extends TargetList<AdvCard> {
         getThings().clear();
     }
 
-    public String toCardListString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        sort();
-        for(AdvCard c: getBosses())
-        {
-            stringBuilder.append(c.getName());
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
-    }
-
-    public AdvCardList fromBossList(String bossList, TargetDatabase<AdvCard> database)
-    {
-        String[] bossesList = bossList.split("\n");
-        AdvCardList bosses = new AdvCardList(new ArrayList<>());
-        for(String c: bossesList)
-        {
-            bosses.add(database.lookup(c));
-        }
-        return bosses;
-    }
-
-    public int getBossIndex(AdvCard b) {
-        return this.indexOf(b);
-    }
 }

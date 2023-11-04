@@ -88,4 +88,18 @@ public class AdvCard extends BaseObject implements Playable<Card> {
     {
         return card.getName();
     }
+
+    public int getCost() {
+        return card.getCost();
+    }
+
+    public int getPool()
+    {
+        return card.getPool();
+    }
+
+    public int getPower()
+    {
+        return card.getPower();
+    }
 }

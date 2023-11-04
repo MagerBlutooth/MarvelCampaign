@@ -127,4 +127,12 @@ public class AdvToken extends BaseObject implements Playable<Token> {
     {
         return getName();
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(!(o instanceof AdvToken oToken))
+            return false;
+        return getID() == oToken.getID();
+    }
 }

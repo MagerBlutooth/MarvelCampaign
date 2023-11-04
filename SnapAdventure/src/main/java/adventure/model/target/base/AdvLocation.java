@@ -74,4 +74,9 @@ public class AdvLocation extends BaseObject {
     public TargetType getTargetType() {
         return TargetType.LOCATION;
     }
+
+    public String toString()
+    {
+        return getName();
+    }
 }

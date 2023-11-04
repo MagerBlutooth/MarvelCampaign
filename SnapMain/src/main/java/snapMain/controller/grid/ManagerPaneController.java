@@ -59,20 +59,9 @@ public abstract class ManagerPaneController<T extends SnapTarget, C extends Main
     public void setMouseEvents(ControlNode<T> controlNode) {
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
-                controlNode.toggle();
-                saveGridNode(controlNode);
+                editSubject(controlNode);
             }
             e.consume();
-        });
-        controlNode.setOnMouseEntered(mouseEvent -> {
-            if(controlNode.getSubject().isEnabled()) {
-                controlNode.lowlight();
-            }
-        });
-        controlNode.setOnMouseExited(mouseEvent -> {
-            if(controlNode.getSubject().isEnabled()) {
-                controlNode.highlight();
-            }
         });
     }
 
@@ -80,8 +69,6 @@ public abstract class ManagerPaneController<T extends SnapTarget, C extends Main
     public ControlNode<T> createControlNode(T t, IconImage i, ViewSize v, boolean blind) {
         ControlNode<T> n = new ControlNode<>();
         n.initialize(mainDatabase, t, i, v, blind);
-        createTooltip(n);
-        createContextMenu(n);
         setMouseEvents(n);
         return n;
     }

@@ -28,24 +28,20 @@ public class AdvMasterThingDatabase extends MasterThingDatabase {
         dBContext.register(TargetType.ADV_CARD, vFactory.loadBosses(cards));
         dBContext.register(TargetType.CARD, cards);
         dBContext.register(TargetType.LOCATION, vFactory.loadSections(locations));
-        dBContext.register(TargetType.TOKEN, vFactory.loadAdvTokens(tokens));
+        dBContext.register(TargetType.TOKEN, tokens);
+        dBContext.register(TargetType.ADV_TOKEN, vFactory.loadAdvTokens(tokens));
     }
 
     public TargetDatabase<AdvCard> getAdvCards() {
-        TargetDatabase<AdvCard> lookup = dBContext.lookup(TargetType.ADV_CARD);
-        return lookup;
+        return (TargetDatabase<AdvCard>) dBContext.lookup(TargetType.ADV_CARD);
     }
 
     public TargetDatabase<AdvLocation> getAdvLocations() {
-        TargetDatabase<AdvLocation> locs = new TargetDatabase<>();
-        locs.addAll(dBContext.lookup(TargetType.LOCATION));
-        return locs;
+        return (TargetDatabase<AdvLocation>) dBContext.lookup(TargetType.LOCATION);
     }
 
     public TargetDatabase<AdvToken> getAdvTokens() {
-        TargetDatabase<AdvToken> tokens = new TargetDatabase<>();
-        tokens.addAll(dBContext.lookup(TargetType.TOKEN));
-        return tokens;
+        return (TargetDatabase<AdvToken>) dBContext.lookup(TargetType.ADV_TOKEN);
     }
 
     public <T extends SnapTarget> TargetDatabase<T> lookupDatabase(TargetType t)
