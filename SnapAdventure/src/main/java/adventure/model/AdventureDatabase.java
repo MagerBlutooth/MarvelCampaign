@@ -1,10 +1,18 @@
 package adventure.model;
 
-import adventure.model.target.*;
-import adventure.model.target.base.*;
+import adventure.model.target.ActiveCard;
+import adventure.model.target.ActiveCardList;
+import adventure.model.target.PlayableDatabase;
+import adventure.model.target.base.AdvCard;
+import adventure.model.target.base.AdvCardList;
+import adventure.model.target.base.AdvLocation;
+import adventure.model.target.base.AdvToken;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.*;
+import snapMain.model.target.Card;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
+import snapMain.model.target.Token;
 
 import java.util.ArrayList;
 import java.util.Base64;

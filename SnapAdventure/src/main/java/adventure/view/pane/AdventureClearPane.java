@@ -1,7 +1,6 @@
 package adventure.view.pane;
 
 import adventure.controller.AdventureClearPaneController;
-import adventure.controller.WorldClearPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;

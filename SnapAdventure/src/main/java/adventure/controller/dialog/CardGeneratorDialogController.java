@@ -3,15 +3,13 @@ package adventure.controller.dialog;
 import adventure.model.AdvMainDatabase;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
-import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.CardGeneratorDialog;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.BaseGridActionController;
-import snapMain.model.target.*;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
 

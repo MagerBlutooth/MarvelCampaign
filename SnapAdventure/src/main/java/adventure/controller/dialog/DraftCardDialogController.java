@@ -1,16 +1,13 @@
 package adventure.controller.dialog;
 
-import adventure.controller.dialog.ChooserDialogController;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
-import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import snapMain.controller.MainDatabase;
-import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 

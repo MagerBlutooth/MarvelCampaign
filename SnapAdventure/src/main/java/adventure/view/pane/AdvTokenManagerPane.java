@@ -1,6 +1,5 @@
 package adventure.view.pane;
 
-import adventure.controller.manager.AdvLocationManagerPaneController;
 import adventure.controller.manager.AdvTokenManagerPaneController;
 import adventure.model.AdvMainDatabase;
 import adventure.view.fxml.FXMLAdventureGrabber;

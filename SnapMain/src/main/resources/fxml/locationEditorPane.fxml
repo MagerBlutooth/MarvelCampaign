@@ -2,8 +2,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.node.editor.LocationEditorNode?>
-<?import snapMain.view.baseObject.LocationView?>
 <?import snapMain.view.button.ButtonToolBar?>
+<?import snapMain.view.thing.LocationView?>
 <fx:root type="javafx.scene.layout.StackPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css/editorStyle.css" fx:controller="snapMain.controller.editor.LocationEditorPaneController"

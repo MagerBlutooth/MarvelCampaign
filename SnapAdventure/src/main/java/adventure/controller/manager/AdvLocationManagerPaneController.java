@@ -1,7 +1,6 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.ActiveCard;
 import adventure.model.target.base.AdvLocation;
 import adventure.model.target.base.AdvLocationList;
 import adventure.view.manager.AdvLocationManager;

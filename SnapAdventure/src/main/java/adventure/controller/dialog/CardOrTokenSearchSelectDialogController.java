@@ -1,11 +1,12 @@
 package adventure.controller.dialog;
 
-import snapMain.model.target.Playable;
 import adventure.model.target.PlayableList;
 import adventure.view.popup.Choosable;
 import javafx.scene.control.ToggleGroup;
 import snapMain.controller.MainDatabase;
-import snapMain.model.target.*;
+import snapMain.model.target.Playable;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 
 import java.util.ArrayList;

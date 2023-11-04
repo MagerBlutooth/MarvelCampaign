@@ -9,6 +9,13 @@ public class StringHelper {
         return string.replace(" ", "");
     }
 
+    public static String toSimpleFormat(String string)
+    {
+        string = string.replace("_", " ");
+        string = camelCase(string);
+        return string;
+    }
+
     public static String camelCase(String string)
     {
         StringBuilder camelCase = new StringBuilder();

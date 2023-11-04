@@ -9,6 +9,7 @@ import snapMain.model.target.Token;
 import snapMain.model.target.TokenList;
 import snapMain.view.ViewSize;
 import snapMain.view.manager.TokenManager;
+import snapMain.view.menu.FilterMenuButton;
 import snapMain.view.node.control.ControlNode;
 import snapMain.view.pane.editor.TokenEditorPane;
 

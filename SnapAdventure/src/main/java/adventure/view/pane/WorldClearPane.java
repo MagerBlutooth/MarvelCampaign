@@ -2,7 +2,6 @@ package adventure.view.pane;
 
 import adventure.controller.WorldClearPaneController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdvMasterThingDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import snapMain.view.pane.FullViewPane;

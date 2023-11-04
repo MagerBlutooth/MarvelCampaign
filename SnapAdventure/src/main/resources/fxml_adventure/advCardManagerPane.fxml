@@ -2,8 +2,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.button.ButtonToolBar?>
-<?import snapMain.view.menu.SortMenuButton?>
 <?import snapMain.view.menu.FilterMenuButton?>
+<?import snapMain.view.menu.SortMenuButton?>
 <fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/mainStyle.css" fx:controller="adventure.controller.manager.AdvCardManagerPaneController"
          prefWidth="1200" prefHeight="800">

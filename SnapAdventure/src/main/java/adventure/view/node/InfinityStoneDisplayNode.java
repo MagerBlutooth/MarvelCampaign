@@ -2,16 +2,12 @@ package adventure.view.node;
 
 import adventure.model.AdvMainDatabase;
 import adventure.model.Team;
-import adventure.model.target.base.AdvToken;
 import adventure.model.target.InfinityStoneID;
+import adventure.model.target.base.AdvToken;
 import adventure.view.AdvTooltip;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import snapMain.model.database.TargetDatabase;
 import snapMain.view.ViewSize;

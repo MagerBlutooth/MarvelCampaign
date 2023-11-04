@@ -1,11 +1,9 @@
 package adventure.view.popup;
 
-import adventure.controller.dialog.CardSearchSelectDialogController;
 import adventure.controller.dialog.CardStatDisplayPopupController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.stats.CardStats;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.scene.control.Button;
 import snapMain.model.target.Card;
 
 import java.util.Map;

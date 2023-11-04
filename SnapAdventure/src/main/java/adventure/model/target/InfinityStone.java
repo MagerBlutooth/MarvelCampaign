@@ -89,6 +89,6 @@ public class InfinityStone implements Playable<Token> {
 
     public String toString()
     {
-        return StringHelper.toDisplayFormat(stoneID.toString());
+        return StringHelper.camelCase(stoneID.toString());
     }
 }

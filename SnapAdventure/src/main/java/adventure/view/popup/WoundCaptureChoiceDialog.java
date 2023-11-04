@@ -1,22 +1,15 @@
 package adventure.view.popup;
 
-import adventure.controller.dialog.SimpleChooserDialogController;
 import adventure.controller.dialog.WoundCaptureChoiceDialogController;
 import adventure.model.AdvMainDatabase;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.ImageView;
 import javafx.stage.Window;
-import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
-import snapMain.model.target.TargetType;
 
 public class WoundCaptureChoiceDialog extends AdvDialog<ActiveCard> implements Choosable<ActiveCard> {
 

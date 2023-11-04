@@ -2,20 +2,12 @@ package adventure.controller.dialog;
 
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
-import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.stage.Window;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.BaseGridActionController;
-import snapMain.model.target.Card;
-import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
 import snapMain.view.node.GridDisplayNode;
-
-import java.util.ArrayList;
 
 public class CardExhaustionConfirmationDialogController {
 

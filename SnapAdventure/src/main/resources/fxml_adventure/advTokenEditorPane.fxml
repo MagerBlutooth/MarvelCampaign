@@ -1,8 +1,8 @@
+<?import adventure.view.node.AdvTokenEditorNode?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.button.ButtonToolBar?>
-<?import adventure.view.node.AdvTokenEditorNode?>
 <fx:root type="javafx.scene.layout.StackPane"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css"

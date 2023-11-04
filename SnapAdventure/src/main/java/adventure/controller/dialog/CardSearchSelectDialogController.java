@@ -2,9 +2,12 @@ package adventure.controller.dialog;
 
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
+import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.Choosable;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import snapMain.controller.MainDatabase;
+import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
@@ -13,11 +16,16 @@ import java.util.ArrayList;
 
 public class CardSearchSelectDialogController extends AdvSearchSelectDialogController<ActiveCard> {
 
-    @Override
+    @FXML
+    public Button viewTeamButton;
+
+    ActiveCardList teamCards;
+
     public void initialize(MainDatabase md, Choosable<ActiveCard> searchDialog, TargetList<ActiveCard> selectableCards,
-            String header)
+            ActiveCardList tCards, String header)
     {
         super.initialize(md, searchDialog, selectableCards, header);
+        teamCards = tCards;
     }
 
     public void initializeNodes(String text)
@@ -40,14 +48,23 @@ public class CardSearchSelectDialogController extends AdvSearchSelectDialogContr
         choiceNodes.initialize(filteredChoices, TargetType.CARD, gridController, ViewSize.TINY, true);
     }
 
-    @FXML
-    public void selectRandom()
+    public void viewTeam()
     {
-        ActiveCardList cards = new ActiveCardList(new ArrayList<>());
-        cards = cards.cloneNewList(choices.getThings());
-        cards.shuffle();
-        searchSelectDialog.enableOKButton();
-        setChoice(cards.get(0));
+        CardDisplayPopup cardDisplayPopup = new CardDisplayPopup(teamCards,
+                viewTeamButton.localToScreen(-325,0.0));
+        BaseGridActionController<ActiveCard> baseGridActionController = new BaseGridActionController<>();
+        baseGridActionController.initialize(mainDatabase);
+        cardDisplayPopup.initialize(baseGridActionController);
+        cardDisplayPopup.setPrefCols(12);
+        cardDisplayPopup.enableVBar();
+        cardDisplayPopup.show();
+        cardDisplayPopup.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                cardDisplayPopup.hide();
+            }
+        });
     }
+
+
 
 }

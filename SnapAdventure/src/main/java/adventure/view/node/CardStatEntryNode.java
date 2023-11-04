@@ -1,8 +1,8 @@
 package adventure.view.node;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.stats.CardStats;
 import adventure.model.stats.AdvMatchResult;
+import adventure.model.stats.CardStats;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

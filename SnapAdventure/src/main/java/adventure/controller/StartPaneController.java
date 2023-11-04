@@ -6,10 +6,8 @@ import adventure.model.adventure.Adventure;
 import adventure.view.node.ProfileNode;
 import adventure.view.pane.*;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import snapMain.view.button.ButtonToolBar;
-import snapMain.view.pane.FullViewPane;
 
 public class StartPaneController extends FullViewPaneController {
 

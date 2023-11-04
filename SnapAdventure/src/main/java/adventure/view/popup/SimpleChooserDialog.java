@@ -2,14 +2,12 @@ package adventure.view.popup;
 
 import adventure.controller.dialog.SimpleChooserDialogController;
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.scene.control.*;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Window;
-import snapMain.model.target.Card;
 import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;

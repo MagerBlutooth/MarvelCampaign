@@ -1,9 +1,8 @@
 package adventure.controller;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.AdventureConstants;
-import adventure.model.AdventureDatabase;
 import adventure.model.AdvProfile;
+import adventure.model.AdventureDatabase;
 import adventure.model.adventure.Adventure;
 import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
@@ -24,8 +23,6 @@ import snapMain.model.logger.MFormatter;
 import snapMain.model.logger.MLogger;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
-import snapMain.view.button.ButtonToolBar;
-import snapMain.view.pane.FullViewPane;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -115,10 +112,8 @@ public class AdventureControlPaneController extends FullViewPaneController {
             {
                 ActiveCard card = capturedCard.get();
                 adventure.captureCard(card);
-                refocusWindow();
             }
             else {
-                refocusWindow();
                 return;
             }
         }

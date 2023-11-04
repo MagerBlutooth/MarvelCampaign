@@ -62,4 +62,9 @@ public class Token extends BaseObject implements SnapTarget {
         return TargetType.TOKEN;
     }
 
+    public String toString()
+    {
+        return name;
+    }
+
 }

@@ -5,7 +5,9 @@ import adventure.model.AdventureConstants;
 import adventure.model.target.base.AdvCard;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.*;
+import snapMain.model.target.Playable;
+import snapMain.model.target.SnapTarget;
+import snapMain.model.target.TargetType;
 
 import java.util.Base64;
 
@@ -16,6 +18,7 @@ public class Enemy implements SnapTarget {
     Playable secondarySubject;
     int baseHP;
     int missingHP;
+    boolean clone;
 
     public Enemy()
     {
@@ -25,6 +28,7 @@ public class Enemy implements SnapTarget {
         secondarySubject.setID(SnapMainConstants.MOOK_ICON_ID);
         setBaseHP(AdventureConstants.MOOK_BASE_HP);
         missingHP = 0;
+        clone = false;
     }
 
     public Enemy(Playable p)
@@ -45,6 +49,7 @@ public class Enemy implements SnapTarget {
         secondarySubject = nme.secondarySubject;
         setBaseHP(nme.baseHP);
         missingHP = nme.missingHP;
+        clone = nme.clone;
     }
 
     public void setSecondarySubject(Playable p)
@@ -62,8 +67,7 @@ public class Enemy implements SnapTarget {
    }
 
     @Override
-    public void setEnabled(boolean enabled) {
-
+    public void setEnabled(boolean e) {
     }
 
     @Override
@@ -78,7 +82,7 @@ public class Enemy implements SnapTarget {
 
     @Override
     public void setID(int id) {
-
+        subject.setID(id);
     }
 
     @Override
@@ -98,7 +102,7 @@ public class Enemy implements SnapTarget {
                 SUBCATEGORY_SEPARATOR +
                 missingHP
                 + SUBCATEGORY_SEPARATOR + secondarySubject.getTargetType() + SUBCATEGORY_SEPARATOR +
-                secondarySubject.getID();
+                secondarySubject.getID() + SUBCATEGORY_SEPARATOR + clone;
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
 
@@ -124,7 +128,8 @@ public class Enemy implements SnapTarget {
             targetDatabase = database.lookupDatabase(TargetType.ADV_CARD);
         else if(secondaryType == TargetType.TOKEN)
             targetDatabase = database.lookupDatabase(TargetType.TOKEN);
-        int secondID= Integer.parseInt(stringList[5]);
+        int secondID = Integer.parseInt(stringList[5]);
+        clone = Boolean.parseBoolean(stringList[6]);
         secondarySubject = (Playable) targetDatabase.lookup(secondID);
     }
 
@@ -182,5 +187,13 @@ public class Enemy implements SnapTarget {
             return new ActiveCard(((AdvCard) subject).getCard());
         }
         return null;
+    }
+
+    public boolean isClone() {
+        return clone;
+    }
+
+    public void setAsClone() {
+        clone = true;
     }
 }

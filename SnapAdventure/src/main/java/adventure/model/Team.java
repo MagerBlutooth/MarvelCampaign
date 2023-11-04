@@ -245,7 +245,8 @@ public class Team {
     }
 
     public void addCardToFreeAgents(ActiveCard card) {
-        freeAgentCards.add(card);
+        if(!freeAgentCards.contains(card.getID()))
+            freeAgentCards.add(card);
     }
 
     public void removeFromFreeAgents(Card card) {
@@ -334,5 +335,18 @@ public class Team {
 
     public boolean hasAllInfinityStones() {
         return infinityStones.size() == AdventureConstants.INFINITY_STONE_COUNT;
+    }
+
+    public void addRewardToSection(Section section, ActiveCard activeCard) {
+        section.addReward(activeCard);
+        teamCards.remove(activeCard);
+    }
+
+    public TargetList<ActiveCard> retrieveStationedCards(World world) {
+        ActiveCardList retrievedCards = world.retrieveStationedCards();
+        for(ActiveCard c: retrievedCards) {
+            addCardToTeam(c);
+        }
+        return retrievedCards;
     }
 }

@@ -5,7 +5,6 @@ import snapMain.model.target.Card;
 import snapMain.model.target.Location;
 import snapMain.model.target.Token;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class AdvThingFactory {

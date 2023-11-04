@@ -1,6 +1,5 @@
 package adventure.model.target.base;
 
-import adventure.model.target.base.AdvToken;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.target.Token;
 

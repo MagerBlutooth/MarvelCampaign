@@ -4,7 +4,6 @@ import adventure.model.target.ActiveCard;
 import adventure.model.target.ActiveCardList;
 import adventure.view.popup.CardDisplayPopup;
 import adventure.view.popup.Choosable;
-import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,8 +17,6 @@ import snapMain.model.target.SnapTarget;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.ViewSize;
-import snapMain.view.menu.FilterMenuButton;
-import snapMain.view.menu.SortMenuButton;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
 

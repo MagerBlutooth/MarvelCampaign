@@ -2,7 +2,6 @@ package adventure.view.node;
 
 import adventure.model.target.ActiveCard;
 import snapMain.controller.MainDatabase;
-
 import snapMain.model.target.StatusEffect;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;

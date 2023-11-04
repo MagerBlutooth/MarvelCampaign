@@ -1,6 +1,5 @@
 package adventure.view.node;
 
-import adventure.model.target.base.AdvToken;
 import adventure.view.fxml.FXMLAdventureGrabber;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;

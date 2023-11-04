@@ -1,13 +1,10 @@
 package adventure.model.target;
 
-import adventure.model.sorter.ActiveCardFilter;
-import adventure.model.sorter.ActiveCardSorter;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.sortFilter.CardSortMode;
-import snapMain.model.target.*;
+import snapMain.model.target.TargetList;
+import snapMain.model.target.Token;
 
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 

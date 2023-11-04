@@ -1,13 +1,12 @@
 package adventure.controller.manager;
 
 import adventure.model.AdvMainDatabase;
-import adventure.model.target.ActiveCard;
 import adventure.model.target.base.AdvCard;
 import adventure.model.target.base.AdvCardList;
 import adventure.view.manager.BossManager;
 import adventure.view.node.AdvCardControlNode;
-import adventure.view.pane.AdvEditorMenuPane;
 import adventure.view.pane.AdvCardEditorPane;
+import adventure.view.pane.AdvEditorMenuPane;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -16,7 +15,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.controller.grid.GridActionController;
 import snapMain.controller.grid.ManagerPaneController;
-import snapMain.model.target.Card;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;

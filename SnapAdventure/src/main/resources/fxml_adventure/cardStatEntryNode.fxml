@@ -1,8 +1,8 @@
 <?import adventure.view.node.CardStatEntryNode?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import snapMain.view.thing.CardView?>
-<?import javafx.geometry.Insets?>
 <fx:root type="CardStatEntryNode"
          xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
          stylesheets="@../css_adventure/editorStyle.css" id="selectBox" minWidth="800">

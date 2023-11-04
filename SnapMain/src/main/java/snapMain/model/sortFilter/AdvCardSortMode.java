@@ -1,7 +1,7 @@
 package snapMain.model.sortFilter;
 
 public enum AdvCardSortMode {
-    NAME("Name");
+    NAME("Name"), POWER("Power"), COST("Cost"), POOL("Pool");
 
     final String prettyString;
 

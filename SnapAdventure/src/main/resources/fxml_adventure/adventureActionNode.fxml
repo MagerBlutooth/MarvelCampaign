@@ -9,11 +9,11 @@
         <Label text="Action Buttons"/>
         <VBox spacing="10.0">
             <HBox spacing="10.0" alignment="CENTER">
-                <Button text="Draft Card" onAction="#draftCard" id="smallButton"/>
-                <Button text="Generate Cards" onAction="#generateCards" id="smallButton"/>
+                <Button text="Draft Free Agent" onAction="#draftCard" id="smallButton"/>
+                <Button text="Generate Free Agents" onAction="#generateCards" id="smallButton"/>
             </HBox>
             <HBox spacing="10.0" alignment="CENTER">
-                <Button text="Search Card" onAction="#searchCard" id="smallButton"/>
+                <Button text="Search Free Agent" onAction="#searchCard" id="smallButton"/>
                 <Button fx:id="randomCard" text="Any Random Card" onAction="#randomCard" id="smallButton"/>
 
             </HBox>

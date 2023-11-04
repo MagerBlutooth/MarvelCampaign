@@ -3,7 +3,6 @@ package adventure.view.popup;
 import adventure.controller.dialog.AdvMatchResultPopupController;
 import adventure.model.stats.AdvMatchResult;
 import adventure.view.fxml.FXMLAdventureGrabber;
-import javafx.scene.Parent;
 import javafx.scene.control.ButtonBar;
 import javafx.stage.Window;
 

@@ -24,6 +24,7 @@ public class LocationEditorPaneController extends EditorPaneController {
     public void initialize(MainDatabase database, Location l)
     {
         super.initialize(database);
+        initializeButtonToolBar();
         locationSetup(database, l);
         imagePane.initialize(l, ViewSize.LARGE, true);
     }
