@@ -20,10 +20,4 @@ public class CardManagerPane extends ManagerPane {
     {
         controller.initialize(database);
     }
-
-    public void initialize(MainDatabase db, CardList cardlist)
-    {
-        controller.initialize(db, cardlist);
-    }
-
 }

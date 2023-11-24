@@ -3,6 +3,7 @@ package snapMain.controller.grid;
 import snapMain.controller.MainDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import snapMain.model.database.TargetDatabase;
 import snapMain.model.target.Card;
 import snapMain.model.target.CardList;
 import snapMain.model.target.Location;
@@ -26,12 +27,6 @@ public class CardManagerPaneController extends ManagerPaneController<Card, MainD
     @Override
     public Scene getCurrentScene() {
         return cardManager.getScene();
-    }
-
-    public void initialize(MainDatabase m, CardList c)
-    {
-        super.initialize(m);
-
     }
 
     @Override

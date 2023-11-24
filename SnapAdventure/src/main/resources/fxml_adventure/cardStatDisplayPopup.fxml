@@ -11,7 +11,7 @@
     <content>
         <VBox alignment="CENTER" spacing="10.0">
             <Label text="Card Stats"/>
-            <CardStatDisplayNode fx:id="cardStatDisplayNode"/>
+            <CardStatDisplayNode fx:id="cardRecordDisplayPane"/>
         </VBox>
     </content>
     <padding>

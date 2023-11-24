@@ -126,8 +126,8 @@ public class Enemy implements SnapTarget {
         TargetType secondaryType = TargetType.valueOf(stringList[4]);
         if(secondaryType == TargetType.CARD)
             targetDatabase = database.lookupDatabase(TargetType.ADV_CARD);
-        else if(secondaryType == TargetType.TOKEN)
-            targetDatabase = database.lookupDatabase(TargetType.TOKEN);
+        else if(secondaryType == TargetType.ADV_TOKEN)
+            targetDatabase = database.lookupDatabase(TargetType.ADV_TOKEN);
         int secondID = Integer.parseInt(stringList[5]);
         clone = Boolean.parseBoolean(stringList[6]);
         secondarySubject = (Playable) targetDatabase.lookup(secondID);

@@ -97,13 +97,6 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
         });
     }
 
-    public void addNewEntry()
-    {
-        CardEditorPane cardEditorPane = new CardEditorPane();
-        cardEditorPane.initialize(mainDatabase, ViewSize.LARGE, new Card());
-        changeScene(cardEditorPane);
-    }
-
     @Override
     public ControlNode<Card> createControlNode(Card card, IconImage i, ViewSize v, boolean blind) {
         ControlNode<Card> node = new ControlNode<>();

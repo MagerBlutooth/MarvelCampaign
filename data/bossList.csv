@@ -241,4 +241,3 @@
 "240","Annihilus","false","If you lose a match, the penalty is: wound the card(s) on your field with the lowest power."
 "241","Ms. Marvel","false","Your deck must contain at least one card of every cost (1-6)."
 "242","Gladiator","false","After deck construction, a random card in your deck is selected. If that card's POW is less than this enemy's remaining HP, that card is wounded."
-"243","Martyr","false","After deck construction, a random card in your deck is selected. At the end of the match, if that card is in a winning location, this enemy takes no damage."

@@ -19,19 +19,19 @@ public class GridDisplayController<T extends SnapTarget>  {
     @FXML
     protected TilePane groupList;
     protected TargetList<T> targetList;
-    Map<String, Boolean> filterOptionsMap;
-    List<String> sortOptions;
-    ViewSize viewSize;
+    protected Map<String, Boolean> filterOptionsMap;
+    protected List<String> sortOptions;
+    protected ViewSize viewSize;
     protected MainDatabase mainDatabase;
 
-    GridActionController<T> gridActionController;
-    TargetType targetType;
+    protected GridActionController<T> gridActionController;
+    protected TargetType targetType;
     public GridDisplayController()
     {
         super();
     }
 
-    boolean statusVisible;
+    protected boolean statusVisible;
 
     public void initialize(TargetList<T> things, TargetType tType, GridActionController<T> controller, ViewSize v,
                            boolean sv)
@@ -48,7 +48,7 @@ public class GridDisplayController<T extends SnapTarget>  {
         populateDisplay();
     }
 
-    private void setFilterOptions(List<String> fOptions) {
+    protected void setFilterOptions(List<String> fOptions) {
         filterOptionsMap = new LinkedHashMap<>();
         for(String f: fOptions)
         {
