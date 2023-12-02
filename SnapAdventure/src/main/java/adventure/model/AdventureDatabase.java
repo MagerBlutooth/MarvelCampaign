@@ -84,7 +84,7 @@ public class AdventureDatabase {
             AdvLocation l = locDatabase.lookup(Integer.parseInt(s));
             advLocations.add(l);
         }
-        TargetDatabase<AdvToken> tokenDatabase = mainDatabase.lookupDatabase(TargetType.TOKEN);
+        TargetDatabase<AdvToken> tokenDatabase = mainDatabase.lookupDatabase(TargetType.ADV_TOKEN);
         for(String i: tokenIDList)
         {
             AdvToken t = tokenDatabase.lookup(Integer.parseInt(i));

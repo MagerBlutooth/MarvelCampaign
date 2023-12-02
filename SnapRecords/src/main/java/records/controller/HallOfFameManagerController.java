@@ -1,9 +1,9 @@
 package records.controller;
 
+import records.view.*;
 import snapMain.controller.BasePaneController;
 import snapMain.controller.MainDatabase;
 import snapMain.controller.grid.GridActionController;
-import records.view.HallOfFameControlNode;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -11,16 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import snapMain.model.database.TargetDatabase;
-import snapMain.model.target.Card;
 import snapMain.model.target.TargetList;
 import snapMain.model.target.TargetType;
 import snapMain.view.IconImage;
 import snapMain.view.ViewSize;
-import records.view.HallOfFameDisplayNode;
-import records.view.TopDisplayNode;
 import snapMain.view.node.control.ControlNode;
 import records.model.HallOfFameFactory;
-import records.view.HallOfFameCreatorPane;
 import records.model.HallOfFameEntry;
 import records.model.HallOfFameEntryList;
 
@@ -28,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HallOfFameManagerController extends BasePaneController implements GridActionController<HallOfFameEntry> {
+public class HallOfFameManagerController extends BasePaneController<MainDatabase> implements GridActionController<HallOfFameEntry> {
 
     @FXML
     Button exitButton;
@@ -140,5 +136,13 @@ public class HallOfFameManagerController extends BasePaneController implements G
     public void exitProgram()
     {
         Platform.exit();
+    }
+
+    @FXML
+    public void showStats()
+    {
+        CardRecordDisplayPane cardRecordDisplayPane = new CardRecordDisplayPane();
+        cardRecordDisplayPane.initialize(mainDatabase, hallOfFameEntries);
+        changeScene(cardRecordDisplayPane);
     }
 }

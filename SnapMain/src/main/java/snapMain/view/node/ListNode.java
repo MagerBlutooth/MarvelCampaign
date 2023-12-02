@@ -66,4 +66,5 @@ public abstract class ListNode<T extends SnapTarget> extends StackPane {
     public void removeObject(T t) {
         list.removeTarget(t);
     }
+
 }

@@ -16,9 +16,10 @@
             <Button text="New Entry" onAction="#addNewEntry"/>
             <Button fx:id="exitButton" text="Exit" alignment="TOP_RIGHT" onAction="#exitProgram"/>
         </HBox>
-        <HBox>
+        <HBox spacing="20.0">
             <TopDisplayNode fx:id="topDisplay"/>
             <HallOfFameDisplayNode fx:id="hallOfFameDisplay"/>
+            <Button text="Card Stats" onAction="#showStats"/>
         </HBox>
     </VBox>
     <padding>
