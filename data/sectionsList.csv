@@ -121,4 +121,6 @@
 "122","Hotel Inferno","false","If you complete this section, eliminate a random free agent."
 "123","Noor Dimension","true","Set a Djinn as this enemy's secondary effect."
 "124","Tarnax IV","true","Station two cards here. After you complete this section, those cards defect and are replaced with random free agents."
+"125","White Palace","true","After your first successful match, station a card here that is on your opponent’s field at the end of the match. If you cannot, no effect."
+"126","Castle Blackstone","true","Each time you lose or retreat, you must station a card here. Each time you win or force a retreat, you may remove a stationed card from this location."
 "30000","Ruins","true","No Location Effect."
