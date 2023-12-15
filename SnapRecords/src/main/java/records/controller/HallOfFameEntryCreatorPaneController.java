@@ -1,8 +1,5 @@
 package records.controller;
 
-import snapMain.controller.BasePaneController;
-import snapMain.controller.MainDatabase;
-import snapMain.controller.grid.GridActionController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -11,6 +8,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import records.model.*;
+import records.view.HallOfFameManagerPane;
+import snapMain.controller.BasePaneController;
+import snapMain.controller.MainDatabase;
+import snapMain.controller.grid.GridActionController;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.helper.DeckCodeConverter;
@@ -22,17 +24,13 @@ import snapMain.view.ViewSize;
 import snapMain.view.manager.CardManager;
 import snapMain.view.node.GridDisplayNode;
 import snapMain.view.node.control.ControlNode;
-import snapMain.view.pane.editor.CardEditorPane;
-import records.model.*;
-import records.view.HallOfFameManagerPane;
 import snapMain.view.thing.CardView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 
-public class HallOfFameEntryCreatorPaneController extends BasePaneController implements GridActionController<Card> {
+public class HallOfFameEntryCreatorPaneController extends BasePaneController<MainDatabase> implements GridActionController<Card> {
 
     @FXML
     CardManager cardManager;
@@ -49,12 +47,15 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
     ChoiceBox<SnapMonth> monthBox;
     @FXML
     ChoiceBox<Integer> yearBox;
+    @FXML
+    ChoiceBox<HallOfFameCategory> hallOfFameFilters;
 
     @FXML
     Button saveButton;
     List<HallOfFameEntry> otherEntries;
     RecordSaver saver = new RecordSaver();
     HallOfFameEntry hallOfFameEntry;
+
     @Override
     public Scene getCurrentScene() {
         return cardManager.getScene();
@@ -71,13 +72,41 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
         deckController.initialize(mainDatabase, captainDisplay, deckDisplay, entry, otherEntries);
         deckDisplay.initialize(entry.getCards(), TargetType.CARD, deckController, ViewSize.SMALL, true);
         cardManager.initialize(cards, TargetType.CARD, this, ViewSize.MEDIUM, true);
+        hallOfFameFilters.getItems().addAll(HallOfFameCategory.values());
         initializeSearchBar(cards);
         initializeDateChoice();
+        initializeFilterButton(cards);
+    }
+
+    private void initializeFilterButton(CardList allCards) {
+        hallOfFameFilters.setValue(HallOfFameCategory.ALL);
+        hallOfFameFilters.setOnAction(event ->
+        {
+            CardList filteredCards = new CardList();
+            HallOfFameCategory category = hallOfFameFilters.getValue();
+            for (Card c : allCards) {
+                switch (category) {
+                    case HALL_OF_FAME: {
+                        if (isGolden(c))
+                            filteredCards.add(c);
+                        break;
+                    }
+                    case NOT_HALL_OF_FAME: {
+                        if (!isGolden(c))
+                            filteredCards.add(c);
+                        break;
+                    }
+                    default:
+                        filteredCards.add(c);
+                }
+            }
+            cardManager.initialize(filteredCards, TargetType.CARD, this, ViewSize.MEDIUM, true);
+        });
     }
 
     private void initializeDateChoice() {
         monthBox.setItems(FXCollections.observableArrayList(SnapMonth.values()));
-        for(int i = SnapMainConstants.STARTING_YEAR; i <= Calendar.getInstance().get(Calendar.YEAR); i++)
+        for (int i = SnapMainConstants.STARTING_YEAR; i <= Calendar.getInstance().get(Calendar.YEAR); i++)
             yearBox.getItems().add(i);
         monthBox.setValue(hallOfFameEntry.getMonth());
         yearBox.setValue(hallOfFameEntry.getYear());
@@ -85,12 +114,11 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
 
     private void initializeSearchBar(CardList allCards) {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            CardList cards = new CardList(new ArrayList<>());
-            for(Card c: allCards)
-            {
+            CardList cards = new CardList();
+            for (Card c : allCards) {
                 String name = c.getName().toLowerCase();
                 String searchString = searchBar.textProperty().get().toLowerCase();
-                if(name.contains(searchString))
+                if (name.contains(searchString))
                     cards.add(c);
             }
             cardManager.initialize(cards, TargetType.CARD, this, ViewSize.MEDIUM, true);
@@ -111,14 +139,13 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
     public ControlNode<Card> createEmptyNode(ViewSize v) {
         ControlNode<Card> cardNode = new ControlNode<>();
         cardNode.initialize(mainDatabase, new Card(), mainDatabase.grabBlankImage(TargetType.CARD),
-                v,false);
+                v, false);
         return cardNode;
     }
 
     private boolean isGolden(Card c) {
-        for(HallOfFameEntry entry: otherEntries)
-        {
-            if(entry.contains(c))
+        for (HallOfFameEntry entry : otherEntries) {
+            if (entry.contains(c))
                 return true;
         }
         return hallOfFameEntry.contains(c);
@@ -131,20 +158,19 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
     }
 
     @FXML
-    public void goBack()
-    {
+    public void goBack() {
         HallOfFameManagerPane managerPane = new HallOfFameManagerPane();
         managerPane.initialize(mainDatabase);
         changeScene(managerPane);
     }
+
     @FXML
-    public void saveEntry()
-    {
+    public void saveEntry() {
         HallOfFameEntry entry = deckController.getActiveEntry();
         entry.setName(nameBar.getText());
         entry.setMonth(monthBox.getValue());
         entry.setYear(yearBox.getValue());
-        if(entry.isValid()) {
+        if (entry.isValid()) {
             TargetDatabase<HallOfFameEntry> hallOfFameEntries = new TargetDatabase<>();
             hallOfFameEntries.addAll(otherEntries);
             hallOfFameEntries.addNewEntry(entry);
@@ -154,12 +180,10 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
     }
 
     @FXML
-    public void convertDeckCodeToClipboard()
-    {
+    public void convertDeckCodeToClipboard() {
         DeckCodeConverter codeConverter = new DeckCodeConverter();
         codeConverter.encodeDeckToClipboard(nameBar.getText(), hallOfFameEntry.getCards());
     }
-
 
 
     @Override
@@ -178,7 +202,8 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController imp
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 deckController.toggleEntry(card);
-            e.consume();
-        }});
+                e.consume();
+            }
+        });
     }
 }
