@@ -123,4 +123,6 @@
 "124","Tarnax IV","true","Station two cards here. After you complete this section, those cards defect and are replaced with random free agents."
 "125","White Palace","true","After your first successful match, station a card here that is on your opponent’s field at the end of the match. If you cannot, no effect."
 "126","Castle Blackstone","true","Each time you lose or retreat, you must station a card here. Each time you win or force a retreat, you may remove a stationed card from this location."
+"127","Great Portal","true","Station two cards here. Generate a random free agent with 10+ POW and add it to your team."
+"128","Crown City","true","Station two cards here. Then generate two random free agents. Run a mock Marvel Snap combat with your cards vs. the enemy cards. You have priority, and cards are revealed in order of selection. Hands and decks are assumed empty. If you lose the combat, your stationed cards are wounded. If you win, add one of the free agents to your team."
 "30000","Ruins","true","No Location Effect."
