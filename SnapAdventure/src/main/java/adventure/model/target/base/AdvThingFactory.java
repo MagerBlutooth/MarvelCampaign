@@ -12,7 +12,7 @@ public class AdvThingFactory {
         TargetDatabase<AdvCard> advCards = new TargetDatabase<>();
         AdvCardLoader vLoader = new AdvCardLoader();
         List<String[]> csvContents = vLoader.readCSV();
-        //Add the boss to the list if it does not exist. Otherwise,
+        //Add the boss to the list if it does not exist.
         for(int i = 0; i < cards.size(); i++)
         {
             String[] vInfo;
@@ -20,7 +20,10 @@ public class AdvThingFactory {
             AdvCard b = new AdvCard(c);
             if(i < csvContents.size()) {
                 vInfo = csvContents.get(i);
-                b.fromCSVSaveStringArray(vInfo);
+                AdvCard testB = new AdvCard(c);
+                testB.fromCSVSaveStringArray(vInfo);
+                if(testB.isActualThing())
+                    b = testB;
             }
             c.setEnabled(b.isEnabled());
             advCards.add(b);
@@ -44,6 +47,10 @@ public class AdvThingFactory {
             if(i < csvContents.size()) {
                 vInfo = csvContents.get(i);
                 s.fromCSVSaveStringArray(vInfo);
+                AdvLocation testS = new AdvLocation(l);
+                testS.fromCSVSaveStringArray(vInfo);
+                if(testS.isActualThing())
+                    s = testS;
             }
             l.setEnabled(s.isEnabled());
             advLocations.add(s);
