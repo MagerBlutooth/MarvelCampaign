@@ -1,4 +1,4 @@
-"0","Demon","true","This enemy does not take damage unless you play a card that wasn't originally in your starting deck during the match."
+"0","Demon","true","This enemy does not take damage unless you control a card with more than 5 power than its cost at the end of the match."
 "1","DoomBot","true","After the first match, if you do not complete the section, a random card on your team is captured and this enemy is defeated."
 "2","Drone","true","Look up the card stats on snap.fan. The card in on your team with the highest win% (in deck) is captured. This enemy has 1 max HP."
 "3","Mjolnr","true","If you lose a match, eliminate a card in your deck."

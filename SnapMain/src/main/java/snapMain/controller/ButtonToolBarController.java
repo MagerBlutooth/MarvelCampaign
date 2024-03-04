@@ -26,7 +26,6 @@ public class ButtonToolBarController {
     @FXML
     Button exitButton;
     FullViewPane backPane;
-    FileHandler fileHandler;
 
     public void initialize(FullViewPane bP) {
 

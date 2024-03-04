@@ -14,23 +14,29 @@ import snapMain.view.thing.LocationView;
 public class LocationEditorPaneController extends EditorPaneController {
 
     @FXML
-    LocationEditorNode locationEditorNode;
-
-    @FXML
     LocationView imagePane;
+    @FXML
+    LocationEditorNode locationEditorNode;
+    TargetImageGrabber imageGrabber;
 
-    TargetImageGrabber imageGrabber = new TargetImageGrabber(TargetType.LOCATION);
-
-    public void initialize(MainDatabase database, Location l)
+    public LocationEditorPaneController()
     {
-        super.initialize(database);
-        initializeButtonToolBar();
-        locationSetup(database, l);
-        imagePane.initialize(l, ViewSize.LARGE, true);
+        imageGrabber = new TargetImageGrabber(TargetType.LOCATION);
     }
 
-    private void locationSetup(MainDatabase d, Location l) {
-        locationEditorNode.initialize(d, l);
+
+    public void initialize(MainDatabase database, Location loc)
+    {
+        super.initialize(database);
+        locationEditorNode.initialize(database, loc);
+        imagePane.initialize(loc, ViewSize.LARGE, true);
+    }
+
+    @Override
+    public void initializeButtonToolBar() {
+        LocationManagerPane locManagerPane = new LocationManagerPane();
+        locManagerPane.initialize(mainDatabase);
+        buttonToolBar.initialize(locManagerPane);
     }
 
     @FXML
@@ -42,12 +48,5 @@ public class LocationEditorPaneController extends EditorPaneController {
         LocationManagerPane locationManagerPane = new LocationManagerPane();
         locationManagerPane.initialize(mainDatabase);
         changeScene(locationManagerPane);
-    }
-
-    @Override
-    public void initializeButtonToolBar() {
-        LocationManagerPane locManagerPane = new LocationManagerPane();
-        locManagerPane.initialize(mainDatabase);
-        buttonToolBar.initialize(locManagerPane);
     }
 }

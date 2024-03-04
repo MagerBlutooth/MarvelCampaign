@@ -10,9 +10,7 @@
          prefWidth="1200" prefHeight="800">
     <VBox>
         <VBox alignment="CENTER" spacing="50.0">
-            <HBox spacing="20.0">
-                <ButtonToolBar fx:id="buttonToolBar"/>
-            </HBox>
+            <ButtonToolBar fx:id="buttonToolBar"/>
             <StackPane>
                 <HBox spacing="30.0" alignment="CENTER">
                     <VBox alignment="CENTER">

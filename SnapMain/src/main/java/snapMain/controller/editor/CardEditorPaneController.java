@@ -30,6 +30,13 @@ public class CardEditorPaneController extends EditorPaneController {
         imagePane.initialize(mainDatabase, card, viewSize, true);
     }
 
+    @Override
+    public void initializeButtonToolBar() {
+        CardManagerPane cardManagerPane = new CardManagerPane();
+        cardManagerPane.initialize(mainDatabase);
+        buttonToolBar.initialize(cardManagerPane);
+    }
+
     @FXML
     private void saveCard()
     {
@@ -39,12 +46,5 @@ public class CardEditorPaneController extends EditorPaneController {
         CardManagerPane cardManagerPane = new CardManagerPane();
         cardManagerPane.initialize(mainDatabase);
         changeScene(cardManagerPane);
-    }
-
-    @Override
-    public void initializeButtonToolBar() {
-        CardManagerPane cardManagerPane = new CardManagerPane();
-        cardManagerPane.initialize(mainDatabase);
-        buttonToolBar.initialize(cardManagerPane);
     }
 }
