@@ -41,7 +41,7 @@ public class AdventureDatabase {
         ActiveCardList activeCards = new ActiveCardList(new ArrayList<>());
         for(AdvCard c: advCards)
         {
-            if(c.isActualThing())
+            if(c.isActualThing() && c.isEnabled())
                 activeCards.add(new ActiveCard(c.getCard()));
         }
         return activeCards;

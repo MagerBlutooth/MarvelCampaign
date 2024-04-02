@@ -9,6 +9,8 @@ import javafx.scene.control.ToggleGroup;
 public class AdvMatchResultPopupController {
 
     @FXML
+    CheckBox snap;
+    @FXML
     CheckBox captainCapture;
     @FXML
     ToggleButton winButton;
@@ -74,7 +76,8 @@ public class AdvMatchResultPopupController {
         setWinResult();
         if(!hasCaptain) {
             captainCapture.setOpacity(0.3);
-            captainCapture.selectedProperty().addListener((observableValue, aBoolean, t1) -> captainCapture.setSelected(false));
+            captainCapture.selectedProperty().addListener((observableValue, aBoolean, t1) ->
+                    captainCapture.setSelected(false));
         }
     }
 
@@ -82,4 +85,6 @@ public class AdvMatchResultPopupController {
     {
         return captainCapture.isSelected();
     }
+
+    public boolean didSnap() { return snap.isSelected(); }
 }

@@ -33,4 +33,9 @@ public class AdvMatchResultPopup extends AdvDialog<AdvMatchResult> {
     public boolean doesCapture() {
         return controller.doesCapture();
     }
+
+    public boolean didSnap()
+    {
+        return controller.didSnap();
+    }
 }

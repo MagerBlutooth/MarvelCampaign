@@ -308,6 +308,10 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
                 }
             }
             captureOrWoundCardOption(deck);
+            if(resultPopup.didSnap())
+            {
+                captureOrWoundCardOption(deck);
+            }
 
             ActiveCardList recoveredCards = adventure.recoverExhaustedCards(deck);
             ActiveCardList exhaustedCards = adventure.exhaustCards(deck);

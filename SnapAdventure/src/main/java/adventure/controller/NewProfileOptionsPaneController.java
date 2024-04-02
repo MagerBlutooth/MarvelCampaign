@@ -52,7 +52,7 @@ public class NewProfileOptionsPaneController extends FullViewPaneController {
         {
             worldCountOptions.getItems().add(i);
         }
-        worldCountOptions.setValue(worldCountOptions.getItems().get(3));
+        worldCountOptions.setValue(worldCountOptions.getItems().get(1));
     }
 
     private void initializeDifficultyBox() {

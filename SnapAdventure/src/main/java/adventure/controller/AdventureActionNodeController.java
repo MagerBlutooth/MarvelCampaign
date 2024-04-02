@@ -86,14 +86,18 @@ public class AdventureActionNodeController {
     {
         CardSearchSelectDialog searchSelectDialog = new CardSearchSelectDialog();
         ActiveCardList missingCards = adventure.getMissingCards(mainDatabase);
-        searchSelectDialog.initialize(mainDatabase, missingCards, adventure.getTeamCards(),
-                "Add a card to the game",
-                controlPane.getScene().getWindow());
-        Optional<ActiveCard> injectedCard = searchSelectDialog.showAndWait();
-        if(injectedCard.isPresent()) {
-            adventure.injectCard(injectedCard.get());
-            adventure.saveAdventure();
+        if(!missingCards.isEmpty()) {
+            searchSelectDialog.initialize(mainDatabase, missingCards, adventure.getTeamCards(),
+                    "Add a card to the game",
+                    controlPane.getScene().getWindow());
+            Optional<ActiveCard> injectedCard = searchSelectDialog.showAndWait();
+            if (injectedCard.isPresent()) {
+                adventure.injectCard(injectedCard.get());
+                adventure.saveAdventure();
+            }
         }
+        else
+            logger.info("Cannot inject cards. No cards remaining to inject.");
     }
 
     private TextArea createLogText(File f) {
