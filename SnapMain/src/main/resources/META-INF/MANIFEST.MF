@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-adventure.view.GameMain-Class: snapMain.main.view.GameApplication
+Main-Class: snapMain.view.main.GameApplication
 

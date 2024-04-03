@@ -7,4 +7,6 @@ Snap.fan account (recommended)
 
 1. Install the fonts in the fonts folder. Right-click on each .ttf file and click Install for All Users.
 2. Install Java on your machine and add it to your PATH environment variable. Java 11 or higher is recommended.
-3. Install Apache Maven on your machine and add it to your PATH environment variable. 
+3. Install Apache Maven on your machine and add it to your PATH environment variable.
+4. Double-click the MSAInstall.bat file. This file only needs to be run when running the first time or when installing a new update.
+5. Double-click the MSAStart.bat file. The program should start up.

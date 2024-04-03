@@ -100,20 +100,23 @@ public class CardStats implements Comparable<CardStats> {
 
     @Override
     public int compareTo(CardStats o) {
-        int result = Comparator.comparing(CardStats::getTotalMatches).thenComparing(CardStats::getTotalWinsAndEscapes)
-                .compare(this, o);
+        int result = Comparator.comparing(CardStats::getTotalWinsAndForceRetreats).compare(this, o);
+
         if (result == 0) {
-            return Comparator.comparing(CardStats::getTotalLossesAndForceRetreats).compare(o, this);
+            result = Comparator.comparing(CardStats::getTotalLossesAndEscapes).compare(o, this);
         }
+        if(result == 0)
+            return Comparator.comparing(CardStats::getTotalMatches).compare(this, o);
+
         return result;
     }
 
-    private int getTotalLossesAndForceRetreats() {
-        return lookupStat(AdvMatchResult.LOSE) + lookupStat(AdvMatchResult.FORCE_RETREAT);
+    private int getTotalWinsAndForceRetreats() {
+        return lookupStat(AdvMatchResult.WIN) + lookupStat(AdvMatchResult.FORCE_RETREAT);
     }
 
-    private int getTotalWinsAndEscapes() {
-        return lookupStat(AdvMatchResult.WIN) + lookupStat(AdvMatchResult.ESCAPE);
+    private int getTotalLossesAndEscapes() {
+        return lookupStat(AdvMatchResult.LOSE) + lookupStat(AdvMatchResult.ESCAPE);
     }
 
     public int getTotalMatches() {

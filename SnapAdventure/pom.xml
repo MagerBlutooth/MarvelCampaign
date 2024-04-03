@@ -34,8 +34,8 @@
             </configuration>
         </plugin>
     </plugins>
-
-    </build>
+	
+</build>
 
     <dependencies>
         <dependency>
@@ -45,5 +45,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
+	
 </project>

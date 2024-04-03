@@ -307,7 +307,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
                     captain.setStatus(StatusEffect.RECOVERING, true);
                 }
             }
-            captureOrWoundCardOption(deck);
+            captureOrWoundCardOption(deck, resultPopup.didSnap());
 
             ActiveCardList recoveredCards = adventure.recoverExhaustedCards(deck);
             ActiveCardList exhaustedCards = adventure.exhaustCards(deck);
@@ -348,7 +348,7 @@ public class DeckConstructorPaneController extends FullViewPaneController implem
         return null;
     }
 
-    private void captureOrWoundCardOption(ActiveCardList deck) {
+    private void captureOrWoundCardOption(ActiveCardList deck, boolean didSnap) {
         WoundCaptureChoiceDialog woundCaptureChoice = new WoundCaptureChoiceDialog();
         woundCaptureChoice.initialize(mainDatabase, deck, adventure.getTeamCards(), getCurrentScene().getWindow());
         Optional<ActiveCard> targetCard = woundCaptureChoice.showAndWait();

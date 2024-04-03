@@ -29,8 +29,8 @@
             </HBox>
             <HBox alignment="CENTER" spacing ="30.0">
                 <HBox alignment="BOTTOM_CENTER" spacing="10.0">
-                    <Label fx:id="lossCount" styleClass="loseStyle"/>
-                    <Label text="  losses" id="info" styleClass="loseStyle"/>
+                    <Label fx:id="lossCount" styleClass="lossStyle"/>
+                    <Label text="  losses" id="info" styleClass="lossStyle"/>
                 </HBox>
                 <HBox alignment="BOTTOM_CENTER" spacing="10.0">
                     <Label fx:id="escapeCount" styleClass="escapeStyle"/>

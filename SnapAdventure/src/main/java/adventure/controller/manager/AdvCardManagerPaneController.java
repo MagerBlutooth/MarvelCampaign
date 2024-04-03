@@ -89,11 +89,6 @@ public class AdvCardManagerPaneController extends ManagerPaneController<AdvCard,
     }
     @Override
     public void createContextMenu(ControlNode<AdvCard> n) {
-        ContextMenu rightClickMenu = new ContextMenu();
-        MenuItem editMenuItem = new MenuItem("Edit");
-        editMenuItem.setOnAction(actionEvent -> editSubject(n));
-        rightClickMenu.getItems().add(editMenuItem);
-        n.setOnContextMenuRequested(e -> rightClickMenu.show(n, e.getScreenX(), e.getScreenY()));
     }
 
     @Override

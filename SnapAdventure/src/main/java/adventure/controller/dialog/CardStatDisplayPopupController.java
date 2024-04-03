@@ -10,9 +10,8 @@ import java.util.Map;
 public class CardStatDisplayPopupController {
 
     @FXML
-    CardStatDisplayNode cardStatDisplayNode;
-
+    CardStatDisplayNode cardRecordDisplayNode;
     public void initialize(AdvMainDatabase mainDatabase, Map<Integer, CardStats> cardStatMap) {
-        cardStatDisplayNode.initialize(mainDatabase, cardStatMap);
+        cardRecordDisplayNode.initialize(mainDatabase, cardStatMap);
     }
 }

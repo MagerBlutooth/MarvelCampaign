@@ -22,6 +22,7 @@
                 </HBox>
             </VBox>
             <CheckBox fx:id="captainCapture" text="Captain Capture?" id="info"/>
+            <CheckBox fx:id="snap" text="Snap?" id="info"/>
             <padding>
                 <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
             </padding>
