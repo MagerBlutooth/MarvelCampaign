@@ -1,0 +1,28 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import snapMain.view.button.ButtonToolBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import snapMain.view.node.GridDisplayNode?>
+<?import records.view.DeckCheckerPane?>
+<?import javafx.scene.text.Text?>
+<fx:root type="DeckCheckerPane"
+         xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css_record/mainStyle.css" fx:controller="records.controller.DeckCheckerPaneController"
+         prefWidth="1200" prefHeight="800">
+    <VBox alignment="CENTER">
+        <ButtonToolBar fx:id="buttonToolBar"/>
+        <HBox spacing="30.0" alignment="CENTER">
+            <VBox alignment="CENTER" spacing="30.0">
+                <GridDisplayNode fx:id="deckDisplay" vbarPolicy="NEVER"/>
+                <Button fx:id="checkButton" text="Paste and Check" onAction="#checkDeckFromClipboard"/>
+                <Label fx:id="resultText"/>
+                <Text fx:id="invalidCardsText" fill="white" wrappingWidth="800" lineSpacing="5.0"/>
+            </VBox>
+        </HBox>
+    </VBox>
+    <padding>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="10.0"/>
+    </padding>
+</fx:root>

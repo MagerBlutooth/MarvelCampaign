@@ -128,7 +128,8 @@ public class HallOfFameManagerController extends BasePaneController<MainDatabase
     public void addNewEntry()
     {
         HallOfFameCreatorPane hallOfFameCreatorPane = new HallOfFameCreatorPane();
-        hallOfFameCreatorPane.initialize(mainDatabase, new HallOfFameEntry(mainDatabase.lookupDatabase(TargetType.CARD)), new ArrayList<>(hallOfFameEntries));
+        hallOfFameCreatorPane.initialize(mainDatabase, new HallOfFameEntry(mainDatabase.lookupDatabase(TargetType.CARD))
+                , new ArrayList<>(hallOfFameEntries));
         changeScene(hallOfFameCreatorPane);
     }
 
@@ -144,5 +145,13 @@ public class HallOfFameManagerController extends BasePaneController<MainDatabase
         CardRecordDisplayPane cardRecordDisplayPane = new CardRecordDisplayPane();
         cardRecordDisplayPane.initialize(mainDatabase, hallOfFameEntries);
         changeScene(cardRecordDisplayPane);
+    }
+
+    @FXML
+    public void deckChecker()
+    {
+        DeckCheckerPane deckCheckerPane = new DeckCheckerPane();
+        deckCheckerPane.initialize(mainDatabase, hallOfFameEntries);
+        changeScene(deckCheckerPane);
     }
 }

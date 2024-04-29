@@ -85,8 +85,6 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
         return targetType;
     }
 
-
-
     public void setGolden(boolean golden) {
         Blend gold = new Blend();
         if(golden) {
@@ -98,6 +96,23 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
             gold.setBottomInput(lighting);
             gold.setOpacity(0.1);
             imageView.setEffect(gold);
+        }
+        else
+            imageView.setEffect(null);
+    }
+
+    public void setInvalid(boolean invalid)
+    {
+        Blend red = new Blend();
+        if(invalid) {
+            red.setMode(BlendMode.MULTIPLY);
+            ColorAdjust goldPlate = new ColorAdjust();
+            goldPlate.setSaturation(-1.0);
+            Lighting lighting = new Lighting(new Light.Distant(0, 70, Color.CRIMSON));
+            red.setTopInput(goldPlate);
+            red.setBottomInput(lighting);
+            red.setOpacity(0.1);
+            imageView.setEffect(red);
         }
         else
             imageView.setEffect(null);

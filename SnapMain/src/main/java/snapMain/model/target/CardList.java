@@ -116,6 +116,20 @@ public class CardList extends TargetList<Card> {
         return stringBuilder.toString();
     }
 
+    public String toString()
+    {
+        if(this.isEmpty())
+            return "Empty";
+        StringBuilder s = new StringBuilder();
+        for(int i = 0; i < size()-1; i++)
+        {
+            s.append(get(i).getName());
+            s.append(", ");
+        }
+        s.append(this.get(size()-1).getName());
+        return s.toString();
+    }
+
     public int getCardIndex(Card captain) {
         return this.indexOf(captain);
     }

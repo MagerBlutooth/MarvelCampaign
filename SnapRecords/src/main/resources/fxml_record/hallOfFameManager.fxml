@@ -19,7 +19,10 @@
         <HBox spacing="20.0">
             <TopDisplayNode fx:id="topDisplay"/>
             <HallOfFameDisplayNode fx:id="hallOfFameDisplay"/>
-            <Button text="Card Stats" onAction="#showStats"/>
+            <VBox spacing="20.0">
+                <Button text="Card Stats" onAction="#showStats"/>
+                <Button text="Deck Checker" onAction="#deckChecker"/>
+            </VBox>
         </HBox>
     </VBox>
     <padding>

@@ -59,4 +59,12 @@ public class DeckCodeConverter {
         String result = encodedString.toString();
         return Base64.getEncoder().encodeToString(result.getBytes());
     }
+
+    public CardList convertDeckCodeFromClipboardToDeck(TargetDatabase<Card> cards) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        String clipString = clipboard.getString();
+        if(clipboard.hasString())
+            return convertDeckCodeToDeck(cards, clipString);
+        return new CardList();
+    }
 }

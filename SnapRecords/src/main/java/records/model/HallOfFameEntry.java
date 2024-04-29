@@ -103,27 +103,27 @@ public class HallOfFameEntry extends BaseObject {
         return new HallOfFameEntry(this);
     }
 
-    public boolean addCard(Card c, List<HallOfFameEntry> otherEntries)
+    public DeckCheckResult addCard(Card c, List<HallOfFameEntry> otherEntries)
     {
-        if(cards.size() < SnapMainConstants.DECK_SIZE && deckValidWithNewCard(c, otherEntries)) {
+        DeckCheckResult validityCheck = deckValidWithNewCard(c, otherEntries);
+        if(cards.size() < SnapMainConstants.DECK_SIZE && validityCheck.getResult()) {
             cards.add(c);
             cards.sort();
-            return true;
         }
-        return false;
+        return validityCheck;
     }
 
-    private boolean deckValidWithNewCard(Card c, List<HallOfFameEntry> otherEntries) {
+    private DeckCheckResult deckValidWithNewCard(Card c, List<HallOfFameEntry> otherEntries) {
         List<Card> potentialNewDeck = new ArrayList<>(cards.getThings());
         potentialNewDeck.add(c);
         for(HallOfFameEntry entry: otherEntries)
         {
             List<Card> entryCards = new ArrayList<>(entry.getThings());
-            List<Card> commonValues = ListHelper.getCommonValues(potentialNewDeck, entryCards);
+            CardList commonValues = new CardList(ListHelper.getCommonValues(potentialNewDeck, entryCards));
             if(commonValues.size() > MAX_SHARED_CARDS)
-                return false;
+                return new DeckCheckResult(commonValues, false);
         }
-        return true;
+        return new DeckCheckResult(true);
     }
 
     private List<Card> getThings() {
