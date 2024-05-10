@@ -1,11 +1,5 @@
 package records.controller;
 
-import javafx.scene.effect.*;
-import javafx.scene.paint.Color;
-import snapMain.controller.MainDatabase;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 import snapMain.controller.grid.BaseGridActionController;
 import snapMain.model.target.*;
 import snapMain.view.IconImage;
