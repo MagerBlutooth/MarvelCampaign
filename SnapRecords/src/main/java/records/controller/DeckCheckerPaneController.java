@@ -25,6 +25,8 @@ import java.util.LinkedHashSet;
 public class DeckCheckerPaneController extends ButtonToolBarPaneController<MainDatabase> {
 
     @FXML
+    Text uniqueCardsText;
+    @FXML
     Label resultText;
     @FXML
     Text invalidCardsText;
@@ -79,13 +81,14 @@ public class DeckCheckerPaneController extends ButtonToolBarPaneController<MainD
             resultText.setText("Invalid Deck.");
             invalidCardsText.setText("Shared Cards: " + checkResult.getInvalidCards().toString());
         }
+        uniqueCardsText.setText("Unique Cards: " + checkResult.getUniqueCardCount());
         deckDisplay.initialize(newDeck, TargetType.CARD, displayController, ViewSize.SMALL, true);
         displayController.setInvalidCards(checkResult.getInvalidCards());
     }
 
     private DeckCheckResult verifyDeck(CardList deck) {
         checkEntry = new HallOfFameEntry();
-        DeckCheckResult finalResult = new DeckCheckResult(true);
+        DeckCheckResult finalResult = new DeckCheckResult(true, 0);
         LinkedHashSet<Card> invalidCards = new LinkedHashSet<>();
         for(Card c: deck)
         {
@@ -95,6 +98,10 @@ public class DeckCheckerPaneController extends ButtonToolBarPaneController<MainD
                 invalidCards.addAll(result.getInvalidCards().getCards());
             }
         }
+        checkEntry.checkCardCountProperties(otherEntries);
+        finalResult.setUniqueCardCount(checkEntry.getUniqueCardCountProperty().get());
+        if(checkEntry.notEnoughUniqueCards())
+            finalResult.setResult(false);
         finalResult.setInvalidCards(invalidCards.stream().toList());
         return finalResult;
     }

@@ -105,9 +105,14 @@ public class HallOfFameGridController implements GridActionController<Card> {
         }
         else {
             success = activeEntry.addCard(card, otherEntries).getResult();
+            updateUniqueCardStatus();
         }
         if(success)
             deckDisplay.refreshToMatch(activeEntry.getCards());
+    }
+
+    private void updateUniqueCardStatus() {
+        activeEntry.checkCardCountProperties(otherEntries);
     }
 
     public HallOfFameEntry getActiveEntry() {

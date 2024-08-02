@@ -19,6 +19,7 @@
                 <Button fx:id="checkButton" text="Paste and Check" onAction="#checkDeckFromClipboard"/>
                 <Label fx:id="resultText"/>
                 <Text fx:id="invalidCardsText" fill="white" wrappingWidth="800" lineSpacing="5.0"/>
+                <Text fx:id="uniqueCardsText" fill="white" wrappingWidth="800" lineSpacing="5.0"/>
             </VBox>
         </HBox>
     </VBox>

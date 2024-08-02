@@ -1,5 +1,6 @@
 package records.controller;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -73,6 +74,11 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController<Mai
         deckDisplay.initialize(entry.getCards(), TargetType.CARD, deckController, ViewSize.SMALL, true);
         cardManager.initialize(cards, TargetType.CARD, this, ViewSize.MEDIUM, true);
         hallOfFameFilters.getItems().addAll(HallOfFameCategory.values());
+
+        saveButton.disableProperty().bind(Bindings.greaterThan(entry.getMinUniqueCardCount(),
+                entry.getUniqueCardCountProperty()).or(Bindings.greaterThan(SnapMainConstants.DECK_SIZE,
+                entry.getCardCountProperty())).or(Bindings.not(entry.getCaptainSetProperty())));
+
         initializeSearchBar(cards);
         initializeDateChoice();
         initializeFilterButton(cards);
@@ -170,7 +176,7 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController<Mai
         entry.setName(nameBar.getText());
         entry.setMonth(monthBox.getValue());
         entry.setYear(yearBox.getValue());
-        if (entry.isValid()) {
+        if (entry.isSavable()) {
             TargetDatabase<HallOfFameEntry> hallOfFameEntries = new TargetDatabase<>();
             hallOfFameEntries.addAll(otherEntries);
             hallOfFameEntries.addNewEntry(entry);

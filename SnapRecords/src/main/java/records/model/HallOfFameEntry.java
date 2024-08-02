@@ -1,22 +1,29 @@
 package records.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import snapMain.model.constants.SnapMainConstants;
 import snapMain.model.database.TargetDatabase;
 import snapMain.model.helper.ListHelper;
 import snapMain.model.target.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 public class HallOfFameEntry extends BaseObject {
 
     private static final int MAX_SHARED_CARDS = 3;
+    private static final int MIN_UNIQUE_CARDS = 5;
+
     Card captain;
     CardList cards;
     TargetDatabase<Card> cardDatabase;
     SnapMonth month;
     int year;
+    IntegerProperty uniqueCardCountProperty;
+    IntegerProperty cardCountProperty;
+    BooleanProperty captainSetProperty;
 
     public HallOfFameEntry()
     {
@@ -25,6 +32,9 @@ public class HallOfFameEntry extends BaseObject {
         captain = new Card();
         month = SnapMonth.JANUARY;
         year = Calendar.getInstance().get(Calendar.YEAR);
+        uniqueCardCountProperty = new SimpleIntegerProperty(0);
+        cardCountProperty = new SimpleIntegerProperty(0);
+        captainSetProperty = new SimpleBooleanProperty(false);
     }
 
     public HallOfFameEntry(TargetDatabase<Card> db)
@@ -40,20 +50,18 @@ public class HallOfFameEntry extends BaseObject {
         captain = e.getCaptain();
         month = e.getMonth();
         year = e.getYear();
-    }
-    public HallOfFameEntry(ArrayList<Card> c, Card cpt, TargetDatabase<Card> db) {
-        cards = new CardList(c);
-        cardDatabase = db;
-        month = SnapMonth.JANUARY;
-        year = SnapMainConstants.STARTING_YEAR;
-        captain = cpt;
+        uniqueCardCountProperty = e.getUniqueCardCountProperty();
+        cardCountProperty = e.getCardCountProperty();
+        captainSetProperty = e.getCaptainSetProperty();
+
     }
 
     @Override
     public String[] toCSVSaveStringArray() {
         StringBuilder attributeStrings = new StringBuilder();
         attributeStrings.substring(0,attributeStrings.length()); //Remove final separator
-        return new String[]{String.valueOf(getID()), getName(), getMonth().toString(), getYear()+"", cards.toCSVSaveString(), String.valueOf(cards.getCardIndex(captain))};
+        return new String[]{String.valueOf(getID()), getName(), getMonth().toString(), getYear()+"",
+                cards.toCSVSaveString(), String.valueOf(cards.getCardIndex(captain))};
     }
 
     @Override
@@ -66,6 +74,19 @@ public class HallOfFameEntry extends BaseObject {
         captain = cards.get(Integer.parseInt(mInfo[5]));
     }
 
+    public void checkCardCountProperties(List<HallOfFameEntry> otherEntries)
+    {
+        List<Card> potentialNewDeck = new ArrayList<>(cards.getCards());
+        Set<Card> allCardSet = new LinkedHashSet<>();
+        for(HallOfFameEntry entry: otherEntries) {
+            allCardSet.addAll(entry.getThings());
+        }
+        List<Card> allCardList = new ArrayList<>(allCardSet);
+
+        uniqueCardCountProperty.set(ListHelper.getNewValues(potentialNewDeck, allCardList).size());
+        cardCountProperty.set(getEntrySize());
+    }
+
     public Card getCaptain() {
         return captain;
     }
@@ -73,6 +94,7 @@ public class HallOfFameEntry extends BaseObject {
     public void setCaptain(Card c)
     {
         captain = c;
+        captainSetProperty.set(captain.isActualThing());
     }
 
     @Override
@@ -121,9 +143,9 @@ public class HallOfFameEntry extends BaseObject {
             List<Card> entryCards = new ArrayList<>(entry.getThings());
             CardList commonValues = new CardList(ListHelper.getCommonValues(potentialNewDeck, entryCards));
             if(commonValues.size() > MAX_SHARED_CARDS)
-                return new DeckCheckResult(commonValues, false);
+                return new DeckCheckResult(commonValues, false, uniqueCardCountProperty.get());
         }
-        return new DeckCheckResult(true);
+        return new DeckCheckResult(true, uniqueCardCountProperty.get());
     }
 
     private List<Card> getThings() {
@@ -153,8 +175,9 @@ public class HallOfFameEntry extends BaseObject {
     }
 
 
-    public boolean isValid() {
-        return captain!=null && cards.size()==SnapMainConstants.DECK_SIZE;
+    public boolean isSavable() {
+        return captainSetProperty.get() && cardCountProperty.get()==SnapMainConstants.DECK_SIZE &&
+                uniqueCardCountProperty.get() >= MIN_UNIQUE_CARDS;
     }
 
     public SnapMonth getMonth() {
@@ -177,5 +200,25 @@ public class HallOfFameEntry extends BaseObject {
     @Override
     public TargetType getTargetType() {
         return TargetType.HALL_OF_FAME;
+    }
+
+    public int getMinUniqueCardCount() {
+        return MIN_UNIQUE_CARDS;
+    }
+
+    public IntegerProperty getUniqueCardCountProperty() {
+        return uniqueCardCountProperty;
+    }
+
+    public IntegerProperty getCardCountProperty() {
+        return cardCountProperty;
+    }
+
+    public BooleanProperty getCaptainSetProperty() {
+        return captainSetProperty;
+    }
+
+    public boolean notEnoughUniqueCards() {
+        return uniqueCardCountProperty.get() < MIN_UNIQUE_CARDS;
     }
 }
