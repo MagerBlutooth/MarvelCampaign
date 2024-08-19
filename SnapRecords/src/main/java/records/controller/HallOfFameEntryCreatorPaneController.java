@@ -137,7 +137,7 @@ public class HallOfFameEntryCreatorPaneController extends BasePaneController<Mai
         node.initialize(mainDatabase, card, i, v, blind);
         setMouseEvents(node);
         node.highlight(); //Adding highlight call to remove enable-based lowlight for Hall of Fame
-        node.setGolden(isGolden(card));
+        node.setDull(!isGolden(card));
         return node;
     }
 

@@ -45,7 +45,7 @@ public class TopDisplayNodeController {
 
         for (int i = BASIC_COST_MIN; i <= BASIC_COST_MAX; i++) {
             Map<Card, Integer> cardUseMapForCost = cardUseMap.get(i);
-            int CARD_LIMIT = 3;
+            int CARD_LIMIT = 4;
             Map<Card, Integer> topCards =
                     cardUseMapForCost.entrySet().stream()
                             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))

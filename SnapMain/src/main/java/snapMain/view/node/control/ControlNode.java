@@ -1,5 +1,12 @@
 package snapMain.view.node.control;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import snapMain.controller.MainDatabase;
 import snapMain.model.target.*;
 import snapMain.view.grabber.IconConstant;
@@ -85,20 +92,46 @@ public class ControlNode<T extends SnapTarget> extends StackPane {
         return targetType;
     }
 
-    public void setGolden(boolean golden) {
-        Blend gold = new Blend();
-        if(golden) {
-            gold.setMode(BlendMode.MULTIPLY);
-            ColorAdjust goldPlate = new ColorAdjust();
-            goldPlate.setSaturation(-1.0);
-            Lighting lighting = new Lighting(new Light.Distant(0, 70, Color.GOLD));
-            gold.setTopInput(goldPlate);
-            gold.setBottomInput(lighting);
-            gold.setOpacity(0.1);
-            imageView.setEffect(gold);
+    public void setDull(boolean dull) {
+        imageView.setPreserveRatio(true);
+        if(dull) {
+            ColorAdjust grayscale = new ColorAdjust();
+            grayscale.setSaturation(-1.0);
+            imageView.setEffect(grayscale);
+            imageView.setOpacity(0.6);
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(0.7),
+                            new KeyValue(grayscale.saturationProperty(), 0)));
+            timeline.setAutoReverse(true);
+            timeline.setCycleCount(Animation.INDEFINITE);
+            imageView.setOnMouseEntered(e -> timeline.play());
+            imageView.setOnMouseExited(e -> {
+                timeline.jumpTo(Duration.ZERO);
+                timeline.stop();
+            });
         }
-        else
-            imageView.setEffect(null);
+        else {
+            DropShadow borderGlow = new DropShadow();
+            int depth = 40;
+            borderGlow.setWidth(depth);
+            borderGlow.setHeight(depth);
+            Glow glow = new Glow(0);
+            borderGlow.setInput(glow);
+            borderGlow.setColor(Color.GOLD);
+            imageView.setEffect(borderGlow);
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(0.7),
+                            new KeyValue(glow.levelProperty(), 0.5)));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setAutoReverse(true);
+            imageView.setOnMouseEntered(e -> timeline.play());
+            imageView.setOnMouseExited(e -> {
+                timeline.jumpTo(Duration.ZERO);
+                timeline.stop();
+            });
+
+            imageView.setOpacity(1.0);
+        }
     }
 
     public void setInvalid(boolean invalid)
