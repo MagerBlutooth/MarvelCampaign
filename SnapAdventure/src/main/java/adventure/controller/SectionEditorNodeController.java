@@ -16,8 +16,6 @@ public class SectionEditorNodeController extends BasicNodeController<AdvMainData
     @FXML
     LocationView imageView;
     @FXML
-    Label nameLabel;
-    @FXML
     TextArea effectField;
     AdvMainDatabase database;
     Location location;
@@ -25,14 +23,13 @@ public class SectionEditorNodeController extends BasicNodeController<AdvMainData
     public void initialize(AdvMainDatabase d, AdvLocation s) {
         database = d;
         location = s.getLocation();
-        nameLabel.setText(s.getName());
         effectField.setText(s.getEffect());
         setImages();
     }
 
     private void setImages() {
         IconImage i = database.grabImage(location);
-        imageView.setImage(i, ViewSize.LARGE);
+        imageView.setImage(i, ViewSize.GIANT);
     }
 
     public AdvLocation generateSection()

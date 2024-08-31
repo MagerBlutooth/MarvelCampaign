@@ -16,8 +16,6 @@ public class AdvTokenEditorNodeController extends BasicNodeController<AdvMainDat
     @FXML
     TokenView imageView;
     @FXML
-    Label nameLabel;
-    @FXML
     TextArea effectField;
     AdvMainDatabase database;
     Token card;
@@ -25,14 +23,13 @@ public class AdvTokenEditorNodeController extends BasicNodeController<AdvMainDat
     public void initialize(AdvMainDatabase d, AdvToken t) {
         database = d;
         card = t.getToken();
-        nameLabel.setText(card.getName());
         effectField.setText(t.getEffect());
         setImages();
     }
 
     private void setImages() {
         IconImage i = database.grabImage(card);
-        imageView.setImage(i, ViewSize.LARGE);
+        imageView.setImage(i, ViewSize.GIANT);
     }
 
     public AdvToken generateToken() {

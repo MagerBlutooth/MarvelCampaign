@@ -11,7 +11,6 @@
         <HBox spacing="50.0" alignment="CENTER">
             <VBox alignment="CENTER" spacing="10.0">
                 <TokenView fx:id="imageView"/>
-                <Label fx:id="nameLabel" textFill="white" alignment="CENTER"/>
             </VBox>
         </HBox>
         <VBox spacing="10.0">

@@ -10,8 +10,7 @@
     <VBox fx:id="contentBox" alignment="CENTER" spacing="30.0">
         <HBox spacing="50.0" alignment="CENTER">
             <VBox alignment="CENTER" spacing="10.0">
-                <LocationView fx:id="imageView" alignment="CENTER"/>
-                <Label fx:id="nameLabel" text="" textFill="white" alignment="CENTER"/>
+                <LocationView fx:id="imageView"/>
             </VBox>
         </HBox>
         <VBox fx:id="effectBox" spacing="10.0">

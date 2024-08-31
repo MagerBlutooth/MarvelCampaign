@@ -16,8 +16,6 @@ public class AdvCardEditorNodeController extends BasicNodeController<AdvMainData
     @FXML
     CardView imageView;
     @FXML
-    Label nameLabel;
-    @FXML
     TextArea effectField;
     AdvMainDatabase database;
     Card card;
@@ -25,14 +23,13 @@ public class AdvCardEditorNodeController extends BasicNodeController<AdvMainData
     public void initialize(AdvMainDatabase d, AdvCard c) {
         database = d;
         card = c.getCard();
-        nameLabel.setText(card.getName());
         effectField.setText(c.getEffect());
         setImages();
     }
 
     private void setImages() {
         IconImage i = database.grabImage(card);
-        imageView.setImage(i, ViewSize.LARGE);
+        imageView.setImage(i, ViewSize.GIANT);
     }
 
     public AdvCard generateAdvCard() {
