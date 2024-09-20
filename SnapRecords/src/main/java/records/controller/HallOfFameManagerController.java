@@ -1,5 +1,7 @@
 package records.controller;
 
+import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 import records.view.*;
 import snapMain.controller.BasePaneController;
 import snapMain.controller.MainDatabase;
@@ -85,6 +87,10 @@ public class HallOfFameManagerController extends BasePaneController<MainDatabase
 
     @Override
     public void setMouseEvents(ControlNode<HallOfFameEntry> controlNode) {
+        HallOfFameEntry entry = controlNode.getSubject();
+        Tooltip tooltip = new Tooltip(entry.getName());
+        Tooltip.install(controlNode, tooltip);
+        tooltip.setId("flavor");
         controlNode.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 editEntry(controlNode);
@@ -92,14 +98,13 @@ public class HallOfFameManagerController extends BasePaneController<MainDatabase
             e.consume();
         });
         controlNode.setOnMouseEntered(mouseEvent -> {
-            if(controlNode.getSubject().isEnabled()) {
-                controlNode.lowlight();
-            }
+            controlNode.lowlight();
+            Node node = (Node) mouseEvent.getSource();
+            tooltip.show(node, mouseEvent.getScreenX()-100, mouseEvent.getScreenY()+60);
         });
         controlNode.setOnMouseExited(mouseEvent -> {
-            if(controlNode.getSubject().isEnabled()) {
-                controlNode.highlight();
-            }
+            controlNode.highlight();
+            tooltip.hide();
         });
     }
 
