@@ -142,4 +142,6 @@
 "143","Brooklyn Bridge","true","When this location is first revealed, it must be skipped."
 "144","F.E.A.S.T.","true","Station a card here that either generates energy or changes a card’s cost."
 "145","Our Lady of Saints","true","Station two cards here. At the end of this world, eliminate a random one and return the other to your team. Then, draft a new card."
+"146","Yggdrasil","true","Station three cards here. All stationed units in a random other location are healed."
+"147","Valhalla","true","After each match, if you did not complete this section, station an On-Reveal card here."
 "30000","Ruins","true","No Location Effect."
