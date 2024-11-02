@@ -66,7 +66,7 @@ public class ProfileNodeController {
         if(!w.isBossRevealed())
             worldLabel.setText("World " + w.getWorldNum() + "-" +adventure.getCurrentSectionNum());
         else
-            worldLabel.setText("World " + w.getWorldNum() + " Boss: " + w.getBoss().getName());
+            worldLabel.setText("World " + w.getWorldNum() + "      Boss: " + w.getBoss().getName());
         contentBox.getChildren().add(worldLabel);
         InfinityStoneDisplayNode infinityStoneDisplayNode = new InfinityStoneDisplayNode();
         infinityStoneDisplayNode.initialize(mainDatabase, adventure.getTeam());
