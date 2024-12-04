@@ -43,3 +43,6 @@
 "42","Acid Arrow","true","After deck construction, a random card in your deck is selected. If that card is drawn and not played in this match, it is wounded."
 "43","Grapple Arrow","true","If you retreat, an additional card will be captured from a losing location."
 "44","Scarlet Spider Clone","true","When this effect is activated, this enemy gains bonus HP equal to its current HP."
+"45","SP//dr","true","When one or more of your cards is exhausted, this enemy gains 1 bonus HP."
+"46","DoomBot 2099","true","This enemy has 1 bonus HP for each other remaining enemy in this world."
+"47","Ice Cube","true","After each match, freeze a random card on your team. If that card was in your deck, it is captured instead."

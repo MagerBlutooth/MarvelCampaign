@@ -2,7 +2,7 @@ package snapMain.model.target;
 
 public enum CardAttribute {
     HERO("Hero"), VILLAIN("Villain"), ONREVEAL("On-Reveal"), ONGOING("Ongoing"), ACTIVATE("Activate"),
-    MOVE("Move"), DISCARD("Discard"), DESTROY("Destroy"), VANILLA("Vanilla"), AVENGER("Avenger"),
+    MOVE("Move"), DISCARD("Discard"), DESTROY("Destroy"), AFFLICT("Afflict"), VANILLA("Vanilla"), AVENGERS("Avengers"),
     HYDRA("Hydra"), FANTASTIC_FOUR("Fantastic Four"), XMEN("X-Men"), GUARDIANS("Guardians of the Galaxy"),
     SPIDERMAN_ROGUE("Spider-Man Rogues Gallery"), WOUND_RESIST("Resists Wounds"), THUNDERBOLTS("Thunderbolts"),
     YOUNG_AVENGERS("Young Avengers");
