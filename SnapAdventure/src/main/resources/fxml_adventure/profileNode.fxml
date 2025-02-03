@@ -18,7 +18,7 @@
                     <VBox fx:id="contentBox"/>
                 </VBox>
             </VBox>
-            <Region HBox.hgrow="ALWAYS" />
+            <Region HBox.hgrow="ALWAYS"/>
             <VBox fx:id="deleteButtonBar" alignment="CENTER_RIGHT"/>
             <padding>
                 <Insets top="20.0" left="20.0" bottom="20.0" right="20.0"/>

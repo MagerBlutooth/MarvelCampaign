@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Delicious';
+    src: url('AVENGEANCE_HEROIC_AVENGER.ttf');
+}
+
 .root {
     -fx-font-family:"Avengeance Heroic Avenger";
     -fx-font-size: 32px;

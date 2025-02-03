@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Delicious';
+    src: url('AVENGEANCE_HEROIC_AVENGER.ttf');
+}
+
 .outline.label .text {
     -fx-fill: white;
     -fx-stroke: black;
@@ -5,13 +10,13 @@
 }
 
 #button {
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: 'Delicious';
     -fx-font-size: 16px;
     -fx-text-fill: white;
 }
 
 .label {
-    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-family: "Avengeance";
     -fx-font-size: 32px;
     -fx-text-fill: white;
     -fx-max-width: 100;
@@ -19,7 +24,7 @@
 
 /* Style for JavaFX Test Object*/
 #textObject {
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: "Avengeance";
     -fx-font-size: 16px;
     -fx-fill: white;
 }

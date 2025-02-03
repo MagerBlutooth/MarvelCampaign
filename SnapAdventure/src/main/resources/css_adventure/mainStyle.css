@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Delicious';
+    src: url('AVENGEANCE_HEROIC_AVENGER.ttf');
+}
+
 .root {
     -fx-font-family:"Avengeance Heroic Avenger";
     -fx-font-size: 32px;
@@ -23,14 +28,14 @@
 
 #subtitle
 {
--fx-font-family: "Avengeance Heroic Avenger";
+-fx-font-family: 'Delicious';
     -fx-font-size: 48px;
     -fx-text-fill: ghostwhite;
 }
 
 #title
 {
-    -fx-font-family: "Komika Slick";
+    -fx-font-family: 'Delicious';
     -fx-font-size: 48px;
     -fx-text-fill: white;
 }
@@ -43,13 +48,13 @@
 }
 #smallButton
 {
-    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-family: 'Delicious';
     -fx-font-size: 24px;
 }
 
 #tinyButton
 {
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: 'Delicious';
     -fx-font-size: 8px;
 }
 
@@ -109,7 +114,7 @@
 
 .text-area {
     -fx-text-fill: white;
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: 'Arial';
     -fx-font-size: 16px;
     -fx-border-color:white;
     -fx-border-width: 3 3 3 3;
@@ -120,7 +125,7 @@
 }
 
 #title-text{
-    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-family: 'Arial';
     -fx-font-size: 48px;
     -fx-fill: white
 }
@@ -129,7 +134,7 @@
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-size: 12.0;
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: 'Delicious';
 }
 
 .list-cell:even {
@@ -143,7 +148,7 @@
 }
 
 .text-field {
- -fx-font-family: "Avengeance Heroic Avenger";
+ -fx-font-family: 'Arial';
  -fx-font-size: 32px;
  -fx-text-fill: white;
  -fx-border-color:white;

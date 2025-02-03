@@ -1,5 +1,10 @@
+@font-face {
+    font-family: 'Delicious';
+    src: url('AVENGEANCE_HEROIC_AVENGER.ttf');
+}
+
 .root {
-    -fx-font-family:"Avengeance Heroic Avenger";
+    -fx-font-family:'Delicious';
     -fx-font-size: 32px;
     -fx-selection-bar-text: white;
     -fx-background-color:black;
@@ -7,13 +12,13 @@
 }
 
 .label {
-    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-family: 'Delicious';
     -fx-font-size: 32px;
     -fx-text-fill: white;
 }
 
 #info {
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: 'Delicious';
     -fx-text-fill: white;
     -fx-background-color: black;
     -fx-font-size: 16px;
@@ -41,12 +46,12 @@
 
 #smallButton
 {
-    -fx-font-family: "Avengeance Heroic Avenger";
+    -fx-font-family: 'Delicious';
     -fx-font-size: 24px;
 }
 
 .text-field {
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: "Arial";
     -fx-text-fill: white;
     -fx-background-color: black;
     -fx-border-color: white;
@@ -56,7 +61,7 @@
 
 .infoText
 {
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: 'Delicious';
     -fx-font-size: 20;
     -fx-display-caret: false;
     -fx-font-alignment: center;
@@ -65,7 +70,7 @@
 .secondaryInfoText
 {
     -fx-text-fill: gold;
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: "Avengeance Heroic Avenger";
     -fx-font-size: 20;
     -fx-display-caret: false;
     -fx-font-alignment: center;
@@ -77,7 +82,7 @@
  }
 
  .text-area .content{
-      -fx-font-family: "Ubuntu";
+      -fx-font-family: "Avengeance Heroic Avenger";
       -fx-border-width: 5;
       -fx-border-color: white;
       -fx-background-color: black;
@@ -99,13 +104,13 @@
  }
 
 #nodeText{
--fx-font-family:"Ubuntu";
+-fx-font-family:"Avengeance Heroic Avenger";
 -fx-fill:white;
 -fx-font-size: 20px;
 }
 
 .text-area {
-    -fx-font-family:"Ubuntu";
+    -fx-font-family:"Avengeance Heroic Avenger";
     -fx-background: black;
     -fx-background-color: black;
 }
@@ -144,7 +149,7 @@
    -fx-background-color: black;
    -fx-text-fill: white;
    -fx-font-size: 18px;
-   -fx-font-family: "Ubuntu";
+   -fx-font-family: "Avengeance Heroic Avenger";
   }
 
 .choice-box .label:hover{
@@ -235,7 +240,7 @@
 
 .check-menu-item .label {
 {
-    -fx-font-family: "Ubuntu";
+    -fx-font-family: "Avengeance Heroic Avenger";
     -fx-font-size: 20px;
 }
 
