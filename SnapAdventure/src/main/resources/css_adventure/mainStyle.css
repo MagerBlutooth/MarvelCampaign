@@ -3,6 +3,11 @@
     src: url('AVENGEANCE_HEROIC_AVENGER.ttf');
 }
 
+@font-face {
+    font-family: 'Komika Slick';
+    src: url('KOMIKASK.ttf');
+}
+
 .root {
     -fx-font-family:"Avengeance Heroic Avenger";
     -fx-font-size: 32px;
@@ -35,7 +40,7 @@
 
 #title
 {
-    -fx-font-family: 'Delicious';
+    -fx-font-family: 'Komika Slick';
     -fx-font-size: 48px;
     -fx-text-fill: white;
 }
@@ -125,7 +130,7 @@
 }
 
 #title-text{
-    -fx-font-family: 'Arial';
+    -fx-font-family: 'Komika Slick';
     -fx-font-size: 48px;
     -fx-fill: white
 }
