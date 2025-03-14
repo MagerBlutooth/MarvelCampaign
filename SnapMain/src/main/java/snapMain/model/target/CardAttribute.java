@@ -5,7 +5,7 @@ public enum CardAttribute {
     MOVE("Move"), DISCARD("Discard"), DESTROY("Destroy"), AFFLICT("Afflict"), VANILLA("Vanilla"), AVENGERS("Avengers"),
     HYDRA("Hydra"), FANTASTIC_FOUR("Fantastic Four"), XMEN("X-Men"), GUARDIANS("Guardians of the Galaxy"),
     SPIDERMAN_ROGUE("Spider-Man Rogues Gallery"), WOUND_RESIST("Resists Wounds"), THUNDERBOLTS("Thunderbolts"),
-    YOUNG_AVENGERS("Young Avengers");
+    YOUNG_AVENGERS("Young Avengers"), BANISH("Banish");
 
     final String attributeString;
     CardAttribute(String s) {
